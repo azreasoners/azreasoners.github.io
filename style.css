@@ -1,0 +1,45 @@
+body {
+
+  background-color: white;
+
+}
+
+h1 {
+  color: black;
+  font-family: "Google Sans";
+  text-align: center;
+}
+
+.content {
+    border-radius: 25px;
+    padding: 1em;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Google Sans";
+    max-width: 65em;
+}
+
+.summary-img {
+    border-radius: 25px;
+    padding: 1em;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    font-family: "Google Sans";
+    max-width: 65em;
+}
+
+
+.teaser-gif{
+    margin-left: auto;
+    margin-right auto;
+}
