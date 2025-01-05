@@ -1,0 +1,273 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>LPMLN Learning Tutorial - Network Connectivity</title>
+    <style type="text/css" media="screen">
+        #main_content_editor {
+          width: 100%;
+          height: 200px;
+        }
+        #evid_content_editor {
+          width: 100%;
+          height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <h1>Editor</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row" id="div_row_main_content_content">
+                <h3>Main Program</h3>
+                <div class="row" id="main_content_editor"></div>
+            </div>
+            <div class="row" id="div_row_evid_content">
+                <h4 id="h3_evid_obs">Observation(Multiple observations should separate by \'#evidence\')</h4>
+                <div class="row" id="evid_content_editor"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12" >
+                <div id="div_learn_sub_menu"  class="row">
+                    <label for="dropdown_learn_sub_menu">Learning Methods:</label>
+                    <select class="form-control" id="dropdown_learn_sub_menu" onchange="learn_mode_dropdown_on_change()">
+                        <option value="mcasp">MC-ASP</option>
+                        <option value="simple">Simple LPMLN</option>
+                        <option value="sdd">Completion + SDD</option>
+                        <option value="sdd2" selected>ASP2SDD</option>
+                    </select>
+                    <div id="div_learn_simple_sub_menu" class="hidden_at_start">
+                        <span ><input type="checkbox" id="cb_learn_simple_complete_evidence">Completed Interpretation</span><br>
+                        <span>Samples: <span id="span_learn_simple_sample">30</span> <input id="slider_learn_simple_sample" class="align-bottom" type="range" min="10" max="50" value="30" oninput="slider_on_change('learn_simple_sample')"/></span><br>
+                        <span>Iteration: <span id="span_learn_simple_iteration">30</span> <input id="slider_learn_simple_iteration" class="align-bottom" type="range" min="10" max="100" value="30" oninput="slider_on_change('learn_simple_iteration')"/></span><br>
+                        <span>Learning Rate: <span id="span_learn_simple_learn_rate">0.01</span> <input id="slider_learn_simple_learn_rate" class="align-bottom" type="range" min="0" max="1" step="0.01" value="0.01" oninput="slider_on_change('learn_simple_learn_rate')"/></span><br>
+                    </div>
+                    <div id="div_learn_mcasp_sub_menu" class="hidden_at_start">
+                        <span ><input type="checkbox" id="cb_learn_mcasp_complete_evidence">Completed Interpretation</span><br>
+                        <span>Samples: <span id="span_learn_mcasp_sample">30</span> <input id="slider_learn_mcasp_sample" class="align-bottom" type="range" min="10" max="50" value="30" oninput="slider_on_change('learn_mcasp_sample')"/></span><br>
+                        <span>Iteration: <span id="span_learn_mcasp_iteration">30</span> <input id="slider_learn_mcasp_iteration" class="align-bottom" type="range" min="10" max="100" value="30" oninput="slider_on_change('learn_mcasp_iteration')"/></span><br>
+                        <span>Learning Rate: <span id="span_learn_mcasp_learn_rate">0.01</span> <input id="slider_learn_mcasp_learn_rate" class="align-bottom" type="range" min="0" max="1" step="0.01" value="0.01" oninput="slider_on_change('learn_mcasp_learn_rate')"/></span><br>
+                    </div>
+
+
+                    <div id="div_learn_mvpp_sub_menu" class="hidden_at_start">
+                        <span>Samples: <span id="span_learn_mvpp_sample">30</span> <input id="slider_learn_mvpp_sample" class="align-bottom" type="range" min="10" max="50" value="30" oninput="slider_on_change('learn_mvpp_sample')"/></span><br>
+                        <span>Iteration: <span id="span_learn_mvpp_iteration">30</span> <input id="slider_learn_mvpp_iteration" class="align-bottom" type="range" min="10" max="100" value="30" oninput="slider_on_change('learn_mvpp_iteration')"/></span><br>
+                        <span>Learning Rate: <span id="span_learn_mvpp_learn_rate">0.01</span> <input id="slider_learn_mvpp_learn_rate" class="align-bottom" type="range" min="0" max="1" step="0.01" value="0.01" oninput="slider_on_change('learn_mvpp_learn_rate')"/></span><br>
+                        <span>Pre-Training: <span id="span_learn_mvpp_pretrain">5</span> <input id="slider_learn_mvpp_pretrain" class="align-bottom" type="range" min="0" max="100" value="5" oninput="slider_on_change('learn_mvpp_pretrain')"/></span><br>
+                    </div>
+
+                    <div id="div_learn_sdd_sub_menu" class="hidden_at_start">
+                        <span>Learning Rate: <span id="span_learn_sdd_learn_rate">0.01</span> <input id="slider_learn_sdd_learn_rate" class="align-bottom" type="range" min="0" max="1" step="0.01" value="0.01" oninput="slider_on_change('learn_sdd_learn_rate')"/></span><br>
+                        <span>Iteration: <span id="span_learn_sdd_iteration">30</span> <input id="slider_learn_sdd_iteration" class="align-bottom" type="range" min="10" max="100" value="30" oninput="slider_on_change('learn_sdd_iteration')"/></span><br>
+                    </div>
+                </div>
+            </div>
+            <div id="div" class="float-right">
+                <button type="button" id="btn_solve" class="btn btn-outline-primary" onclick="solve()">Solve</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-secondary">
+                <span>Command Line: </span>
+                <span id="span_cmdline"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-12">
+            <div class="alert alert-primary">
+                <span id="span_result">Result goes here</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-md-12">
+            <div class="alert alert-success">
+                <span id="span_exp_result">Expected result: <br/>
+                    0.6665430756310485 edge(0,9).<br/>
+                    0.8031370368677649 edge(0,10).<br/>
+                    0.6665430756310485 edge(9,11).<br/>
+                    1.0776204723241185 edge(11,12).<br/>
+                    1.0776204723241185 edge(12,13).<br/>
+                    1.0776204723241185 edge(13,10).<br/>
+                    1.0776204723241185 edge(12,9).<br/>
+                    0.6665430756310485 edge(3,6).<br/>
+                    0.8031370368677649 edge(4,9).<br/>
+                    <br/>
+                    <br/>
+                    path(X,Y) :- edge(X,Y).<br/>
+                    path(X,Y) :- path(X,Z), path(Z, Y), Y != Z.<br/>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<script src="../../src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+var editor = ace.edit("main_content_editor");
+editor.setTheme("ace/theme/textmate");
+editor.session.setMode("ace/mode/prolog");
+
+
+var evid_editor = ace.edit("evid_content_editor");
+evid_editor.setTheme("ace/theme/textmate");
+evid_editor.session.setMode("ace/mode/prolog");
+
+function slider_on_change(id){
+    $("#span_"+id).text($("#slider_"+id).val());
+}
+function send_request(data){
+    $.ajax({
+        url: "../../sender.php",
+	    type: "POST",
+	    data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function(response){
+            var obj = jQuery.parseJSON( response );
+            if(data["request_type"] == "tutorial"){
+                editor.setValue(obj.main_content);
+                evid_editor.setValue(obj.evid);
+            }
+            else{
+                if(obj.successful){
+                    $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                }
+                else{
+                    if (obj.error.toLowerCase().indexOf("returned non-zero exit status 124") >0){
+                        $('#span_result').html("Timeout. Please run on local version")
+                    }
+                    else if (obj.error.toLowerCase().indexOf("returned non-zero exit status 1") >0){
+                        $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                    }
+                    else if (obj.error.toLowerCase().indexOf("returned non-zero exit status 2") >0){
+                        $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                    }
+                    else{
+                        $('#span_result').html("Server Error. Please contact system administrator. ")
+                    }
+                }
+                $('#btn_solve').prop('disabled', false);
+            }
+        },
+	});
+}
+
+
+
+function solve() {
+    var command="";
+     if (($.trim(evid_editor.getValue()))&& ($.trim(editor.getValue()))){
+        command += "lpmln-learn input.lpmln -o input.evid";
+
+        if($("#dropdown_learn_sub_menu option:selected").val() == "simple"){
+            command+=" -kcor";
+            if($("#cb_learn_simple_complete_evidence").is(':checked')){
+                command+=" -complete";
+            }
+            command+=" -samp "+ $("#slider_learn_simple_sample").val();
+            command+=" -mcsatiter "+ $("#slider_learn_simple_iteration").val();
+            command+=" -lr "+ $("#slider_learn_simple_learn_rate").val();
+        }
+        else if($("#dropdown_learn_sub_menu option:selected").val() == "mcasp"){
+
+            command+=" -mcasp";
+            if($("#cb_learn_mcasp_complete_evidence").is(':checked')){
+                command+=" -complete";
+            }
+            command+=" -samp "+ $("#slider_learn_mcasp_sample").val();
+            command+=" -mcsatiter "+ $("#slider_learn_mcasp_iteration").val();
+            command+=" -lr "+ $("#slider_learn_mcasp_learn_rate").val();
+        }
+        else if ($("#dropdown_learn_sub_menu option:selected").val() == "mvpp"){
+            command+=" -mvpp";
+            command+=" -samp "+ $("#slider_learn_mvpp_sample").val();
+            command+=" -mcsatiter "+ $("#slider_learn_mvpp_iteration").val();
+            command+=" -lr "+ $("#slider_learn_mvpp_learn_rate").val();
+            command+=" -pretrain "+ $("#slider_learn_mvpp_pretrain").val();
+        }
+        else if ($("#dropdown_learn_sub_menu option:selected").val() == "sdd2"){
+            command+=" -sdd2";
+            command+=" -sdditer "+ $("#slider_learn_sdd_iteration").val();
+            command+=" -lr "+ $("#slider_learn_sdd_learn_rate").val();
+        }
+        else{
+            command+=" -sdd";
+            command+=" -sdditer "+ $("#slider_learn_sdd_iteration").val();
+            command+=" -lr "+ $("#slider_learn_sdd_learn_rate").val();
+        }
+
+        $("#span_result").text("Solving...");
+        $('#btn_solve').prop('disabled', true);
+        var postData = {
+            request_type:"learn",
+            command:command,
+            content:editor.getValue(),
+            observation:evid_editor.getValue()
+        };
+        send_request(postData);
+        $("#span_cmdline").text(command)
+
+    }
+    else{
+        window.alert("Necessary fields cannot be empty!");
+    }
+}
+
+function learn_mode_dropdown_on_change(){
+    $(".hidden_at_start").hide();
+    if ($("#dropdown_learn_sub_menu option:selected").val() == 'simple'){
+        $("#div_learn_simple_sub_menu").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_learn_sub_menu option:selected").val() == 'mcasp'){
+        $("#div_learn_mcasp_sub_menu").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_learn_sub_menu option:selected").val() == 'mvpp'){
+        $("#div_learn_mvpp_sub_menu").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_learn_sub_menu option:selected").val() == 'sdd' || $("#dropdown_learn_sub_menu option:selected").val() == 'sdd2'){
+        $("#div_learn_sdd_sub_menu").toggle( 'slow', function(){});
+    }
+}
+
+$( document ).ready(function() {
+    learn_mode_dropdown_on_change();
+    var postData = {
+        request_type: "tutorial",
+        type: "learn",
+        instance: "network"
+    };
+    send_request(postData);
+});
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

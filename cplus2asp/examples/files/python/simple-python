@@ -1,0 +1,12 @@
+:- begin_python.
+
+def a():
+	return 7
+
+:- end_python.
+
+
+:- constants
+	p(computed)	:: sdFluent.
+
+p(@a()).

@@ -1,0 +1,27 @@
+time ( 0 .. maxstep).
+#domain time(T).
+
+fluent (loaded;alive;walking).
+event (load;shoot).
+
+(initiates(load, loaded, T)).
+
+(holdsAt(loaded,T) ->
+ terminates(shoot, alive, T)).
+
+% Effect Constraint
+(terminates(shoot, alive, T) ->
+ terminates(shoot, walking, T)).
+
+-releasedAt(loaded,0).
+-releasedAt(alive,0).
+-releasedAt(walking,0).
+
+holdsAt(alive, 0).
+holdsAt(loaded, 0).
+holdsAt(walking, 0).
+
+happens(shoot, 5).
+
+%!holdsAt(walking(),10).
+

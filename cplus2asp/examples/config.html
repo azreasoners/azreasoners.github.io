@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+  -
+  - Copyright (c) 2010-2013 <Joseph Babb, Michael Cassollary, Joohyung Lee>
+  -
+  - For information on how to contact the authors, please visit
+  -      http://reasoning.eas.asu.edu/Cplus2ASP
+  -
+  - This file is part of the Cplus2ASP system.
+  -
+  - Cplus2ASP is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License as published by
+  - the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - Cplus2ASP is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+<head>
+<title>Cplus2ASP v3.1 - LUA</title> 
+<link rel="stylesheet" type="text/css" href="../cplus2aspstyle.css" />
+</head>
+<body>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Header / Navigation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP v3.1</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="../index.html" class="directoryLink" title="Back to Index">Home</a></li>
+</ul>
+
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="../release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+<li><a href="../obtaining_cplus2asp.html" class="directoryLink" title="Obtaining Cplus2ASP">Obtaining Cplus2ASP</a></li>
+<li><a href="../installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="../running_cplus2asp.html" class="directoryLink" title="Running Cplus2ASP">Running Cplus2ASP</a></li>
+<li><a href="../cplus2asp_programs.html" class="directoryLink" title="Cplus2ASP Programs">Cplus2ASP Programs</a></li>
+</ul>
+
+<hr />
+<p class="title">Examples and Features:</p>
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./benchmarks.html" class="directoryLink" title="Cplus2ASP Benchmarking Results">Benchmarks</a></li>
+<li><a href="./lua.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using LUA</a></li>
+<li><a href="./python.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Python</a></li>
+<li><a href="./config.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Config file</a></li>
+<li><a href="./bc.html" class="directoryLink" title="Using the Language BC">Language BC</a></li>
+<li><a href="./reactive.html" class="directoryLink" title="Using Reactive Mode">Reactive Mode</a></li>
+</ul>
+
+
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+<li><a href="../../cplus2asp_old/index.html" class="directoryLink" title="Cplsu2asp v3.0">Cplus2asp v3.0</a></li>
+</ul>
+</p>
+</div>
+
+<div id="pagebody">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Body ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<h2>Using Config in Cplus2ASP</h2>
+
+<p class="text">
+	Cplus2ASP v3.1 introduces support for adding a configuration file in the root of your $HOME directory. The file has to be explicitly called <b>'.cplus2asp.config'</b> without the quotes. Do note that giving any argument in commandline would override the argument that was given in config file. 
+</p>
+	
+<p class="text">
+	The configuration file is modelled after the ini files that are usually used as configuration files in windows programs. The configuration file is not mandatory and the program does not depend on its availability. In am multiuser system where every user has his/her own directory, to use this config file the user needs to have this file in his/her own $HOME directory. 
+</p>
+
+Example:
+<pre class="code">
+	# This is a comment
+	# Do not write comment after a key-value pair. It won't be read
+	# [cplus2asp] denotes that the next section has cplus2asp program's configuration pairs. 
+	# This is the only section that you have to define.
+	[cplus2asp]
+	language=c+
+	mode=static-auto
+
+</pre>
+
+<p class="text">
+	The preceding configuration file tells the program to function in the mode static-auto (default is incremental) and use the language c+ (This is already a default). Note that only key value pairs can be written in this file. ANy single argument like number of solutions to the program would result in an error(There is no key that takes number of solutions as its value). 
+</p>
+
+
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Copyright -->
+<hr />
+<center>
+<p class="footnote"> Copyright (C) 2010-2013 - Joseph Babb, Michael Cassolary, and Joohyung Lee. </p>
+<p class="footnote">&#123; jbabb1, Michael.Casolary, joolee &#125; &lt;at&gt; asu &lt;dot&gt; edu.  </p>
+<p class="footnote"> This work was partially supported by the National Science Foundation under Grant IIS-0916116.</p>
+</center>
+</div>
+</body>
+</html>

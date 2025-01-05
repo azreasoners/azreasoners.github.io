@@ -1,0 +1,15 @@
+This paper continues the line of work on representing properties of 
+actions in nonmonotonic formalisms that stresses the distinction between
+being \i{true} and being \i{caused}, as in the system of causal logic
+introduced by McCain and Turner and in the action language $\cal C$
+proposed by Giunchiglia and Lifschitz.  The only fluents directly
+representable in language $\cal C$ are truth-valued fluents, which is
+often inconvenient. We show that both causal logic and language $\cal C$
+can be extended to allow values from arbitrary nonempty sets.  Our
+extension of language $\cal C$, called ${\cal C}+$,  also makes it
+possible to describe actions in terms of their attributes, which is
+important from the perspective of elaboration tolerance.  We describe an
+embedding of~${\cal C}+$ in causal theories with multi-valued constants,
+relate ${\cal C}+$ to Pednault's action language ADL, and show how
+multi-valued constants can be eliminated in favor of Boolean constants.
+

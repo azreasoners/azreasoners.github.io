@@ -1,0 +1,104 @@
+%:- sorts
+%name; coin.
+
+%:- objects
+%John, Mary :: name;
+%penny, nickel, dime :: coin.
+name(john;mary).
+coin(penny;nickel;dime).
+time(0..maxstep).
+
+%:- variables
+%C :: coin;
+%C1 :: coin;
+%C2 :: coin.
+#domain coin(C;C1;C2).
+#domain time(T;T1).
+#domain name(N;N1).
+
+%:- constants
+%owner(coin) :: inertialFluent(name+none);
+%give(coin) :: exogenousAction;
+%throw(coin) :: exogenousAction.
+
+fluent(owner(C,N)).
+action(give(C);throw(C)).
+
+#domain fluent(F).
+#domain action(A;A1).
+
+% inertial owner(C)
+T<maxstep & (~h(owner(C,N),T+1) | -~h(owner(C,N),T+1)) & --(h(owner(C,N),T) &  h(owner(C,N),T+1)) 
+      -> h(owner(C,N),T+1).
+
+T<maxstep & (h(owner(C,N),T+1) | -h(owner(C,N),T+1)) & --(~h(owner(C,N),T) &  ~h(owner(C,N),T+1)) 
+      -> ~h(owner(C,N),T+1).
+
+
+% exogenous give(C)
+T<maxstep & (~h(give(C),T)|-~h(give(C),T)) & --h(give(C),T) -> h(give(C),T).
+T<maxstep & (h(give(C),T)|-h(give(C),T)) & -- ~h(give(C),T) -> ~h(give(C),T).
+
+% exogenous throw(C)
+T<maxstep & (~h(throw(C),T)|-~h(throw(C),T))& --h(throw(C),T) -> h(throw(C),T).
+T<maxstep & (h(throw(C),T)|-h(throw(C),T))& --~h(throw(C),T) -> ~h(throw(C),T).
+
+
+
+%give(C) causes owner(C)=John if owner(C)=Mary.
+T < maxstep & (~h(owner(C,john),T+1) | -~h(owner(C,john),T+1)) & --(h(owner(C,mary),T) & h(give(C),T)) -> h(owner(C,john),T+1).
+
+%give(C) causes owner(C)=Mary if owner(C)=John.
+T < maxstep & (~h(owner(C,mary),T+1) | -~h(owner(C,mary),T+1)) & -- (h(owner(C,john),T) & h(give(C),T)) -> h(owner(C,mary),T+1).
+
+T < maxstep & (h(owner(C,N),T+1) | -h(owner(C,N),T+1)) & --(h(owner(C,N),T) & h(give(C),T)) -> ~h(owner(C,N),T+1).
+
+%throw(C) causes owner(C)=none.
+T<maxstep & (h(owner(C,N),T+1) | -h(owner(C,N),T+1)) & --(h(throw(C),T) & h(owner(C,N),T)) -> ~h(owner(C,N),T+1).
+
+%nonexecutable throw(C) if owner(C)=none.
+%nonexecutable give(C) if owner(C)=none.
+-?[N]:h(owner(C,N),T) & (h(throw(C),T) | h(give(C),T)) -> false.
+
+ 
+%noconcurrency.
+h(A,T) & h(A1,T) & A!=A1 -> false.
+
+
+%required definitions
+ne(C,C1) :- C != C1.
+ne(A,A1) :- A != A1.
+ne(N,N1) :- N != N1.
+lthan(T,T1) :- T < T1.
+
+
+%needed when converting multi-valued to 2-valued
+h(owner(C,N),T) & h(owner(C,N1),T) & N != N1 -> false.
+
+%fluents exogenous at time point 0
+(~h(F,0) | -~h(F,0)) & --h(F,0) -> h(F,0). 
+(h(F,0) | -h(F,0)) & --~h(F,0) -> ~h(F,0). 
+
+
+%0: owner(C)=Mary;
+% initial state
+h(owner(C,mary),0).
+~h(owner(C,john),0).
+
+%maxstep: [\/ C1 \/ C2 | owner(C1)=John & owner(C2)=John & -(C1=C2)];
+--(?[C1]:?[C2]:(h(owner(C1,john),maxstep) & h(owner(C2,john),maxstep) & C1!=C2)).
+
+%maxstep: [\/ C | -(owner(C)=John)];
+--?[C]:~h(owner(C,john),maxstep).
+
+%maxstep: -[\/ C | owner(C) = Mary].
+-?[C]:h(owner(C,mary),maxstep).
+
+
+% to consider only complete interpretations 
+:- not h(F,T), not -h(F,T).
+:- not h(A,T), not -h(A,T), T<maxstep.
+
+
+
+

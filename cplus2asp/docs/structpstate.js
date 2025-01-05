@@ -1,0 +1,25 @@
+var structpstate =
+[
+    [ "alias", "structpstate.html#ad6f7febca09b0f2082c76c11b46fa23f", null ],
+    [ "declargslot", "structpstate.html#aa8ebf34d58a452f029faa6117818a406", null ],
+    [ "declassoc", "structpstate.html#a30860ff79023cbc6b234a48bb534f289", null ],
+    [ "declkeyword", "structpstate.html#aaea2f663da104370f133c5d2bf8d999c", null ],
+    [ "decllinenoslot", "structpstate.html#ad09221b2ac778cad9c81655c4b74c4e8", null ],
+    [ "errorcnt", "structpstate.html#a1c161d486f203af3e5dc6a3259b56079", null ],
+    [ "fallback", "structpstate.html#a27ad42a3a49788cf71200e455f22de1d", null ],
+    [ "filename", "structpstate.html#a0a84b04eddf4e802f0fcc288cbb9e1b7", null ],
+    [ "firstrule", "structpstate.html#a41400fd8916406b2400421c73636ad80", null ],
+    [ "gp", "structpstate.html#a222ea5d00be8209faaa76c9750366918", null ],
+    [ "insertLineMacro", "structpstate.html#a53baecab7c6eb53da70d872c3a020d5a", null ],
+    [ "lastrule", "structpstate.html#a7fa07d612ffb0c0f6ff24118b338ca21", null ],
+    [ "lhs", "structpstate.html#a42fb4638bbf6c06fc38edaaf59b8535f", null ],
+    [ "lhsalias", "structpstate.html#a26fde5db7b3b7003051f77418c8255dc", null ],
+    [ "nrhs", "structpstate.html#a5a8c0e9f271b6e2f235a6da796c4823d", null ],
+    [ "preccounter", "structpstate.html#a807f9636be0286b1ffbdc32b5d19c7c8", null ],
+    [ "prevrule", "structpstate.html#a6a35b8bcf9e62a587c85e42eeaa74a69", null ],
+    [ "rhs", "structpstate.html#adc2762c9a540b73a3d117f780f629ca2", null ],
+    [ "state", "structpstate.html#a1083be3af3a58e86e01f1ac1ef9d14aa", null ],
+    [ "tkclass", "structpstate.html#a3cc5631afaabb8c4256260950b31cba9", null ],
+    [ "tokenlineno", "structpstate.html#acfe7adc67da5621e844fca34dd0889ec", null ],
+    [ "tokenstart", "structpstate.html#a3527c27b57382ae43269e3bba62246e3", null ]
+];

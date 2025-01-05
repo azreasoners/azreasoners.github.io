@@ -1,0 +1,507 @@
+WW<?php
+
+require_once "inc/common.php";
+session_start();
+	
+if(isset($_GET['p']))
+{
+	if(!preg_match('/[a-z]/', $_GET['p']))
+	{
+		$_SESSION['page'] = null;
+	}
+	else $_SESSION['page'] = $_GET['p'];
+	
+	header('Location: '.URL);
+	exit;
+}
+	
+?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="The 16th International Conference on Principles of Knowledge Representation and Reasoning, 30 October-2 November 2018, Tempe, Arizona (USA)">
+	<meta name="keywords" content="KR 2018, KR, KR&amp;R, Knowledge Representation and Reasoning">
+	<meta name='author' content='kr.org' >
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>KR 2018</title>
+    
+	<link href='http://fonts.googleapis.com/css?family=Titillium+Web:300,700' rel='stylesheet' type='text/css' />
+
+	<script type='text/javascript' src="js/moment.js"></script>
+	<script type='text/javascript' src='js/funct.js?version=Sept2'></script>
+
+    
+    <!-- jquery -->
+	<script type='text/javascript' src="js/jquery-2.1.1.min.js"></script>
+		
+	<link href="css/bootstrap.min.css?version=Jan4" rel="stylesheet" />
+	
+	
+	<link href="css/style.css?version=May2" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" media="print" href="css/print.css" />
+	
+	<link rel="icon" type="image/ico" href="img/favicon.ico" />
+
+
+<script type='text/javascript'>
+// <![CDATA[
+
+function appendnews(text)
+{
+	$('#message').html("<div class='alert alert-warning alert-dismissible' style='' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"+text+"</div>");
+	
+}
+	
+5
+	function setCookie(cname, cvalue, exdays) {
+	    var d = new Date();
+	    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	    var expires = "expires="+ d.toUTCString();
+	    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	
+	
+		$('#page_outer').prepend("<div class='alert alert-warning alert-dismissible' style='float:left; margin-top:-220px;' role='alert'><button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button><span style='padding-left:30px;'><strong>Notice:</strong> this site uses a cookie to remember this selection. If you continue without changing your settings, we'll assume that you are happy to receive this (unique) cookie from this website.</span></div>");
+	
+	}
+
+	function getCookie(cname) {
+	    var name = cname + "=";
+	    var decodedCookie = decodeURIComponent(document.cookie);
+	    var ca = decodedCookie.split(';');
+	    for(var i = 0; i <ca.length; i++) {
+	        var c = ca[i];
+	        while (c.charAt(0) == ' ') {
+	            c = c.substring(1);
+	        }
+	        if (c.indexOf(name) == 0) {
+	            return c.substring(name.length, c.length);
+	        }
+	    }
+	    return "";
+	}
+	
+	
+
+$(function(){
+	
+	
+	$(".menulink").click(function () {
+
+			var page = $(this).attr("id");		
+			var menulink = $(this).attr("parent");
+			setpage(page,menulink);
+
+	});
+	
+	
+	
+
+	
+	
+	
+	//try to get cookie
+	var timezone = getCookie('kr18tz');
+	if(timezone=='') timezone = 'UTC';
+	
+	
+	
+	
+	$('#page').on('click', '.togglectl', function() {
+	  $(this).find('span.glyphicon').toggleClass('glyphicon-chevron-down').toggleClass('glyphicon-chevron-up');
+	});
+	
+	//$('[data-toggle="tooltip"]').tooltip();
+
+	
+	$('.sponsors_grid .sponsor').on('mouseover',function() {
+	    $(this).siblings().stop().animate({opacity: 0.4}, 300);
+	});
+	$('.sponsors_grid .sponsor').on('mouseout',function() {
+	    $(this).siblings().stop().animate({opacity: 1}, 300);
+	});
+	
+	
+	// Handle timezone issue
+  var $select = $('#timezone');
+  
+  
+
+  // Populate the timezone dropdown
+  $.each(moment.tz.names(), function(i, value) {
+    $select.append('<option value="%s">%s</option'.replace(/%s/g, value));
+  });
+
+  // Select the timezone
+  $select.find('option[value="'+timezone+'"]').prop('selected', true);
+  $select.change(function(event) {
+    timezone = $(event.target).val();
+
+	setCookie('kr18tz', timezone, 30);
+	$('#select_tz').toggle();
+
+    updateCountdown(timezone)
+  });
+
+  
+  var $iso = $('#iso');
+
+  $('#clock_next').on('update.countdown', function(event) {
+    $(this).html(event.strftime('%Dd %Hh %Mm'));
+  });
+  
+  function updateCountdown(timez) {
+
+	//alert(moment.tz(new Date(),timez).toDate());
+
+	var now = moment().tz(timez);
+	var localOffset = now.utcOffset(); 
+	now.format("YYYY-MM-DD HH:mm");
+
+	//alert(localOffset);
+	//alert(now);
+
+	var dates = new Array();
+	dates[0] = "2018-05-13 23:59";
+	dates[1] = "2018-05-20 23:59";
+	dates[2] = "2018-06-25 23:59";
+	dates[3] = "2018-06-27 23:59";
+	dates[4] = "2018-07-11 23:59";
+	dates[5] = "2018-08-10 23:59";
+	dates[6] = "2018-10-30 23:59";
+	dates[7] = "2018-10-30 23:59";
+	dates[8] = "2018-10-27 09:00";
+	dates[9] = "2018-10-30 09:00";
+
+	var names = new Array();
+	names[0] = 'abstract submission';
+	names[1] = 'paper submission';
+	names[2] = 'author response starts';
+	names[3] = 'author response ends';
+	names[4] = 'notification';
+	names[5] = 'camera ready';
+	names[6] = 'early bird registration ends';
+	names[7] = 'regular registration ends';
+	names[8] = 'workshops';
+	names[9] = 'conference';
+
+	var next_date = 'err';
+	var next_name = 'err';
+	
+	//alert(now);
+	var curr;
+	
+	for(var i=0; i<10; i++)
+	{
+		next_date = dates[i];
+		next_name = names[i];
+		curr = moment.tz(next_date,'Etc/GMT-12');
+		
+		if(curr.diff(now)>0) break;
+	}
+	
+	//alert(curr)
+	
+	//var timediffmins = curr.utcOffset()-localOffset;
+	
+	var seconds = (((curr.diff(now))/1000)/60)-(localOffset);
+	
+	var minutes = Math.floor(seconds % 60);
+	seconds = seconds/60; 
+	var hours = Math.floor(seconds % 24);  
+	var days = Math.floor(seconds/24);
+	
+	
+	if(next_date!='err') 
+	{
+		$('#next_name').html(names[0]);
+		$('#next_name').html(next_name);
+		$('#next_date').html(moment(next_date).format("DD-MMM-YY HH:mm")+' UTC-12');
+		$('#clock_next').html(days + ' days, ' + hours + ' hours, ' + minutes + ' minutes');
+		
+		$iso.html(timezone);
+	}
+
+  }
+
+  updateCountdown("UTC");
+	
+	
+});
+
+function myf()
+{
+	$('#select_tz').toggle();
+}
+
+
+
+
+// ]]> 
+</script>
+<?php
+
+$page = "main";
+
+if(isset($_SESSION['page']))
+{
+	$page = $_SESSION['page'];
+	
+}
+$_SESSION['page']=null;
+
+	
+?>
+	
+	<script type='text/javascript'>
+	
+		var p = "<?php echo $page; ?>";
+		setpage(p);
+		
+	</script>
+
+</head>
+<body>
+
+
+
+	
+<div id='container' class='container-fluid center-block'> 
+
+
+
+
+
+<nav class="navbar navbar navbar-default navbar-fixed-top" role="navigation">
+<div class="container-fluid">
+	    
+		<div class="navbar-header">
+		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-collapsed-menu" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+		<a class="navbar-brand" href=''>
+				<img src='img/kr_small.jpg' alt='KR18' width='46px' height='21px' />
+		</a>
+</div>
+	
+<div class="not-mobile">
+			      
+			<ul class="nav navbar-nav navbar-left">
+				
+				<li style="margin-left:36px;">
+					<a class='menulink' href='javascript:void(0);' onclick="setpage('main');">Home</a>
+				</li>
+				<li>
+					<a href='javascript:void(0);'  onClick="ScrollTopWindow();">Top</a>
+				</li>
+			</ul>
+			
+			<ul class="nav navbar-nav navbar-right">					
+					
+				<li>
+					<a href='javascript:void(0);' onclick="setpage('contacts');">
+						<span class='glyphicon glyphicon-envelope'></span> contacts  	
+					</a>
+		 		</li>
+
+				<li class="navbar-text" style="">kr.org</li>
+						
+			</ul>
+			
+		</div> 
+		
+		
+<div class="mobile-only">
+<div class=" collapse navbar-collapse" id="bs-collapsed-menu">
+
+<ul class="nav navbar-nav navbar-right">
+<li  id='main' class='menulink selected'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Home</a></li>
+<li id='awards' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Awards</a></li>
+<li id='call' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Call for Papers</a></li>
+<li  id='colocated' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Co-located Events</a></li>
+<li id='committees' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Organization</a></li>
+<li id='doctoral' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Doctoral Consortium</a></li>
+<li id='dates' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Important Dates</a></li>
+<li id='speakers' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Invited Speakers</a></li>
+<li id='students' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Student Sponsorships</a></li>
+<li  id='submission' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Submission information</a></li>
+<li id='workshops_tutorials' class='menulink'><a data-toggle="collapse" data-target=".navbar-collapse" href='javascript:void(0);'>Workshops & Tutorials</a></li>
+</ul>
+</div>
+</div>
+
+</div>
+</nav>
+
+
+
+
+
+
+	<div id="topmenu" style='position:relative; z-index:0;'>
+		
+		<h1>16th International Conference on Principles of Knowledge Representation and Reasoning</h1>
+		Tempe, Arizona &nbsp;&nbsp;>&nbsp;&nbsp; 30 October-2 November 2018
+		
+	
+	</div>
+
+
+	<div id="intro" style='margin-top:5px; z-index:1;'>
+		<div class='row col-md-16' id='header'>
+			<img src='img/header3.jpg' alt='KR 2018' width='1000px' height='300px' />
+			
+			<div id='loader' style='position:absolute; left:30%; top:340px; z-index:999; display:none;'><img src='img/loader.gif' width='30' height='30' alt='loading' /></div>
+	    </div> 
+	
+		<div class='' id='logo' style='position:absolute; left:35px; top:-90px; z-index:1040;'>
+			<img src='img/kr.png' alt='KR 2018' width='80%' />
+		</div>
+	
+	
+	</div> <!--#intro-->
+	
+	
+
+	<div id='page_outer' class='row col-md-16'>
+		
+
+	<div id='pagetop' style='position:absolute; top:-50px;'>
+		<img src='img/page.png' width='688px' height='50px' />
+	</div>	
+	
+
+	<div id='page' class='col-md-11 col-sm-16'>
+	</div><!--#page-->
+	
+	<div id='right_column' class='col-md-5 col-sm-16 col-xs-16' style='margin-top:-50px;'>
+	
+	<div id='pagetop2' style='position:absolute; top:-90px;'>
+		<img src='img/page2.png'/ width='313px' height='90px' />
+	</div>
+	
+	<div id='pagetop3'>
+		
+	    
+			<div style='display:none' id='select_tz'>
+			select your timezone<br/>
+			<select id="timezone"></select><br/>
+			</div>
+			
+			<h3><span class="glyphicon glyphicon-calendar"></span> next :</h3>
+			<span id='next_name'></span>
+			<br/>
+			<span id="next_date"></span> 
+			<br/>
+			<br/>
+			
+			
+	
+	</div>
+	
+	<div id='pagetop4' style='background:#d2bb1e; height:14px;'>
+	</div>
+	
+	<div id='menu'>
+								
+		<ul>
+		<li  id='main' class='menulink selected'><a href='javascript:void(0);'>Home</a></li>
+		<!--<li id='papers' class='menulink'><a href='javascript:void(0);'>Accepted papers</a></li>-->
+		<li id='awards' class='menulink'><a href='javascript:void(0);'>Awards</a></li>
+		<li id='call' class='menulink'><a href='javascript:void(0);'>Call for Papers</a></li>
+		<!--<li id='comingto' class='menulink'><a href='javascript:void(0);'>Coming to Cape Town</a></li>-->
+		<li  id='colocated' class='menulink'><a href='javascript:void(0);'>Co-located Events</a></li>
+		<li id='committees' class='menulink'><a href='javascript:void(0);'>Organization</a></li>
+		<li id='doctoral' class='menulink'><a href='javascript:void(0);'>Doctoral Consortium</a></li>
+		<!--<li id='downloads' class='menulink'><a href='javascript:void(0);'>Downloads</a></li>-->
+		<li id='dates' class='menulink'><a href='javascript:void(0);'>Important Dates</a></li>
+		<li id='speakers' class='menulink'><a href='javascript:void(0);'>Invited Speakers</a></li>
+		<!--<li id='program' class='menulink'><a href='javascript:void(0);'>Programme</a></li>-->
+		<!--<li id='publiclecture' class='menulink'><a href='javascript:void(0);'>Public Lecture</a></li>-->
+		<!--<li id='registration' class='menulink'><a href='javascript:void(0);'>Registration</a></li>-->
+		<!--<li id='sponsors' class='menulink'><a href='javascript:void(0);'>Sponsors</a></li>-->
+		<li id='students' class='menulink'><a href='javascript:void(0);'>Student Sponsorships</a></li>
+		<li  id='submission' class='menulink'><a href='javascript:void(0);'>Submission information</a></li>
+		<!--<li id='tutorials' class='menulink'><a href='javascript:void(0);'>Tutorials</a></li>-->
+		<li id='workshops_tutorials' class='menulink'><a href='javascript:void(0);'>Workshops & Tutorials</a></li>
+		<!--<li id='workshops' class='menulink'><a href='javascript:void(0);'>Workshops</a></li>-->
+		<!--<li id='venue' class='menulink'><a href='javascript:void(0);'>Venue</a></li>-->
+		
+		</ul>
+		
+		
+		
+	</div><!--#menu-->
+	
+	</div><!--#right_column-->
+	
+	</div><!--#page_outer-->
+	
+	<br/><br/>
+
+
+
+<div id='footer' class='row col-md-16'>
+	
+	<div id="footer_1">
+	<h2>Sponsors</h2>
+	
+	<div class='sponsors_grid'>
+	
+		
+		<div class='sponsor'>
+			<a href='http://www.journals.elsevier.com/artificial-intelligence/' target='_blank' title='AIJ'><img src='img/sponsors/aij.jpg'  alt='Artificial Intelligence' class='img-circle' style='border:5px solid #fff;'/></a>
+			<br/>
+			<span class="badge badge-secondary" style='background-color:#acabaa;'>platinum</span> Artificial Intelligence Journal
+		</div>
+		
+	
+	</div>
+	
+	
+	<br/>
+		      
+		
+	</div> <!--#footer_1-->	
+
+	<div id="orange"></div>	
+
+
+	<div id="footer_2">
+	
+		
+		<div id='cr' class='hidden-xs'>
+		<div style='z-index:-1; position:absolute; top:-254px; right:0px;'>
+			<img src='img/aa.png' alt='KR18' width='80%' />
+		</div>
+		
+			Copyright &copy; 2017 <a href='http://www.kr.org' title='kr.org' >Principles of Knowledge Representation and Reasoning Inc.</a>
+			<br/>
+			<span>
+				<a href='javascript:void(0);' onclick="setpage('credits');">
+					header image credits
+				</a>
+			</span>
+		</div><!--#cr-->
+		
+	</div>
+
+</div><!--#footer-->
+
+</div><!--#container-->
+
+
+<!-- Bootstrap -->
+<script type='text/javascript' src="js/bootstrap.min.js?v=Jan12"></script>
+
+
+
+</body>
+</html>

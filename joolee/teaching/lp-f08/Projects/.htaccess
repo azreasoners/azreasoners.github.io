@@ -1,0 +1,5 @@
+AuthGroupFile /dev/null
+AuthName "Member's Area"
+AuthType Basic
+AuthUserFile /home/joolee/domains/peace.eas.asu.edu/.htpasswd/public_html/joolee/teaching/lp-f08/Projects/.htpasswd
+require valid-user

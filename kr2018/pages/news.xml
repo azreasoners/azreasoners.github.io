@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<newslist>
+
+	<news>
+    <date>22 November 2018</date>
+    <text>Consultation outcomes for "The Future of KR event" are posted. Find them from the program.</text>
+    <target>program</target>
+    </news>
+
+	<news>
+    <date>17 October 2018</date>
+    <text>Regular registration is over but you can still register online for the onsite registration.</text>
+    <target>registration</target>
+    </news>
+
+	<news>
+    <date>30 September 2018</date>
+    <text>Programm is online.</text>
+    <target>program</target>
+    </news>
+
+	<news>
+    <date>29 September 2018</date>
+    <text>Reminder: The conference hotel cut-off date is 1 October.</text>
+    <target>venue</target>
+    </news>
+
+	<news>
+    <date>26 July 2018</date>
+    <text>Student sponsorships are announced. The deadline is August 31.</text>
+    <target>students</target>
+    </news>
+	
+	<news>
+    <date>21 July 2018</date>
+    <text>The submission deadline for the workshop Hybrid Reasoning and Learning (W5) was extended to August 4, 2018.</text>
+    <target>workshops_tutorials</target>
+    </news>
+	
+    <news>
+    <date>20 July 2018</date>
+    <text>The registration site is open!</text>
+    <target>registration</target>
+    </news>
+
+	<news>
+    <date>19 July 2018</date>
+    <text>The list of accepted papers is online!</text>
+    <target>papers</target>
+    </news>
+
+    <news>
+    <date>18 July 2018</date>
+    <text>KR Workshop deadlines are approaching. Note that some workshops extended deadlines. Please check each workshops's homepage.  </text>
+    <target>workshops_tutorials</target>
+    </news>
+
+	<news>
+    <date>11 July 2018</date>
+    <text>KR paper notifications were sent out. Authors are requested to register by July 31. The registration will open soon. </text>
+    <target>papers</target>
+    </news>
+
+	<news>
+    <date>11 July 2018</date>
+    <text>The Doctoral Consortium applications are received until July 13th.</text>
+    <target>doctoral</target>
+    </news>
+
+    <news>
+    <date>09 July 2018</date>
+    <text>The notification date for the Doctoral Consortium changed.</text>
+    <target>doctoral</target>
+    </news>
+
+	<news>
+	<date>30 May 2018</date>
+	<text>We received 243 submissions.</text>
+	<target>submission</target>
+	</news>
+
+	<news>
+	<date>28 Mar 2018</date>
+	<text>Tutorials and workshops announced.</text>
+	<target>workshops_tutorials</target>
+	</news>
+	
+	<news>
+	<date>02 Mar 2018</date>
+	<text>Updated the Call for Papers.</text>
+	<target>call</target>
+	</news>
+	
+	<news>
+	<date>02 Mar 2018</date>
+	<text>Updated the 'Submission information' section.</text>
+	<target>submission</target>
+	</news>
+
+	<news>
+	<date>22 Jan 2018</date>
+	<text>Invited speakers announced.</text>
+	<target>speakers</target>
+	</news>
+	
+	<news>
+	<date>04 Sept 2017</date>
+	<text>The preliminary Call for Tutorial and Workshop Proposals is available.</text>
+	<target>workshops_tutorials</target>
+	</news>
+	
+	<news>
+	<date>04 Sept 2017</date>
+	<text>The DC Call for Applications is now available.</text>
+	<target>doctoral</target>
+	</news>
+
+	<news>
+	<date>18 June 2017</date>
+	<text>The website is online.</text>
+	<target>main</target>
+	</news>
+
+
+<news></news>
+
+</newslist>

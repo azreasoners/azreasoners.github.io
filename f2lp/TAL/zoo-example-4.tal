@@ -1,0 +1,159 @@
+//% File 'zoo-example' : specific landscape
+
+//% landscape specific to a scenario
+//% The number of positions, locations, gates may be different among scenarios.
+
+//:- macros                         
+//  numberOfPositions -> 8.
+
+//:- objects
+//  1..numberOfPositions      :: position;
+//  cageA                     :: cage;
+//  gateAO                    :: gate.
+
+#maxocc 20
+
+#include "zoo-landscape.tal"
+#include "zoo-animals.tal"
+#include "zoo-movement.tal"
+#include "zoo-actions.tal"
+
+
+#objects :domain animal :elements {
+	e1,h1,d1,homer
+}
+
+#domain elephant :parent animal :elements {e1}
+#domain horse :parent animal :elements {h1}
+#domain dog :parent animal :elements {d1}
+
+
+
+
+//#objects :domain position :elements {
+//	1,2,3,4,5,6,7,8
+//}
+#objects :domain location :elements {
+	cageA
+}
+
+#objects :domain cage :elements {
+	cageA
+}
+
+#objects :domain gate :elements {
+	gateA0
+}
+
+#objects :domain human :elements {
+	homer
+}
+
+#objects :domain species :elements {
+	elephantSpecies, horseSpecies, dogSpecies 
+}
+
+#obs [0] largeSpecies(elephantSpecies) & largeSpecies(horseSpecies) & 
+	largeSpecies(humanSpecies) & !largeSpecies(dogSpecies)
+
+#obs [0] adult(e1) & adult(d1) & adult(h1) & adult(homer)
+
+#dom forall animal,t,elephant [[t] animal = elephant -> [t] sp(animal) == elephantSpecies ]
+#dom forall animal,t,horse [[t] animal = horse -> [t] sp(animal) == horseSpecies ]
+#dom forall animal,t,dog [[t] animal = dog -> [t] sp(animal) == dogSpecies ]
+#dom forall animal,t,human [[t] animal = human -> [t] sp(animal) == humanSpecies ]
+
+
+//%%% Scenario Landscape
+//%   cageA  outside
+//%   -------
+//%  | 1  2 |  5  6 
+//%  | 3  4 ao 7  8 
+//%   -------
+//%%%
+
+
+//% a position is in the outside location by default
+//%default loc(P)=outside.
+
+//%caused loc(1)=cageA.
+//%caused loc(2)=cageA.
+//%caused loc(3)=cageA.
+//%caused loc(4)=cageA.
+
+#dom forall position,t [[t] position <= 4 -> [t] loc(position) == cageA ]
+#dom forall position,t [[t] position > 4 -> [t] loc(position) == outside ]
+
+//% The neighbor relation is symmetric (lmw)
+//caused neighbor(P1,P) if neighbor(P,P1) where P<P1.
+#dom forall position, position1, t [ [t] neighbor(position,position1) & 
+	position < position1 -> [t] neighbor(position1,position) ]
+#dom forall position, position1, t [ [t] !neighbor(position,position1) & 
+	position < position1 -> [t] !neighbor(position1,position) ]
+
+//% Two positions in different locations are neighbors 
+//%  if they are the sides of a gate 
+//caused neighbor(P,P1)
+//   if loc(P)\=loc(P1) && [\/G | sides(P,P1,G)].
+
+//caused neighbor(1,2).
+//caused neighbor(1,3).
+//caused neighbor(1,4).
+//caused neighbor(2,3).
+//caused neighbor(2,4).
+//caused neighbor(3,4).
+
+//caused neighbor(5,6).
+//caused neighbor(5,7).
+//caused neighbor(5,8).
+//caused neighbor(6,7).
+//caused neighbor(6,8).
+//caused neighbor(7,8).
+
+#dom forall position, position1, t [ [t] position < position1 & position1 <= 4 
+		-> [t] neighbor(position,position1) ]
+#dom forall position, position1,t [ [t] position < position1 & position > 4 
+		-> [t] neighbor(position,position1) ]
+
+#dom forall position, position1, t [ [t] position <= 3 & position1 > 4 
+		-> [t] !neighbor(position,position1) ]
+
+
+#obs [0] neighbor(4,7) & !neighbor(4,5) & !neighbor(4,6) & !neighbor(4,8)
+
+//caused side1(gateAO)=4.
+//caused side2(gateAO)=7.
+
+#obs [0] side1(gateA0) == 4 & side2(gateA0) == 7
+
+#dom forall position, position1, gate, t [
+[t] !(side1(gate) == position) & !(side2(gate) == position) -> 
+[t] !sides(position,position1,gate) ]
+
+#dom forall position, position1, gate, t [
+[t] !(side2(gate) == position1) & !(side1(gate) == position1) -> 
+[t] !sides(position,position1,gate) ]
+
+#obs [0] pos(e1) == 1 & pos(h1) == 4 & pos(d1) == 8 & !opened(gateA0)
+#obs [0] pos(homer) == 7
+//#obs [0] mounted(homer,e1)
+//#occ [0,1] getOff(homer,e1,2)
+//#dom [1] throwOff(e1,homer)
+#occ [0,1] open(homer,gateA0)
+//#occ [1,2] move(homer,5)
+//#occ [2,3] move(e1,7)
+#occ [4,5] mount(homer,h1)
+#occ [6,7] getOff(homer,h1,2)
+#occ [8,9] mount(homer,e1)
+#occ [10,11] move(e1,3)
+#occ [11,12] move(h1,2)
+#occ [14,15] move(e1,4)
+#occ [15,16] move(e1,7)
+
+//#dom [11] throwOff(e1,homer)
+//#dom forall t [t = $maxocc -> [t] opened(gateA0)]
+//#dom forall t [t = $maxocc -> [t] pos(homer) == 1]
+//#dom [20] pos(homer) == 2
+//#dom [$maxocc] opened(gateA0)
+//#dom [$maxocc] pos(e1) == 7
+//#dom forall t,animal [[t] !throwOff(animal,homer)]

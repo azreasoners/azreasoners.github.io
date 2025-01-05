@@ -1,0 +1,1781 @@
+% intuition ovf semantics? 
+
+% 13 pages + bib
+
+\documentclass[runningheads]{llncs}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{color}
+%\usepackage[compact]{\titlesec}
+%\usepackage[small,bf,belowskip=-10pt,aboveskip=0pt]{caption}
+
+\setlength{\intextsep}{2mm}
+
+\newcommand{\cblu}{\color{blue}}
+\newcommand{\cred}{\color{red}}
+\newcommand{\cmag}{\color{magenta}}
+\newcommand{\cgre}{\color{green}}
+\newcommand{\cbla}{\color{black}}
+
+\long\def\BOC#1\EOC{\message{(Commented text )}}
+\long\def\BOCC#1\EOCC{\message{(Commented text )}}
+\long\def\BOCCC#1\EOCCC{\message{(Commented text )}}
+\long\def\optional#1{\empty}
+%\long\def\optional#1{[#1]}
+%\long\def\NB#1{[{\cblu {\bf N.B.} #1}]}
+\long\def\NB#1{}
+
+
+\def\o{\overline}
+\def\ar{\leftarrow}
+\def\bi{\begin{itemize}}
+\def\ei{\end{itemize}}
+\def\beq{\begin{equation}}
+\def\eeq#1{\label{#1}\end{equation}}
+\def\ba{\begin{array}}
+\def\ea{\end{array}}
+\def\i#1{\hbox{\it #1\/}}
+\def\mi#1{\mathit{#1}}
+%\def\mi#1{\hbox{\mathit #1\/}}
+\def\is#1{\hbox{\footnotesize {\it #1\/}}}
+\def\iss#1{{\hbox{\tiny {\it #1\/}}}}
+\def\sm{\hbox{\rm SM}}
+\def\C{{\cal C}}
+\def\no{\i{not}}
+\def\sneg{\sim\!\!}
+\def\implies{\supset}
+\def\ar{\leftarrow}
+\def\rar{\rightarrow}
+\def\lrar{\leftrightarrow}
+\def\no{\i{not}}
+\def\mvis{\!=\!}
+\def\false{\hbox{\sc false}}
+\def\true{\hbox{\sc true}}
+\def\nec{\mbox{\large\boldmath $\;\Leftarrow\;$}}
+\def\i#1{\hbox{\itshape #1\/}}
+\def\r#1#2{\frac{\textstyle #1}{\textstyle #2}}
+\def\proof{\noindent{\bf Proof}.\hspace{3mm}}
+\def\qed{\quad \vrule height7.5pt width4.17pt depth0pt \medskip}
+     \def\smmodels{\models_{\text{\sm}}}
+\def\Lrar{\Leftrightarrow}
+\DeclareSymbolFont{AMSa}{U}{msa}{m}{n}
+\DeclareMathSymbol{\square}{\mathord}{AMSa}{"03}
+\def\wh{\widehat}
+\def\mvis{\!=\!}
+\def\mu#1{\mathit{\underline{#1}}}
+
+\def\fand{\otimes}
+\def\for{\oplus}
+\def\fneg{\neg}
+\def\frar{\rar}
+
+\newtheorem{con}{Conjecture}
+\newtheorem{prop}{Proposition}
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}{Corollary}
+
+\linespread{0.97}
+\addtolength{\textwidth}{2mm}
+
+\title{Stable Models of Fuzzy Propositional Formulas}
+
+\author{Joohyung Lee and Yi Wang}
+\institute{
+School of Computing, Informatics, and Decision Systems Engineering \\
+Arizona State University, Tempe, USA \\
+{\tt \{joolee,ywang485\}@asu.edu}}
+
+
+\begin{document}
+
+\maketitle
+
+
+%---------------------------------------------------------------------
+
+\begin{abstract}
+We introduce the stable model semantics for fuzzy propositional
+formulas, which generalizes both fuzzy propositional logic and the
+stable model semantics of Boolean propositional formulas. 
+Combining the advantages of both formalisms, the introduced
+language allows highly configurable default reasoning involving fuzzy
+truth values. We show that several properties of Boolean stable models
+are naturally extended to this formalism, and discuss how it is related to other approaches to combining fuzzy logic and the stable model semantics. 
+\end{abstract}
+
+%---------------------------------------------------------------------
+\section{Introduction} \label{sec:intro}\optional{sec:intro}
+%---------------------------------------------------------------------
+
+Answer set programming (ASP) \cite{lif08} is a widely applied
+declarative programming paradigm for the design and implementation of
+knowledge intensive applications. One of the attractive features of
+ASP is its capability to model the nonmonotonic aspect of
+knowledge. However, as its mathematical basis, the stable model
+semantics, is restricted to Boolean values, it is too rigid to
+represent imprecise and vague information. 
+Fuzzy logic, as a form of many-valued logic,
+can handle vague information by interpreting propositions with a truth
+degree in the interval of real numbers $[0,1]$.
+%; the higher the degree assigned to a proposition, the more true it
+%is. 
+The availability of various fuzzy operators gives the user great
+flexibility in combining truth degrees. However, the
+semantics of fuzzy logic is monotonic and is not flexible enough to
+handle default reasoning as allowed in answer set programming.
+
+Both the stable model semantics and fuzzy logic are generalizations of
+classical propositional logic in different ways. While they do not
+subsume each other, it is clear that many real-world problems require
+both their strengths. This led to the body of work on combining
+fuzzy logic and the stable model semantics, known as fuzzy answer set
+programming (e.g., \cite{lukasiewicz06fuzzy,janssen12reducing,vojtas01fuzzy,damasio01monotonic,medina01multi-adjoint,damasio01antitonic,nieuwenborgh07anintroduction,madrid08towards}).
+However, most work considers simple rule forms and do not allow 
+connectives nested arbitrarily as in fuzzy logic. 
+
+Unlike existing work on fuzzy answer set semantics, in this paper, we
+extend the general stable model semantics from~\cite{ferraris11stable}
+to many-valued propositional formulas. The syntax of this language is
+the same as the syntax of fuzzy propositional logic. The semantics, on
+the other hand, distinguishes {\sl stable} models from non-stable models.
+The language is a proper generalization of both fuzzy propositional logic and Boolean propositional formulas under the stable model semantics.
+This generalization is not simply a pure theoretical pursuit, but has
+practical use in conveniently modeling defaults involving fuzzy truth
+values in dynamic domains. For example, consider modeling dynamics of
+{\em trust} in social
+network. People trust each other in different degrees under some
+normal assumptions. If person $A$ trusts person $B$, then $A$
+tends to trust person $C$ whom $B$ trusts to a degree which is
+positively correlated to the degree to which $A$ trusts $B$ and the
+degree to which $B$ trusts $C$. By default, the trust degrees
+would not change, but may decrease when a conflict arises between people.
+%if a conflict between $A$ and $B$ happens, there will be
+%less trust between A and B, depending on how severe the fight is.
+Modeling such a domain requires expressing defaults involving fuzzy
+truth values. We demonstrate that such examples can be conveniently
+modelled in our proposed language by taking advantage of its
+generality over the existing approaches to fuzzy ASP.
+
+%We also show that existing proposals of the fuzzy ASP can be embedded
+%into our general language. Further, the well known mathematical
+%results in traditional answe set programming 
+
+The paper is organized as follows. Section~\ref{sec:prelim} reviews
+the syntax and the semantics of fuzzy propositional logic
+we discuss in the paper, as well as the stable model semantics of
+classical propositional formulas. Section~\ref{sec:definition}
+presents the stable model semantics of fuzzy propositional formulas
+along with examples, including the above
+%followed by Section~\ref{sec:further} that
+%formalizes 
+trust example in the proposed language. 
+Section~\ref{sec:rel-bool}  relates our fuzzy stable model semantics
+to the Boolean stable model semantics, and
+Section~\ref{sec:rel-fuzzyasp} relates it to other approaches to fuzzy ASP. Section~\ref{sec:properties} shows that several well-known properties
+of the Boolean stable model semantics can be easily extended to our fuzzy
+stable model semantics. Section~\ref{sec:related_work} discusses other
+related work.
+
+%A longer version with the complete proofs is available from
+%\url{http://reasoning.eas.asu.edu/papers/fuzzysm-long.pdf}.
+
+\vspace{-0.3cm}
+%---------------------------------------------------------------------
+\section{Preliminaries} \label{sec:prelim} \optional{sec:prelim}
+%---------------------------------------------------------------------
+
+%---------------------------------------------------------------------
+\subsection{Review: Stable Models of Classical Propositional
+  Formulas}  \label{ssec:review-sm} \optional{ssec:review-sm}
+%---------------------------------------------------------------------
+
+%The definition of a stable model given in~\cite{ferraris11stable} is
+%in terms of non-existence of an witness for the modified formula. 
+%Consider any classical propositional formula. 
+We review the definition of a stable model
+from~\cite{ferraris11stable} by limiting attention to the syntax of
+propositional formulas. Instead of defining stable models in terms of second-order logic as in~\cite{ferraris11stable} , we express the same concept using auxiliary atoms that do not belong to the original signature. This slight reformulation
+will simplify our efforts in extending the stable model semantics to fuzzy
+propositional formulas without resorting to ``second-order fuzzy
+logic.''
+
+Let $\sigma$ be a classical propositional signature, 
+let ${\bf p}=(p_1,\dots, p_n)$ be a list of distinct atoms belonging
+to~$\sigma$, and let ${\bf q}=(q_1,\dots,q_n)$ be a list of new, distinct
+propositional atoms not belonging to~$\sigma$.  
+%By $\sigma\cup{\bf q}$ we denote the signature obtained from~$\sigma$ by
+%adding all members of ${\bf q}$. 
+%
+For two interpretations $I$ and $J$ of $\sigma$ that agree on all
+atoms in $\sigma\setminus {\bf p}$, $I\cup J^{\bf p}_{\bf q}$ denotes the
+interpretation of $\sigma\cup{\bf q}$ that 
+\bi
+\item  agrees with $I$ on all atoms in $\sigma$, and
+\item  for each atom $q_i\in {\bf q}$, 
+       $(I\cup J^{\bf p}_{\bf q})(q_i) = J(p_i)$.\footnote{%
+$I(p)$ denotes the truth value of $p$ under $I$.
+We identify a list with a set if there is no confusion.} 
+\ei
+
+
+% \bi
+% \item  for each atom $p\in\sigma$, 
+%        $(I\cup J^{\bf p}_{\bf q})(p) = I(p)$; 
+% \item  for each atom $q\in {\bf q}$, 
+%        $(I\cup J^{\bf p}_{\bf q})(q) = J(p)$.\footnote{%
+% $I(p)$ denotes the truth value of $p$ under $I$.
+% We identify a list with a set if there is no confusion.} 
+% \ei
+
+For any classical propositional formula $F$ of signature $\sigma$,
+$F^*({\bf q})$ is a classical propositional formula of signature
+$\sigma\cup{\bf q}$ that is defined recursively as follows: 
+\begin{itemize}
+\item  $p_i^* = q_i$ for each $p_i\in{\bf p}$; 
+\item  $F^* = F$ for any atom $F\not\in {\bf p}$; 
+\item  $\bot^* = \bot$;\ \ \ \  $\top^* = \top$; 
+\item  $(\neg F)^* = \neg F$;
+\item  $(F\land G)^* = F^* \land G^*$; \qquad
+       $(F\lor G)^* = F^* \lor G^*$;
+\item  $(F\rar G)^* = (F^* \rar G^*)\land (F \rar G)$.
+\end{itemize}
+
+Let $I$ and $J$ be two interpretations of~$\sigma$, and let ${\bf p}$
+be a subset of $\sigma$. We say $J\le^{\bf p} I$ if 
+\begin{itemize}
+\item  $J$ and $I$ agree on all atoms not in ${\bf p}$, and
+\item  for all $p\in {\bf p}$, if $J\models p$, then $I\models p$.
+\end{itemize}
+We say $J<^{\bf p} I$ if $J\le^{\bf p} I$ and $J\ne I$.
+
+
+%For a formula $F$, suppose $\sigma$ is the underlying signature, which
+%contains atoms $p_1, ..., p_n$ that appear in $F$. By $\sigma^*$ we
+%denote the signature obtained from $\sigma$ by replacing each atom
+%$p_i$ with $p_i^*$.
+%For an interpretation $I$ of $\sigma$, by $I^*$ we denote an
+%interpretation of $\sigma^*$ obtained from $\sigma$ by replacing each
+%atom $p_i$ by $p_i^*$. 
+
+
+\begin{definition}\label{def:cl-sm}\optional{def:cl-sm}
+An interpretation $I$ is a {\em stable model} of $F$ relative to
+${\bf p}$ (denoted $I\models\sm[F; {\bf p}]$) 
+\bi
+\item if $I\models F$, and
+\item there is no interpretation $J$ such that $J<^{\bf p} I$ and $I\cup J^{\bf p}_{\bf q}\models F^*({\bf q})$.
+\ei
+\end{definition}
+
+
+\begin{example}
+Consider a logic program 
+\[
+\ba l
+  p \ar \no\ q, \ \ \ 
+  q \ar \no\ p 
+\ea 
+\]
+which is understood as an alternative notation for propositional
+formula $F_1 = (\neg q\rar p)\land (\neg p\rar q)$.
+$F_1^*(u,v)$ is 
+\hbox{$(\neg q\rar u)\land (\neg q\rar p)\land (\neg p\rar
+   v)\land (\neg p\rar q)$}.
+% which is equivalent to 
+% \[ 
+%    (\neg q\rar u)\land (\neg q\rar p)\land (\neg p\rar
+%    v)\land (\neg p\rar q)
+% \]
+% under the assumption $F_1$. 
+%
+We check that $I_1 = \{p\}$ (that is, $p$ is $\true$ and $q$ is
+$\false$) \footnote{%
+We identify a propositional interpretation with the set of atoms that
+are true in it. }
+is a stable model of $F_1$ (relative to
+$\{p,q\}$):  $I_1$ satisfies $F_1$, and $\emptyset$ is the
+only interpretation $J$ such that $J<^{pq} I_1$. However, 
+$I_1\cup J^{pq}_{uv} = \{p\}$ does not satisfy $F_1^*(u,v)$
+because it does not satisfy the first conjunctive term of $F_1^*(u,v)$.
+%
+Similarly, we can check that $\{q\}$ is another stable model of $F_1$.
+\end{example} 
+
+%---------------------------------------------------------------------
+\subsection{Review: Fuzzy Logic}  \label{ssec:review-fuzzy}
+  \optional{ssec:review-fuzzy}
+%---------------------------------------------------------------------
+
+%The syntax of fuzzy propositional logic is an extension of the syntax
+%of classical propositional logic. 
+%Logical operations of conjunction, disjunction, implication and
+%negation are generalized in fuzzy logic. 
+
+Let $\sigma$ be a fuzzy propositional signature, which is a set of
+symbols called {\em fuzzy atoms}. In addition, we assume the presence of a
+set $\mathbb{C}$ of fuzzy conjunction symbols, a set $\mathbb{D}$ of
+fuzzy disjunction symbols, a set $\mathbb{N}$ of fuzzy negation
+symbols, and a set $\mathbb{I}$ of fuzzy implication symbols. 
+%We also assume the presence of numeric constants $\bar{c}$ for each real
+%number $c$ in $[0,1]$.
+
+%We assume a set of symbols for
+%``t-norms'', denoted $\otimes$, a se of conjunction symbols
+%$T$, disjunction symbols $C$, implication symbols $I$ and negation
+%symbols $N$. 
+A {\em fuzzy (propositional) formula} of $\sigma$ is defined recursively as
+follows.
+%
+\begin{itemize}
+\item every fuzzy atom $p\in\sigma$ is a fuzzy formula;
+
+\item every numeric constant $\overline{c}$ where $c$ is a real number in
+  $[0, 1]$ is a fuzzy formula;
+
+\item if $F$ is a fuzzy formula, then $\fneg F$ is a fuzzy formula, where $\fneg \in
+  \mathbb{N}$;
+
+\item if $F$ and $G$ are fuzzy formulas, then $F\fand G$, $F\for G$
+  and $F\frar G$ are fuzzy formulas, where $\fand\in\mathbb{C}$,
+  $\for\in\mathbb{D}$, and $\frar\ \in\mathbb{I}$.
+\end{itemize}
+
+The models of a fuzzy formula are defined as follows
+\cite{hajek98mathematics}.
+%
+The {\em fuzzy truth values} are the real numbers in the range $\left[0,
+  1\right]$. 
+A \emph{fuzzy interpretation} $I$ of~$\sigma$ is a mapping
+from $\sigma$ into $\left[0, 1\right]$.
+
+The fuzzy operators are functions mapping one or a pair of truth values into
+a truth value. Among the operators, $\fneg$ denotes a function from
+$\left[0, 1\right]$ into $\left[0, 1\right]$; 
+$\fand$, $\for$, and $\frar$ denote functions from 
+$\left[0, 1\right]\times\left[0, 1\right]$ into $\left[0,
+  1\right]$.
+%
+The actual mapping performed by each operator can be defined in many
+different ways, but all of them satisfy the following conditions, 
+which imply that the operators are generalizations of the
+corresponding classical propositional connectives:\footnote{
+We say that a function $f$ of arity $n$ is \emph{increasing in
+  its $i$-th argument} ($1\leq i\leq n$) if
+$f(arg_1,\dots, arg_i,\dots, arg_n)\leq
+f(arg_1,\dots,arg_i^\prime,\dots, arg_n)$ for all arguments such that
+$arg_i \leq arg_i^\prime$; 
+$f$ is said to be \emph{increasing} if it is increasing in all its
+arguments. The definition of \emph{decreasing} is similar. 
+% We say that a function $f(arg_1,\dots,arg_n)$ is \emph{increasing in
+%   its $i$-th argument} ($1\leq i\leq n$) if
+% $f(arg_1,\dots, arg_i,\dots, arg_n)\leq
+% f(arg_1,\dots,arg_i^\prime,\dots, arg_n)$ for all arguments 
+% $arg_i \leq arg_i^\prime$; 
+% $f$ is said to be \emph{increasing} if it is increasing in all its
+% arguments. The definition of \emph{decreasing} is similar. 
+}
+\begin{itemize}
+\item a fuzzy negation $\fneg$ is decreasing, and satisfies $\neg(0) =
+  1$ and $\neg(1) = 0$;
+
+\item a fuzzy conjunction $\fand$ is increasing, commutative,
+  associative, and $\fand(1, x)=x$ for all $x \in \left[0, 1\right]$;
+%  $\fand(1, x)=x$, and for all $x, y \in \left[0, 1\right]$,
+%  $\fand(x, y) \geq x$;
+
+\item a fuzzy disjunction $\for$ is increasing, commutative,
+  associative, and $\for(0, x)=x$ for all $x\in \left[0, 1\right]$;
+
+\item a fuzzy implication $\frar$ is decreasing in its first
+  argument and increasing in its second argument; and $\frar(1, x) =
+  x$ and $\frar(0, 0) = 1$ for all $x\in\left[0, 1\right]$.
+\end{itemize}
+
+Figure~\ref{fig:operators} lists some specific fuzzy operators that we
+use in this paper.
+
+%\vspace{-5mm}
+\begin{figure}
+\begin{center}
+\begin{tabular}{| c | l | l |}
+			\hline
+			\textbf{Symbol} & \textbf{Name} & \textbf{Definition} \\
+			\hline
+			$\fand_l$ & \L ukasiewicz t-norm & $\fand_l(x, y)=max\left(x + y -1, 0\right)$ \\
+			$\for_l$ & \L ukasiewicz t-conorm & $\for_l(x, y)=min\left(x + y, 1\right)$ \\
+			\hline
+			$\fand_m$ & minimum t-norm & $\fand_m(x, y)=min\left(x, y\right)$ \\
+			$\for_m$ & maximum t-conorm & $\for_m(x, y)=max\left(x, y\right)$ \\
+			\hline
+			$\fand_p$ & product t-norm & $\fand_p(x, y)=x \cdot y$ \\
+			$\for_p$ & product t-conorm & $\for_p(x, y)=x+ y -x\cdot y$ \\
+			\hline
+			$\neg_{\!s}$ & standard negator & $\neg_{\!s}(x) =
+                        1-x$\\ \hline
+
+			$\rar_r$ & the residual implicator of $\fand_m$ &
+                        $\rar_r(x, y)=\begin{cases}1 & \text{if}\ x \leq y\\y
+                          & \text{otherwise}\end{cases}$\\
+			$\rar_s$ & the S-implicator induced by
+                        $\neg_{\!s}$ and $\for_m$ &  $\rar_s(x, y) =
+                        max\left(1-x, y\right)$\\  \hline
+\end{tabular}
+\caption{Some t-norms, t-conorms, negator, and implicators}
+\label{fig:operators}
+\end{center}
+\end{figure}
+
+%\vspace{-8mm}
+The \emph{truth value} of a fuzzy formula $F$ under $I$, denoted $F^I$, is
+defined recursively as follows:  \\[-5mm]
+\begin{itemize}
+\item for any atom $p \in \sigma$,\ \ $p^I = I(p)$;
+\item for any numeric constant $\overline{c}$, $\o{c}^I = c$;
+\item $(\neg F)^I = \neg(F^I)$;
+\item $(F\fand G)^I = \fand(F^I, G^I)$;\ \ 
+      $(F\for G)^I = \for(F^I, G^I)$;\ \  
+      $(F\rar G)^I =\ \rar\!(F^I, G^I)$. 
+\end{itemize}
+(For simplicity, we identify the symbols for the fuzzy operators with
+the truth value functions represented by them.) 
+
+\begin{definition}\label{def:fuzzy-m}\optional{def:fuzzy-m}
+We say that a fuzzy interpretation $I$ {\em satisfies} a fuzzy
+formula~$F$ w.r.t. a threshold $y\in [0,1]$ if $F^I\ge y$, and
+denote it by $I\models_y F$. We call $I$ a {\em fuzzy $y$-model} of~$F$. 
+\end{definition}
+
+We often omit the threshold $y$ when it is $1$.
+
+%Two formulas $F$ and $G$ are said to be \emph{equivalent} if 
+%$F^I= G^I$ for all interpretations~$I$.
+
+
+
+
+%[[ residual ... ]]
+
+\vspace{-0.3cm}
+
+%---------------------------------------------------------------------
+\section{Definition and Examples} \label{sec:definition} 
+   \optional{sec:definition}
+%---------------------------------------------------------------------
+
+%We first extend the definition of a formula by introducing a reserved
+%conjunction symbol $\fand_m$, associated with the function
+%$min(x,y)$. 
+%If $F$ and $G$ are formulas, $F \diamond G$
+%is also a formula, and its truth value under an interpretation
+%$I$ is defined by $(F \diamond G)^I=min\left(F^I, G^I\right)$.
+
+We extend the notion of $J<^{\bf p} I$ in Section~\ref{ssec:review-sm} as
+follows. 
+For any two fuzzy interpretations $J$ and $I$ of the same
+signature $\sigma$ and any subset ${\bf p}$ of $\sigma$, we say $J\le ^{\bf p} I$ if
+\bi
+\item  $J$ and $I$ agree on all fuzzy atoms not in ${\bf p}$, and
+\item for all $p \in {\bf p}$, $p^J\le p^I$.
+\ei
+We say $J<^{\bf p} I$ if $J\le ^{\bf p} I$ and $J\ne I$.
+
+As before, we assume a list ${\bf q}=(q_1,\dots,q_n)$ of new, distinct
+fuzzy atoms that corresponds to ${\bf p}=(p_1,\dots,p_n)$, and
+% ats$\sigma^*$ is the signature obtained from $\sigma$ by
+%adding a list of new fuzzy atoms ${\bf q}=(q_1,\dots,q_n)$
+%corresponding to ${\bf p}=(p_1,\dots,p_n)$ in $\sigma$. 
+%$\sigma^*$ is the signature obtained from $\sigma$ by adding all
+%members of ${\bf q}$. and 
+define $I\cup J^{\bf p}_{\bf q}$ in the same way. That is, 
+when $I$ and $J$ agree on all atoms in $\sigma\setminus {\bf p}$, 
+$I\cup J^{\bf p}_{\bf q}$ denotes the interpretation of
+$\sigma\cup{\bf q}$ that
+\bi
+\item  agrees with $I$ on all atoms in $\sigma$, and 
+\item  for each $q_i\in {\bf q}$, 
+       $(I\cup J^{\bf p}_{\bf q})(q_i)=J(p_i)$.
+\ei
+
+The definition of $F^*$ is also extended in a straightforward way: 
+For any fuzzy formula~$F$ of signature~$\sigma$, $F^*({\bf q})$ is
+defined as follows. 
+
+                                                  
+\begin{itemize}
+\item  $p_i^* = q_i$ for each $p_i\in{\bf p}$; 
+\item  $F^* = F$ for any atom $F\not\in {\bf p}$;
+\item  $\o{c}^* = \o{c}$ for any numeric constant $\o{c}$;
+\item  $(\neg F)^* = \neg F$;
+\item  $(F\fand G)^* = F^*\fand G^*$; \qquad
+       $(F\for G)^* = F^* \for G^*$;
+\item  $(F\frar G)^* = (F^*\frar G^*)\fand_m (F \rar G)$. \footnote{%
+Note the use of $\fand_m$ here; the value of
+``conjunction'' of $(F^*\rar G^*)$ and $(F\rar G)$ needs not be smaller
+than the value of $(F^*\rar G^*)$ and the value of $(F\rar G)$. It turns out that $\fand_m$ is the only t-norm that satisfies this property.}
+\end{itemize}
+
+
+\begin{definition}\label{def:fuzzy-sm}
+A fuzzy interpretation $I$ is a fuzzy $y$-stable model of $F$ relative
+to ${\bf p}$ (denoted $I\models_y\sm[F; {\bf p}]$) if 
+\bi 
+\item $I \models_y F$, and
+\item there is no fuzzy interpretation $J$ such that  $J<^{\bf p} I$ and $I\cup
+J^{\bf p}_{\bf q}\models_y F^*({\bf q})$.
+\ei
+\end{definition}
+
+We often omit the threshold $y$ when it is $1$, and omit ${\bf p}$
+if it contains all atoms in~$\sigma$. 
+
+Clearly, when ${\bf p}$ is empty, Definition~\ref{def:fuzzy-sm}
+reduces to the definition of a fuzzy model in
+Definition~\ref{def:fuzzy-m} because there is no $J$ such
+that $J<^\emptyset I$.
+
+Also, Definition~\ref{def:fuzzy-sm} is very similar to the definition
+of a stable model for classical propositional formulas in
+Definition~\ref{def:cl-sm}. The main difference
+is that simply in the latter, atoms may have various degrees of truth, and
+accordingly the notion of $J<^{\bf p} I$ is more general. The
+precise relationship between the definitions is discussed in
+Section~\ref{sec:rel-bool}.
+
+
+\begin{example}\label{ex:not_p_implies_q}\optional{ex:not_p_implies_q}
+Consider the fuzzy formula $F = \neg_{\!s} p \rar_r q$ and the interpretation 
+$I = \left\{(p, 0), (q, 0.6)\right\}$.  
+$F^*(u,v)$ is  
+\[
+\ba {rl}
+   ((\neg_{\!s} p)^* \rar_{r} q^*)\fand_m(\neg_{\!s}\ p \rar_r q)\ 
+   =\ (\neg_{\!s} p \rar_r v)\fand_m(\neg_{\!s} p \rar_r q). 
+\ea
+\]
+
+$I\models_{0.6} \sm[F;\ p,q]$. First, it is easy to see that 
+$I\models_{0.6} F$, as 
+\[  F^I = \rar_r((\neg_{\!s} p)^I, q^I) = \rar_r(1 -p^I, q^I) = \rar_r(1,
+0.6) = 0.6.
+\]
+
+Suppose there exists $J<^{pq} I$ such that $I \cup J_{uv}^{pq}
+\models_{0.6} F$, i.e.,
+\[ 
+\ba {rl} 
+   F^*(u,v)^{I\cup J_{uv}^{pq}} 
+   &= min\left(\rar_r(\neg_{\!s}(p^I), v^{I \cup J_{uv}^{pq}}),
+               \rar_r(\neg_{\!s}(p^I), q^I)\right) \\
+   &= min\left(\rar_r(1, q^J), 0.6\right) \\
+   &= min\left(q^J, 0.6\right) \geq 0.6. 
+\ea
+\]
+% \[ 
+% \ba {rl} 
+%    F^*(u,v)^{I\cup J_{uv}^{pq}} &= min\left(\rar_r(\neg_{\!s}(p^I),
+%      v^{I \cup J_{uv}^{pq}}), \rar_r(\neg_{\!s}(p^I), q^I)\right) \\
+%    &= min\left(\rar_r(1, v^{I \cup J_{uv}^{pq}}), 0.6\right) \\
+%    &= min\left(v^{I \cup J_{uv}^{pq}}, 0.6\right) \geq 0.6. 
+% \ea
+% \]
+So $q^J\geq 0.6$. 
+%Since $q^J\leq q^I = 0.6$ follows from the
+%assumption $J<^{pq} I$,
+%we conclude that $q^J = 0.6$. However, 
+This contradicts the assumption that $J <^{pq} I$. Therefore, such $J$
+does not exist, and $I$ is a 0.6-stable model of $F$.
+\end{example}
+
+
+\begin{example}
+$p$ and $\neg_{\!s}\neg_{\!s} p$ have the same fuzzy models, but their
+stable models are different. This is similar to the fact that $p$ and
+$\neg\neg p$ have different stable models according to the semantics
+from~\cite{ferraris11stable}.
+
+Clearly, any interpretation $I = \left\{(p, y)\right\}$, where $y$ is any positive real number in $\left[0, 1\right]$, is a $y$-stable model of $p$
+relative to $\{p\}$. On the other hand, $I = \left\{(p, y)\right\}$ is not a $y$-stable model of $F = \neg_{\!s}\neg_{\!s} p$ relative to $\{p\}$.  
+Formula $F^*(u)$ is $\neg_{\!s}\neg_{\!s} F$, and although $I\models_y F$,
+%\[ 
+%   F^*(q)^{I\cup J^{p}_{q}} = \neg_{\!s}(\neg_{\!s}(p^I)) = 
+%   1-(1-p^I) = y
+%\]
+we have $I\cup J^p_u\models_y F^*(u)$ regardless of any  $J$. %such that $p^J<p^I$. 
+%So $I$ is not a $y$-stable model of $\neg_{\!s}\neg_{\!s} p$,
+%while it is a $y$-stable model of $p$.
+% Although $I\models_y F$, 
+% For $F = \neg_{\!s} \neg_{\!s} p$, $F^*(q)$ is $F$. 
+% Any interpretation $I = \left\{(p, y)\right\}$, where $y$ is any positive
+% real number in $\left[0, 1\right]$, is not a $y$-stable model of $F$
+% relative to ${\bf p}=\{p\}$. Although $I\models_y F$, 
+% %\[ 
+% %   F^*(q)^{I\cup J^{p}_{q}} = \neg_{\!s}(\neg_{\!s}(p^I)) = 
+% %   1-(1-p^I) = y
+% %\]
+% we have $I\cup J^p_q\models_y F^*(q)$ for any $J$ such that
+% $p^J<p^I$. So $I$ is not a $y$-stable model of $\neg_{\!s}\neg_{\!s} p$,
+% while it is a $y$-stable model of $p$.
+% 
+\end{example}
+
+
+\begin{example}
+Let $F_1 = p \rar_s p$ and $F_2 = \neg_{\!s} p \for_m p$. Their fuzzy
+models are the same, but their stable models are not.
+% are
+%equivalent under the semantics of fuzzy logic, but not under the
+%fuzzy stable model semantics. 
+This is similar to the relation between $p\rar p$ and
+$\neg p\lor p$ in the Boolean stable model semantics. 
+%
+Indeed, observe that \hbox{$F_1^*(u) = (p \rar_s p) \fand_m (u \rar_s u)$} 
+and $F_2^*(u) = \neg_{\!s} p \for_m u$. 
+
+The interpretation $I=\{(p, 1)\}$ is not a $1$-stable model
+of $F_1$ relative to $p$, as witnessed by $J =\{(p,0)\}$. 
+However, $I$ is a $1$-stable model of $F_2$ relative to~$p$: for
+any~$J$,
+\[
+\ba {rl}
+   F_2^*(u)^{I\cup J^{p}_{u}} = max\left(1-p^I, p^J\right) 
+    = max\left(0, p^J\right) 
+    = p^J.
+\ea
+\]
+So, for $I\cup J^{p}_{u}$ to satisfy $F_2^*(u)$ to degree $1$, 
+$p^J$ should be $1$.
+Consequently, it is not possible to have $J <^{p} I$. 
+\end{example}
+
+The following example illustrates how the commonsense law of inertia involving fuzzy truth values can be represented. 
+
+%representation of  useful construct that can be used
+%to express the default reasoning. 
+
+\begin{example}\label{ex:default}
+Let $\sigma$ be $\{p, np, q, nq\}$ 
+%\footnote{%
+%Note that $\sneg\ $ is not a connective; it is just a part of the symbol 
+%representing an atom.} 
+and let $F$ be $F_1\fand_m F_2$, where $F_1$ represents that
+$p$ and $np$ are complementary, i.e., the sum of their truth
+values is~$1$:
+\[ 
+   F_1=\neg_{\!s}(p \fand_l np) \fand_m \neg_{\!s} \neg_{\!s}(p \for_l np).  
+\]
+$F_2$ represents that by default $p$ has the truth value of $q$, and
+$np$ has the truth value of~$nq$:
+\[
+\ba l
+   F_2= ((q \fand_m \neg_{\!s} \neg_{\!s} p) \rar_r p) 
+      \fand_m ((nq \fand_m \neg_{\!s} \neg_{\!s}  np) \rar_r np). 
+\ea
+\]
+
+%The formula represents that by default $p$ takes the same value as $q$.
+
+Let ${\bf p} = \left\{p, np\right\}$ and ${\bf u}=\{u, nu\}$.
+$F^*({\bf u})$ is
+\[
+\ba {rl}
+    & \neg_{\!s}(p \fand_l np) \fand_m
+                \neg_{\!s} \neg_{\!s}(p \for_l np)  \\
+    &\fand_m ((q \fand_m \neg_{\!s} \neg_{\!s} p) \rar_r u) 
+         \fand_m ((q\fand_m \neg_{\!s} \neg_{\!s} p) \rar_r p) \\ 
+    & \fand_m ((nq \fand_m \neg_{\!s} \neg_{\!s}  np) \rar_r nu) 
+      \fand_m ((nq \fand_m \neg_{\!s} \neg_{\!s}  np) \rar_r np). 
+\ea 
+\]
+One can check that interpretation 
+$I_1 = \left\{(p, x), (np, 1-x), (q, x), (nq, 1-x)\right\}$
+($x$ is any value in $[0,1]$)
+is a $1$-stable model of $F$ relative to $(p, np)$; 
+interpretation $I_2 = \left\{(p, y), (np, 1-y), (q, x),
+  (nq, 1-x)\right\}$, where $y \ne x$, is not. 
+
+On the other hand, if we conjoin $F$ with $(\o{y}\rar_r p)\fand_m (\o{1-y}\rar_r np)$, the default behavior is overridden: $I_1$ is not a $1$-stable model of \hbox{$F\fand_m (\o{y} \rar_r p)\fand_m (\o{1-y}\rar_r np)$} relative to $(p,np)$, but $I_2$ is. 
+
+This behavior is useful in expressing the commonsense law of inertia
+involving fuzzy values. 
+Suppose $q$ represents some fluent at time $t$, and $p$
+represents the fluent at time $t\!+\!1$. Then $F$ states that, ``by
+default, the fluent retains the previous value.'' The default value is
+overridden if there is an action that sets $p$ to a different value. 
+\end{example}
+
+%---------------------------------------------------------------------
+%\section{Further Examples} \label{sec:further}  \optional{sec:further}
+%---------------------------------------------------------------------
+
+
+%Recall the trust example in the introduction. 
+% Suppose there are $n$ people. Everyone trusts each other to some
+% degree. Normally, if a person $A$ trusts another person $B$, then
+% $A$ tends to trust those who $B$ trusts, denoted by $C$, to a degree
+% which is positively correlated to the degree to which $A$ trusts $B$
+% and the degree to which $B$ trusts $C$. If nothing happens, the
+% trust degrees do not change over time. But if a conflict between $A$
+% and $B$ happens, there will be less trust between $A$ and $B$,
+% depending on how severe the conflict is.
+
+\begin{example}\label{ex:trust}
+The trust example in the introduction can be formalized in the fuzzy stable model semantics as follows. 
+Below $x$, $y$, $z$ are schematic variables ranging over people, and $t$ is
+a schematic variable ranging over time steps. $\i{Trust}(x,y,t)$
+is a fuzzy atom representing that ``$x$ trusts $y$ at time $t$.''
+Similarly, $\i{Distrust}(x,y,t)$ is a fuzzy atom representing that 
+``$x$ distrusts $y$ at time $t$.'' 
+%Note that $\sneg$\ is just a part of the name of an atom, and not a
+%connective. 
+
+%Let $F_{TW} = F_1 \fand_m F_2 \fand_m \dots \fand_m F_{10}$ defined as
+%follows.
+
+The trust relation is reflexive: 
+\[ 
+  F_1 = \i{Trust}(x,x,t) .
+\]
+% ($t\in\{0,\dots,\i{maxstep}\}$):
+%   F_1 = (\i{Trust}(x,y,t) \rar_r \i{Trust}(y,x,t))\fand_m, \\
+
+
+
+% Distrust relation is symmetric  ($t\in\{0,\dots,\i{maxstep}$):
+% \[
+%    F_3 = (\i{Distrust}(x,y,t) \rar_r \i{Distrust}(y,x,t) 
+% \]
+
+
+The trust and distrust degrees are complementary, i.e., their sum is
+$1$ (similar to Example~\ref{ex:default}): % ($t\in\{0,\dots,\i{maxstep}\}$): 
+\[ 
+\ba l 
+   F_2 = \neg_{\!s} (\i{Trust}(x,y,t)\fand_l \i{Distrust}(x,y,t)),  \\
+   F_3 = \neg_{\!s} \neg_{\!s} (\i{Trust}(x,y,t)\for_l\i{Distrust}(x,y,t)).
+
+\ea 
+\]
+
+Initially, if $x$ trusts $y$ to degree $d_1$ and $y$ trusts $z$ to
+degree $d_2$, then $x$ trusts $z$ to degree $d_1\times d_2$; further
+the initial distrust degree is $1$ minus the initial trust degree.
+\[ 
+\ba l
+   F_4 = \i{Trust}(x,y,0)\fand_p\i{Trust}(y,z,0)\rar_r\i{Trust}(x,z,0), \\
+   F_5 = \neg_{\!s}\i{Trust}(x,y,0)\rar_r\i{Distrust}(x,y,0).
+\ea 
+\]
+
+The inertia assumption (similar to Example~\ref{ex:default}): %  ($t\in\{0,\dots,\i{maxstep}\!-\!1\}$): 
+\[
+\ba l
+    F_6 = \i{Trust}(x,y,t)\fand_m \neg_{\!s} \neg_{\!s}\i{Trust}(x,y,t\!+\!1)
+          \rar_r \i{Trust}(x,y,t\!+\!1),  \\
+    F_7 = \i{Distrust}(x,y,t)\fand_m \neg_{\!s} \neg_{\!s} \i{Distrust}(x,
+    y, t\!+\!1) \rar_r \i{Distrust}(x,y,t\!+\!1).
+\ea 
+\]
+
+A conflict increases the distrust
+degree by the conflict degree: % ($t\in\{0,\dots,\i{maxstep}-1\}$):
+\[
+\ba l
+   F_8= \i{Conflict}(x,y,t)\for_l \i{Distrust}(x,y,t) 
+        \rar_r\i{Distrust}(x, y, t\!+\!1), \\
+   F_9 = \neg_{\!s}(\i{Conflict}(x, y, t)\for_l \i{Distrust}(x, y, t)) 
+         \rar_r \i{Trust}(x,y,t\!+\!1).
+\ea 
+\]
+
+Let $F_{TW}$ be $F_1 \otimes_m F_2 \otimes_m \dots \otimes_m F_9$. 
+%
+%In the above formulas, we assume the variable $X$, $Y$ and $Z$ range
+%over the $n$ people, the variable $T \in \left\{0, 1, \dots,
+%  maxstep\right\}$ and the variable $ST \in \left(0, 1, \dots,
+%  maxstep-1\right)$. 
+%
+%By a formula of the form $G(X)$, where $G$ is a
+%formula involving variables $X$, we denote the formula $G(x_1) \fand
+%\dots \fand G(x_n)$, where $x_1, \dots, x_n$ are elements in the
+%domain of $X$.
+%
+%
+Suppose we have the formula $F_{Fact}=\i{Fact}_1\fand_m\i{Fact}_2$ that
+gives the initial trust degree.
+\[
+\ba l
+   \i{Fact}_1 = \overline{0.8}\rar_r\i{Trust}(\i{Alice}, \i{Bob}, 0), \\
+   \i{Fact}_2 = \overline{0.7}\rar_r\i{Trust}(\i{Bob}, \i{Carol}, 0).
+\ea 
+\]
+Although there is no fact about how much $\i{Alice}$ trusts
+$\i{Carol}$, any $1$-stable model of $F_{TW}\fand_m F_{Fact}$ assigns
+value $0.56$ to the atom $\i{Trust}(\i{Alice}, \i{Carol}, 0)$. On the other
+hand, the $1$-stable model assigns value $0$ to
+$\i{Trust}(\i{Alice},\i{David},0)$ due to the closed world assumption under
+the stable model semantics.
+
+When we conjoin  $F_{TW}\fand F_{Fact}$ with 
+$\overline{0.2}\rar\i{Conflict}(\i{Alice},\i{Carol}, 0)$, 
+the $1$-stable model of 
+$F_{TW}\fand_m
+F_{Fact}\fand_m (\overline{0.2}\rar\i{Conflict}(\i{Alice},\i{Carol},
+0))$
+manifests that the trust degree between $\i{Alice}$ and $\i{Carol}$
+decreases to $0.36$ at time $1$. More generally, if we have more actions that
+change the trust degree in various ways, by specifying the entire
+history of actions, we can determine the evolution of the trust
+distribution among all the participants. Useful decisions can
+be made based on this information. For example, $\i{Alice}$ may decide not to
+share her personal pictures to those whom she trusts less than degree
+$0.48$.
+\end{example}
+
+Note that this example, like Example~\ref{ex:default}, uses nested
+connectives, such as $\neg_{\!s}\neg_{\!s}$, that are not available in
+previous fuzzy ASP semantics, such as
+\cite{lukasiewicz06fuzzy,janssen12reducing}.
+
+
+\vspace{-0.3cm}
+
+
+%---------------------------------------------------------------------
+\section{Relation to Boolean-Valued Stable Models} \label{sec:rel-bool} \optional{sec:rel-bool}
+%---------------------------------------------------------------------
+
+The Boolean stable model semantics in Section~\ref{ssec:review-sm} can
+be embedded into the fuzzy stable model semantics as follows: 
+
+For any classical propositional formula $F$, define $F^\mi{fuzzy}$ to
+be the fuzzy propositional formula obtained from $F$ by replacing $\bot$ with
+$\o{0}$,\  $\top$ with $\o{1}$,\  $\neg$ with $\neg_{\!s}$,\ 
+$\land$ with $\fand_m$,\ $\lor$ with $\for_m$, and 
+$\rar$ with $\rar_s$.   We identify the signature of $F^\mi{fuzzy}$ with
+the signature of $F$. Also, for any interpretation $I$, we
+define the corresponding fuzzy interpretation $I^\mi{fuzzy}$ as 
+\bi
+\item  ${I^\mi{fuzzy}}(p) = 1$ if $I(p)=\true$; 
+\item  ${I^\mi{fuzzy}}(p) = 0$ otherwise.
+\ei
+
+The following theorem tells us that the Boolean-valued stable model
+semantics can be viewed as a special case of the fuzzy stable model semantics. 
+
+\begin{thm}\label{thm:cl-fuzzy-sm}\optional{thm:cl-fuzzy-sm} 
+% Consider the following choice of fuzzy operators:
+% \begin{itemize}
+% \item  $\fand(x, y) = min\left(x, y\right)$;
+% \item  $\for(x, y) = max\left(x, y\right)$;
+% \item  $\neg(x) = 1-x$;
+% \item  $\rar(x, y) = max\left(1-x, y\right)$.
+% \end{itemize}
+% %
+For any classical propositional formula $F$ and any classical
+propositional interpretation $I$, $I$ is a stable model of $F$
+relative to ${\bf p}$
+iff $I^\mi{fuzzy}$ is a $1$-stable model of $F^\mi{fuzzy}$ relative to
+${\bf p}$.
+\end{thm}
+
+\begin{example}
+Let $F$ be the classical propositional formula $\neg p\rar q$. $F$ has
+only one stable model
+$I = \{q\}$.
+% The fuzzy version of $F$, $F^\mi{fuzzy}=\neg_{\!s} p\rar_s q$. 
+Clearly $I^\mi{fuzzy}=\{(p, 0), (q, 1)\}$ is a $1$-stable
+model of $F^\mi{fuzzy}=\neg_{\!s} p\rar_s q$. 
+%Furthermore, we can check that $F^\mi{fuzzy}$ has no other $1$-stable model. 
+%$F^\mi{fuzzy}$ has
+%only three $1$-models: $I^\mi{fuzzy}$, $J = \{(p, 1), (q,
+%  1)\}$, and $K = \{(p, 1), (q, 0)\}$. $J$ and $K$ are
+%not $1$-stable model of $F^\mi{fuzzy}$, as witnessed by
+%$J^\prime=\{(p, 1), (q, 0)\}$ and $K^\prime=\{(p, 0), (q,
+%  0)\}$, respectively.
+\end{example}
+
+Theorem \ref{thm:cl-fuzzy-sm} does not hold for an arbitrary choice of
+operators, as illustrated by the following example.
+
+\begin{example}
+Let $F$ be the classical propositional formula $p\lor p$. 
+Classical interpretation $I = \{p\}$ is a stable model of
+$F$. However, $I^\mi{fuzzy}= \{(p,1)\}$ is not a stable model of 
+$F' = p\for_l p$ because there is $J = \{(p, 0.5)\}$ such
+that $I\cup J^p_q\models_1 q\for_l q$.
+\end{example}
+
+% \NB{
+% We define the mapping $\i{defuz}(\cdot)$ from a fuzzy interpretation
+% to a classical interpretation as follows: 
+% \bi
+% \item  $p^\mi{defuz(I)} = \true$ if $p^I = 1$; 
+% \item  $p^\mi{defuz(I)} = \false$ otherwise. 
+% \ei
+% }
+
+% Also for an interpretation $I=\left(p_1, \dots, p_n\right)$ of $F$,
+% define the corresponding fuzzy interpretation as $I^\mi{fuzzy} = \left((p_1,
+%   1), \dots, (p_n, 1), (q_1, 0), \dots, (q_m, 0)\right)$, where $q_1,
+% \dots, q_m$ are atoms that appear in $F$ but do not appear in $I$.
+
+\BOCC
+\cmag
+\begin{lemma}\label{lem_crisp_assignment}
+For any fuzzy interpretation $I$ where all atoms are assigned only $0$
+or $1$ and any $F$ where no numerical constant other than $\o{0}$
+and $\o{1}$ can appear, $F^I \in \left(0, 1\right)$.
+\end{lemma}
+
+
+\begin{lemma}\label{lem_true_eq_1}
+For a classical interpretation $I$ and a classical formula $F$, $I \models F$ if and only if $I^\mi{fuzzy} \models_1 F^\mi{fuzzy}$.
+\end{lemma}
+\EOCC
+
+However, one direction of Theorem~\ref{thm:cl-fuzzy-sm} holds for
+arbitrary choice of fuzzy operators. 
+%5The following theorem assumes any
+%choice of fuzzy conjunctions, disjunctions, negations and implications. 
+
+\begin{thm} \label{thm:fuzzy-cl-sm}\optional{thm:fuzzy-cl-sm}
+For any classical propositional formula $F$, let $F_1^\mi{fuzzy}$
+be the fuzzy formula obtained from $F$ by replacing $\bot$ with
+$\o{0}$,  $\top$ with $\o{1}$, $\neg$ with any fuzzy
+negation symbol, $\land$ with any fuzzy conjunction symbol, $\lor$ with
+any fuzzy disjunction symbol, and $\rar$ with any fuzzy
+implication symbol. For any classical propositional interpretation
+$I$, if $I^\mi{fuzzy}$ is a $1$-stable
+model of $F_1^\mi{fuzzy}$ relative to ${\bf p}$, then $I$ is a stable
+model of $F$ relative to ${\bf p}$.
+\end{thm}
+
+
+%\vspace{-5mm}
+\vspace{-0.3cm}
+
+
+%---------------------------------------------------------------------
+\section{Relation to Other Approaches to  Fuzzy  ASP} \label{sec:rel-fuzzyasp}  \optional{sec:rel-fuzzyasp}
+%---------------------------------------------------------------------
+
+%\vspace{-3mm}
+%---------------------------------------------------------------------
+\subsection{Relation to Stable Models of Normal FASP Programs} \label{ssec:normal-fasp}\optional{ssec:normal-fasp}
+%---------------------------------------------------------------------
+
+A normal FASP program is a finite set of
+rules of the form
+\[ 
+  a\ \ar\ b_1 \fand \dots \fand b_m \fand \neg b_{m+1}
+\fand \dots \fand \neg b_n, 
+\] 
+where $n\geq m \geq 0$, $a, b_1, \dots, b_n$ are fuzzy atoms or
+numeric constants in $[0,1]$, and $\fand$ is any fuzzy conjunction. We identify the rule with the fuzzy implication 
+\[ 
+   b_1\fand\dots\fand b_m\fand\neg_{\!s} b_{m+1}\fand\dots\fand
+   \neg_{\!s} b_n\ \rar_r\ a. 
+\] 
+%where $\fand$ is any fuzzy conjunction.
+%, and $\rar$ is the residual implicator of $\fand$. 
+
+We say that a fuzzy interpretation $I$ of signature~$\sigma$ {\em
+  satisfies} a rule $R$ if $R^I=1$. $I$ {\em satisfies} an FASP
+program $\Pi$ if $I$ satisfies every rule in $\Pi$. 
+
+%
+According to \cite{lukasiewicz06fuzzy}, an interpretation $I$ is a
+{\em fuzzy answer set} of a normal FASP program $\Pi$ if $I$ satisfies $\Pi$, and no interpretation $J$ such that $J<^\sigma I$ satisfies the reduct of
+$\Pi$ w.r.t. $I$, which is the program obtained from $\Pi$ by replacing each
+negative literal $\neg b$ with the constant for~$1-b^I$. 
+
+
+% $I$ is a minimal
+% model of a program $\Pi$ if $I\models\Pi$ and there is no interpretation
+% $J < I$ such that $J \models \Pi$. 
+% According to \cite{lukasiewicz06fuzzy}, an interpretation $M$ is an
+% answer set of a normal FASP program $\Pi$ if $M$ is a minimal model of
+% the reduct $\Pi^M$, which is obtained from $\Pi$ by replacing each
+% negative literal $\neg b$ with the constant for $1-b^M$. 
+
+
+
+\begin{thm}\label{thm:normal-fuzzysm}
+For any normal FASP program $\Pi=\{r_1, \dots, r_n\}$, let $F$ be the
+fuzzy formula $r_1\fand_m\dots\fand_m r_n$.
+%, where $\fand$ is any fuzzy conjunction. 
+An interpretation $I$ is a fuzzy answer set of $\Pi$ in
+the sense of \cite{lukasiewicz06fuzzy} if and only if $I$ is a
+$1$-stable model of $F$. 
+\end{thm}
+
+\NB{Yi: Example} 
+
+\begin{example}
+Let $\Pi$ be the following program
+\[  
+%\ba l
+   p \leftarrow \neg q,\ \ \ \ 
+   q \leftarrow \neg p.  
+%\ea
+\]
+The answer sets of $\Pi$ according to~\cite{lukasiewicz06fuzzy} are 
+$\{(p, x), (q, 1-x)\}$, where $x$ is any value in $\left[0, 1\right]$: 
+the corresponding fuzzy formula $F$ is 
+$(\neg_{\!s} q \rar_r p) \fand_m (\neg_{\!s} p \rar_r q)$;\ \ 
+$F^*(u,v)$ is
+%where $\fand$ can be any fuzzy conjunction.
+\[
+  F\fand_m ((\neg_{\!s} q \rar_r u)\fand_m (\neg_{\!s} p \rar_r v)). 
+\]
+One can check that the $1$-stable models of $F$ are also 
+$\{(p, x), (q, 1-x)\}$, where $x \in \left[0, 1\right]$.
+\end{example}
+
+%\BOCCC
+%---------------------------------------------------------------------
+\subsection{Relation to Fuzzy Equilibrium Logic} \label{ssec:fuzzy-equil} \optional{ssec:fuzzy-equil}
+%---------------------------------------------------------------------
+
+%[[ Syntax is the same except it allows strong negation ]]
+Like the fuzzy stable model semantics introduced in this paper, fuzzy
+equilibrium logic~\cite{schockaert12fuzzy} generalizes fuzzy ASP programs to
+arbitrary propositional formulas, but its definition is quite 
+complex as it is based on a pair of intervals and considers strong
+negation as one of the primary connectives. Nonetheless we show that fuzzy equilibrium logic is
+essentially equivalent to the fuzzy stable model semantics where the
+threshold is restricted to $1$ and all atoms are subject to minimization.
+%\footnote{Strong negation can be simulated in our semantics using new atoms as illustrated in Example~\ref{ex:default}.}
+
+\vspace{-5mm}
+\subsubsection{Review: Fuzzy Equilibrium Logic}
+
+We first review the definition of fuzzy equilibrium
+logic from~\cite{schockaert12fuzzy}. The syntax is the same as the one
+we reviewed in Section~\ref{ssec:review-fuzzy} except that a new
+connective $\sneg\ $ (strong negation) may appear in front of atoms.\footnote{The definition from~\cite{schockaert12fuzzy} allows
+  strong negation in front of any formulas. We restrict its occurrence
+  only in front of atoms as usual in answer set programs.} 
+%
+For any fuzzy propositional signature~$\sigma$, a (fuzzy N5) \emph{valuation}
+is a mapping from $\{h, t\}\times\sigma$ to subintervals of $\left[0,
+  1\right]$ such that  $V(t,a)\subseteq V(h,a)$ for each atom $a\in\sigma$.
+%
+For $V(w, a)=\left[u, v\right]$, where $w\in\{h, t\}$, 
+we write $V^-(w,a)$ to denote the lower bound~$u$ and 
+$V^+(w,a)$ to denote the upper bound~$v$. The {\em truth value} of
+a fuzzy formula under $V$ is defined as follows.
+%
+\begin{itemize}
+\item  $V(w, \overline{c}) = [c,\ c]$ for any numeric constant $\overline{c}$;
+\item  $V(w, \sneg a) = \left[1-V^+(w, a), 1-V^-(w, a)\right]$, where
+  $\sim$ is the symbol for strong negation; 
+\item  $V(w, F\fand G) = 
+          [V^-(w,F)\fand V^-(w,G),\ \ V^+(w,F)\fand V^+(w,G)]$; \footnote{%
+For readability, we write the infix notation $(x\odot y)$ in place of $\odot (x,y)$.}
+
+\item $V(w, F\for G) = 
+          [V^-(w,F)\for V^-(w,G),\ \ V^+(w,F)\for V^+(w,G)]$;
+
+\item  $V(h,\neg F) = [1-V^-(t, F),\ \ 1-V^-(h, F)]$;
+
+\item  $V(t,\neg F) = [1-V^-(t, F),\ \ 1-V^-(t, F)]$;
+
+\item  $V(h, F\rar G) = 
+          [min(V^-(h,F)\rar V^-(h,G), V^-(t,F)\rar V^-(t,G)),  \\
+~~\hspace{8cm} V^-(h,F)\rar V^+(h, G)]$;
+
+\item $V(t, F\rar G) = [V^-(t,F)\rar V^-(t,G),\ \
+           V^-(t,F)\rar V^+(t,G)]$.
+\end{itemize}
+
+A valuation $V$ is a (fuzzy N5) model of a formula $F$ if $V^-(h,
+F)=1$, which implies $V^+(h, F)=V^-(t, F)=V^+(t, F)=1$. For two
+valuations $V$ and $V'$, we say $V'\preceq V$ if $V'(t, a)=V
+(t, a)$ and $V(h, a)\subseteq V'(h, a)$ for all atoms $a$.
+We say $V'\prec V$ if $V'\preceq V$ and $V'\ne V$.\ \ 
+We say that a model $V$ of $F$ is {\em h-minimal} if there is no model $V'$ of $F$ such that $V'\prec V$.
+%it is minimal w.r.t. $\preceq$ among all
+%models of $F$. 
+An h-minimal fuzzy N5 model $V$ of $F$ is a \emph{fuzzy
+  equilibrium model} of $F$ if $V(h,a)=V(t,a)$ for all atoms $a$.
+
+\BOCCC
+For two fuzzy interpretations $I$, $J$ of signature $\sigma$
+such that $J\leq^\sigma I$, define the N5 fuzzy valuation $V_{J, I}$
+as $V_{J, I}(h, a) =
+\left[a^J, 1\right]$, $V_{J, I}(t, a) = \left[a^I, 1\right]$ for all
+atoms $a$ in $\sigma$. 
+Since  $J\leq^\sigma I$, we have $a^J \leq a^I$, 
+and $V_{J,I}(t,a)\subseteq V_{J,I}(h,a)$ for all atoms $a$. 
+
+As in \cite{schockaert12fuzzy}, we assume that the fuzzy negation
+$\neg$ is $\neg_{\!s}$. 
+%
+% \begin{lemma}\label{lem_model_tw}
+% $F^{I\cup J^*} = V_{J, I}^-(t, F)$.
+% \end{lemma}
+%
+
+% \begin{corollary}\label{model_eq}
+% $I \models_1 F$ if and only if $V_{I, I}$ is a model of $F$.
+% \end{corollary}
+% \begin{lemma}
+% $F^{* I\cup J^*} = V_{J, I}^-(h, F)$.
+% \end{lemma}
+
+The following proposition relates the notions used in the fuzzy
+equilibrium models and the fuzzy stable models. 
+\begin{prop}\label{prop:lem} 
+\bi
+\item[(a)]  $I\models_1 F$ if and only if $V_{I,I}$ is a model of $F$.
+\item[(b)]  For ${\bf p}=\sigma$, $I\cup J^{\bf p}_{\bf q}\models_1 F^*({\bf q})$ 
+            if and only if $V_{J, I}$ is a model of $F$.
+\item[(c)]  For two interpretations $I$ and $J$, we have 
+  $V_{J, I}\prec V_{I, I}$ if and only if $J < I$.
+\ei
+\end{prop}
+\EOCCC
+
+\BOCC
+\begin{lemma}\label{clry_star_valuation}
+$I\cup J^{\bf p}_{\bf q}\models_1 F^*({\bf q})$ 
+if and only if $V_{J, I}$ is a model of $F$.
+\end{lemma}
+
+\begin{lemma}\label{lessthan_eq}
+For two interpretations $I, J$ of the same formula $F$, $V_{J, I}
+\prec V_{I, I}$ if and only if $J < I$.
+\end{lemma}
+\EOCC
+
+\vspace{-3mm}
+\subsubsection{In the Absence of Strong Negation}
+
+%[[ Valuation as internavls look complicated ]]
+
+We first establish the correspondence between fuzzy stable models and fuzzy
+equilibrium models in the absence of strong negation. 
+%The theorem below shows that the fuzzy stable model semantics and
+%fuzzy equilibrium logic can be captured in each other can be
+%reduced to fuzzy equilibrium logic semantics.
+As in \cite{schockaert12fuzzy}, we assume that the fuzzy negation
+$\neg$ is $\neg_{\!s}$. 
+
+%We define mappings between fuzzy interpretations and fuzzy N5
+%valuations as follows.
+
+%\begin{itemize}
+%\item 
+For any valuation $V$, we define a fuzzy interpretation $I_V$ as 
+$p^{I_V} = V^-(h,p)$ for each atom $p\in\sigma$.
+
+%\item  For any interpretation $I$ of $\sigma$, we define
+%  valuation $V_I$ as $V_I(w, a) = [a^I, 1]$ ($w\in\{h,t\}$). 
+%\end{itemize}
+
+\begin{thm}\label{thm:equil_sm_nostrneg}\optional{thm:equil_sm_nostrneg}
+Let $F$ be a fuzzy propositional formula of $\sigma$ that contains no
+strong negation.
+\begin{itemize}
+\item[(a)]  A valuation $V$ of~$\sigma$ is a fuzzy equilibrium model
+  of $F$ iff $V^-(h,p)=V^-(t,p)$, $V^+(h,p)=V^+(t,p)=1$ for all
+  atoms $p$ in $\sigma$ and $I_V$ is a $1$-stable model of $F$ relative to
+  $\sigma$. 
+
+\item[(b)] An interpretation $I$ of~$\sigma$ is a $1$-stable model of
+  $F$ relative to $\sigma$ iff $I = I_V$ for some fuzzy equilibrium
+  model $V$ of $F$. 
+\end{itemize}
+\end{thm}
+
+
+%\EOCCC
+\vspace{-3mm}
+\subsubsection{In the Presence of Strong Negation}
+%\subsection{Representing Strong Negation}
+
+In this section we extend the relationship between fuzzy equilibrium
+logic and our stable model semantics by allowing strong negation. 
+This is done by simulating strong negation by new atoms in our
+semantics. 
+%at strong negation can be simulated by new atoms
+%negation as an operator, strong negation of atoms can be handled by
+%introducing new atoms and extra constraints. 
+%We also show the
+%equivalence between the representation of strong negation in our
+%framework and its counterpart in fuzzy equilibrium logic, so that the
+%correctness of this approach is verified.
+
+%Strong negation in fuzzy equilibrium logic is defined as:
+%\[
+%  V(w, \sneg F)=\left[1-V^+(w, F),\ 1-V^-(w, F)\right].
+%\]
+
+Let $\sigma$ denote the signature. For a fuzzy formula $F$ over $\sigma$
+that may contain strong negation, define $F^\prime$ over
+$\sigma \cup \left\{np \mid p \in \sigma\right\}$ as the formula
+obtained from $F$ by replacing all strong negations of atom $\sneg p$
+with a new atom $np$. The transformation $nneg(F)$ (``{\sl n}o strong {\sl neg}ation'') is defined as
+$nneg(F)=F^\prime \otimes_m \underset{p\in \sigma}{\bigotimes_m}\neg_s(p
+\otimes_l np)$. 
+
+\BOCC
+\cgre
+For a valuation $V$ of $\sigma$, define the valuation $nneg(V)$ of
+$\sigma \cup \left\{np \mid p \in \sigma\right\}$ as $nneg(V)(w, p) =
+\left[V^-(w, p), 1\right]$ and $nneg(V)(w, np) = \left[1-V^+(w, p),
+  1\right]$ for all atoms $p \in \sigma$. Clearly for every valuation
+$V$ of $\sigma$, there exists a corresponding interpretation
+$I_{nneg(V)}$ of $\sigma \cup \left\{np \mid p \in \sigma\right\}$. On
+the other hand, there exists interpretation $I$ of $\sigma \cup
+\left\{np \mid p \in \sigma\right\}$ for which there is no
+corresponding valuation $V$ of $\sigma$ such that $I=I_{nneg(V)}$.
+
+\begin{example}
+Suppose $\sigma=\left\{p\right\}$. The interpretation $I$ of $\sigma
+\cup \left\{np \mid p \in \sigma\right\}$, defined by $I=\left\{(p,
+  0.6), (np, 0.5)\right\}$, has no corresponding valuation $V$ of
+$\sigma$ such that $I=I_{nneg(V)}$. Suppose, to the contrary, such
+valuation exists. According to the definition, $V$ satisfies $V(h,
+p)=\left[0.6, 0.5\right]$, which is impossible (since $\left[0.6,
+  0.5\right]$ is not a valid interval).
+\end{example}
+\cbla 
+\EOCC
+
+
+%We extend the mappings between fuzzy N5 valuations of $F$ and 
+%fuzzy interpretations for $\i{nneg}(F)$ as follows. 
+%\begin{itemize}
+%\item 
+For any valuation $V$ of $\sigma$, we define the interpretation $I_V$
+of $\sigma\cup\{np \mid p\in\sigma\}$ as 
+\[
+\begin{cases}
+  p^{I_V} = V^-(h,p)  & \text{ for each $p\in\sigma$ };  \\
+  np^{I_V} = 1 - V^+(h,p) & \text{ for each $np\notin\sigma$ }.
+\end{cases}
+\]
+
+%\cgre
+%\item  For any interpretation $I$ of $\sigma\cup\{np \mid p\in\sigma\}$,
+%   we define valuation $V_I$ as $V_I(w,p)=[p^I, 1-np^I]$ for each
+%   $p\in\sigma$.
+%\cbla
+%$a^{I_V} = V^-(h,a)$. 
+%\end{itemize}
+
+%[[ If $F$ contains no strong negation, then every stable model of $F$ has
+%$np^I = 0$ for all $np\not\in\sigma$, so that these notions reduces to
+%the notions in the previous section.  ]]
+
+%If a formula contains  no strong negation
+% Given an interpretation $I$ of $\sigma\cup\{np \mid p\in\sigma\}$ 
+% %that satisfies [[... ]] for all $p\in\sigma$, 
+% we define valuation $V_I$ as $V_I(w,p)=[p^I, 1-np^I]$.
+
+% Given a valuation $V$, we define $I_V$ as 
+% \[
+% \begin{cases}
+%   p^{I_V} = V^-(h,p)  & \text{ for each $p\in\sigma$ };  \\
+%   np^{I_V} = 1 - V^+(h,p) & \text{ for each $np\notin\sigma$ }
+% \end{cases}
+% \]
+
+\begin{thm}\label{thm:equil-sm}\optional{thm:equil-sm}
+For any fuzzy formula $F$ of signature $\sigma$ that may contain strong negation, 
+\begin{itemize}
+\item[(a)]  A valuation $V$ of $\sigma$ is a fuzzy equilibrium model
+  of $F$ iff $V(h,p)=V(t,p)$ for all atoms $p$ in~$\sigma$ and $I_V$ is a
+  $1$-stable model of $\i{nneg}(F)$ relative to $\sigma\cup\{np \mid
+  p\in\sigma\}$.
+
+\item[(b)] An interpretation $I$ of $\sigma\cup\{np \mid p\in\sigma\}$ is
+  a $1$-stable model of $\i{nneg}(F)$ relative to $\sigma\cup\{np \mid
+  p\in\sigma\}$ iff $I=I_V$ for some fuzzy equilibrium model $V$ of
+  $F$. 
+\end{itemize}
+\end{thm}
+
+
+\BOCC
+\begin{thm}\label{thm:equil-sm} 
+For any fuzzy formula $F$ of signature $\sigma$ that may contain strong negation, 
+\begin{itemize}
+\item[(a)]  If $V$ is a fuzzy equilibrium model of $F$, then there is
+  some interpretation $I$ such that $V=V_I$ and $I$ is a $1$-stable
+  model of $\i{nneg}(F)$ relative to  $\sigma\cup\{np \mid
+  p\in\sigma\}$.
+
+\item[(b)]  If $I$ is a $1$-stable model of $\i{nneg}(F)$ relative to
+  $\sigma\cup\{np \mid p\in\sigma\}$, then $V_I$ exists and is a fuzzy equilibrium model of $F$. 
+\end{itemize}
+\end{thm}
+
+
+\begin{thm}\label{thm:equil-sm} 
+For any fuzzy formula $F$ of signature $\sigma$ that may contain strong negation, 
+\begin{itemize}
+\item[(a)]  If $V$ is a fuzzy equilibrium model of $F$, then $I_V$ is a $1$-stable model of $\i{nneg}(F)$ relative to  $\sigma\cup\{np \mid p\in\sigma\}$.
+
+\item[(b)]  If $I$ is a $1$-stable model of $\i{nneg}(F)$ relative to
+  $\sigma\cup\{np \mid p\in\sigma\}$, then $V_I$ is a fuzzy equilibrium model of $F$. 
+\end{itemize}
+\end{thm}
+
+\cgre
+\begin{thm}\label{thm:equil-sm}
+Let $F$ be a fuzzy propositional formula. 
+\begin{itemize}
+\item[(a)]  If $V$ is an equilibrium model of $F$, then $I_{nneg(V)}$
+  is a $1$-stable model of $nneg(F)$.
+\item[(b)]  If $I$ is a $1$-stable model of $nneg(F)$, then there
+  exists $V$ such that $I=I_{nneg(V)}$ and $V$ is an equilibrium model
+  of $F$.
+\end{itemize}
+\end{thm}
+\cbla
+\EOCC
+
+
+\BOCC
+\begin{thm}\label{thm:equili2sm_sn}
+If $V$ is an equilibrium model of $F$, then $I_{nneg(V)}$ is a $1$-stable model of $nneg(F)$.
+\end{thm}
+
+\begin{thm}\label{thm:sm2equili_sn}
+If $I$ is a $1$-stable model of $nneg(F)$, then there exists $V$ such that $I=I_{nneg(V)}$ and $V$ is an equilibrium model of $F$.
+\end{thm}
+\EOCC
+
+%From Theorem \ref{thm:equili2sm_sn} and Theorem
+%\ref{thm:sm2equili_sn}, we know that 
+%[[ Thus there is a 1-1 correspondence of the equilibrium models of a
+%formula $F$ and the $1$-stable models of $nneg(F)$. The next example
+%illustrates how to represent strong negation of atoms in fuzzy stable
+%model semantics.]]
+
+\begin{example}
+For fuzzy formula 
+$F=(\overline{0.2} \rar_r p)\fand_m (\overline{0.3} \rar_r np)$, 
+formula $nneg(F)$ is
+\[ (\overline{0.2} \rar_r p)\fand_m
+   (\overline{0.3} \rar_r np) \fand_m
+  \neg_s(p \fand_l np).
+\]
+One can check that the valuation $V$ defined as $V(w, p)=\left[0.2, 0.7\right]$ is the only equilibrium model of $F$, and the interpretation $I_V=\left\{(p, 0.2), (np, 0.3)\right\}$ is the only $1$-stable model of $nneg(F)$.
+\end{example}
+
+This idea of eliminating strong negation in favor
+of new atoms was used in Examples~\ref{ex:default} and \ref{ex:trust}.
+
+\vspace{-0.3cm}
+
+%---------------------------------------------------------------------
+\section{Properties of Fuzzy Stable Models} \label{sec:properties} 
+   \optional{sec:properties}
+%---------------------------------------------------------------------
+
+In this section, we show that several well-known properties of the Boolean stable model
+semantics can be naturally extended to the fuzzy stable model
+semantics. 
+
+\subsection{Alternative Definition of $F^*$}
+
+
+\begin{prop}\label{lem_star_negation}
+For any fuzzy formulas $F$, $G$ and any fuzzy interpretations $I$, $J$ such that $J\le^{\bf p} I$, 
+\bi
+ \item  $I\cup J^{\bf p}_{\bf q}\models_y \neg F^*({\bf q})\fand_m
+   \neg F$\ ~~iff~~\ $I\cup J^{\bf p}_{\bf q}\models_y \neg F$;
+ \item  $I\cup J^{\bf p}_{\bf q}\models_y (F^*\fand G^*)({\bf q})\fand_m (F\fand
+   G)$\ ~~iff~~\ $I\cup J^{\bf p}_{\bf q}\models_y (F^*\fand G^*)({\bf q})$;
+ \item  $I\cup J^{\bf p}_{\bf q}\models_y (F^*\for G^*)({\bf q})\fand_m (F\for
+   G)$\ ~~iff~~\ $I\cup J^{\bf p}_{\bf q}\models_y (F^*\for G^*)({\bf q})$.
+\ei
+\end{prop}
+
+This proposition tells us that $F^*$ in Section~\ref{sec:definition}
+can be equivalently defined by treating the fuzzy operators in the
+uniform way without affecting stable models.
+%for the case of fuzzy operators as
+%follows, where the operators are uniformly treated: 
+
+\bi
+\item  $(\neg F)^* = \neg F^*\fand_m \neg F$;
+\item  $(F\odot G)^* = (F^*\odot G^*)\fand_m (F\odot G)$ for any
+  binary operator $\odot$.
+\ei
+
+
+
+
+\subsection{Theorem on Constraints}
+
+In answer set programming, constraints---rules with $\bot$ in the
+head---play an important role in view of the fact that adding a
+constraint eliminates the stable models that ``violate'' the
+constraint. 
+The following theorem is the counterpart of Theorem~3
+from~\cite{ferraris11stable} for fuzzy propositional formulas. 
+
+\begin{thm}\label{thm:constraint}\optional{thm:constraint}
+For any fuzzy formulas $F$ and $G$, $I$ is a $1$-stable model of
+\hbox{$F\fand\neg G$} (relative to ${\bf p}$) if and only if $I$ is a
+$1$-stable model of $F$ (relative to ${\bf p}$) and $I\models_1\neg G$.
+\end{thm}
+
+\begin{example}
+Consider $F=(\neg_{\!s} p \rar_r q)\fand_m(\neg_{\!s} q \rar_r p)\fand_m \neg_{\!s} p$. Formula~$F$ has only one $1$-stable model $I = \{(p, 0), (q, 1)\}$, which is the only $1$-stable model of \\
+\hbox{$(\neg_{\!s} p \rar_r q)\fand_m(\neg_{\!s} q \rar_r p)$} that satisfies $\neg_{\!s} p$ to degree $1$.
+\end{example}
+
+
+
+If we consider a more general $y$-stable model, then only one
+direction holds.
+
+\begin{thm}\label{thm:constraint2} \optional{thm:constraint2}
+For any fuzzy formulas $F$ and $G$, if $I$ is a $y$-stable model of 
+$F\fand\neg G$ (relative to ${\bf p}$), then $I$ is a $y$-stable model
+of $F$ (relative to ${\bf p}$) and $I\models_y\neg G$.
+\end{thm}
+
+\begin{example}
+The other direction, that is, ``if $I$ is a $y$-stable model of $F$ and 
+$I \models_y\neg G$, then $I$ is a $y$-stable model of $F\fand \neg
+G$,'' does not hold in general. For example, consider $F=G=p$ and
+$\fand$ to be $\fand_l$, and 
+%consider $p\fand_l\neg_{\!s} p$ and 
+interpretation $I=\{(p,0.4)\}$. 
+Clearly $I$ is a $0.4$-stable model of $p$ and $I\models_{0.4} \neg
+p$, but $I$ is not a $0.4$-stable model of $p\fand_l \neg p$. In fact, $I$ is not even a $0.4$-model of the formula.
+\end{example}
+
+
+\subsection{Theorem on Choice Formulas} 
+
+In the Boolean stable model semantics, formulas of the form $p\lor\neg p$
+are called {\em choice formulas}, and adding them to the program makes 
+atoms $p$ exempt from minimization. Choice formulas have been shown to
+be useful in composing a program in the ``Generate-and-Test'' method.
+This section shows their counterpart in the fuzzy stable model semantics. 
+
+For any fuzzy atom $p$, $\i{Choice}(p)$ stands for 
+$p\for_l \neg_{\!s} p$.
+%  where $\for_l(x, y) = {\rm min}(x+y, 1)$, and $\neg_{\!s}(x) = 1-x$.
+For any list ${\bf p}=(p_1,\dots p_n)$ of fuzzy atoms,
+$\i{Choice}({\bf p})$ stands for 
+$\i{Choice}(p_1)\fand\dots\fand\i{Choice}(p_n)$,
+where $\fand$ is any fuzzy conjunction. 
+
+The following proposition tells that choice formulas are
+tautological. 
+
+\begin{prop}\label{lem_choice_tautology}
+For any fuzzy interpretation $I$ and any list ${\bf p}$ of fuzzy
+atoms, \hbox{$I\models_1\i{Choice}({\bf p})$}.
+\end{prop}
+
+% \begin{lemma}\label{choice_tautology}
+% For any interpretation $I$ and any atom $a$, $I \models_1\i{Choice}(a)$.
+% \end{lemma}
+% \begin{proof}
+% \begin{align}
+% \nonumber choice(a)^I &= (a \for_l \neg_{\!s} a)^I \\
+% \nonumber &= min\left(a^I + 1-a^I, 1\right) \\
+% \nonumber &= 1
+% \end{align}
+% \end{proof}
+
+Theorem~\ref{thm:choice} is an extension of Theorem~2
+from~\cite{ferraris11stable}. % to the fuzzy stable model semantics. 
+
+\begin{thm} \label{thm:choice}
+\bi
+\item[(a)] If $I$ is a $y$-stable model of $F$ relative to ${\bf
+    p}\cup {\bf q}$, then $I$ is a $y$-stable model of $F$ relative to
+  ${\bf p}$.
+\item[(b)] $I$ is a $1$-stable model of $F$ relative to ${\bf p}$ iff 
+   $I$ is a $1$-stable model of $F\fand\i{Choice}({\bf q})$ relative
+   to ${\bf p}\cup {\bf q}$.
+\ei
+\end{thm}
+
+
+Theorem~\ref{thm:choice}~(b) does not hold for arbitrary threshold
+$y$ (i.e., if ``$1-$'' is replaced with ``$y-$''). For example, consider
+$F=\neg_s\neg_s q$ and $I = \left\{(q, 0.5)\right\}$. Clearly $I$ is a
+$0.5$-model of $F$, and thus $I$ is a $0.5$-stable model of $F$
+relative to $\emptyset$. However, $I$ is not a $0.5$-stable model of
+$F\fand_m {\i Choice(q)}=\neg_s \neg_s q\fand_m (q\for_l \neg_s q)$
+relative to $\emptyset \cup \left\{q\right\}$, as witnessed by $J =
+\left\{(q, 0)\right\}$.
+
+Since the $1$-stable models of $F$ relative to $\emptyset$ are the models
+of $F$, it follows from Theorem~\ref{thm:choice} (b)  that the {\em $1$-stable models} of $F\fand\i{Choice}(\sigma)$ relative to $\sigma$ are exactly the {\em $1$-models} of $F$.
+\begin{cor}
+Let $F$ be a fuzzy formula of a finite signature $\sigma$.
+$I$ is a $1$-model of $F$ iff $I$ is a
+$1$-stable model of~$F\fand\i{Choice}(\sigma)$ relative to~$\sigma$.
+\end{cor}
+
+
+\begin{example}
+Consider the fuzzy formula $F=\neg_{\!s} p \rar_r q$. Although any
+interpretation $I$ that satisfies $1-p^I \leq q^I$ is a $1$-model of
+$F$, among them only $\{(p, 0), (q, 1)\}$ is a $1$-stable model of
+$F$. However, we check that all $1$-models of $F$ are exactly the
+$1$-stable models of $G = F\fand_m Choice(p) \fand_m Choice(q)$:\ \  
+% \begin{align}
+% \nonumber G =  F\fand_m Choice(p) \fand_m Choice(q) &= (\neg_{\!s} p \rar_r q) \fand_m (p\for_l \neg_{\!s} p) \fand_m (q\for_l \neg_{\!s} q)
+% \end{align}
+$G^*(u,v)$ is 
+\[ 
+   (\neg_{\!s} p \rar_r q) \fand_m (\neg_{\!s} p \rar_r v) \fand_m (u\for_l
+   \neg_{\!s} p) \fand_m (v\for_l \neg_{\!s} q)
+\]
+and for $K = I\cup J^{pq}_{uv}$, 
+\[
+%   G^*(u,v)^K = \left(\o{1} \fand_m (\o{(1-p^K)}\rar_r\o{v^K}) \fand_m   
+%           (\o{u^K}\for_l\o{(1-p^K)}) \fand_m (\o{v^K}\for_l %\o{(1-q^K)})\right)^K
+   G^*(u,v)^K = 1 \fand_m ((1-p^K) \rar_r v^K) \fand_m (u^K\for_l
+   (1-p^K)) \fand_m (v^K\for_l (1-q^K)).
+\]
+So, for $K$ to satisfy $G^*(u,v)$ to degree $1$, $u^K$ should be 
+at least $p^K$ and $v^K$ should be at least $q^K$. So there does not
+exist $J <^{pq} I$ such that $I\cup J^{pq}_{uv} \models_1 G^*(u,v)$,
+from which it follows that $I$ is a $1$-stable model of $G$.
+\end{example}
+
+\vspace{-0.3cm}
+
+%---------------------------------------------------------------------
+\section{Other Related Work} \label{sec:related_work} \optional{sec:related_work}
+%---------------------------------------------------------------------
+
+% Equili_logic and semantics for normal programs
+% Other semantics of FASP (syntax; reduct-based approaches; unfounded-set based approaches; weighted vs. unweighted)
+Several approaches to incorporating fuzziness into the answer
+set programming framework have been proposed. In this paper, we have
+formally compared our approach to \cite{schockaert12fuzzy} and
+\cite{lukasiewicz06fuzzy}.
+%, and shown that our approach is equivalent
+%to fuzzy equilibrium logic \cite{schockaert12fuzzy} when strong
+%negation is applied to atoms only and can capture
+%the reduct-based semantics of normal fuzzy answer set
+%programs \cite{lukasiewicz06fuzzy}. There are a variety of other
+%approaches. 
+Most of them consider the specific syntax where each
+formula is of the rule form $h\leftarrow B$ where $h$ is an atom and
+$B$ is a formula
+\cite{vojtas01fuzzy,damasio01monotonic,medina01multi-adjoint,damasio01antitonic}. 
+Among them, \cite{vojtas01fuzzy,damasio01monotonic,medina01multi-adjoint} allow $B$ to be any arbitrary formula
+corresponding to an increasing function whose arguments are the atoms
+appearing in the formula. ~\cite{damasio01antitonic} allows $B$
+to correspond to either an increasing function or a decreasing
+function. ~\cite{madrid08towards} considers the normal program
+syntax, i.e., each rule is of the form $l_0 \leftarrow l_1 \fand \dots
+\fand l_m \fand not\ l_{m+1} \fand \dots \fand not\ l_{n}$, where each
+$l_i$ is an atom or the strong negation of an atom. In terms of
+semantics, most of the previous works rely on the notion of immediate
+consequence operator and relate the fixpoint of this operator to the
+minimal model of a positive program.\footnote{We call a program
+  positive if it does not contain any default negation.} Similar to
+the approach ~\cite{lukasiewicz06fuzzy} has adopted, the answer set of
+a positive program is defined as its minimal model, while an answer
+set of a non-positive program is defined in terms of the minimal model
+of the reduct, which is a positive program obtained based on the
+normal program and the specific interpretation being
+checked. ~\cite{nieuwenborgh07anintroduction} has proposed a semantics based on
+the notion of an unfounded set.
+% rather than the reduct. But it turns out
+%the unfounded-set based semantics coincides with the reduct-based
+%definition in normal programs(~\cite{janssen12reducing}). 
+%As shown in this paper, our semantics does not rely on the notion of
+%reduct, but it captures the reduct-based definition when normal programs %are
+%considered.
+
+It is worth noting that some of the related works have discussed
+the so-called residuated programs
+\cite{vojtas01fuzzy,damasio01monotonic,medina01multi-adjoint,madrid08towards}, where each rule $h
+\leftarrow B$ is assigned a weight $\theta$, and a rule is satisfied by an
+interpretation $I$ if $I(h \leftarrow B) \geq \theta$. According to
+\cite{damasio01monotonic}, this class of programs is able to
+capture many other logic programming paradigms, such as possibilistic
+logic programming, hybrid probabilistic logic programming, generalized
+annotated logic programming. Furthermore, as shown in
+~\cite{damasio01monotonic}, a weighted rule $(h \leftarrow B,
+\theta)$ can be simulated by $h \leftarrow B \fand \theta$, where
+$(\fand, \leftarrow)$ forms an ``adjoint pair.''
+
+
+% Other approach dealing with strong negation
+%In our framework, we do not have any operator corresponding to strong
+%negation, but instead we introduce new atoms and extra formulas to
+%represent strong negation. 
+
+It is well known in the Boolean stable model semantics that strong
+negation can be represented in terms of new atoms
+\cite{ferraris11stable}. 
+Our adaptation in the fuzzy stable model semantics is similar to the
+method from~\cite{madrid08towards}, in which the consistency of an interpretation is guaranteed by imposing the extra restriction $I(\sneg p) \leq\ \sneg I(p)$ for all atom $p$. Strong negation and consistency have also been studied in \cite{madrid11measuring,madrid09oncoherence}.
+
+% Other semantics dealing with fuzzyness (annotated ASP, possibilistic
+% ASP?)
+\BOCC
+In addition to fuzzy answer set programming, there are other paradigms
+developed to handle many-valued logic. For example,
+\cite{straccia06annotated} has proposed a logic programming framework
+where each literal is annotated by a real-valued interval, in this way
+the non-monotonicity of answer set programming and many-valued logic
+are combined. Another example is possibilistic
+logic \cite{dubois04possibilistic}, where each propositional
+symbol is associated with two real values in the interval $\left[0,
+  1\right]$ called necessity degree and possibility degree. Although
+these semantics handle fuzziness based on quite different ideas, it
+has been shown that these paradigms can be captured by fuzzy answer
+set programming~\cite{damasio01monotonic}.
+\EOCC
+
+\vspace{-0.3cm}
+
+
+%---------------------------------------------------------------------
+\section{Conclusion} \label{sec:conclusion} \optional{sec:conclusion}
+%---------------------------------------------------------------------
+
+%[[ exapnd conclusion ]] 
+
+We introduced a stable model semantics for fuzzy propositional
+formulas, which generalizes both the Boolean stable model semantics
+and fuzzy propositional logic. The syntax is the same as the syntax of
+fuzzy propositional logic, but the semantics defines {\em stable
+  models} instead of {\em models}. The formalism allows highly
+configurable default reasoning involving fuzzy truth values. 
+Our semantics, when we restrict threshold to be~$1$ and assume all
+atoms to be subject to minimization, is essentially equivalent to
+fuzzy equilibrium logic, but is much simpler. To the best of our
+knowledge, our representation of the commonsense law of inertia involving
+fuzzy values is new. The representation uses nested fuzzy operators,
+which are not available in other fuzzy ASP semantics for a restricted syntax.
+
+We showed that several traditional results in answer set programming can be naturally extended to this formalism, and expect that more results can be carried over. 
+%Our semantics is equivalent to fuzzy equilibrium logic, but is much
+%more simpler. 
+Future work includes
+implementing this language using mixed integer programming solvers or
+bilevel programming solvers~\cite{alviano13fuzzy}. 
+
+%The future work includes comparison with fuzzy equilibrium logic, and
+%Janssens' work. 
+
+\smallskip\noindent
+{\bf Acknowledgements}\ \ 
+We are grateful to Joseph Babb, Michael Bartholomew, Enrico Marchioni, and the anonymous
+referees for their useful comments and discussions related to this paper. 
+This work was partially supported by the National Science Foundation under Grant IIS-1319794 and by the South Korea IT R\&D program MKE/KIAT
+2010-TD-300404-001.
+
+%\bibliographystyle{named}
+\bibliographystyle{splncs}
+%\bibliography{bib,bib2}
+
+\begin{thebibliography}{10}
+
+\bibitem{lif08}
+Lifschitz, V.:
+\newblock What is answer set programming?
+\newblock In: Proceedings of the AAAI Conference on Artificial Intelligence,
+  MIT Press (2008)  1594--1597
+
+\bibitem{lukasiewicz06fuzzy}
+Lukasiewicz, T.:
+\newblock Fuzzy description logic programs under the answer set semantics for
+  the semantic web.
+\newblock In Eiter, T., Franconi, E., Hodgson, R., Stephens, S., eds.: RuleML,
+  IEEE Computer Society (2006)  89--96
+
+\bibitem{janssen12reducing}
+Janssen, J., Vermeir, D., Schockaert, S., Cock, M.D.:
+\newblock Reducing fuzzy answer set programming to model finding in fuzzy
+  logics.
+\newblock TPLP \textbf{12}(6) (2012)  811--842
+
+\bibitem{vojtas01fuzzy}
+Vojt{\'a}s, P.:
+\newblock Fuzzy logic programming.
+\newblock Fuzzy Sets and Systems \textbf{124}(3) (2001)  361--370
+
+\bibitem{damasio01monotonic}
+Dam{\'a}sio, C.V., Pereira, L.M.:
+\newblock Monotonic and residuated logic programs.
+\newblock In Benferhat, S., Besnard, P., eds.: ECSQARU. Volume 2143 of Lecture
+  Notes in Computer Science., Springer (2001)  748--759
+
+\bibitem{medina01multi-adjoint}
+Medina, J., Ojeda-Aciego, M., Vojt{\'a}s, P.:
+\newblock Multi-adjoint logic programming with continuous semantics.
+\newblock In: Proceedings of International Conference on Logic Programming and
+  Nonmonotonic Reasoning ({LPNMR}). (2001)  351--364
+
+\bibitem{damasio01antitonic}
+Dam{\'a}sio, C.V., Pereira, L.M.:
+\newblock Antitonic logic programs.
+\newblock In: Proceedings of International Conference on Logic Programming and
+  Nonmonotonic Reasoning ({LPNMR}). (2001)  379--392
+
+\bibitem{nieuwenborgh07anintroduction}
+Nieuwenborgh, D.V., Cock, M.D., Vermeir, D.:
+\newblock An introduction to fuzzy answer set programming.
+\newblock Ann. Math. Artif. Intell. \textbf{50}(3-4) (2007)  363--388
+
+\bibitem{madrid08towards}
+Madrid, N., Ojeda-Aciego, M.:
+\newblock Towards a fuzzy answer set semantics for residuated logic programs.
+\newblock In: Web Intelligence/IAT Workshops, IEEE (2008)  260--264
+
+\bibitem{ferraris11stable}
+Ferraris, P., Lee, J., Lifschitz, V.:
+\newblock Stable models and circumscription.
+\newblock Artificial Intelligence \textbf{175} (2011)  236--263
+
+\bibitem{hajek98mathematics}
+Hajek, P.:
+\newblock Mathematics of Fuzzy Logic.
+\newblock Kluwer (1998)
+
+\bibitem{schockaert12fuzzy}
+Schockaert, S., Janssen, J., Vermeir, D.:
+\newblock Fuzzy equilibrium logic: Declarative problem solving in continuous
+  domains.
+\newblock ACM Trans. Comput. Log. \textbf{13}(4) (2012) ~33
+
+\bibitem{madrid11measuring}
+Madrid, N., Ojeda-Aciego, M.:
+\newblock Measuring inconsistency in fuzzy answer set semantics.
+\newblock IEEE T. Fuzzy Systems \textbf{19}(4) (2011)  605--622
+
+\bibitem{madrid09oncoherence}
+Madrid, N., Ojeda-Aciego, M.:
+\newblock On coherence and consistence in fuzzy answer set semantics for
+  residuated logic programs.
+\newblock In Ges{\`u}, V.D., Pal, S.K., Petrosino, A., eds.: WILF. Volume 5571
+  of Lecture Notes in Computer Science., Springer (2009)  60--67
+
+\bibitem{alviano13fuzzy}
+Alviano, M., Pe{\~n}aloza, R.:
+\newblock Fuzzy answer sets approximations.
+\newblock TPLP \textbf{13}(4-5) (2013)  753--767
+
+\end{thebibliography}
+
+
+
+%\newpage
+%\appendix
+%\include{fuzzysm-jelia-appendix-0714}
+
+\end{document}

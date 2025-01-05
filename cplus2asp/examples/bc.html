@@ -1,0 +1,245 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+  -
+  - Copyright (c) 2010-2013 <Joseph Babb, Michael Cassollary, Joohyung Lee>
+  -
+  - For information on how to contact the authors, please visit
+  -      http://reasoning.eas.asu.edu/Cplus2ASP
+  -
+  - This file is part of the Cplus2ASP system.
+  -
+  - Cplus2ASP is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License as published by
+  - the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - Cplus2ASP is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+<head>
+<title>Cplus2ASP v3.1 - The Action Language BC</title>
+<link rel="stylesheet" type="text/css" href="../cplus2aspstyle.css" />
+
+<style media="screen" type="text/css">
+.indented-table {
+	margin-left:70px;
+	border: 1px solid black;
+	border-collapse:collapse;
+}
+
+.indented-table th {
+	padding-right:80px;
+	text-align:center;
+	border: 1px solid black;
+	background:#FFC266;
+}
+
+.indented-table td {
+	padding-right:80px;
+	border: 1px solid black;
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Header / Navigation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP v3.1</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="../index.html" class="directoryLink" title="Back to Index">Home</a></li>
+</ul>
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="../release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+<li><a href="../obtaining_cplus2asp.html" class="directoryLink" title="Obtaining Cplus2ASP">Obtaining Cplus2ASP</a></li>
+<li><a href="../installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="../running_cplus2asp.html" class="directoryLink" title="Running Cplus2ASP">Running Cplus2ASP</a></li>
+<li><a href="../cplus2asp_programs.html" class="directoryLink" title="Cplus2ASP Programs">Cplus2ASP Programs</a></li>
+</ul>
+
+<hr />
+<p class="title">Examples and Features:</p>
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./benchmarks.html" class="directoryLink" title="Cplus2ASP Benchmarking Results">Benchmarks</a></li>
+<li><a href="./lua.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using LUA</a></li>
+<li><a href="./python.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Python</a></li>
+<li><a href="./config.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Config file</a></li>
+<li><a href="./bc.html" class="directoryLink" title="Using the Language BC">Language BC</a></li>
+<li><a href="./reactive.html" class="directoryLink" title="Using Reactive Mode">Reactive Mode</a></li>
+</ul>
+
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+<li><a href="../../cplus2asp_old/index.html" class="directoryLink" title="Cplsu2asp v3.0">Cplus2asp v3.0</a></li>
+</ul>
+</p>
+</div>
+
+<div id="pagebody">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Body ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<h2>The Action Language BC</h2>
+
+<p class="text">
+	As of version 2.1, Cplus2ASP includes support for the Action Language BC as an input language.
+</p>
+
+<p class="text">
+	The Action Language BC, as described by 
+	<a href="http://peace.eas.asu.edu/joolee/papers/langbc-ijcai.pdf">Lee et al. (2013)</a>,
+	is a recent language that extends the traditional syntax of the Action Language B with 
+	C-like features such as static causal laws. The result is a language more expressive than
+	either which allows for the representation of many complex concepts such as strong-dependencies, 
+	which are required to represent transitive closure relations.
+</p>
+
+<p class="text">
+	Lee et al. describes a syntax of BC which is very similar to that of the language C+ implemented in the
+	Causal Calculator as well Cplus2ASP. With this notation, a BC law takes the same form as a C+
+	law except that it may include an <bf>ifcons</bf> clause. The semantics of the language BC 
+	are defined directly in terms of translations to ASP. The translation is shown in the table
+	below.
+</p>
+
+<table class="indented-table">
+<tr>
+	<th>Type</th>
+	<th>BC Syntax</th>
+	<th>ASP Translation</th>
+</tr>
+<tr>
+	<td>Static Law</td>
+	<td class="code">F if G ifcons H.</td>
+	<td class="code">t:F :- t:G, not not t:H, M.</td>
+</tr>
+<tr>
+	<td>Action Dynamic Law</td>
+	<td class="code">F if G ifcons H.</td>
+	<td class="code">(t-1):F :- (t-1):G, not not (t-1):H.</td>
+</tr>
+<tr>
+	<td>Fluent Dynamic Law</td>
+	<td class="code">F if G ifcons H after M.</td>
+	<td class="code">t:F :- t:G, not not t:H, (t-1):M.</td>
+</tr>
+<tr>
+	<td>Inertial Law</td>
+	<td class="code">inertial f.</td>
+	<td class="code">{t:F} :- (t-1):F.</td>
+</tr>
+</table>
+<p class="text">
+	Where F is a multi-valued atom (or false), G, H, and M are conjunctions of literals, and
+	f is a fluent.
+</p>
+
+<p class="text">
+	Due to the strict syntactic limitations on the body of rules it becomes impossible to represent
+	exogeneity or inertial assumptions using the standard rule forms found in C+. Due to this BC assumes
+	that all actions are exogenous and provides the inertial law to declare fluents as inertial (although 
+	this law is also present in C+ it is seen as an abbreviation of <span class="code">caused F if F after F</span>).	
+
+limitations of One additional notable difference between a BC program and a C+ program is that in BC we 
+</p>
+
+
+<p class="note">
+	It's possible to establish a relationship between C+ and BC given their respective translations
+	into ASP. In general, a BC program which contains only empty <bf>if</bf> clauses can be transformed
+	into an equivalent C+ program by replacing all <bf>ifcons</bf> clauses with <bf>if</bf> clauses.
+</p>
+
+<p class="text">
+	As an example of BC's syntax, below is a simple description of the Blocks World domain described
+	in the BC input language of Cplus2ASP. 
+</p>
+	
+<pre class="indented-code">
+:- sorts
+	loc >> block.
+
+:- objects
+	b1, b2, b3, b4 :: block;
+	table :: loc.
+
+:- constants
+	loc(block)      :: inertialFluent(loc);
+	in_tower(block) :: sdFluent;
+	move(block, loc):: action.
+
+:- variables
+	B, B1, B2   :: block;
+	L, L1       :: loc.
+
+% location
+impossible loc(B1) = B, loc(B2) = B where B1\=B2.
+
+% Definition of a tower
+default -in_tower(B).
+in_tower(B) if loc(B) = table.
+in_tower(B) if loc(B) = B1, in_tower(B1).
+
+% Blocks don't float in the air
+impossible -in_tower(B).
+
+% Moving a block
+move(B,L) causes loc(B)=L.
+
+nonexecutable move(B,L) if loc(B1) = B.
+
+:- query
+	label :: stack;
+	0: loc(B)=table;
+	maxstep: loc(b4)=b3, loc(b3)=b2, loc(b2)=b1.
+</pre>
+
+<p class="text">
+	In order to run this program, you would simply execute the following command:
+</p>
+<pre class="indented-code">
+cplus2asp b.bc --language=bc query=0
+</pre>
+
+<p class="text">
+	For more examples of the use of language BC, please see the examples directory in the Cplus2ASP 
+	distributable files.
+</p>
+
+<p class="title">Downloads:</p>
+<ul>
+<li> <a href="./files/bc/bw.bc">bw.bc</a></li>
+</ul>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Copyright -->
+<hr />
+<center>
+<p class="footnote"> Copyright (C) 2010-2013 - Joseph Babb, Michael Cassolary, and Joohyung Lee. </p>
+<p class="footnote">&#123; jbabb1, Michael.Casolary, joolee &#125; &lt;at&gt; asu &lt;dot&gt; edu.  </p>
+<p class="footnote"> This work was partially supported by the National Science Foundation under Grant IIS-0916116.</p>
+</center>
+</div>
+</body>
+</html>

@@ -1,0 +1,381 @@
+<hr align="center" width="50"> <html>
+<head>
+<title>User Manual</title>
+</head>
+
+<!-- frameset cols="," -->
+<!-- frame name=" " src=" " -->
+<!-- frame name=" " src=" " -->
+<!-- noframes -->
+
+<!-- /noframes -->
+<!-- /frameset -->
+
+<body>
+&nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+<br> <br> <br>
+<h3> <a name="contents"> Contents </a> </h3>
+1. <a href="#Encoding">Encoding in F2LP</a><br>
+2. <a href="#Domain and domain variable declarations">Domain and domain variable declarations</a><br>
+3. <a href="#Lparse and gringo rules">Lparse and gringo rules</a><br>
+4. <a href="#Built-in predicates and functions">Built-in predicates and functions</a><br>
+5. <a href="#New predicates and variables introduced">New predicates and variables introduced</a><br>
+6. <a href="#Aggregate Expressions">Aggregate Expressions</a><br>
+7. <a href="#Reserved characters and keywords">Reserved characters and keywords</a><br>
+8. <a href="#Extensional predicates">Extensional predicates</a><br>
+9. <a href="#Strong Negation and Backward Compatibility">Strong Negation and Backward Compatibility</a><br>
+10. <a href="#Configuration Options">Configuration Options</a><br>
+11. <a href="#Invoking F2LP and F2LP options">Invoking F2LP and F2LP options</a><br>
+12. <a href="#Debugging">Debugging</a><br>
+13. <a href="#Temporary files created">Temporary files created</a><br>
+14. <a href="#Limitations">Limitations</a><br>
+15. <a href="#Future work">Future work</a><br>
+
+<br><br><br>
+<h4><a name = "Encoding">Encoding in F2LP</a></h4>
+Atoms and variables are represented as in lparse and gringo.
+<br>
+An F2LP rule is of the form <br>
+&nbsp;&nbsp;&nbsp;&nbsp; F <- G. <br>
+where F and G are first-order formulas, which can
+be encoded using the following ASCII representations: 
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>conjunction</TD> <TD>disjunction</TD> <TD>implication</TD>
+     <TD>default negation</TD> <TD>strong negation</TD> 
+     <TD>true</TD> <TD>falsity</TD>
+     <TD>forall x,y,z</TD> <TD>exists x,y,z</TD>
+</TR>
+<TR>     
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&</TD> <TD>&nbsp;&nbsp;&nbsp;&nbsp;|</TD> <TD>&nbsp;&nbsp;&nbsp;&nbsp;-></TD>
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;not</TD> <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</TD> 
+     <TD>true</TD> <TD>false</TD>
+     <TD>![X,Y,Z]:</TD> <TD>?[X,Y,Z]:</TD>
+<TR>
+</TABLE>
+Note that each rule must end with a dot(.).<br><br>
+An F2LP encoding is a set of F2LP rules.<br><br>
+The arrow (<-) symbol has no special meaning. <br>
+It is just implication written backwards in order to make F2LP 
+logic programming friendly. <br>For example,
+p -> q and q <- p have the same meaning.<br><br>
+In F2LP, the precedence for the quantifiers is same as the precedence 
+for default negation.<br> This implies that the third occurrence of X in
+?[X]:p(X) & q(X) is considered to be free. <br>
+The formula ?[X]:(p(X) & q(X)) has no free occurrences of variables.
+
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+<h4><a name = "Domain and domain variable declarations">Domain and domain variable declarations</a></h4>
+The domain and domain variable declarations are similar to the
+declarations in lparse and gringo.<br> For example, the following
+line declares the domain of object to be {a,b,c}:<br> 
+object(a;b;c).
+<br>
+The following line declares X and Y as variables ranging over
+the domain of "object":<br>
+#domain object(X;Y).
+<br><br>
+The following is a complete example:<br>
+% file example1.fof<br>
+
+% domain from 0 to 9<br>
+number(0..9).<br>
+% domain variables X and Y <br>
+#domain number(X;Y).<br>
+
+r(1).<br>
+s(X) <- r(X) & not ?[Y]:(p(X,Y) & q(X,Y)).
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+
+<h4><a name="Lparse and gringo rules">Lparse and gringo rules</a></h4>
+F2LP supports rules in lparse and gringo syntax. These rules are
+simply copied to the output.<br>
+The following is an example:<br>
+% file example2.fof<br>
+
+% domain {a,b,c}<br>
+object(a;b;c).<br>
+
+% domain variable X<br>
+#domain object(X).<br>
+
+p(a).<br>
+r(c).<br>
+q(b) <- ?[X]:(p(X) & r(X)).<br>
+
+% rule in lparse/gringo syntax<br>
+q(X) :- p(X), not r(X).
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+
+<h4><a name="Built-in predicates and functions">Built-in predicates and functions</a></h4>
+F2LP supports the following built-in predicates and functions:
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>eq(X,Y)</TD> <TD>assign(X,Y)</TD> <TD>neq(X,Y)</TD> <TD>lt(X,Y)</TD>
+     <TD>le(X,Y)</TD> <TD>gt(X,Y)</TD> <TD>ge(X,Y)</TD>
+</TR>
+<TR>     
+     <TD>X==Y</TD> <TD>X=Y</TD> <TD>X!=Y</TD> <TD>X&lt;Y</TD>
+     <TD>X&lt;=Y</TD> <TD>X&gt;Y</TD> <TD>X&gt;=Y</TD>
+<TR>
+</TABLE>
+
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>X+Y</TD> <TD>X-Y</TD> <TD>X*Y</TD>
+     <TD>X/Y</TD> <TD>X mod Y (X \ Y)</TD> <TD>X^Y (xor)</TD>
+     <TD>#abs(X)</TD>
+</TR>
+</TABLE>
+For built-in predicates, either representation can be used.
+For example, if F2LP encounters neq(X,a), it will simply
+turn it to X != a.
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+<h4><a name="New predicates and variables introduced">New predicates and variables introduced</a></h4>
+In order to eliminate positive occurrences of the existential quantifier and 
+negative occurrences of the universal quantifier, <br>F2LP introduces new predicates "_new_pred_*",<br>
+where * is a number that is incremented every time a new predicate is introduced. <br>For this reason names of the form "_new_pred_1", "_new_pred_2", etc. should not be used for encoding in F2LP.<br><br>
+The following is an example that shows introduction of
+new predicates:<br>
+% Begin F2LP input<br>
+% file example1.fof<br>
+% domain from 0 to 9<br>
+number(0..9).<br>
+% domain variables X and Y<br>
+#domain number(X;Y).<br>
+r(1).<br>
+s(X) <- r(X) & not ?[X]:(p(X,Y) & q(X,Y)).<br>
+% End F2LP input <br>
+<br>
+Run F2LP:<br>
+f2lp example1.fof<br>
+<br>
+% Begin F2LP output <br>
+number(0..9).<br>
+#domain number(X;Y).<br>
+r(1) :- true.<br>
+s(X) :- r(X), not _new_pred_1(Y).<br>
+_new_pred_1(Y) :- p(X,Y), q(X,Y).<br>
+true.<br>
+:- false.<br>
+#hide true.<br>
+% End F2LP output<br>
+Here "_new_pred_1" is the new predicate introduced by F2LP.<br><br><br>
+
+In order to eliminate negative occurrences of the existential quantifier and positive occurrences of the universal quantifier, <br>
+F2LP introduces new variables "_NV_*", 
+where * is a number that is incremented every time a new variable is introduced. <br>
+For this reason, variables of the form "_NV_1", "_NV_2", etc. should not be used for encoding in F2LP. <br><br>
+The following is an example that demonstrates how F2LP introduces new variables.<br>
+% Begin F2LP input <br>
+% file example2.fof <br>
+% domain {a,b,c} <br>
+object(a;b;c).<br>
+% domain variable X<br>
+#domain object(X).<br>
+p(a).<br>
+r(c).<br>
+q(b) <- ?[X]:(p(X) & r(X)).<br>
+% End F2LP input<br>
+<br>
+% Begin F2LP output<br>
+object(a;b;c).<br>
+#domain object(X).<br>
+p(a) :- true.<br>
+r(c) :- true.<br>
+#domain object(_NV_1).<br>
+q(b) :- p(_NV_1), r(_NV_1).<br>
+true.<br>
+:- false.<br>
+#hide true.<br>
+% End F2LP output <br>
+
+Here "_NV_1" is the new variable introduced which has the same domain as the variable it replaced (X). 
+
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+<h4><a name="Aggregate Expressions">Aggregate Expressions</a></h4>
+F2LP supports lparse, gringo and dlv aggregates.<br>
+However, since the current versions of gringo and lparse do not support
+dlv aggregates,<br> 
+the output of F2LP cannot be understood by lparse and
+gringo if dlv aggregates are used.<br><br>
+F2LP treats aggregate expressions as atoms.
+As a result, they can also be used in the scope of quantifiers.<br>
+In order to handle aggregates, F2LP internally converts them to
+atoms of the form "_agg_exp_*". <br> 
+So, names beginning with "_agg_exp_" are reserved for use by F2LP.<br>
+F2LP does not support nested aggregates (aggregates within aggregates).<br>
+<br>
+Example: <br>
+{p(X):q(X)} & r(Y) <- s(Y) & not 2{t(X,Z,Z):s(Z)}.<br>
+{p(X)} <- #sum[t(X,Y,Z):r(Z):q(Y),s(X)]5 | s(X). <br>
+<br>is turned to <br><br>
+{p(X):q(X)} :- s(Y), not 2{t(X,Z,Z):s(Z)}.<br>
+r(Y) :- s(Y), not 2{t(X,Z,Z):s(Z)}.<br>
+{p(X)} :- #sum[t(X,Y,Z):r(Z):q(Y),s(X)]5. <br>
+{p(X)} :- s(X).
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+
+<h4><a name="Reserved characters and keywords">Reserved characters and keywords</a></h4>
+The following characters and keywords are reserved for use by F2LP:
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>@</TD> <TD>`</TD> <TD>'</TD> <TD>_new_pred_*</TD> <TD>_NV_*</TD> <TD>_agg_exp_*</TD> <TD>lparse built-in names (eq, ge, mod, etc)</TD>
+</TR>
+</TABLE>
+
+<br><br><br>
+<a href="#contents">up</a>
+<h4> <a name="Extensional predicates">Extensional predicates</a></h4>
+F2LP allows predicates to be extensional.<br> 
+Predicates can be declared 
+as extensional by using the keyword "extensional" as follows:<br>
+#extensional p(X,Y).<br><br>
+The above line declares the predicate p to be extensional.<br>
+Here X and Y have to be domain variables. This is because F2LP cannot
+automatically identify the domain of the arguments of predicates.<br>
+When F2LP encounters the above line, it just replaces it with the choice rule<br>
+{p(X,Y)}.
+ 
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+
+<h4> <a name="Strong Negation and Backward Compatibility">Strong Negation and Backward Compatibility</a></h4>
+For the sake of backward compatibility, F2LP treats the symbol "-"
+as default negation under certain circumstances:<br>
+(a) if the description contains the F2LP arrow (<-), then
+"-" is treated as strong negation;<br>
+(b) if the description does not contain the F2LP arrow but 
+contains implication, then "-" is treated as default negation;<br>
+(c) if neither F2LP arrow nor implication are found, then "-"
+is treated as strong negation.
+<br><br>
+F2LP also provides run time options to set "-" to either strong
+negation or default negation. <br>
+See Section <a href="#Invoking F2LP and F2LP options">Invoking F2LP and F2LP options</a>
+for further details.<br><br>
+If "-" is used for default negation, then strong negation
+can be represented using "~". <br> For example, the following
+(complete) description uses "-" for default negation and "~" 
+for strong negation <br>(note the absence of F2LP arrow (<-)):<br><br>
+object(a;b;c).<br>
+#domain object(X;Y).<br>
+p(X) & -?[Y]:q(X,Y) -> ~r(X).
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+
+
+<h4><a name="Configuration Options">Configuration Options</a></h4>
+The following parameters are configurable:
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>Parameter</TD> <TD>Macro</TD> <TD>Default value</TD>
+</TR>
+<TR>
+     <TD>Maximum length of any formula</TD> <TD>LINE_MAX</TD> <TD>as defined in "limits.h"</TD>
+</TR>
+<TR>
+     <TD>Maximum length of any atomic formula</TD> <TD>MAX_PREDICATE_LENGTH</TD> 
+     <TD>500 bytes</TD>
+</TR>
+<TR>
+     <TD>Maximum number of connectives and arithmetic operators in a formula</TD> 
+     <TD>MAX_SYMBOLS</TD> <TD>500</TD>
+     
+</TR>
+</TABLE>
+F2LP can be compiled using gcc. The following line should work with most gcc distributions:<br>
+gcc f2lp.c -o f2lp<br><br>
+The above command line sets the configurable parameters to default values.<br>
+LINE_MAX is by default set to the value defined in "limits.h". If LINE_MAX 
+is not defined in "limits.h", then the value is set to 2048 bytes.<br>
+The parameter values can be defined by the user during compile time.<br>
+The following line sets LINE_MAX to 1000 bytes, MAX_PREDICATE_LENGTH to 50 bytes
+and MAX_SYMBOLS to 20.<br>
+gcc -D LINE_MAX=1000 -D MAX_PREDICATE_LENGTH=50 -D MAX_SYMBOLS=20 f2lp.c -o f2lp
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+<h4><a name="Invoking F2LP and F2LP options">Invoking F2LP and F2LP options</a></h4>
+Input can be provided to F2LP through STDIN or file interface:<br>
+f2lp input_file_1 input_file_2 . . . input_file_n<br><br>
+If no input file is provided, STDIN is considered.<br>
+For example, using the following command line is equivalent
+to providing input_file as an argument to F2LP:<br>
+cat input_file | f2lp<br><br>
+Other run time options are as follows:<br>
+1. -h, --h, -help, --help : displays all options.<br>
+2. -v, --v, -version, --version: displays the version number.<br>  
+3. -d: treat "-" as default negation.<br>
+4. -c: treat "-" as classical negation.
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+<h4><a name="Debugging">Debugging</a></h4>
+F2LP can be compiled to output debug information using the
+following command line:<br>
+
+gcc -D DEBUG f2lp.c -o f2lp<br><br>
+
+Note that the output of f2lp in this case cannot be
+directly provided as input to the answer set solvers.
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+<h4><a name="Temporary files created">Temporary files created</a></h4>
+F2LP creates the following files in the working directory:<br>
+(a) .f2lp_input.fof<br>
+(b) .solver_input.lp<br><br>
+This implies that the user should have write permissions
+in the working directory.
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+
+<h4><a name="Limitations">Limitations</a></h4>
+1. Variables cannot contain any characters other than alphabets, numbers and underscore(_).<br>
+2. The domain of a variable might not be identified if it occurs before its 
+declaration as a domain variable. <br>This does not imply that every variable 
+has to be a domain variable. <br>It only implies that if the variable needs
+to be replaced by a new variable during quantifier elimination,<br> 
+F2LP might not declare the domain of the new variable.
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+<h4><a name="Future work">Future work</a></h4>
+1. To implement safety preserving transformation.<br>
+2. To output programs in the language of DLV.<br>
+3. To overcome the limitations described above.
+
+<br><br><br>
+<a href="#contents">up</a> &nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a>
+
+</body>
+
+	
+</html>

@@ -1,0 +1,670 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+  -
+  - Copyright (c) 2010-2013 <Joseph Babb, Michael Cassolary, Joohyung Lee>
+  -
+  - For information on how to contact the authors, please visit
+  -      http://reasoning.eas.asu.edu/Cplus2ASP
+  -
+  - This file is part of the Cplus2ASP system.
+  -
+  - Cplus2ASP is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License as published by
+  - the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - Cplus2ASP is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+<head>
+<title>Cplus2ASP v3.1 - Programming</title>
+<link rel="stylesheet" type="text/css" href="./cplus2aspstyle.css" />
+</head>
+<body>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Header / Navigation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP v3.1</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Back to Index">Home</a></li>
+</ul>
+
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="./release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+<li><a href="./obtaining_cplus2asp.html" class="directoryLink" title="Obtaining Cplus2ASP">Obtaining Cplus2ASP</a></li>
+<li><a href="./installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="./running_cplus2asp.html" class="directoryLink" title="Running Cplus2ASP">Running Cplus2ASP</a></li>
+<li><a href="./cplus2asp_programs.html" class="directoryLink" title="Cplus2ASP Programs">Cplus2ASP Programs</a></li>
+</ul>
+
+<hr />
+<p class="title">Examples and Features:</p>
+<ul class="directoryList">
+<li><a href="./examples/index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./examples/benchmarks.html" class="directoryLink" title="Cplus2ASP Benchmarking Results">Benchmarks</a></li>
+<li><a href="./examples/lua.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using LUA</a></li>
+<li><a href="./examples/python.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Python</a></li>
+<li><a href="./examples/config.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Config file</a></li>
+<li><a href="./examples/bc.html" class="directoryLink" title="Using the Language BC">Language BC</a></li>
+<li><a href="./examples/reactive.html" class="directoryLink" title="Using Reactive Mode">Reactive Mode</a></li>
+</ul>
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+<li><a href="../cplus2asp_old/index.html" class="directoryLink" title="Cplsu2asp v3.0">Cplus2asp v3.0</a></li>
+</ul>
+</p>
+</div>
+
+<div id="pagebody">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Body ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<h2>Programming for Cplus2ASP v3.1</h2>
+
+<p class="text">
+  Cplus2ASP allows for the specification of dynamic systems using one of several different <i>action languages</i>,
+  declarative languages focusing on specifying a system by the actions that can be taken and their effects. Regardless
+  of the selected language, the syntax accepted by Cplus2ASP is nearly identical. 
+ </p>
+
+<p class="text">
+	A Cplus2ASP program typically consists of three components:
+</p>
+<ol>
+	<li> symbol declarations, </li>
+	<li> the program's main body, and </li>
+	<li> one or more queries. </li>
+</ol>
+
+<p class="text">
+	Each of these sections are described below in some detail. Additionally, examples can be found on the 
+	<a href="./examples/index.html">Examples</a> page.
+</p>
+
+<h3> Symbol Declarations </h3>
+
+	<p class="indented-text">
+		User-defined identifiers in Cplus2ASP are divided up into 4 types: 
+	</p>
+	<ul class="indented">
+		<li><h4>Objects</h4></li>
+		<p class="indented-text">
+			An object is a single instance of an element in the domain of consideration. These can be abstract
+			concepts like <span class="code">true</span> and <span class="code">false</span>, physical objects
+			like <span class="code">steve</span> and <span class="code">bob</span>.
+		</p>
+		<li><h4>Sorts</h4></li>
+		<p class="indented-text">
+			A sort finite group of 2 or more <i>objects</i> in the domain which are related to each other semantically.
+			Sorts do not have to be disjoint. 
+		</p>
+		<p class="indented-text">
+			As an example, there could be a sort <span class="code">people = {bob, alice, steve}</span> 
+			enumerating the people relevant to the domain and a sort 
+			<span class="code">targets = {steve, none}</span> listing potential targets. In this case
+			<span class="code">steve</span> is both a person and a potential target. <span class="code">none</span>
+			is a reserved object identifier Sindicating there is no target.
+		</p>
+		<li><h4>Constants</h4></li>
+		<p class="indented-text">
+			A (logical) constant is a fundamental component of a Cplus2ASP program which ranges over a sort of objects.
+			The constant is able to take the value of any of the objects in its range. Logical constants in Cplus2ASP 
+			can be divided up into two broad categories: fluents and actions. Fluents are then divided into simple fluents,
+			statically determined fluents
+		</p>
+		<li><h4>Variables</h4></li>
+		 <p class="indented-text">
+			Schematic variables act as placeholders for each of the objects in the sort they range over. Their semantics are
+			defined by a process known as <i>grounding</i> which copies each rule containing variables for each mapping
+			from variables to objects in their respective ranges.
+		 </p>
+	</ul>
+
+	<p class="indented-text">
+		Symbols are declared in a Cplus2ASP program using a series of statements of the form:
+	</p>
+	<pre class="indented2-code">
+:- &lt;type&gt; {&lt;declaration&gt;;} &lt;declaration&gt;.
+	</pre>
+	<p class="indented-text">
+		Where type is the type of symbol being declared (one of <span class="code">objects, sorts, constants, </span> and 
+		<span class="code">variables</span>) and each declaration consists of 
+		<span class="code">&lt;identifier-declaration&gt;{,&lt;identifier-declaration&gt;} [:: &lt;specifier&gt;]</span>
+		declarating one or more identifiers as being of the provided type.
+	</p>
+	
+	<p class="indented-text">
+		An <span class="code">&lt;identifier-declaration&gt;</span> is an identifier <span class="code">[a-zA-Z][a-zA-Z_0-9]*</span> 
+		which may optionally be followed by parameter list declaration <span class="code">(&lt;sort&gt;[, ...,&lt;sort&gt;])</span> if
+		the symbol is a constant or object (sorts and variables cannot have parameters). 
+	</p>
+	<p class="indented-text">
+		The <span class="code">specifier</span> is
+		specific to the type of symbol being declared. Objects and sorts have no specifier, the specifier constants declares the sort
+		it ranges over as well as the type of the constant (<span class="code">&lt;constant-type&gt;(&lt;sort&gt;)</span>), 
+		the specifier for variables is simply the sort it ranges over.
+	</p>
+	<p class="indented-text">
+		Valid <span class="code">constant-types</span> values include <span class="code">simpleFluent, sdFluent</span> (for 
+		statically-determined fluents which depend only on the current system state),<span class="code">inertialFluent,</span> 
+		(shorthand for a simple fluent which behaves inertially), <span class="code">,  action, </span> and 
+		<span class="code">exogenousAction</span> (shorthand for an action with a builtin exogeneity assumption and therefore can occur 
+		arbitrarily), and <span class="code">rigid</span> (a time-invariant constant). Additional valid values vary depending 
+		on the language in use. If a constant-type is not provided it is assumed to be <span class="code">rigid</span>. 
+	</p>
+	<p class="indented-text">
+		If a sort isn't specified for a constant it is assumed be <span class="code">boolean</span>, a special implicit sort ranging over
+		<span class="code">{true, false}</span>.
+	</p>
+	
+	
+	
+	<p class="indented-text">
+		As an example, below is the symbol declarations from the monkey and bananas formalization <a href="examples/files/nmct/monkey.cp">
+		monkey.cp</a>, as formalized in C+ in <a href="http://www.d.umn.edu/~hudson/papers/nmct.pdf">Nonmonotonic Causal Theories</a>.
+	</p>
+	<pre class="indented2-code">
+:- sorts
+	thing;
+	location.
+
+:- objects
+	monkey,bananas,box     :: thing;
+	l1,l2,l3               :: location.
+
+:- variables
+	L                      :: location.
+
+:- constants
+	loc(thing)             :: inertialFluent(location);
+	hasBananas,onBox       :: inertialFluent;
+
+	walk(location),
+	pushBox(location),
+	climbOn,
+	climbOff,
+	graspBananas           :: exogenousAction.
+	</pre>
+	<p class="indented-text">
+		The declarations specify a sort <span class="code">thing = {monkey, bananas, box}</span> of physical objects in the domain of consideration
+		and the sort <span class="code">location = {l1, l2, l3}</span> with variable <span class="code">L</span> of possible locations. 
+		The fluent <span class="code">loc/1</span> maps <span class="code">things</span> to their current <span class="code">location</span> and the
+		boolean fluents <span class="code">hasBananas</span> and <span class="code">onBox</span> track whether the monkey is holding the bananas and/or
+		is on top of the box. Additionally, a number of boolean actions are declared that allow the monkey to walk to a location, push the box to a
+		location, climb on/off the box, and grab the bananas.
+	</p>
+	
+
+<h3> Program Body </h3>
+
+	<p class="indented-text">
+		Although each of the symbols in the previous example has an inteded intuitive meaning, they must be given formal semantics by a Cplus2ASP
+		program which describes their relation to one-another.
+		Cplus2ASP v3.1 currently supports several closely related action languages which can make up the body of the Cplus2ASP program, including:
+	</p>
+	<ul class="indented">
+		<li>C+ (<a href="http://peace.eas.asu.edu/joolee/papers/nmct.pdf">Giunchiglia et. al. (2004)</a>),</li>
+		<li>BC (<a href="http://peace.eas.asu.edu/joolee/papers/langbc-ijcai.pdf"> Lee et. al. (2013)</a>), and </li>
+<!--
+		<li>the prototype language BC+, which fully subsumes languages C+ and BC. </li>
+-->
+	</ul>
+	
+	<h4 class="indented"> Multi-Valued Propositional Formulas </h4>
+	
+	<p class="indented2-text">
+		Regardless of which language is used for the program specification it is important to know the syntax enforced by Cplus2ASP for multi-valued
+		formulas within body of each rule. This is described briefly below.
+	</p>
+	
+	<p class="indented2-text">
+		A multi-valued atom is an expression of the form <span class="code">&lt;constant&gt;=&lt;v&gt;</span> where <span class="code">&lt;constant&gt;</span> 
+		is a constant identifier declared previously (with optional parameter list of objects and/or variables) and <span class="code">&lt;v&gt;</span> is
+		an object in the range of <span class="code">&lt;constant&gt;</span> or a variable ranging over objects in the range of <span class="code">&lt;constant&gt;</span>. 
+	</p>
+
+
+	<p class="indented2-text">
+		A multi-valued propositional formula is a logical formula built using , conjunction (<span class="code">&amp;</span> or <span class="code">,</span>), 
+		disjunction (<span class="code">++</span>), negation (<span class="code">-</span> or <span class="code">not</span>), and implication (<span class="code">-&gt;&gt;</span>).
+	
+	</p>
+	
+	<p class="indented2-note">
+		If <span class="code">&lt;constant&gt;</span> is a boolean constant (i.e. ranges of the <span class="code">boolean</span> sort) then an occurrence of
+		<span class="code">&lt;constant&gt;</span> which otherwise would not be contained in an atom is considered shorthand for the atom
+		<span class="code">&lt;constant&gt;=true</span>. Likewise, an occurrence of <span class="code">~&lt;constant&gt;</span> is taken to be shorthand for 
+		<span class="code">&lt;constant&gt;=false</span>.
+	</p>
+
+	<p class="indented2-note">
+		As an example, <span class="code">((p &amp; not q=3) ++ p=false)</span> where <span class="code">p</span> is boolean would be expanded to the multi-value
+		formula <span class="code">((p=true &amp; not q=3) ++ p=false)</span>.
+	</p>
+	
+
+	<p class="indented2-text">
+		CPlus2ASP programs also support large conjunction and disjunction operators, <span class="code">[/\ &lt;V&gt; | &lt;F(V)&gt;]</span> and <span class="code">[\/ &lt;V&gt; | &lt;F(V)&gt;]</span>
+		respectively where <span class="code">&lt;V&gt;</span> is a variable and <span class="code">&lt;F(V)&gt;</span> is a multi-valued propositional formula. These formulas are
+		taken to be shorthand for <span class="code">F(v1) &amp; F(v2) &amp; ... &amp; F(vn)<span> and <span class="code">F(v1) ++ F(v2) ++ ... ++ F(vn)</span>, respectively,
+		where the <span class="code">&lt;V&gt;</span> ranges over <span class="code">{v1, v2, ..., vn}</span>.
+	</p>
+
+	<p class="indented2-text">
+		As a matter of convenience, CPlus2ASP also supports the shorthand syntax <span class="code">[&lt;op1&gt; &lt;V1&gt; ... &lt;opn&gt; &lt;Vn&gt; | &lt;F(V1,...,Vn)&gt;]</span>
+		where each <span class="code">&lt;opi&gt; (i in 1..n)</span> is <span class="code">/\</span> or <span class="code">\/</span>. This expands into the formula
+		<span class="code"> [&lt;op1&gt; &lt;V1&gt; | ... [&lt;opn&gt; &lt;Vn&gt; | &lt;F(V1,...,Vn)&gt; ]...]</span>.
+	</p>
+
+	<p class="indented2-text">
+		As an example, given variables <span class="code">V1, V2</span> ranging over sorts <span class="code">S1={1,2},</span> and <span class="code">S2={a,b,c}</span> respectively,
+		<span class="code">[/\ S1 \/ S2 | p(S1)=S2]</span> expands into the following multi-valued formula:
+	<p>
+	<pre class="indented3-code">
+(p(1)=a ++ p(1)=b ++ p(1)=c) &amp; (p(2)=a ++ p(2)=b ++ p(2)=c)
+	</pre>
+
+	<p class="indented2-text">
+		CPlus2ASP supports a number of builtin arithmetic and comparison operators which are evaluated during the program ground step when possible.
+	</p>
+	<table class="indented3-table">
+		<tr><th>Operations		</th><th>	Symbol		</th><th>Operations		</th><th>	Symbol		</th></tr>
+		<tr><td>Addition		</td><td>	+		</td><td>Subtraction		</td><td>	-		</td></tr>
+		<tr><td>Multiplication		</td><td>	*		</td><td>Integer Division 	</td><td>	//		</td></tr>
+		<tr><td>Modulus			</td><td>	mod		</td><td>Absolute Value		</td><td>	abs		</td></tr>
+		<tr><td>Equality		</td><td>	==		</td><td>Inequality		</td><td>	\= or &lt;&gt;	</td></tr>
+		<tr><td>Less than		</td><td>	&lt;		</td><td>Less than or equal	</td><td>	=&lt;		</td></tr>
+		<tr><td>Greater than		</td><td>	&gt;		</td><td>Greater than or equal	</td><td>	&gt;=		</td></tr>
+		
+	</table>
+	
+	<p class="indented2-text">
+		When one or more operand of these operators is a constant, the expression is unfolded using an itermediate variable. For example, given a sort
+		<span class="code">s={1,2,3,4}</span> with variable <span class="code">V</span> and constants <span class="code">foo,bar</span> ranging over <span class="code">s</span>
+		the expression <span class="code">foo=bar+1</span> is unfolded to <span class="code">foo=V+1 &amp; bar=V</span>. During grounding this then becomes
+		<span class="code">foo=2 &amp; bar=1, foo=3 &amp; bar=2,</span> and <span class="code">foo=4 &amp; bar=3</span>.
+	</p>
+
+
+
+	<h4 class="indented">The Action Language C+ </h4>
+
+	<p class="indented2-text">
+		The Action Language C+, as described by <a href="http://peace.eas.asu.edu/joolee/papers/nmct.pdf">Giunchiglia et. al. (2004)</a>, was originally 
+		formulated in terms of Causal Logic and its definite fragment was implemented in the system <a href="http://www.cs.utexas.edu/users/tag/cc/">CCalc 2</a>. 
+		<a href="http://ijcai.org/papers07/Papers/IJCAI07-057.pdf‎">Ferraris (2007)</a> later provided a reduction from definite causal logic to ASP which was then applied
+		to C+ and implemented in the prototype version of Cplus2ASP (<a href="http://peace.eas.asu.edu/joolee/papers/cplus2asp.pdf"> Cassolary and Lee (2011)</a>). 
+	</p>
+
+
+	<p class="indented2-text">
+		Giuchiglia et. al. (2004) described C+ as having three types of fundamental declarative laws: <i>static</i>, <i>action dynamic</i>, and <i>fluent dynamic</i> laws. 
+		These laws are shown below in their respective order.
+	</p>
+	<pre class="indented3-code">
+caused &lt;F&gt; [if &lt;G&gt;] [where &lt;K&gt;].
+caused &lt;A&gt; [if &lt;L&gt;] [where &lt;K&gt;].
+caused &lt;F&gt; [if &lt;G&gt;] after &lt;H&gt; [where &lt;K&gt;].
+	</pre>
+
+	<p class="indented2-text">
+		Where:
+	</p>
+	<ul class="indented2">
+		<li><span class="code">&lt;F&gt;</span> is <span class="code">false</span>, a multi-valued atom <span class="code">f=v</span> s.t. <span class="code">f</span> is a fluent, or a conjunction of such atoms,</li>
+		<li><span class="code">&lt;G&gt;</span> is a multi-valued formula containing no action constants,</li>
+		<li><span class="code">&lt;K&gt;</span> is a multi-valued formula containing no constants (i.e. containing only arithmetic operations and comparison on objects in variables),</li>
+		<li><span class="code">&lt;A&gt;</span> is a multi-valued atom <span class="code">a=v</span> s.t. <span class="code">a</span> is an action or a conjunction of such atoms,</li>
+		<li><span class="code">&lt;L&gt;</span> and <span class="code">&lt;H&gt;</span> are multi-valued formulas.</li>
+	</ul>
+
+	<p class="indented2-text">
+		Informally C+ requires that all constants have a single value for each state / state transition which has a cause to hold.
+	</p>
+	<ul class="indented2">
+		<li> A statical law reads that <span class="code">&lt;F&gt;</span> has cause to hold in the current state if <span class="code">&lt;G&gt;</span> holds (classically) in the current state and <span class="code">&gt;K&lt;</span> is satisfied.</li>
+		<li> An action dynamic law reads that <span class="code">&lt;A&gt;</span> has cause to occur in the current transition if <span class="code">&lt;L&gt;</span> holds in the current state/transition  and <span class="code">&gt;K&lt;</span> is satisfied.</li>
+		<li> A fluent dynamic law reads that <span class="code">&lt;F&gt;</span> has cause to hold in the next state if <span class="code">G</span> holds in the current state, <span class="code">&lt;H&gt;</span> held in the last state/transition, and <span class="code">&gt;K&lt;</span> is satisfied.</li>
+	</ul>
+
+	<p class="indented2-note">
+		Essentially the formula <span class="code">&lt;K&gt;</span> is used to control the grounding of the law. As an example, given the sort <span class="code">s={1,2,3}</span> with variable <span class="code">V</span>
+		and fluent <span class="code">foo</span> of sort <span class="code">s</span>, the static law
+	</p>
+	<pre class="indented3-code">
+caused foo=V if foo=V where V&lt;3.
+	</pre> 
+	<p class="indented2-note">
+		is grounded into the laws
+	</p>
+	<pre class="indented3-code">
+caused foo=1 if foo=1 where true.
+caused foo=2 if foo=2 where true.
+caused foo=3 if foo=3 where false.
+	</pre>
+	<p class="indented2-note">
+		The last law is then dropped as the where clause is not satisified. The first two laws act as defaults for <span class="code">foo</span> and informally state that
+		<span class="code">foo</span> <i>may</i> have cause to be 1 or 2. If <span class="code">foo</span> has no other assignment it will default to one of these values.
+	</p>
+
+	<p class="indented2-text">
+		For a more complete understanding of the semantics of C+, we refer the reader to the formentioned papers which each describe the semantics in detail.
+	</p>
+
+	<p class="indented2-text">
+		In addition, CPlus2ASP also supports a number of shorthand rules which are shown below alongside their expansion into one of the standard rule forms.
+	</p>
+	<table class="indented3-table">
+		<tr><th>		Shorthand Rule			</th><th>		Expansion					</th><th> Comments 				</th></tr>
+		<tr>
+			<td class="code"> &lt;a&gt;=&lt;v&gt; causes &lt;F&gt; [if &lt;H&gt;] [where &lt;K&gt;].		</td>
+			<td class="code"> caused &lt;F&gt; after &lt;a&gt;=&lt;v&gt; &amp; &lt;H&gt; where &lt;K&gt;.		</td>
+			<td>													</td>
+		</tr>
+		<tr>
+			<td class="code"> default &lt;F&gt; [if &lt;G&gt;] [after &lt;H&gt;] [where &lt;K&gt;].			</td>
+			<td class="code"> caused &lt;F&gt; if &lt;F&gt; &amp; &lt;G&gt; after &lt;H&gt; where &lt;K&gt;.	</td>
+			<td>													</td>
+		</tr>
+		<tr>
+			<td class="code"> exogenous &lt;c&gt; [where &lt;K&gt;].						</td>
+			<td class="code"> default &lt;c&gt;=V where &lt;K&gt;.							</td>
+			<td> V ranges over the range of c.									</td>
+		</tr>
+		<tr>
+			<td class="code"> inertial &lt;f&gt; [where &lt;K&gt;].							</td>
+			<td class="code"> default &lt;f&gt;=V after &lt;f&gt;=V where &lt;K&gt;.				</td>
+			<td> V ranges over the range of f.									</td>
+		</tr>
+		<tr>
+			<td class="code"> constraint &lt;F&gt; [if &lt;G&gt;] [after &lt;H&gt;] [where &lt;K&gt;].		</td>
+			<td class="code"> caused false if (not &lt;F&gt;) &amp; &lt;G&gt; after &lt;H&gt; where &lt;K&gt;.	</td>
+			<td>													</td>
+		</tr>
+		<tr>
+			<td class="code"> nonexecutable &lt;a&gt;=&lt;v&gt; [if &lt;H&gt;] [where &lt;K&gt;].			</td>
+			<td class="code"> caused false after &lt;a&gt;=&lt;v&gt; &amp; &lt;H&gt; where &lt;K&gt;.		</td>
+			<td>													</td>
+		</tr>
+	</table>
+
+
+
+	<p class="indented2-text">
+		As an example, the following is a C+ description of the Monkey and Bananas domain <a href="/cplus2asp/examples/files/nmct/monkey.cp">monkey.cp</a>
+		which descibes a system with a <span class="code">monkey</span>, a <span class="code">box</span>, and some <span class="code">bananas</span>
+		hanging from the ceiling.
+	</p>
+	<pre class="indented3-code">
+% If the monkey has the bananas and is at a location, 
+% then the bananas are also at that location.
+caused loc(bananas)=L if hasBananas &amp; loc(monkey)=L.
+
+% If the monkey is on the box and the box is at a location, 
+% then the monkey is also at that location.
+caused loc(monkey)=L if onBox &amp; loc(box)=L.
+
+% Walking to a location causes the monkey to move there.
+walk(L) causes loc(monkey)=L.
+
+% The monkey can't walk to its current location.
+nonexecutable walk(L) if loc(monkey)=L.
+
+% The monkey can't walk if it is on the box.
+nonexecutable walk(L) if onBox.
+
+% Pushing the box causes the monkey and box to move.
+pushBox(L) causes loc(box)=L.
+pushBox(L) causes loc(monkey)=L.
+
+% The monkey can't push the box to its current location.
+nonexecutable pushBox(L) if loc(monkey)=L.
+
+% The monkey can't push the box if its on the box.
+nonexecutable pushBox(L) if onBox.
+
+% The monkey can't push the box if it isn't at the box.
+nonexecutable pushBox(L) if loc(monkey)\=loc(box).
+
+% Climbing on/off the box causes the monkey to be on/off the box.
+climbOn causes onBox.
+climbOff causes -onBox.
+
+% The monkey can't climb on/off the box if its already on/off it.
+nonexecutable climbOn if onBox.
+nonexecutable climbOff if -onBox.
+
+% The monkey can't climb on the box if its not at the box.
+nonexecutable climbOn if loc(monkey)\=loc(box).
+
+% Grabbing the bananas causes the monkey to have the bananas.
+graspBananas causes hasBananas.
+
+% The monkey can't grab bananas it already has.
+nonexecutable graspBananas if hasBananas.
+
+% The monkey can't reach the bananas if it isn't on the box.
+nonexecutable graspBananas if -onBox.
+
+% The monkey can't reach the bananas if its not under them.
+nonexecutable graspBananas if loc(monkey)\=loc(bananas).
+
+% The monkey can't perform multiple actions at the same time.
+nonexecutable walk(L) &amp; pushBox(L).
+nonexecutable walk(L) &amp; climbOn.
+nonexecutable pushBox(L) &amp; climbOn.
+nonexecutable climbOff &amp; graspBananas.
+	</pre>
+
+	<p class="indented2-text">
+		Finally, CPlus2ASP supports additive fluents and additive laws as described by <a href="http://peace.eas.asu.edu/joolee/papers/additive-ijcai.pdf">Lee and Lifschitz (2003)</a>.
+		We refer the reader to review the formentioned paper for their syntax, semantics, and usage. Several examples are also provided on the <a href="/cplus2asp/examples/index.html">examples</a>
+		page.
+	</p>
+
+
+
+
+	<h4 class="indented" >The Action Language BC </h4>
+
+	<p class="indented2-text">
+		The action language BC is a recent language proposed by <a href="http://peace.eas.asu.edu/joolee/papers/langbc-ijcai.pdf"> Lee et. al. (2013) </a> in
+		order to provide a language whose expressiveness subsumes languages B (<a href="http://www.cs.utexas.edu/users/vl/papers/refart.ps">Gelfond and Lifschitz (1998)</a>) 
+		and C (<a href="http://www.cs.utexas.edu/users/vl/papers/c.ps">Giuchiglia and Lifschitz (1998)</a>) (C is the predecessor to language C+ and was originally implemented 
+		in the original CCalc). 
+	</p>
+
+	<p class="indented2-text">
+		BC's strength lies in the ability to represent concepts requiring strong-dependencies, such as transitive closure, allowed in language B,
+		as well as the ability to describe non-inertial state properties such as those allowed by C. On the other hand, it does not fully subsume
+		the action language C+ due to its heavily restricted syntax and built-in exogeneity assumption for all actions.
+		
+	</p>
+
+
+	<p class="indented2-text">
+		For information regarding language BC please see the <a href="/cplus2asp/examples/bc.html">BC</a> page or refer to <a href="http://peace.eas.asu.edu/joolee/papers/langbc-ijcai.pdf"> Lee et. al. (2013) </a>.
+	</p>
+
+
+<!--
+
+	<h4 class="indented" >The Action Language BC+ </h4>
+
+	<p class="indented2-text">
+		BC+ is a new language currently being prototyped whose semantics are defined directly in terms of a reduction to ASP. BC+ is meant to fully subsume
+		languages C+ and BC as well as provide additional enhanced expressitivy inspired by features in ASP.
+	</p>
+
+
+	<p class="indented2-note">
+		TODO
+	</p>
+-->
+
+<h3> Queries </h3>
+
+	<p class="indented-text">
+		A Cplus2ASP program is intended to specify a complete system and all of its potential states. A Cplus2ASP places additional constraints
+		on the system and its evolution over time to guide the search for a specific path or check additional properties of the system.
+	</p>
+	<p class="indented-text">
+		All queries are of the form:
+	</p>
+	<pre class="indented2-code">
+:- query
+	[maxstep :: &lt;maxstep&gt;;]
+	[label :: &lt;label&gt;;]
+	{&lt;step&gt;: &lt;mv-formula&gt;;}
+	&lt;step&gt;: &lt;mv-formula&gt;.
+	</pre>
+	<p class="indented-text">
+		Where <span class="code">&lt;maxstep&gt;</span> is a natural number denoting the (optional) maximum length of plan to generate 
+		(Cplus2ASP does not enforce an upperbound by default), <span class="code">&lt;label&gt;</span> is an identifier indicating
+		the name the query will be referenced by while running Cplus2ASP, and each <span class="code">&lt;step&gt;: &lt;mv-formula&gt;</span>
+		constrains the state at step <span class="code">&lt;step&gt;</span> (either a natural number of the keyword <span class="code">maxstep</span>) 
+		so that it must classically satisfy the multi-valued formula <span class="code">&lt;mv-formula&gt;</span>.
+	</p>
+	
+	<p class="indented-text">
+		If no label is specified for a query then it defaults to <span class="code">0</span>. Additionally, multiple queries can be specified
+		for a single program provided each of them has a unique label.
+	</p>
+	
+	<p class="indented-text">
+		As an example, the three queries below are for the monkey and bananas domain.
+	</p>
+	<pre class="indented2-code">
+:- query
+	maxstep :: 2;
+	label :: prediction;
+	0: loc(monkey)=l1, 
+	    loc(bananas)=l2,
+	    loc(box)=l3,
+	    walk(l3);
+	1: pushBox(l2);
+	2: loc(monkey)\= loc(bananas) ++ loc(bananas)\=loc(box).
+
+:- query
+	maxstep :: 2;
+	label :: postdiction;
+	0: walk(l3);
+	1: [\/L | pushBox(L)];
+	0: loc(box)\=l3.
+
+:- query
+	label :: planning;
+	0: loc(monkey)=l1,
+	    loc(bananas)=l2,
+	    loc(box)=l3;
+	maxstep: hasBananas.
+	</pre>
+	<p class="indented-text">
+		Each of these queries ask a specific question, as detailed below: 
+	</p>
+	<ul class="indented">
+	    <li> The first (<span class="code">prediction</span>) asks "If the monkey, bananas, and box were at
+		l1, l2, and l3, respectively, and the monkey walks to l3 and pushes the box to l2, is there anyway the monkey, box, and bananas are not at the
+		same location?" </li>
+	    <li> The second (<span class="code">postdiction</span>) asks "If the monkey walks to l3 and pushes the box <i>anywhere</i>, is there any way the box
+		wasn't at l3?"</li>
+	    <li> The third (<span class="code">planning</span>) asks "If the monkey, bananas, and box are at l1, l2, and l3, respectively, how should the monkey
+		get the bananas?"</li>
+	</ul>
+	
+<h3> Other Special Statements </h3>
+
+	<p class="indented-text">
+		CPlus2ASP also supports several additional constructs to facilitate an enhanced user experience. Among them are <i>include statements</i>,
+		<i>macros</i>, and LUA functions.
+	</p>
+	<p class="indented-text">
+		 An include statement allows for the contents of an entire external file to be included into the CPlus2ASP program and is of the form: 
+	</p>
+	<pre class="indented2-code">
+:- include &lt;file&gt;.	
+	</pre>
+	<p class="indented-text">
+		Where <span class="code">&lt;file&gt;</span> is the name of the file to include relative to the current working path OR the current file's
+		location. <span class="code">&lt;file&gt;</span> may be optionally surrounded by parentheses (required if the file name includes spaces). 
+	</p>
+
+	<p class="indented-text">
+		Macros are identifiers which are expanded as a preprocess to translation into a defined string. User-defined macros are declared similar to
+		other identifiers using a statement of the following form: 
+	</p>
+
+	<pre class="indented2-code">
+:- macros
+	{&lt;identifier&gt; -&gt; &lt;expansion&gt;;}
+	&lt;identifier&gt; -&gt; &lt;expansion&gt;.
+	</pre>
+	<p class="indented-text">
+		Where each <span class="code">identitifer -&gt; &lt;expansion&gt;</span> declares an identifier with optional parameter list
+		<span class="code">(#1, #2, ..., #n)</span> of expansion parameters and <span class="code">&lt;expansion&gt;</span> is the string
+		the identifier should expand to possibly containing the specified expansion parameters.
+	</p>
+
+	<p class="indented-text">
+		As an example, given the macro definition
+	</p>
+	<pre class="indented2-code">
+:- macros
+    UNIQUE(#1, #2, #3) -> (#1(#2) &amp; [ /\ #3 | #3 \= #2 ->> -#1(#3)]).
+	</pre>
+	<p class="indented-text">
+		 the string <span class="code">[ \/ V1 | UNIQUE(p,V1,V2) ]</span> expands to the multi-valued formula
+	</p>
+	<pre class="indented2-code">
+[ \/ V1 | (p(V1) &amp; [ /\ V2 | V2 \= V1 ->> -p(V2)]) ].
+	</pre>
+
+	<p class="indented-note">
+		A caveat to macro expansion is that tokens cannot extend across macros. This means that a macro <span class="code">foo(#1) -> #1</span> occurring
+		in the context <span class="code">"foo(b)ar"</span> will actually be expanded to <span class="code">"b ar"</span>, not <span class="code">"bar"</span>.
+	</p>
+
+	<p class="indented-text">
+		LUA is a scripting language which is supported by Gringo 3 and Gringo 4 to embed external logic (such as database lookups) into ASP programs which are
+		evaluated during program grounding. CPlus2ASP v3 and Cplus2asp v3.1 also provides suppports for this feature as is described on the <a href="/cplus2asp/examples/lua.html">LUA</a>
+		page.
+	</p>
+
+	<p class="indented-text">
+		Python is a scripting language which is supported by Gringo 4 to embed external logic (such as database lookups) into ASP programs which are
+		evaluated during program grounding. CPlus2ASP v3.1 also provides suppports by this feature as is described on the <a href="/cplus2asp/examples/python.html">LUA</a>
+		page.
+	</p>
+
+
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Copyright -->
+<hr />
+<center>
+<p class="footnote"> Copyright (C) 2010-2013 - Joseph Babb, Michael Cassolary, and Joohyung Lee. </p>
+<p class="footnote">&#123; jbabb1, Michael.Casolary, joolee &#125; &lt;at&gt; asu &lt;dot&gt; edu.  </p>
+<p class="footnote"> This work was partially supported by the National Science Foundation under Grant IIS-0916116.</p>
+</center>
+</div>
+</body>
+</html>

@@ -1,0 +1,73 @@
+%%% ZOO LANDSCAPE %%%
+
+
+
+% all are inertial
+%-occlude(T+1,loc(P)) & T < maxstep ->
+%![L]:(holds(T+1,loc(P),L) <-> holds(T,loc(P),L)).
+
+%-occlude(T+1,neighbor(P,P1)) & T < maxstep ->
+%![B]:(holds(T+1,neighbor(P,P1),B) <-> holds(T,neighbor(P,P1),B)).
+
+%-occlude(T+1,side1(G)) & T < maxstep ->
+%![P]:(holds(T+1,side1(G),P) <-> holds(T,side1(G),P)).
+
+%-occlude(T+1,side2(G)) & T < maxstep ->
+%![P]:(holds(T+1,side2(G),P) <-> holds(T,side2(G),P)).
+
+%-occlude(T+1,sides(P,P1,G)) & T < maxstep ->
+%![B]:(holds(T+1,sides(P,P1,G),B) <-> holds(T,sides(P,P1,G),B)).
+
+-occlude(T+1,opened(G)) & T < maxstep ->
+![B]:(holds(T+1,opened(G),B) <-> holds(T,opened(G),B)).
+
+
+% unique value axioms
+%1{holds(T,loc(P),Lo):location(Lo)}1.
+%1{holds(T,neighbor(P,P1),Bo):bool(Bo)}1.
+%1{holds(T,side1(G),Po):position(Po)}1.
+%1{holds(T,side2(G),Po):position(Po)}1.
+%1{holds(T,sides(P,P1,G),B):bool(B)}1.
+1{holds(T,opened(G),Bo):bool(Bo)}1.
+
+%#dom forall position,t [[t] exists position1 [ neighbor(position,position1) ] ]
+%#dom forall position,t [ [t] !neighbor(position,position) ]
+%#dom forall position, position1, t [ [t] neighbor(position,position1) -> [t] neighbor(position1,position) ]
+--(?[P1]: neighbor(P,P1) & -neighbor(P,P)).
+neighbor(P,P1) -> neighbor(P1,P).
+
+%#dom forall location [ location != outside -> exists cage [location = cage] ]
+L != outside -> ?[C]: L=C.
+
+%#dom forall position, position1, gate, t [[t] side1(gate) == position & side2(gate) == position1 -> [t] sides(position,position1,gate) ]
+%#dom forall position, position1, gate, t [[t] side2(gate) == position & side1(gate) == position1 -> [t] sides(position,position1,gate) ]
+side1(G,P) & side2(G,P1) -> sides(P,P1,G).
+side2(G,P) & side1(G,P1) -> sides(P,P1,G).
+
+
+%#dom forall gate, position, position1, location, t [[t] !(loc(position) == loc(position1) & 
+%		side1(gate) == position & side2(gate) == position1)]
+
+-(loc(P,L) & loc(P1,L) & side1(G,P) & side2(G,P1)).
+
+% No two gates have the same two sides
+%#dom forall position, position1, gate, gate1, t [ [t] sides(position,position1,gate) & 
+%		sides(position,position1,gate1) -> gate = gate1 ]
+
+sides(P,P1,G) & sides(P1,P,G1) -> G = G1.
+
+
+% Two positions are neighbors if they are the sides of a gate
+%#dom forall position, position1, gate, t [ [t] sides(position,position1,gate) -> [t] neighbor(position,position1) ]
+
+-(sides(P,P1,G) & -neighbor(P,P1)).
+
+
+% Two positions in different locations are neighbors only if 
+%  they are the two sides of a gate
+%#dom forall position, position1, t [[t] loc(position) != loc(position1) & neighbor(position,position1) 
+%		-> exists gate [ sides(position,position1,gate) ] ]
+
+-(loc(P,L) & loc(P1,L1) & L != L1 & neighbor(P,P1) & -?[G]:sides(P,P1,G)).
+
+

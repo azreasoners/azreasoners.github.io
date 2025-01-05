@@ -1,0 +1,49 @@
+time (0..maxstep).
+event (tapOn;tapOff;overflow).
+fluent (filling;height(H);spilling).
+#domain time(T).
+height(0..15).
+offset(1..15).
+#domain offset(O).
+#domain height(H;H1;H2).
+
+initiates(tapOn,filling,T).
+
+terminates(tapOff,filling,T).
+
+
+%[time] terminates(tapOff(),spilling(),T).
+
+releases(tapOn,height(H),T).
+
+(holdsAt(height(H),T) ->
+initiates(tapOff,height(H),T)).
+
+terminates(overflow,filling,T).
+
+(holdsAt(height(H),T) ->
+initiates(overflow,height(H),T)).
+
+initiates(overflow,spilling,T).
+
+(holdsAt(height(H1),T) &
+H2 = H1 + O ->
+trajectory(filling,T,height(H2),O)).
+
+(holdsAt(height(H1),T) &
+holdsAt(height(H2),T) ->
+H1 = H2).
+
+(holdsAt(height(15),T) & holdsAt(filling,T) ->
+happens(overflow,T)).
+
+holdsAt(height(0),0).
+-holdsAt(filling,0).
+-holdsAt(spilling,0).
+happens(tapOn,5).
+
+
+-releasedAt(filling,0).
+-releasedAt(height(H),0).
+-releasedAt(spilling,0).
+

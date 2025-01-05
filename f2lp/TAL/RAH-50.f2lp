@@ -1,0 +1,215 @@
+%// Airplane Highjack Scenario
+%//
+%// This scenario was suggested by Vladimir Lifschitz in the
+%// ENAI discussions. It tests the distinction between a 
+%// ramification constraint and a qualification constraint.
+%// Things that are in your pocket are still in your pocket
+%// as you travel from place to place. But if you have a 
+%// gun in your pocket and try to get on a plane, the 
+%// indirect effect that the gun follows with you should
+%// instead behave as a qualification constraint to the plane
+%// boarding action. 
+%//
+time(0..maxstep).
+#domain time(T). #domain time(T1). #domain time(T2).
+
+%#domain thing :elements {gun, comb1, comb2, comb3, boris, dimiter, erik, sas609}
+%#domain airplane :parent thing :elements {sas609}
+%#domain person :parent thing :elements {[boris .. erik]}
+%#domain pthing :parent thing :elements {gun, [ comb1 .. comb3 ]}
+
+airplane(sas609).
+#domain airplane(Ai). #domain airplane(Ai1). #domain airplane(Ai2).
+person(boris;dimiter;erik).
+#domain person(Pe). #domain person(Pe1). #domain person(Pe2).
+pthing(gun;comb1;comb2;comb3).
+#domain pthing(Pt).
+thing(Ai). thing(Pe). thing(Pt).
+#domain thing(Th).
+value(Th).
+
+%#domain location :elements {home1, home2, home3, office, airport, run609, run609b, air}
+%#domain runway :parent location :elements {run609, run609b}
+location(home1;home2;home3;office;airport;air).
+runway(run609;run609b).
+#domain location(Lo). #domain location(Lo1). #domain location(Lo2).
+#domain runway(Ru). #domain runway(Ru1). #domain runway(Ru2).
+location(Ru).
+value(Lo).
+
+%#domain pocket :elements {pocket1, pocket2, pocket3}
+pocket(pocket1;pocket2;pocket3).
+#domain pocket(Po).
+value(Po).
+
+bool(true;false).
+#domain bool(Bo).
+value(Bo).
+
+#domain value(V). #domain value(V1). #domain value(V2).
+
+
+%#feature loc(thing) :domain location :showname
+%#feature inpocket(person,pthing) :domain boolean
+%#feature poss_board(person,airplane) :domain boolean :durational true
+%#feature drunk(person) :domain boolean
+%#feature onplane(airplane,person) :domain boolean
+feature(loc(Th);inpocket(Pe,Pt);poss_board(Pe,Ai);drunk(Pe);onplane(Ai,Pe)).
+#domain feature(Fe).
+
+%poss_board is durational with default value true
+-occlude(T,poss_board(Pe,Ai)) -> holds(T,poss_board(Pe,Ai),true).
+
+%the rest of them are persistent
+-occlude(T+1,loc(Th)) & T < maxstep -> 
+![Lo]:(holds(T+1,loc(Th),Lo) <-> holds(T,loc(Th),Lo)).
+
+
+-occlude(T+1,inpocket(Pe,Pt)) & T < maxstep -> 
+![Bo]:(holds(T+1,inpocket(Pe,Pt),Bo) <-> holds(T,inpocket(Pe,Pt),Bo)).
+
+
+-occlude(T+1,drunk(Pe)) & T < maxstep -> 
+![Bo]:(holds(T+1,drunk(Pe),Bo) <-> holds(T,drunk(Pe),Bo)).
+
+
+-occlude(T+1,onplane(Ai,Pe)) & T < maxstep -> 
+![Bo]:(holds(T+1,onplane(Ai,Pe),Bo) <-> holds(T,onplane(Ai,Pe),Bo)).
+
+% Unique Value Axioms
+1{holds(T,loc(Th),Loc):location(Loc)}1.
+1{holds(T,inpocket(Pe,Pt),Boo):bool(Boo)}1.
+1{holds(T,poss_board(Pe,Ai),Boo):bool(Boo)}1.
+1{holds(T,drunk(Pe),Boo):bool(Boo)}1.
+1{holds(T,onplane(Ai,Pe),Boo):bool(Boo)}1.
+
+%#action put(person, pthing, pocket) 
+%#action travel(person, location, location)
+%#action fly(airplane, runway, runway)
+%#action board(person, airplane)
+
+%#valuevar loc1, loc2, loc3 :domain location
+%//valuevar person1 person, person2 person
+%//valuevar pthing1 pthing, phting2 pthing
+
+%#obs [0] loc(boris) == home1 & loc(gun) == office & loc(comb1) == home1 & !drunk(boris) 
+%#obs [0] loc(erik) == home2 & loc(comb2) == home2 & !drunk(erik)
+%#obs [0] loc(dimiter) == home3 & loc(comb3) == home3 & drunk(dimiter) // & inpocket(dimiter, comb3)
+%#obs [0] loc(sas609) == run609
+holds(0,loc(boris),home1). holds(0,loc(gun),office). holds(loc(comb1),home1).
+-holds(0,drunk(boris),true). holds(0,loc(erik),home2). holds(0,comb2,home2).
+-holds(0,drunk(erik),true). holds(0,loc(dimiter),home3). holds(0,loc(comb3),home3).
+holds(0,drunk(dimiter),true). holds(0,loc(sas609),run609).
+% adding for completeness
+-holds(0,inpocket(Pe,Pt),true).
+-holds(0,onplane(Ai,Pe),true).
+
+%#occ [1,2] put(boris, comb1, pocket1)
+%#occ [1,2] put(erik, comb2, pocket2)
+%#occ [2,4] travel(dimiter, home3, office)
+%#occ [3,5] travel(boris, home1, office)
+%#occ [4,6] travel(erik, home2, office)
+%#occ [6,7] put(boris, gun, pocket1)
+%#occ [5,7] travel(dimiter, office, airport)
+%#occ [7,9] travel(erik, office, airport)
+%#occ [8,10] travel(boris, office, airport)
+%#occ [9,10] board(dimiter, sas609)
+%#occ [10,11] board(boris, sas609)
+%#occ [11,12] board(erik, sas609)
+%#occ [13,16] fly(sas609, run609, run609b)
+occurs(1,2,put(boris, comb1, pocket1)). occurs(1,2,put(erik, comb2, pocket2)).
+occurs(2,4,travel(dimiter, home3, office)). occurs(3,5,travel(boris, home1, office)).
+occurs(4,6,travel(erik, home2, office)). occurs(6,7,put(boris, gun, pocket1)).
+occurs(5,7,travel(dimiter, office, airport)). occurs(7,9,travel(erik, office, airport)).
+occurs(8,10,travel(boris, office, airport)). occurs(9,10,board(dimiter, sas609)).
+occurs(10,11,board(boris, sas609)). occurs(11,12,board(erik, sas609)).
+occurs(13,16,fly(sas609, run609, run609b)).
+occurs(30,35,fly(sas609, run609b, run609)).
+occurs(40,41,board(dimiter,sas609)).
+occurs(41,45,board(boris,sas609)).
+occurs(45,50,fly(sas609, run609, run609b)).
+
+
+%#acs [t1,t2] put(person, pthing, pocket) -> [t1] loc(person) == loc(pthing) -> R((t1,t2] inpocket(person, %pthing))
+occurs(T1,T2,put(Pe, Pt, Po)) -> 
+(?[Lo]:(holds(T1,loc(Pe),Lo) & holds(T1,loc(Pt),Lo)) -> 
+(![T]:(T > T1 & T <= T2 -> occlude(T,inpocket(Pe,Pt))) & holds(T2,inpocket(Pe,Pt),true))).
+
+%#acs [t1,t2] travel(person, loc1, loc2) -> [t1] loc(person) == loc1 -> R([t2] loc(person) == loc2)
+occurs(T1,T2,travel(Pe, Lo1, Lo2)) ->
+(holds(T1,loc(Pe),Lo1) -> occlude(T2,loc(Pe)) & holds(T2,loc(Pe),Lo2)).
+
+
+%#acs [t1,t2] board(person, airplane) -> [t1] poss_board(person, airplane) & loc(person) == airport 
+%                -> R([t2] loc(person) == value(t2, loc(airplane)) & onplane(airplane, person))
+
+occurs(T1,T2,board(Pe, Ai)) ->
+(holds(T1,poss_board(Pe,Ai),true) & holds(T1,loc(Pe),airport) ->
+  (occlude(T2,loc(Pe)) & occlude(T2,onplane(Ai,Pe)) & 
+     ?[Lo]:(holds(T2,loc(Pe),Lo) & holds(T2,loc(Ai),Lo)) &
+	 holds(T2,onplane(Ai,Pe),true))).
+
+
+%// When an airplane flies from loc1 to loc2, it will be in the air for
+%// the inner part of the time interval and at loc2 at the end of the
+%// time interval.
+
+%#acs [t1,t2] fly(airplane, runway1, runway2) -> [t1] loc(airplane) == runway1 -> 
+%	I((t1,t2) loc(airplane) == air) & R([t2] loc(airplane) == runway2)
+occurs(T1,T2,fly(Ai,Ru1,Ru2)) ->
+(holds(T1,loc(Ai),Ru1) -> 
+  (![T]:(T > T1 & T < T2 -> occlude(T,loc(Ai))) & ![T]:(T > T1 & T < T2 -> holds(T,loc(Ai),air))
+    & occlude(T2,loc(Ai)) & holds(T2,loc(Ai),Ru2))).
+	
+	
+%// If a person has a gun, it is not possible for the person to board an airplane.
+%#dep forall t, person [ t <= $maxocc & [t] inpocket(person, gun) -> I([t] forall airplane [ !poss_board(person, airplane) ])]
+holds(T,inpocket(Pe,gun),true) & T <= maxstep -> 
+![Ai]:occlude(T,poss_board(Pe,Ai)) & ![Ai]: (-holds(T,poss_board(Pe,Ai),true)).  
+
+%// If a person is drunk, it may or may not be possible for him to board an airplane.
+%#dep forall t, person [ t <= $maxocc & [t] drunk(person) -> X([t] forall airplane [ !poss_board(person, %airplane) ])]  
+holds(T,drunk(Pe),true) & T <= maxstep ->
+![Ai]:occlude(T,poss_board(Pe,Ai)).
+
+% If the plane is not at the airport, it is not possible to board
+-holds(T,loc(Ai),run609) -> occlude(T,poss_board(Pe,Ai)) & holds(T,poss_board(Pe,Ai),false).
+
+%// If an airplane moves, all persons on board the airplane move.
+%#dep forall t, airplane, person, loc3 [ [t] onplane(airplane, person) & 
+%	   Ct([t] loc(airplane) == loc3) -> R([t] loc(person) == value(t, loc(airplane)))]
+holds(T,onplane(Ai,Pe),true) & T > 0 & -holds(T-1,loc(Ai),Lo) & holds(T,loc(Ai),Lo) ->
+occlude(T,loc(Pe)) & holds(T,loc(Pe),Lo).
+
+
+%// If a person moves, all things in his pocket move.
+%#dep forall t, person, pthing, loc3 [ [t] inpocket(person, pthing) & 
+%	   Ct([t] loc(person) == loc3) -> R([t] loc(pthing) == value(t, loc(person)))]
+holds(T,inpocket(Pe,Pt),true) & T > 0 & -holds(T-1,loc(Pe),Lo) & holds(T,loc(Pe),Lo) ->
+occlude(T,loc(Pt)) & holds(T,loc(Pt),Lo).
+
+%// One pthing can not be in two different pockets
+%#dom forall t, pthing1, person1, person2 [!(person1 = person2) & [t] inpocket(person1, pthing1) ->
+%	[t] !inpocket(person2, pthing1)]
+Pe1 != Pe2 & holds(T,inpocket(Pe1,Pt),true) -> -holds(T,inpocket(Pe2,Pt),true).
+
+%// One person can not be on board two different airplanes
+%#dom forall t, person1, airplane1, airplane2 [!(airplane1 = airplane2) & [t] onplane(airplane1, person1) ->
+%	[t] !onplane(airplane2, person1)]
+Ai1 != Ai2 & holds(T,onplane(Ai1,Pe),true) -> -holds(T,onplane(Ai2,Pe),true).
+
+% choice rule for holds - not required since unique value axioms take care of this
+%{holds(T,Fe,V)}.
+
+% Foundational Axioms
+% Unique Value Axioms
+%holds(T,Fe,V1) & V1 != V2 -> -holds(T,Fe,V2).
+
+% Unique Name Axioms - not required since ASP enforces them
+
+holds(tp,Fe,V) -> holdsAt(tp,Fe,V).
+
+%--(holds(16,loc(dimiter),airport)).
+#hide.
+#show holdsAt/3.
+%#show occlude/2.

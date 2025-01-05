@@ -1,0 +1,16 @@
+% File 'pendulum.cp'
+% Holding the Pendulum ("Nonmonotonic Causal Theories," Figure 8)
+
+:- constants
+  right                  :: simpleFluent;
+  hold                   :: exogenousAction.
+
+hold causes right if right.
+hold causes -right if -right.
+
+default right after -right.
+default -right after right.
+
+:- query
+  maxstep :: 2;
+  0: -right.

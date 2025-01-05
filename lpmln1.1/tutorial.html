@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>LPMLN - Tutorial</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="src/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="src/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="src/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="./index.html">LP<sup>MLN</sup> 1.0</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <!-- <a href="http://reasoning.eas.asu.edu/lpod2asprin/index.html">Home</a> -->
+                        <a href="./index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/tjpjx2012/LPMLN1.0">Installation</a>
+                    </li>
+                    <li>
+                        <a href="./tutorial.html">Tutorial</a>
+                    </li>
+                    <li>
+                        <a href="./examples.html">Examples</a>
+                    </li>
+                    <!--                     <li>
+                     <a href="http://reasoning.eas.asu.edu/lpod2asprin/manual/sysmanual.pdf">Manual</a>
+                     </li> -->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h3>Tutorial</h3>
+                        <hr class="small">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+<div class="container">
+        <div class="row">
+            <div class="col-lg-10  col-md-10 col-md-offset-1">
+                <div class="post-preview">
+                    <a>
+                        <h2 class="post-title">
+                            lpmln2asp
+                        </h2>
+                        <h4 class="post-subtitle">
+                            <p>
+                                <a href="http://reasoning.eas.asu.edu/lpmln/Tutorial.html" target="_blanc">lpmln2asp</a>,  compiles LP<sup>MLN</sup> into the input language of clingo utilizing weak constraints. Any clingo rule <code>R</code> can be turned into a valid LP<sup>MLN</sup> rule by prepending that rule with a weight <code>W</code>.
+                            </p>
+                            <p>LP<sup>MLN</sup> 1.0 inherits all syntax and semantic from LP<sup>MLN</sup>, we included sampling based inference module and learning module to our system. 
+                            
+                            </p>
+                            <p>
+                                Consider an instance where you have conflicting information from different data sources. One data source may mention that an entity jo is a resident bird however some other data source may say that jo is a migratory bird. Although we cannot say with certainty that jo is a migratory bird or a resident bird but we can say with a certain degree of confidence that jo is a Bird. Suppose we want to find out what is the probability of jo being a Bird given that one KB says it is ResidentBird and other says it is a MigratoryBird. Such a domain can be easily encoded in this language. Consider a simple clingo encoding of the above scenario,
+                                <pre>
+                                    <code>
+bird(X) :- residentbird(X).
+bird(X) :- migratorybird(X).
+:- residentbird(X), migratorybird(X).
+residentbird(jo).
+migratorybird(jo).
+                                    </code>
+                                </pre> 
+                            </p>
+                            <p>
+                                The above program is a valid clingo program. This can be turned into a valid LP<sup>MLN</sup> program by prepending the respective rule with a weight. Below is a valid LP<sup>MLN</sup> program for <I><U>lpmln2asp</U></I>.
+                                <br/>
+                                <br/>
+                                  <pre>
+                                        <code>
+% Same rules as above
+bird(X) :- residentbird(X).
+bird(X) :- migratorybird(X).
+:- residentbird(X), migratorybird(X).
+
+% A fact with a weight of 2. It represents our degree of confidence in this rule.
+2 residentbird(jo).
+
+% A fact with a weight of 1.
+1 migratorybird(jo).
+                                        </code>
+                                    </pre>
+
+                                Likewise, any rule, constraint or fact can be converted to a valid LP<sup>MLN</sup> input.
+                            </p>
+                            <p>
+                                To execute the above program the command line is,<br/>
+                                <code>
+                                    lpmln2asp -i birds.lpmln 
+                                </code>
+                            </p>
+                            <p>
+                                This calculates the MAP state. The intermediate file generated would be
+                            </p>
+                            <pre>
+                                <code>
+% Same rules as above
+bird(X) :- residentbird(X).
+bird(X) :- migratorybird(X).
+:- residentbird(X) , migratorybird(X).
+
+% A fact with a weight of 2. It represents our degree of confidence in this rule.
+unsat(3,"2.000000") :-not residentbird(jo).
+residentbird(jo):-not unsat(3,"2.000000").
+:~ unsat(3,"2.000000"). [2000@0,3]
+
+% A fact with a weight of 1.
+unsat(4,"1.000000") :-not migratorybird(jo).
+migratorybird(jo):-not unsat(4,"1.000000").
+:~ unsat(4,"1.000000"). [1000@0,4]
+
+                                </code>
+                            </pre>
+                            <p>
+                                Note that in the above translated code, the hard rules are not translated. This is because of the <code>-hr</code> option. Setting that option would have translated the first 3 rules as well.
+                            </p>
+                            <p>
+                                The output is
+                            </p>
+                            <pre>
+                                <code>
+Solving...
+Answer: 1
+residentbird(jo) bird(jo) unsat(4,"1.000000")
+Optimization: 1000
+OPTIMUM FOUND
+
+Models       : 1     
+  Optimum    : yes
+Optimization : 1
+Calls        : 1
+Time         : 0.006s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.000s
+
+                                </code>
+                            </pre>
+
+                            <p>
+                                The same input above can be used to calculate the marginal probability of atoms and also the probability of the Answer sets. The command line to do that is <br/>
+                                <code>
+                                    lpmln2asp -i birds.lpmln -hr -all
+                                </code>
+                            </p>
+                            <p>
+                                Notice that using <code>-hr</code> option would translate the first 3 rules as well. <code>-all</code> option is used to invoke probability computaion module of lpmln2asp and prints all the stable models and there respective probabilities. 
+                            </p>
+                            <p>Probability of all stable models of the above encoding</p>
+                            <pre>
+                                <code>
+Solving...
+Answer: 1
+residentbird(jo) migratorybird(jo) unsat(0,"a",jo) unsat(1,"a",jo) unsat(2,"a",jo)
+Optimization: 3 0
+Answer: 2
+unsat(3,"2.000000") migratorybird(jo) unsat(1,"a",jo)
+Optimization: 1 2
+Answer: 3
+residentbird(jo) unsat(4,"1.000000") unsat(0,"a",jo)
+Optimization: 1 1
+Answer: 4
+unsat(3,"2.000000") unsat(4,"1.000000")
+Optimization: 0 3
+Answer: 5
+residentbird(jo) migratorybird(jo) bird(jo) unsat(2,"a",jo)
+Optimization: 1 0
+Answer: 6
+unsat(3,"2.000000") migratorybird(jo) bird(jo)
+Optimization: 0 2
+Answer: 7
+residentbird(jo) unsat(4,"1.000000") bird(jo)
+Optimization: 0 1
+
+
+Probability of Answer 4 :  0.0900305731703805 = 0.0900305731703805
+Probability of Answer 6 :  0.244728471054798 = 0.244728471054798
+Probability of Answer 7 :  0.665240955774822 = 0.665240955774822
+
+
+OPTIMUM FOUND
+
+Models       : 7     
+  Optimum    : yes
+Calls        : 1
+Time         : 1.478s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.360s
+
+
+
+
+                                </code>
+                            </pre>
+                            <p><code>-q</code> option is used to query for the probability of atoms. Output with query <code>bird</code></p>
+                            <p><code>lpmln2asp -i birds.lpmln -hr -all -q bird
+</code></p>
+                            <pre>
+                                <code>
+Solving...
+Answer: 1
+residentbird(jo) migratorybird(jo) unsat(0,"a",jo) unsat(1,"a",jo) unsat(2,"a",jo)
+Optimization: 3 0
+Answer: 2
+unsat(3,"2.000000") migratorybird(jo) unsat(1,"a",jo)
+Optimization: 1 2
+Answer: 3
+residentbird(jo) unsat(4,"1.000000") unsat(0,"a",jo)
+Optimization: 1 1
+Answer: 4
+unsat(3,"2.000000") unsat(4,"1.000000")
+Optimization: 0 3
+Answer: 5
+residentbird(jo) migratorybird(jo) bird(jo) unsat(2,"a",jo)
+Optimization: 1 0
+Answer: 6
+unsat(3,"2.000000") migratorybird(jo) bird(jo)
+Optimization: 0 2
+Answer: 7
+residentbird(jo) unsat(4,"1.000000") bird(jo)
+Optimization: 0 1
+
+
+Probability of Answer 4 : 0.0900305731703805
+Probability of Answer 6 : 0.244728471054798
+Probability of Answer 7 : 0.665240955774822
+
+
+
+bird(jo) 0.909969426829620
+
+
+OPTIMUM FOUND
+
+Models       : 7     
+  Optimum    : yes
+Calls        : 1
+Time         : 6.713s (Solving: 0.00s 1st Model: 0.00s Unsat: 0.00s)
+CPU Time     : 0.370s
+
+                                </code>
+                            </pre>
+
+                            <p>
+                            <code>-e</code> option is used to provide evidence file to the program. In the presence of evidence file, conditional probability of the atom is calculated.
+
+                            For more information use <code>lpmln2asp -h</code> <br/>
+                            Note: <code>lpmln2asp</code> is still under active development and is a wrapper over underlying systems like <code>lpmln2cl</code> and <code>clingo</code> and as such there might be bugs in the system. Please contact the authors in this case.
+                            </p>
+                        </h4>
+                    </a>
+                   
+                </div>
+                <hr>
+            </div>
+
+            <div class="col-lg-10 col-md-10 col-md-offset-1">
+                <div class="post-preview">
+                    <a>
+                        <h2 class="post-title">
+                            lpmln2mln
+                        </h2>
+                        <h4 class="post-subtitle">
+                            lpmln2mln converts LP<sup>MLN</sup> programs into the input language of alchemy, tuffy or rockit(beta) based on the option selected. This lpmln2mln tutorial illustrates the same problem instance as described above. 
+                        </h4>
+
+                        
+
+                        <h3 class="post-subtitle">
+                                Declarations
+                        
+                        </h3>
+                        <h4 class="post-subtitle">
+                            <p>
+                                Declarations are used to specify the sorts, objects and constants. In the input language of lpmln2al, the declarations for the above encoding would be </p>
+                                <pre>
+                                  <code>
+entity={Jo,Bob}
+
+Bird(entity)
+MigratoryBird(entity)
+ResidentBird(entity)
+                                </code>
+                            </pre>
+                            <p>
+                                where entity is the sort, {Jo, Bob} are the objects and Bird(entity) is the constant.
+                            </p>
+                        </h4>
+
+                         <h3 class="post-subtitle">
+                                Rules
+                        
+                        </h3>
+                        <h4 class="post-subtitle">
+                            <p>
+                                There are 2 types of rules, Soft rule and Hard rule.
+                                A Soft rule is of the form, 
+                            </p>
+                            <pre><code>
+W Head <= Body
+                            </code></pre>
+                            <p>
+                                A Hard rule is of the form,
+                            </p>
+                            <pre><code>
+Head <= Body.
+                            </code></pre>
+                            <p>
+                                A head is a disjunction of literals. The disjunction symbol is <code>;</code>. A body is a conjunction of literals. The conjunction symbol is <code>^</code>. <code>W</code> is any number. The above scenario can be encoded in the language of lpmln2al as (declarations not included),
+                            </p>
+                            <pre>
+                                <code>
+Bird(x) <= ResidentBird(x).
+
+Bird(x) <= MigratoryBird(x).
+
+<= ResidentBird(x) ^ MigratoryBird(x).
+
+2 ResidentBird(Jo)
+
+1 MigratoryBird(Jo)
+                                </code>
+                            </pre>
+                            </h4>
+                            <br/>
+                            <h3 class="post-subtitle">
+                                Usage
+                        
+                        </h3>
+                        <h4 class="post-subtitle">
+                            <p>
+                                The above program is executed with the command line,<br/>
+                                <code>lpmln2mln -i bird.lpmln -q Bird -r out.txt -alchemy</code><br/>
+                                The above command outputs,
+                            </p>
+                            <pre><code>
+Bird(Jo) 0.921958
+Bird(Bob) 4.9995e-05
+
+                            </code></pre>  
+                              <p>
+                               The program uses alchemy to compute this because of the <code>-alchemy</code> switch (Alchemy is the default solver in case a solver is not specified). 
+                            </p>
+                        </h4>
+                    </a>
+                   
+                </div>
+ 
+        </div>
+    </div>
+
+</div>
+    <hr>
+
+<footer>
+    <div id="footer">
+
+
+            <div id="copyright-wrapper" class="horizontal-wrapper">
+              <div id="site-map" class="horizontal-content">
+                <table id="site-map-table"><tbody><tr>
+                  <td>
+                    <p class="site-map-heading">Contact Information</p>
+                    <p>Joohyung Lee, Samidh Talsania, Yi Wang</p>
+                    <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                    <p>Email: joolee (at) asu.edu, samidh.talsania (at) asu.edu, ywang485 (at) asu.edu</p>
+                  </td>
+                </tr></tbody></table>
+              </div>
+
+            </div>
+      
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p class="copyright text-muted">Copyright &copy; 2016</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="js/clean-blog.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,178 @@
+<html>
+<head>
+<title>CSE 591: Knowledge Representation and Reasoning (Fall 2007)</title>
+<meta http-equiv="Content-Type" content="text/html">
+
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+
+<H1>CSE 591: Knowledge Representation and Reasoning (Fall, 2007)</H1>
+
+<p>
+<b> <a href="kr-syllabus.pdf">Syllabus</a> </b>
+
+
+<p>
+<b>Time and Place:</b> MW 10:40-11:55 a.m.,  BYAC 190
+
+<p>
+<b>Instructor:</b>	  Joohyung Lee (joolee (at) asu (dot) edu)
+
+<p>
+<b>Instructor's Office Hours:</b>   TTh 3-4 p.m. and by appointment, BY 574
+
+<p>
+<b>Description:</b>
+Knowledge representation and reasoning is one of the most active areas
+in Artificial Intelligence research. It is concerned with how to
+encode knowledge in an adequately expressive formalism and how to draw
+relevant conclusions efficiently from the knowledge base. While the
+behavior of intelligent agents is hard to be pre-programmed in a
+procedural manner, knowledge can be effectively programmed into a
+machine using a declarative language. We will study how an intelligent
+agent can make a rational decision based on his knolwedge bases. 
+<!-- Thanks to recent breakthroughs
+which include efficient implementations for solving NP-class problems,
+in many cases, knowledge-based approaches have shown to be comparable
+to specialized, domain-dependent problem solving methods.--> This course
+will cover basic and recent developments in the research in knowledge
+representation and reasoning.
+There will be no text book; course materials will be handed out in
+class. 
+
+
+<!--<p>
+<b>Prerequisites: </b>
+Basic knowledge on mathematical logic (propositional
+logic and first-order logic) will be assumed.  -->
+
+<ul>
+<hr width=30% align="left">
+</ul>
+
+<h3>Handouts</h3>
+<ol>
+<li><a href="mvpf.ps">Multi-Valued Propositional Formulas</a>
+<li><a href="ct.ps">Causal Theories</a>
+<li><a href="dact.ps">Describing Actions in Causal Theories</a>
+<li><a href="cplus.ps">Language C+</a>
+<li><a href="ccalc.ps">CCalc Exercises : Reasoning about States</a>
+<li><a href="ccalc2.ps">CCalc Exercises : Reasoning about Actions</a>
+<li><a href="additive.ps">Notes on Additive Fluents</a>
+<li><a href="dpll.ps">The Davis-Putnam-Logemann-Loveland Procedure</a>
+<!--<li><a href="ccalc.ps">Exercises on the Causal Calculator</a> -->
+
+</ol>
+
+<ul>
+<hr width=30% align="left">
+</ul>
+
+<!--
+<p>
+<h3>Announcement </h3>
+<ul>
+<li><b>9.13:</b> Homework 1 was assigned. The due is 10 am on
+September 17th.
+</ul>
+-->
+
+<h3> Participation </h3>
+
+<ul>
+<li>P3: Ravi Palla
+<li>P4: Yunsong Meng
+<li>P5: Michael Casolary, Srinath Bodala
+<li>P6: Nan Li
+<li>P7: Tae-Won Kim
+<li>P8: Scott Brown
+<li>P9: Michael Casolary
+<li>P10: Srinath Bodala
+<li>P11: Yunsong Meng
+<li>P12: Tae-Won Kim
+<li>P13: [Homework 1]
+<li>P14: Nan Li
+<li>P15: Scott Brown
+<li>P16: Ravi Palla
+<li>P17: Michael Casolary
+<li>P18: Nan Li
+<li>P19: Nan Li
+<li>P20: Tae-Won Kim
+</ul>
+
+
+<h3>Papers</h3>
+<ul>
+<li> Giunchiglia et al., 
+<a href="http://peace.eas.asu.edu/joolee/papers/nmct.ps">Nonmonotonic
+Causal Theories</a>,  Artificial Intelligence, 153(1-2):49-104, 2004.
+</ul>
+
+
+<ul>
+<hr width=30% align="left">
+</ul>
+
+
+
+<h3>KR implementations</h3>
+<ul>
+   <li> <a href="http://www.cs.utexas.edu/~tag/ccalc">Causal
+   Calculator</a> 
+
+        <ul>
+        <li><a href="ccalc.zip">ccalc.zip</a>
+        <li><a href="ccalc-install-windows.txt">How to install CCalc
+        on Windows machines</a>
+        <li><a href="pl.exe.rename">Pre-compiled SWI-Prolo for
+        Windows</a>: <a href="pl.exe.rename">pl.exe.rename</a>
+        </ul>
+  
+   <li> <a href="http://www.tcs.hut.fi/Software/smodels/">SMODELS</a> 
+   <ul> 
+     <li> <a href="http://www.tcs.hut.fi/Software/smodels/lparse.ps">LPARSE
+           User's Manual</a>
+   </ul>
+   <li> <a href="http://www.dbai.tuwien.ac.at/proj/dlv/">DLV</a>
+   <li> <a href="http://www.cs.utexas.edu/~tag/cmodels/">CMODELS</a>
+</ul>
+
+
+<hr width=30% align="left">
+<p>
+
+<h3>References</h3>
+<ul>
+   <li> <a
+   href="http://www-formal.stanford.edu/jmc/mcc59.html">Programs
+   with Common Sense</a>, John McCarthy
+   <li> <a
+   href="http://groups.csail.mit.edu/medg/ftp/psz/k-rep.html">What is
+   a Knowledge Representation?</a>, Randall Davis, Howard Shrobe, and
+   Peter Szolovits
+
+   <li> <a
+   href="http://www.cs.utexas.edu/users/vl/mypapers/common_sense.ps">The
+   Logic of Common Sense</a>, Vladimir Lifschitz
+   <li> <a
+   href="http://videolectures.net/aaai07_doherty_ausr/">Video: Autonomous UAV
+   search and rescue</a> by Patrick Doherty
+   <li> <a
+   href="../asp-s06/asp1.ps">Review of Propositional Logic</a> 
+   <li> <a
+   href="action-intro.ps">Brief Introduction to C+ and CCalc</a> 
+</ul>
+
+
+
+<!--
+<p>
+
+
+\begin{itemize}
+
+\end{itemize}
+-->
+</body>
+</html>

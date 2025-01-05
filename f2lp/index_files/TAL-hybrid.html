@@ -1,0 +1,67 @@
+<hr align="center" width="50"> <html>
+<head>
+<title>Hybrid Temporal Action Logic Theories - Example</title>
+</head>
+
+<!-- frameset cols="," -->
+<!-- frame name=" " src=" " -->
+<!-- frame name=" " src=" " -->
+<!-- noframes -->
+
+<!-- /noframes -->
+<!-- /frameset -->
+
+<body>
+
+The following package contains the files needed to run the example discussed in the paper
+"Reformulating Temporal Action Logics in Answer Set Programming" by Joohyung Lee and Ravi Palla
+published in AAAI 2012.<br><br>
+
+<a href="../TAL-hybrid/TAL-hybrid-theories-package.tar.gz">TAL hybrid theories package</a>.
+<br><br>
+<h4>Contents of the package:</h4>
+<b>facts-prog.lp</b>: An ASP program that generates the necessary instances by using the rdf-plugin of 
+<a href="http://www.kr.tuwien.ac.at/research/systems/dlvhex/">DLVHEX</a>. In our experiments, 
+we used version 1.7.4 of DLVHEX and version 1.7.0 of the rdf-plugin.<br><br>
+
+<b>example-1-query-1.f2lp</b>: The example in the AAAI paper with the first query enabled.
+This query is to check if Aspirin can be administered to the patient.<br><br>
+
+<b>example-1-query-2.f2lp</b>: The example in the AAAI paper with the second query enabled.
+This query is to check if Acetaminophen can be administered to the patient.<br><br>
+
+<b>usecase1-durative.f2lp</b>: This is the TAL description of the usecase. It contains some
+domain knowledge dealing with administering of drugs.<br><br>
+
+<b>f2lp-v1.2-beta</b>: This is version 1.2(beta) of F2LP.<br><br>
+
+<b>f2lp-v1.2-beta.c</b>: This is the source file of the above binary.<br><br>
+
+<b>f2lpdlv.py</b>: The python file that turns the output of F2LP into the syntax of 
+<a href="http://www.dlvsystem.com/">DLV</a>. This is a preliminary version that may not
+work for all cases.<br><br>
+ 
+<h4>Steps to run the example:</h4>
+1. Start python<br>
+2. 'import f2lpdlv'<br>
+<br> 
+To run example-1-query-1.f2lp, use:<br>
+f2lpdlv.run('f2lp-v1.2-beta facts-prog.lp example-1-query-1.f2lp usecase1-durative.f2lp','dlvhex --filter=holdsAt')
+<br><br>
+The program facts-prog.lp uses the 
+<a href="http://evs.nci.nih.gov/ftp1/NDF-RT/">National Drug File (NDF) ontology in OWL format (NDF-RT.owl)</a>.
+The file path of the NDF ontology needs to be replaced with the actual path in the first rule of 
+facts-prog.lp.
+The following relationship needs to be added to the drug Aspirin (URI: "http://evs.nci.nih.gov/ftp1/NDF-RT/NDF-RT.owl#N0000145918") in the NDF ontology before running the above command:<br><br> 
+&lt;rdfs:subClassOf&gt;<br>
+&nbsp; 	&lt;owl:Restriction&gt;<br>
+&nbsp;&nbsp; 		&lt;owl:onProperty rdf:resource="#CI_with"/&gt;<br>
+&nbsp;&nbsp; 		&lt;owl:someValuesFrom rdf:resource="#N0000001482"/&gt;<br>
+&nbsp; 	&lt;/owl:Restriction&gt;<br>
+&lt;/rdfs:subClassOf&gt;<br>
+This expresses the knowledge that Gastrointestinal Bleeding is a contraindication for administering Aspirin.
+</body>
+<br><br><br>
+&nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a> &nbsp; &nbsp; 
+	
+</html>

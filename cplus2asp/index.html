@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0111)https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Cplus2ASP v3.1 Homepage</title>
+<link rel="stylesheet" type="text/css" href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/cplus2aspstyle.css">
+</head>
+<body>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Header / Navigation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div style="background-color:#fc4c4c; text-align: center; border-radius: 25px; box-shadow: 0px 3px 4px #888888; padding-top: 5vh; padding-bottom: 5vh;
+">
+    <a style="color:black; text-decoration: none; font-size: 22px;" href="https://github.com/azreasoners/Cplus2ASP">We refer the user to the new Github page (http://github.com/azreasoners/Cplus2ASP) for up-to-date installation instructions.</a>
+    </div>
+
+
+
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP v3.1</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+</ul>
+
+
+
+
+
+
+
+<hr>
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/obtaining_cplus2asp.html" class="directoryLink" title="Obtaining Cplus2ASP">Obtaining Cplus2ASP</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/running_cplus2asp.html" class="directoryLink" title="Running Cplus2ASP">Running Cplus2ASP</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/cplus2asp_programs.html" class="directoryLink" title="Cplus2ASP Programs">Cplus2ASP Programs</a></li>
+</ul>
+
+
+<hr>
+<p class="title">Examples and Features:</p>
+<ul class="directoryList">
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/examples/index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/examples/benchmarks.html" class="directoryLink" title="Cplus2ASP Benchmarking Results">Benchmarks</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/examples/lua.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using LUA</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/examples/python.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Python</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/examples/config.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Config file</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/examples/bc.html" class="directoryLink" title="Using the Language BC">Language BC</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/examples/reactive.html" class="directoryLink" title="Using Reactive Mode">Reactive Mode</a></li>
+</ul>
+
+<hr>
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage clingo">Clingo</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+<li><a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp_old/index.html" class="directoryLink" title="Cplsu2asp v3.0">Cplus2asp v3.0</a></li>
+</ul>
+<p></p>
+</div>
+
+<div id="pagebody">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Body ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<p>
+	Cplus2ASP is a system designed to perform a modular translation of action descriptions written for CCalc into answer set programs.
+	The current work comprises a suite of tools that translate CCalc action descriptions, solve the translated ASP programs, and
+	produce answer sets similar to the models output by CCalc. If you're unfamiliar with CCalc, it's an implementation of the action
+	language C+ (an extension of causal logic) that is very useful for describing and reasoning about time- and state-based domains
+	using relatively intuitive syntax. For more information, check out the CCalc website using the link in the side bar. Our goal is to
+	combine the user-friendliness of the CCalc language with the speed of modern answer set solvers to capture the best of both worlds.
+</p>
+<hr>
+<p>The Cplus2ASP system consists of the following items:</p>
+<h3>Cplus2ASP</h3>
+<p>
+	The main orchestrator program of the tool chain acts as a unified interface that accepts all input and options, automatically handling
+	the process of calling the programs below in the right order with the correct configurations. While it is possible to manually call
+	each part of the tool chain separately, we highly recommend letting this system handle the details of organizing and executing the
+	software tool chain.
+</p>
+
+<p>
+	Cplus2ASP is highly configurable, allowing the tools in the toolchain to be turned off or be substituted for other tools, although
+	compatibility among customly selected toolchain components is not recommened. In addition, Cplus2ASP provides a number of
+	pre-configured running modes, which are detailed below.
+</p>
+
+<table class="indented-table">
+ <tbody><tr><th nowrap="nowrap">Incremental </th><td>-</td><td class="text">
+	The default running mode. Utilizes a translation to incremental ASP in order to allow an incremental ASP solver to effeciently
+	iterate over all possible steps.
+ </td></tr>
+ <tr><th nowrap="nowrap">Reactive </th><td>-</td><td class="text">
+ 	This is under development.
+	<!-- The default running mode when staticAbnormalities or dynamicAbnormalities are found. Uses a reactive ASP solver and incremental
+	translation to provide efficient online replanning. <span class="note">This mode is still highly experimental and incomplete.
+	See the <a href="./release_notes.html">release notes</a> for known limitations.</span> -->
+</td></tr>
+ <tr><th nowrap="nowrap">Static (auto)</th><td>-</td><td class="text">
+	Uses the static translation used by previous version of Cplus2ASP. Automatically iterates and resolves for all requested steps until
+	a valid plan is found.
+ </td></tr>
+ <tr><th nowrap="nowrap">Static (manual)</th><td>-</td><td class="text">
+	Similar to Static (auto) except that it allows the user to specify the steps to attempt to solve for.
+ </td></tr>
+</tbody></table>
+
+<h3>Cplus2ASP.bin</h3>
+<p>
+	This is the automated translator module for Cplus2ASP. It accepts normal CCalc files as input and translates them into F2LP input.
+	Currently this part of the software tool chain is a prototype, and as such lacks support for some of the more advanced features of
+	CCalc. See the <a href="https://webhost340.asu.edu:2222/CMD_FILE_MANAGER/domains/reasoning.eas.asu.edu/public_html/cplus2asp/realease_notes.html">release notes</a> for known limitations of the program.
+</p>
+
+<h3>F2LP</h3>
+<p>
+	To allow greater flexibility for the translated programs, we use F2LP as the target language of translation. F2LP supports the use of
+	first-order formulas in its rules, transforming them into equivalent ASP code. A guide to F2LP's syntax and usage can be found on the
+	F2LP web page (the link in the side bar will take you there).
+</p>
+<p class="note">
+	Cplus2ASP v3.1 requires F2LP version 1.4 or higher in order to use the default translation method. If a previous version of F2LP is
+	available the program can still run in static compatibility mode (accessed with the --mode=static-auto argument).
+</p>
+
+
+<h3>Clingo3to4</h3>
+<p>
+	The target language for F2LP is compatible with clingo3. Since the input syntax for clingo3 and clingo4 is not the same we have used this module to translate clingo3 code to clingo4 compatible code.
+</p>
+
+<h3>Clingo</h3>
+<p class="note">
+	Cplus2ASP v3.1 has replaced Clingo/iClingo/oClingo system with Clingo 4 as the default ASP grounder/solver suite.<!--  Cplus2ASP v3 also
+	allows for two additional running modes, reactive and static modes, which utilize oClingo and Clingo respectively -->.
+</p>
+<p>
+	Clingo<!-- , iClingo, and oClingo are --> is an ASP grounder &amp; solver suites produced as part of the Potsdam Answer Set Solving Collection (Potassco)
+	intended to provide higly-optimized static, incremental, and online ASP reasoning <!-- (respectively) --> and are used by default in the
+	Cplus2ASP respective operating modes.
+</p>
+
+<h3>as2transition</h3>
+<p>
+	as2transition is a tool designed to take output of a translated CCalc action description from Clingo (&amp; some other popular answer
+	set solvers) and transform it into a human-readable format similar to the output of CCalc. Using this tool on translated answer sets
+	is almost a must for any non-trivial action description, as anything larger than a simple example will produce answer sets that, while
+	readable, will not  be easy to quickly parse and analyze.
+</p>
+
+<!-- Examples -->
+<hr>
+<p>To supplement the aforementioned files and tools, the following items may help make translating and working with CCalc action descriptions easier:</p>
+<p class="title">Sample Domains</p>
+<p>
+	We've collected "benchmark" problems from CCalc for the purposes of testing and demonstration, and we've made them available
+	as a helpful reference. The Examples link in the sidebar will take you to the page where we've archived all of the examples, including
+	sample domains from the seminal CCalc paper "Nonmonotonic Causal Theories", medium-sized domains called the Zoo World and
+	Traffic World, and a couple of other custom examples we've created or adapted into the language of CCalc. These sample files can be used
+	directly, as they have been set up to be compatible with the translator (Cplus2ASP.bin) as well as the rest of the tool chain.
+</p>
+
+<!-- Contact Information -->
+<hr>
+<p class="footnotetitle">Contact Information</p>
+<p class="footnote">
+	Cplus2ASP v3.1 is maintained by Samidh Talsania (stalsani &lt;at&gt; asu &lt;dot&gt; edu) Joohyung Lee (joolee &lt;at&gt; asu &lt;dot&gt; edu).
+</p>
+<p class="footnote">
+	Cplus2ASP v2 is maintained by Joseph Babb (jbabb1 &lt;at&gt; asu &lt;dot&gt; edu) Joohyung Lee (joolee &lt;at&gt; asu &lt;dot&gt; edu).
+</p>
+<p class="footnote">
+	Cplus2ASP v1 was created by Joohyung Lee and Michael Casolary (Michael &lt;dot&gt; Casolary &lt;at&gt; asu &lt;dot&gt; edu).
+</p>
+<p class="footnote">
+	Feel free to contact us with any questions, comments, or feedback.
+</p>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Copyright -->
+<hr>
+<center>
+<p class="footnote"> Copyright (C) 2010-2013 - Joseph Babb, Michael Cassolary, and Joohyung Lee. </p>
+<p class="footnote">{ jbabb1, Michael.Casolary, joolee } &lt;at&gt; asu &lt;dot&gt; edu.  </p>
+<p class="footnote"> This work was partially supported by the National Science Foundation under Grant IIS-0916116.</p>
+</center>
+</div>
+
+</body></html>

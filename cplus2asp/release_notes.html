@@ -1,0 +1,180 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+  -
+  - Copyright (c) 2010-2013 <Joseph Babb, Michael Cassollary, Joohyung Lee>
+  -
+  - For information on how to contact the authors, please visit
+  -      http://reasoning.eas.asu.edu/Cplus2ASP
+  -
+  - This file is part of the Cplus2ASP system.
+  -
+  - Cplus2ASP is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License as published by
+  - the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - Cplus2ASP is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+<head>
+<title>Cplus2ASP v3.1 - Release Notes</title>
+<link rel="stylesheet" type="text/css" href="./cplus2aspstyle.css" />
+</head>
+<body>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Header / Navigation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP v3.1</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Back to Index">Home</a></li>
+</ul>
+
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="./release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+<li><a href="./obtaining_cplus2asp.html" class="directoryLink" title="Obtaining Cplus2ASP">Obtaining Cplus2ASP</a></li>
+<li><a href="./installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="./running_cplus2asp.html" class="directoryLink" title="Running Cplus2ASP">Running Cplus2ASP</a></li>
+<li><a href="./cplus2asp_programs.html" class="directoryLink" title="Cplus2ASP Programs">Cplus2ASP Programs</a></li>
+</ul>
+
+<hr />
+<p class="title">Examples and Features:</p>
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./benchmarks.html" class="directoryLink" title="Cplus2ASP Benchmarking Results">Benchmarks</a></li>
+<li><a href="./lua.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using LUA</a></li>
+<li><a href="./python.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Python</a></li>
+<li><a href="./config.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Config file</a></li>
+<li><a href="./bc.html" class="directoryLink" title="Using the Language BC">Language BC</a></li>
+<li><a href="./reactive.html" class="directoryLink" title="Using Reactive Mode">Reactive Mode</a></li>
+</ul>
+
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+<li><a href="../cplus2asp_old/index.html" class="directoryLink" title="Cplsu2asp v3.0">Cplus2asp v3.0</a></li>
+</ul>
+</p>
+</div>
+
+<div id="pagebody">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Body ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+
+
+<h2> Release Notes Cplus2ASP v3.1</h2>
+
+
+<h3>Translator Limitations</h3>
+<p class="text">Generally, <span class="code">Cplus2ASP.bin</span> supports the same syntax as CCalc, including many syntactic shortcuts.  However, the following features and syntax are not yet supported:
+<ul>
+<li><span class="header">Currently not supported arguments for cplus2ASP. Support may be added in future.</span></li>
+<ul>
+  <li> -togr</li>
+  <li> --to-grounder</li>
+  
+  <li> -justgr</li>
+  <li> --just-grounder</li>
+  
+
+  <li> -grout=</li>
+  <li> --grounder-output=</li>
+  
+
+  <li> -gropt=</li>
+  <li> --grounder-opts=</li>
+  <li> -gr=</li>
+  <li> --grounder=</li>
+  <li> -gr</li>
+  <li> --grounder</li>
+</ul>
+</ul>
+<h3>Additional Features</h3>
+<p class="text">Some capabilities have been added to Cplus2ASP that were not present in the original CCalc.  These features may be in the experimental stage, and thus may have their functionality altered or improved as new versions are released.
+<ul>
+<li><span class="header">Raw Python code: </span>Cplus2ASP supports the insertion of raw Python code in its input files.  This allows for greater control and flexibility over the logic of the program. Note that you can use various python libraries in the logic of your code if those libraries are already installed on your machine using python import. See example random-python.cp for such a usage. The directive &quot;<span class="code">:- begin_python.</span>&quot; tells Cplus2ASP to start treating any input following it as raw Python code that should be passed through as-is into the translated output.  The directive &quot;<span class="code">:- end_python.</span>&quot; tells Cplus2ASP to resume processing of an input file as CCalc-style code.</li>
+
+<li><span class="header">Config file: </span>Cplus2ASP recognizes options directly from a configuration file. The configuration file can be created in your home directoy and ahs to be named <b>.cplus2asp.config</b>. Note that any argument given on the command line while execution would override the configuration read from the configuration file.</li>
+</ul></p>
+
+<h2> Release Notes Cplus2ASP v3</h2>
+
+<h3>Additional Features</h3>
+<p class="text">Some capabilities have been added to Cplus2ASP that were not present in the original CCalc.  These features may be in the experimental stage, and thus may have their functionality altered or improved as new versions are released.
+<ul>
+<li><span class="header">Raw LUA code: </span>Cplus2ASP supports the insertion of raw LUA code in its input files.  This allows for greater control and flexibility over the logic of the program.  The directive &quot;<span class="code">:- begin_lua.</span>&quot; tells Cplus2ASP to start treating any input following it as raw LUA code that should be passed through as-is into the translated output.  The directive &quot;<span class="code">:- end_lua.</span>&quot; tells Cplus2ASP to resume processing of an input file as CCalc-style code.</li>
+</ul></p>
+
+<h2> Release Notes Cplus2ASP v2</h2>
+
+<p class="text">The Cplus2ASP system attempts to support or emulate many features of the original CCalc system.  However, Cplus2ASP (in particular, the <span class="code">Cplus2ASP.bin</span> translator module) is currently in the prototype stage of development, and as such certain advanced features of CCalc are not present or not supported in the current version of Cplus2ASP.
+</p>
+
+<h3>Translator Limitations</h3>
+<p class="text">Generally, <span class="code">Cplus2ASP.bin</span> supports the same syntax as CCalc, including many syntactic shortcuts.  However, the following features and syntax are not yet supported:
+<ul>
+<li><span class="header">Use of &quot;<span class="code">where</span>&quot; clauses in macro definitions: </span> Simple macro definitions are supported, but &quot;<span class="code">where</span>&quot; clauses are currently ignored.</li>
+
+<br />
+<li><span class="header">External predicates in causal law &quot;<span class="code">where</span>&quot; clauses: </span> &quot;<span class="code">where</span>&quot; clauses are allowed for most causal law forms, but are not evaluated during translation, and are not allowed to contain externally-defined predicates or arbitrary code.  Simple uses of causal law &quot;<span class="code">where</span>&quot; clauses, like mathematical evaluation, are allowed.</li>
+
+<br />
+<li><span class="header">Use of <span class="code">min(X,Y)</span> and <span class="code">max(X,Y)</span>: </span> CCalc allows these to be used in causal laws and automatically replaces them with the appropriate value <span class="code">X</span> or <span class="code">Y</span>.  Cplus2ASP does not directly support this.<br />
+<span class="header">Workaround: </span>If you need to use one of these operators in a causal law, replace &quot;<span class="code">min(X,Y)</span>&quot; with the expression &quot;<span class="code">V &amp; (X &lt; Y ->> V=X) &amp; (Y =&lt; X ->> V=Y)</span>&quot;, where V is an appropriate variable ranging over the values of X and Y.  The same is true for &quot;<span class="code">max(X,Y)</span>&quot;, just replace the instances of &quot;<span class="code">&lt;</span>&quot; with &quot;<span class="code">&gt;</span>&quot;.</li>
+</ul></p>
+
+<h3>Additional Features</h3>
+<p class="text">Some capabilities have been added to Cplus2ASP that were not present in the original CCalc.  These features may be in the experimental stage, and thus may have their functionality altered or improved as new versions are released.
+<ul>
+<li><span class="header">Raw ASP/F2LP code: </span>Cplus2ASP supports the insertion of raw ASP/F2LP code in its input files.  This allows for more low-level interaction with the translated input, or permits you to create additional ASP-style rules alongside the CCalc-style laws.  The directive &quot;<span class="code">:- begin_asp.</span>&quot; tells Cplus2ASP to start treating any input following it as raw ASP/F2LP code that should be passed through as-is into the translated output.  The directive &quot;<span class="code">:- end_asp.</span>&quot; tells Cplus2ASP to resume processing of an input file as CCalc-style code.</li>
+</ul></p>
+
+<h3>Known Bugs / Deficiencies</h3>
+
+<p class="text"> There are currently several outstanding bugs in the Cplus2ASP system that will be addressed in new releases in the near future, these are detailed below </p>
+
+<ul>
+<li>
+	<span class="header">Errors in macro expansions</span> may occur in certain circumstances while using macros that accept arguments (i.e. foo(#1,#2)). <br />
+	<span class="header">Workaround: </span> For now these macros should be expanded manually in the event they appear to be expanding improperly.
+</li>
+<br />
+<li>
+	<span class="header">Include directives (':- include') can fail </span> when the include lists multiple files. <br />
+	<span class="header">Workaround: </span> Use a single include directive per file, utilizing multiple such directives when necessary.
+</li>
+<br />
+</ul>
+
+
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Copyright -->
+<hr />
+<center>
+<p class="footnote"> Copyright (C) 2010-2013 - Joseph Babb, Michael Cassolary, and Joohyung Lee. </p>
+<p class="footnote">&#123; jbabb1, Michael.Casolary, joolee &#125; &lt;at&gt; asu &lt;dot&gt; edu.  </p>
+<p class="footnote"> This work was partially supported by the National Science Foundation under Grant IIS-0916116.</p>
+</center>
+</div>
+</body>
+</html>

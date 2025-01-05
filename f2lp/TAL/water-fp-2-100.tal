@@ -1,0 +1,206 @@
+
+// This is the first scenario from "Physical Modeling using Temporal Action Logic".
+
+// ----------------------------------------------------------------------------------------------------
+// Value Domains
+// ----------------------------------------------------------------------------------------------------
+
+#domain tankorreservoir :elements { reservoir, lowertank, upperleft, upperright }
+#domain pipeorpump :elements { leftpump, rightpump, leftpipe, rightpipe, lowerpipe }
+
+#domain pipe :parent pipeorpump :elements { [leftpipe .. lowerpipe] }
+#domain pump :parent pipeorpump :elements { [leftpump .. rightpump] }
+#domain tank :parent tankorreservoir :elements { [lowertank .. upperright] }
+
+// ----------------------------------------------------------------------------------------------------
+// Attachments
+// ----------------------------------------------------------------------------------------------------
+
+#propagation :split-by-time :constraints-by-time
+
+// We want to use fixed point numbers.
+#domain fixedpoint :fixedpoint :lb 0 :ub 100 :decimals 0
+
+// The time step.  Decrease this value to simulate with greater precision
+// (less time between each discrete time step).  Unit:  Seconds.
+#valueconst Ts :domain fixedpoint :parameter :default 1
+#timescale Ts
+
+// We only specify the height of tanks.  We assume implicitly that pipes and pumps
+// are defined in a way consistent with some 'real' arrangement of tanks.  Pipes
+// and pumps go from the lowest level of one tank to the highest level of another
+// one.  Pipes go from a higher level to a lower one.   Pumps go from a lower level
+// to a higher one.
+
+//  dh1 = -0.1040*Ts*sqrt(h1) + 0.0334*Ts*u1
+//  dhs = -0.0512*Ts*sqrt(hs) + 0.0343*Ts*us
+//  dh2 = -0.0750*Ts*sqrt(h2) + 0.1040*Ts*sqrt(h1) + 0.0656*Ts*sqrt(hs)
+//
+// dýr h1 - left tank
+//     hs - right tank
+//     h2 - lower tank
+//     u1 - left pump
+//     us - right pump
+//     Ts - samplingstiden (12.5, 4, el. 1s) 
+//     dh - fýrýndring i resp. tank under Ts sekunder.
+//
+	
+#function alpha(pipe) :domain fixedpoint = {
+	<leftpipe> = $times(Ts, 10),
+	<rightpipe> = $times(Ts, 5),
+	<lowerpipe> = $times(Ts, 7)
+}
+
+#function beta(pump) :domain fixedpoint = {
+	<leftpump> = $times(Ts, 3),
+	<rightpump> = $times(Ts, 3)
+}
+
+#function epsilon(pipe) :domain fixedpoint = {
+	<leftpipe> = $times(Ts, 10),
+	<rightpipe> = $times(Ts, 5),
+	<lowerpipe> = $times(Ts, 7)
+}
+
+#function height(tankorreservoir) :domain fixedpoint = {
+	<reservoir> = 10,
+	<lowertank> = 50,
+	<upperleft> = 50,
+	<upperright> = 50
+}
+
+#function source(pipeorpump) :domain tankorreservoir = {
+	<leftpump> = reservoir,
+	<rightpump> = reservoir,
+	<leftpipe> = upperleft,
+	<rightpipe> = upperright,
+	<lowerpipe> = lowertank
+}
+
+#function dest(pipeorpump) :domain tankorreservoir = {
+	<leftpump> = upperleft,
+	<rightpump> = upperright,
+	<leftpipe> = lowertank,
+	<rightpipe> = lowertank,
+	<lowerpipe> = reservoir
+}
+
+#feature pipeopen(pipe) :domain fixedpoint :showname
+#feature pumpvoltage(pump) :domain fixedpoint :showname
+
+#feature pipeflow(pipeorpump) :domain fixedpoint :showname
+
+#feature overflow(tankorreservoir) :domain boolean
+#feature empty(tankorreservoir) :domain boolean
+#feature waterlev(tankorreservoir) :domain fixedpoint :showname
+
+#feature inflow(tankorreservoir) :domain fixedpoint :showname
+#feature outflow(tankorreservoir) :domain fixedpoint :showname
+
+#attach	"logic.gui.plot.PlotAttachment"
+	"pumpvoltage(leftpump), pumpvoltage(rightpump), waterlev(upperleft), waterlev(upperright), waterlev(lowertank)"
+
+#attach	SaveText
+	"pumpvoltage(leftpump), pumpvoltage(rightpump), waterlev(upperleft), waterlev(upperright), waterlev(lowertank)"
+
+#action setflow(pipe, fixedpoint)
+#action setvoltage(pump, fixedpoint)
+
+#action stopflow, stoppumps
+
+#valuevar flow, voltage :domain fixedpoint
+
+#obs [0] waterlev(reservoir) == 5 & !empty(reservoir)
+#obs [0] waterlev(lowertank) == 0 & empty(lowertank)
+#obs [0] waterlev(upperleft) == 0 & empty(upperleft)
+#obs [0] waterlev(upperright) == 0 & empty(upperright)
+
+#acs [t1,t2] setflow(pipe, flow)       -> R((t1,t2] pipeopen(pipe) == flow)
+#acs [t1,t2] setvoltage(pump, voltage) -> R((t1,t2] pumpvoltage(pump) == voltage)
+
+#acs [t1,t2] stopflow  -> R((t1,t2] forall pump [ pumpvoltage(pump) == 0 ] & forall pipe [ pipeopen(pipe) == 0 ])
+#acs [t1,t2] stoppumps -> R((t1,t2] forall pump [ pumpvoltage(pump) == 0 ])
+
+#occ [2,3] setvoltage(leftpump, 6)
+#occ [3,4] setvoltage(rightpump, 5)
+#occ [6,7] stoppumps
+#occ [15,16] stopflow
+
+#dep X((0,16]
+	forall pipeorpump [ pipeflow(pipeorpump) !== {} ] &
+	forall tank [ overflow(tank) !== {} ] &
+	forall tank [ empty(tank) !== {} ] &
+	forall tank [ waterlev(tank) !== {} ] &
+	forall tank [ inflow(tank) !== {} ] &
+	forall tank [ outflow(tank) !== {} ])
+
+// No tank is overflowing in state 0.  No pumps are on, but all other pipes are open.
+
+#obs [0] forall tankorreservoir [ !overflow(tankorreservoir) ]
+#obs [0] pumpvoltage(leftpump) == 5 & pumpvoltage(rightpump) == 0
+#obs [0] forall pipe [ pipeopen(pipe) == 16 ]
+
+// Pipe flow depends on water levels.  If there is no water, no water will flow out.
+// If there is one level of water, then if there are two outgoing pipes, one will get
+// all the flow; if there is one outgoing pipe, it will get all the flow.  If there
+// is enough water, both (all) pipes will get flow.
+
+// Pipes from the reservoir (assumed to be pumps) always get as much water as they want.
+
+#dom forall t, pump [ [t] pipeflow(pump) == $times(beta(pump), pumpvoltage(pump)) ]
+
+// Pipes not from the reservoir (assumed not to be pumps) get water depending on the
+// inflow and the water level.
+
+// In this special case, there are no tanks with two outgoing pipes.
+
+////////////////////////////////////////////////////////////////////////////////
+
+// Total inflow depends on pipeflow.  The reservoir has no inflow and no outflow.
+
+#obs [0] inflow(reservoir) == 0
+#obs [0] outflow(reservoir) == 0
+
+// For the other tanks, the inflow is equal to the sum of all inflows from
+// incoming pipes and all inflows from incoming pumps.  Note that we need to
+// compensate for the fact that the alpha and epsilon of a pipe may not be
+// equal, even though they happen to be equal in this specific scenario.
+
+#dom forall t, tank [
+	[t] inflow(tank) == $plus($sum(<pipe>, [t] dest(pipe) == tank, $times($div(epsilon(pipe),alpha(pipe)),pipeflow(pipe))),
+	                         $sum(<pump>, [t] dest(pump) == tank, pipeflow(pump)))
+]
+
+////////////////////////////////////////////////////////////////////////////////
+
+// Above we got the complete inflow to the upper level of tanks (those that have
+// only incoming pumps, no incoming pipes).  Now we calculate the pipeflow out
+// of those tanks.  Doing this before calculating outflow means that we get
+// information more quickly -- we can calculate some of the outflow this loop,
+// instead of all outflow having to wait until next loop.  This is about twice
+// as fast as if we had inverted the order of this and the next formula!
+
+#dom forall t, pipe [ [t] pipeflow(pipe) == $min(
+		  $plus(waterlev(source(pipe)), inflow(source(pipe))),
+		  $min($times(alpha(pipe), $div(waterlev(source(pipe)),2)), pipeopen(pipe))) ]
+
+// Total outflow depends on pipeflow.
+
+#dom forall t, tank [
+	[t] outflow(tank) == $sum(<pipe>, [t] source(pipe) == tank, pipeflow(pipe)) ]
+
+////////////////////////////////////////////////////////////////////////////////
+
+// Dynamic fluent definition: empty
+
+#dom forall t, tank [ [t] empty(tank) <-> waterlev(tank) == 0 ]
+
+// Dynamic fluent definition: waterlev.  We calculate the newlevel as oldlevel+inflow-outflow.
+// If this fits in the tank, the tank gets this new level and no overflow; if it doesn't fit,
+// the tank becomes full and overflows.
+
+#dom forall t, tank [ [t] $lessequal($minus($plus(waterlev(tank), inflow(tank)), outflow(tank)), height(tank)) ->
+	[t+1] waterlev(tank) == value(t, $minus($plus(waterlev(tank), inflow(tank)), outflow(tank))) & !overflow(tank)]
+
+#dom forall t, tank [ [t] $greater($minus($plus(waterlev(tank), inflow(tank)), outflow(tank)), height(tank)) ->
+	[t+1] waterlev(tank) == height(tank) & overflow(tank)]

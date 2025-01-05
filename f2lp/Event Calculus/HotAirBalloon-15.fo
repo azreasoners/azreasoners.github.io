@@ -1,0 +1,59 @@
+% HotAirBalloon-15.fo
+
+time(0..maxstep).
+height(0..6).
+offset(1..6).
+
+agent(nathan).
+balloon(ba).
+
+#domain time(T).
+#domain height(H;H1;H2).
+#domain offset(Off).
+#domain agent(A).
+#domain balloon(B).
+
+
+fluent(heaterOn(B);height(B,H)).
+
+event(turnOnHeater(A,B);turnOffHeater(A,B)).
+
+% Sigma
+
+initiates(turnOnHeater(A,B),heaterOn(B),T).
+
+terminates(turnOffHeater(A,B),heaterOn(B),T).
+
+% Delta
+
+happens(turnOnHeater(nathan,ba),0).
+happens(turnOffHeater(nathan,ba),6).
+
+
+% Psi
+
+holdsAt(height(B,H1),T) &
+holdsAt(height(B,H2),T) ->
+H1=H2.
+
+% Pi
+
+holdsAt(height(B,H1),T) &
+H2 = (H1 + Off) ->
+trajectory(heaterOn(B),T,height(B,H2),Off).
+
+holdsAt(height(B,H1),T) &
+H2 = (H1 - Off) ->
+antiTrajectory(heaterOn(B),T,height(B,H2),Off).
+
+% Gamma
+
+holdsAt(height(ba,0),0).
+
+-holdsAt(heaterOn(ba),0).
+
+releasedAt(height(B,H), T).
+
+-releasedAt(heaterOn(B),0).
+
+% End of file.

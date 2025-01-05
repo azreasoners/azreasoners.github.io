@@ -1,0 +1,66 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cplus2ASP - Installation Instructions</title>
+<link rel="stylesheet" type="text/css" href="./cplus2aspstyle.css" />
+</head>
+<body>
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Back to Index">Home</a></li>
+<li><a href="./examples/index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./downloads.html" class="directoryLink" title="Links to Cplus2ASP downloads">Downloads</a></li>
+</ul>
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="./installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="./release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+</ul>
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+</ul>
+</p>
+</div>
+<div id="pagebody">
+<p class="text">The Cplus2ASP system utilizes a tool chain of programs to translate CCalc-style action descriptions into ASP, solve the resulting ASP program, and transform the output from the ASP solver back into CCalc-style solutions. The archive in the Downloads section of the sidebar contains statically-compiled Linux executables for cplus2asp, cplus2asp.bin, f2lp, and as2transition, along with source code and build instructions for each should you wish to compile the programs yourself.
+</p>
+<p class="title">Prerequisites</p>
+<p class="text">In addition to the programs contained in the downloadable Cplus2ASP archive, you will also need to install the programs <span class="code">gringo</span> and <span class="code">clasp</span>, available via the link in the sidebar.  If you wish to compile <span class="code">cplus2asp.bin</span> from source, you will also need <a href="http://www.cmake.org/" title="CMake website">CMake</a>.  <span class="code">cplus2asp.bin</span> comes with pre-built lexer and parser sources, but if you want to rebuild them (or make modifications to either), you will need <a href="http://flex.sourceforge.net/" title="Flex website">Flex</a> and <a href="http://www.gnu.org/software/bison/" title="Bison website">Bison</a>.</p>
+
+<p class="title">Installing the Cplus2ASP System Using Pre-Compiled Binaries</p>
+<p class="text">The Cplus2ASP archive contains pre-compiled Linux binaries for cplus2asp, cplus2asp.bin, f2lp, and as2transition. To install the system using these binaries, run install.sh script as follows:</p>
+<p class="code">sudo ./install.sh</p>
+<p class="text">This will install all included programs into "/usr/local/bin", and any relevant support files to "/usr/local/lib". Alternatively, to install to a different base directory, pass the desired base directory to the script as an argument. For example to install to your local user directories "/home/me/bin" and "/home/me/lib", call the install script like so:</p>
+<p class="code">./install.sh "/home/me"</p>
+<p class="text">This will probably eliminate the need for you to have permissions to use the sudo program. Note that you must use an absolute path if you plan to override the default install location.</p>
+
+<p class="title">Compiling the Cplus2ASP System</p>
+<p class="text">If the included binaries are not compatible with your system (or you just want to compile Cplus2ASP from source anyway), each of the included programs has a "src" subdirectory that contains its source code along with a README file explaining how to compile and use the software.  Note that the Cplus2ASP system has only been tested on Linux and Mac OSX operating systems, and at this time has not been officially ported to Windows.</p>
+
+<p class="text">To compile and install <span class="code">cplus2asp</span>, run these commands from the "cplus2asp/src" directory in the unzipped archive:</p>
+<p class="code">make<br />
+sudo make install</p>
+<p class="text">This will compile <span class="code">cplus2asp</span> and install it into "/usr/local/bin", with helper files installed to "/usr/local/lib/cplus2asp".</p>
+
+<p class="text">To compile and install <span class="code">cplus2asp.bin</span>, you will need to have <a href="http://www.cmake.org/" title="CMake website">CMake</a> installed on your system.  Assuming it is present, run these commands from the "cplus2asp.bin/src/build" directory in the unzipped archive:</p>
+<p class="code">./configure.sh<br />
+make<br />
+sudo make install</p>
+<p class="text">This will compile <span class="code">cplus2asp.bin</span> and install it into "/usr/local/bin".</p>
+
+<p class="text">To compile and install <span class="code">as2transition</span>, run these commands from the "as2transition/src" directory in the unzipped archive:</p>
+<p class="code">make<br />
+sudo make install</p>
+<p class="text">This will compile <span class="code">as2transition</span> and install it into "/usr/local/bin".</p>
+</div>
+</body>
+</html>

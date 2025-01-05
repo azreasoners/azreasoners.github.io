@@ -1,0 +1,7 @@
+An "additive" fluent is a fluent with numerical values such that the 
+effect of several concurrently executed actions on it can be computed by
+adding the effects of the individual actions.  We show how queries about
+additive fluents can be answered using the Causal Calculator. The examples
+discussed in this paper involve buying and selling, applying forces and
+moving groups of objects.  The additive fluent mechanism can be used to
+instruct the Causal Calculator to generate more efficient plans.

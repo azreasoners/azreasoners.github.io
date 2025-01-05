@@ -1,0 +1,46 @@
+% BusRide2.fo
+
+time(0..maxstep).
+fluent (hasTicket; onRed; onYellow).
+event (buy;board;boardRed;boardYellow).
+
+#domain time(T).
+
+(happens(board,T) -> 
+ happens(boardRed,T) | happens(boardYellow,T)).
+
+(initiates(buy,hasTicket,T)).
+
+(holdsAt(hasTicket,T) -> 
+ initiates(boardRed,onRed,T)).
+
+ 
+(holdsAt(hasTicket,T) -> 
+ initiates(boardYellow,onYellow,T)).
+
+
+(holdsAt(onRed,T) -> 
+ -holdsAt(onYellow,T)).
+
+(holdsAt(onYellow,T) -> 
+ -holdsAt(onRed,T)).
+
+ 
+(holdsAt(onRed,T) -> 
+ holdsAt(hasTicket,T)).
+
+
+(holdsAt(onYellow,T) -> 
+ holdsAt(hasTicket,T)).
+
+
+-releasedAt(hasTicket,0).
+-releasedAt(onRed,0).
+-releasedAt(onYellow,0).
+
+holdsAt(onRed,15).
+
+-holdsAt(hasTicket,0).
+happens(buy,5).
+happens(board,13).
+

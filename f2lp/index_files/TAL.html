@@ -1,0 +1,331 @@
+<hr align="center" width="50"> <html>
+<head>
+<title>Temporal Action Logics (TAL) Examples</title>
+</head>
+
+<!-- frameset cols="," -->
+<!-- frame name=" " src=" " -->
+<!-- frame name=" " src=" " -->
+<!-- noframes -->
+
+<!-- /noframes -->
+<!-- /frameset -->
+
+<body>
+
+The table below compares the performance of different tools (combination of tools).<br>
+The time shown with respect to a problem (TAL description) is the time 
+taken to produce one model of the description.<br><br>
+<h4>VITAL:</h4>
+<a href="http://www.ida.liu.se/~jonkv/vital/">VITAL</a> is a tool for reasoning about actions
+using TAL. 
+<br>
+version 2.999.910 alpha.<br>
+First row : Total time in seconds (as provided by VITAL).<br>
+<br><br>
+<h4>F2LP + Answer Set Solvers:</h4>
+F2LP version 1.11<br>
+Cmodels version 3.79 (MINISAT version 2.0 beta).<br>
+Gringo version 3.0.3<br>
+Clasp version 2.0.2<br>
+Clingcon version 0.1.2 (Gringo version 2.0.2, Clasp version 1.1.1).<br>
+First row : Total time in seconds ((usr time + sys time) obtained using "time" command in linux).<br>
+Second row : Breakup of total time - (T1+T2) indicates T1 seconds for
+grounding and T2 seconds for solving.<br> 
+Time taken by F2LP : Negligible for all the problems.<br><br>
+
+<h4>Running F2LP</h4>
+f2lp [filename].f2lp | gringo -c maxstep=[N] | clasp<br>
+<br>
+
+
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>Problem (Maximum timepoint)<br>
+			VITAL input (*.tal)<br>
+     		F2LP input (*.f2lp)<br>
+     		Clingcon output (*.lp)<br>
+     </TD> 
+     <TD>VITAL</TD> 
+     <TD>F2LP with Gringo + Cmodels (with MINISAT 2.0 beta)</TD>
+     <TD>F2LP with Gringo + Clasp</TD> 
+     <TD>F2LP with Clingcon</TD> 
+</TR>
+<TR>     
+     <TD>RAH-projection (16) <br> 
+			<a href = "../TAL/RAH-16.tal"> RAH-16.tal </a> <br>
+     		<a href = "../TAL/RAH-16.f2lp"> RAH-16.f2lp </a> <br>
+     </TD> 
+     <TD>0.01s</TD>
+     <TD>0.23s <br>
+     	(0.08s + 0.15s)<br>
+     </TD> 
+     <TD>0.13s <br>
+     	(0.08s + 0.05s)<br>
+     </TD> 
+     <TD>0.1s <br>
+     </TD> 
+</TR>
+<TR>     
+     <TD>RAH-projection (50) <br> 
+			<a href = "../TAL/RAH-50.tal"> RAH-50.tal </a> <br>
+     		<a href = "../TAL/RAH-50.f2lp"> RAH-50.f2lp </a> <br>
+     </TD> 
+     <TD>0.05s</TD> 
+     <TD>0.99s<br>
+        (0.32s + 0.67s)<br>
+     </TD>
+     <TD>0.53s<br>
+	(0.32s + 0.21s)<br>
+     </TD> 
+     <TD>0.35s<br>
+     </TD> 
+</TR>
+<TR>     
+     <TD>RAH-planning-unitactions (7) <br> 
+			<a href = "../TAL/RAH-planning-unit-7.tal"> RAH-planning-unit-7.tal </a> <br>
+     		<a href = "../TAL/RAH-planning-unit-7.f2lp"> RAH-planning-unit-7.f2lp </a> <br>
+     </TD> 
+     <TD>10.56s<br>
+     	</TD> 
+     <TD>0.13s<br>
+	(0.03s + 0.1s)<br>
+     </TD>
+     <TD>0.08s<br>
+	(0.03s + 0.05s)<br>
+     </TD> 
+     <TD>0.07s</TD> 
+</TR>
+<TR>     
+     <TD>RAH-planning-unitactions (10) <br> 
+			<a href = "../TAL/RAH-planning-unit-10.tal"> RAH-planning-unit-10.tal </a> <br>
+     		<a href = "../TAL/RAH-planning-unit-10.f2lp"> RAH-planning-unit-10.f2lp </a> <br>
+     </TD> 
+     <TD>> 30min<br>
+     	</TD> 
+     <TD>0.45s<br>
+	(0.1s + 0.35s)<br>
+	</TD>
+     <TD>0.29s<br>
+	(0.1s + 0.19s)<br>
+	</TD> 
+     <TD>0.23s</TD>
+</TR>
+<TR>     
+     <TD>RAH-planning-duractions (6) <br> 
+			<a href = "../TAL/RAH-planning-dur-6.tal"> RAH-planning-dur-6.tal </a> <br>
+     		<a href = "../TAL/RAH-planning-dur-6.f2lp"> RAH-planning-dur-6.f2lp </a> <br>
+     </TD> 
+     <TD>540.59s</TD> 
+     <TD>0.3s<br>
+	(0.07s + 0.23s)<br>
+	</TD>
+     <TD>0.11s<br>
+	(0.07s + 0.04s)<br>
+	</TD> 
+     <TD>0.1s</TD> 
+</TR>
+<TR>     
+     <TD>RAH-planning-duractions (9) <br> 
+			<a href = "../TAL/RAH-planning-dur-9.tal"> RAH-planning-dur-9.tal </a> <br>
+     		<a href = "../TAL/RAH-planning-dur-9.f2lp"> RAH-planning-dur-9.f2lp </a> <br>
+     </TD> 
+     <TD>> 30min<br>
+     	</TD> 
+     <TD>0.66s<br>
+	(0.13s + 0.53s)<br>
+	</TD>
+     <TD>0.26s<br>
+	(0.13s + 0.13s)<br>
+	</TD> 
+     <TD>0.33s</TD> 
+</TR>
+<TR>     
+     <TD>WaterTank-Projection (16) <br> 
+			<a href = "../TAL/water-fp-2-100.tal"> waterTank-100.tal </a> <br>
+			<a href = "../TAL/waterTank-noCSP-100.f2lp"> waterTank-100.f2lp </a> <br>
+     		<a href = "../TAL/waterTank-100.lp"> waterTank-100.lp </a> <br>
+     </TD> 
+     <TD>0.07s<br>
+     	</TD> 
+     <TD>> 30min<br>
+	</TD>
+     <TD>> 30min<br>
+	</TD> 
+     <TD>8.92s</TD> 
+</TR>
+<TR>     
+     <TD>WaterTank-Projection (25) <br> 
+			<a href = "../TAL/water-fp-2-200.tal"> waterTank-200.tal </a> <br>
+			<a href = "../TAL/waterTank-noCSP-200.f2lp"> waterTank-200.f2lp </a> <br>
+     		<a href = "../TAL/waterTank-200.lp"> waterTank-200.lp </a> <br>
+     </TD> 
+     <TD>0.03s<br>
+     	</TD> 
+     <TD>> 30min<br>
+	</TD>
+     <TD>> 30min<br>
+	</TD> 
+     <TD>119.44s</TD> 
+</TR>
+<TR>     
+     <TD>WaterTank-Projection (30) <br> 
+			<a href = "../TAL/water-fp-2-300.tal"> waterTank-300.tal </a> <br>
+			<a href = "../TAL/waterTank-noCSP-300.f2lp"> waterTank-300.f2lp </a> <br>
+     		<a href = "../TAL/waterTank-300.lp"> waterTank-300.lp </a> <br>
+     </TD> 
+     <TD>0.01s<br>
+     	</TD> 
+     <TD>> 30min<br>
+	</TD>
+     <TD>> 30min<br>
+	</TD> 
+     <TD>591.15s</TD> 
+</TR>
+<TR>     
+     <TD>WaterTank-Projection (16) <br> 
+	 (alternate encoding)<br>
+			<a href = "../TAL/waterTank-noCSP-stratified-100.f2lp"> waterTank-stratified-100.f2lp </a> <br>
+     </TD> 
+     <TD>NA<br>
+     	</TD> 
+     <TD>0.06s<br>
+	</TD>
+     <TD>0.05s<br>
+	</TD> 
+     <TD>NA</TD> 
+</TR>
+<TR>     
+     <TD>WaterTank-Projection (25) <br> 
+	 (alternate encoding)<br>
+			<a href = "../TAL/waterTank-noCSP-stratified-200.f2lp"> waterTank-stratified-200.f2lp </a> <br>
+     </TD> 
+     <TD>NA<br>
+     	</TD> 
+     <TD>0.14s<br>
+	</TD>
+     <TD>0.13s<br>
+	</TD> 
+     <TD>NA</TD> 
+</TR>
+<TR>     
+     <TD>WaterTank-Projection (30) <br> 
+	 (alternate encoding)<br>
+			<a href = "../TAL/waterTank-noCSP-stratified-300.f2lp"> waterTank-stratified-300.f2lp </a> <br>
+     </TD> 
+     <TD>NA<br>
+     	</TD> 
+     <TD>0.22s<br>
+	</TD>
+     <TD>0.21s<br>
+	</TD> 
+     <TD>NA</TD> 
+</TR>
+</TABLE>
+
+
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>Problem (Maximum timepoint)<br>
+			VITAL input (*.tal)<br>
+     		F2LP input (*.f2lp)<br>
+     </TD> 
+     <TD>VITAL</TD> 
+     <TD>F2LP with Gringo + Cmodels (with MINISAT 2.0 beta)</TD>
+     <TD>F2LP with Gringo + Clasp</TD> 
+     <TD>F2LP with Clingcon</TD> 
+</TR>
+
+<h4>Running F2LP on the Zoo World domain</h4>
+f2lp zoo-declarations.f2lp zoo-landscape.f2lp zoo-animals.f2lp zoo-movement.f2lp zoo-actions.f2lp zoo-example-[N].f2lp | gringo -c maxstep=[M] | clasp<br>
+<br>
+<TR>     
+     <TD>ZooWorld-Projection (20)  <br> 
+			<a href = "../TAL/zoo-landscape.tal"> zoo-landscape.tal </a> <br>
+			<a href = "../TAL/zoo-animals.tal"> zoo-animals.tal </a> <br>
+			<a href = "../TAL/zoo-movement.tal"> zoo-movement.tal </a> <br>
+			<a href = "../TAL/zoo-actions.tal"> zoo-actions.tal </a> <br>
+			<a href = "../TAL/zoo-example-4.tal"> zoo-example-4.tal </a> <br>
+			<a href = "../TAL/zoo-declarations.f2lp"> zoo-declarations.f2lp </a> <br>
+			<a href = "../TAL/zoo-landscape.f2lp"> zoo-landscape.f2lp </a> <br>
+			<a href = "../TAL/zoo-animals.f2lp"> zoo-animals.f2lp </a> <br>
+			<a href = "../TAL/zoo-movement.f2lp"> zoo-movement.f2lp </a> <br>
+			<a href = "../TAL/zoo-actions.f2lp"> zoo-actions.f2lp </a> <br>
+			<a href = "../TAL/zoo-example-4.f2lp"> zoo-example-4.f2lp </a> <br>
+     </TD> 
+     <TD>0.43s<br>
+     	</TD> 
+     <TD>0.97s<br>
+	 (0.39s + 0.58s)<br>
+	</TD>
+     <TD>0.80s<br>
+	 (0.39s + 0.41s)<br>
+	</TD> 
+     <TD>0.49s</TD> 
+</TR>
+<TR>     
+     <TD>ZooWorld-Projection (50)  <br> 
+			<a href = "../TAL/zoo-example-5.tal"> zoo-example-5.tal </a> <br>
+			<a href = "../TAL/zoo-example-5.f2lp"> zoo-example-5.f2lp </a> <br>
+     </TD> 
+     <TD>> 30min<br>
+     	</TD> 
+     <TD>4.85s<br>
+	 (2.28s + 2.57s)<br>
+	</TD>
+     <TD>4.33s<br>
+	 (2.28s + 2.05s)<br>
+	</TD> 
+     <TD>2.03s</TD> 
+</TR>
+<TR>     
+     <TD>ZooWorld-Postdiction (15)  <br> 
+			<a href = "../TAL/zoo-example-1.tal"> zoo-example-1.tal </a> <br>
+			<a href = "../TAL/zoo-example-1.f2lp"> zoo-example-1.f2lp </a> <br>
+     </TD> 
+     <TD>61.63s<br>
+     	</TD> 
+     <TD>0.62s<br>
+	 (0.24s + 0.38s)<br>
+	</TD>
+     <TD>0.51s<br>
+	 (0.24s + 0.27s)<br>
+	</TD> 
+     <TD>0.33s</TD> 
+</TR>
+<TR>     
+     <TD>ZooWorld-Postdiction-2 (15)  <br> 
+			<a href = "../TAL/zoo-example-2.tal"> zoo-example-2.tal </a> <br>
+			<a href = "../TAL/zoo-example-2.f2lp"> zoo-example-2.f2lp </a> <br>
+     </TD> 
+     <TD>17.40s<br>
+     	</TD> 
+     <TD>0.59s<br>
+	 (0.24s + 0.25s)<br>
+	</TD>
+     <TD>0.51s<br>
+	 (0.24s + 0.27s)<br>
+	</TD> 
+     <TD>0.33s</TD> 
+</TR>
+<TR>     
+     <TD>ZooWorld-Postdiction (20)  <br> 
+			<a href = "../TAL/zoo-example-3.tal"> zoo-example-3.tal </a> <br>
+			<a href = "../TAL/zoo-example-3.f2lp"> zoo-example-3.f2lp </a> <br>
+     </TD> 
+     <TD>477.4s<br>
+     	</TD> 
+     <TD>0.99s<br>
+	 (0.41s + 0.58s)<br>
+	</TD>
+     <TD>0.82s<br>
+	 (0.41s + 0.41s)<br>
+	</TD> 
+     <TD>0.5s</TD> 
+</TR>
+</TABLE>
+</body>
+<br><br><br>
+&nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a> &nbsp; &nbsp; 
+	
+</html>

@@ -1,0 +1,117 @@
+=========================================================================
+                              CALL FOR PAPERS
+
+                                ASPOCP 2008
+     Workshop on Answer Set Programming and Other Computing Paradigms
+                   http://www.mat.unical.it/ASPOCP08/
+
+  Collocated with the International Conference on Logic Programming 2008
+
+                               Udine, Italy
+
+               December 9-13, 2008 (exact day to be determined)
+=========================================================================
+
+
+AIMS AND SCOPE
+
+ Since its introduction in the 1990s, answer set programming (ASP) has
+ been widely applied to various knowledge-intensive tasks and
+ combinatorial search problems. ASP was found to be closely related to
+ SAT, which has led to a new method of computing answer sets using SAT
+ solvers and techniques adapted from SAT. While this has been the most
+ studied relationship, the relationship of ASP to other computing
+ paradigms, such as constraint satisfaction, quantified boolean
+ formulas (QBF), or first-order logic (FOL) is also the subject of
+ active research. New methods of computing answer sets are being
+ developed based on the relation between ASP and other paradigms, such
+ as the use of pseudo-Boolean solvers, QBF solvers, and FOL theorem
+ provers. Furthermore, the practical application of ASP also fosters
+ work on multi-paradigm problem-solving, and in particular language
+ and solver integration. The most prominent examples in this area
+ currently are the integration of ASP with description logics (in the
+ realm of the Semantic Web) and constraint satisfaction.  This
+ workshop will facilitate the discussion about crossing the boundaries
+ of current ASP techniques, in combination with or inspired by other
+ computing paradigms.
+
+
+TOPICS
+
+ Topics of interests include (but are not limited to):
+
+ - Relating ASP to classical logic formalisms (SAT/FOL/QBF/SMT/DL).
+ - Relating ASP to constraint programming.
+ - Relating ASP to other logic programming paradigms.
+ - Relating ASP to other nonmonotonic languages.
+ - New methods of computing answer sets using algorithms or systems of
+  other paradigms.
+ - ASP and probabilistic reasoning.
+ - ASP and machine learning.
+ - Language extensions to ASP.
+ - ASP and multi-agent systems.
+ - Multi-paradigm problem solving involving ASP.
+ - Evaluation and comparison of ASP to other paradigms.
+ - Embedding ASP for challenging applications.
+ - Hybridizing ASP with procedural approaches.
+ - Enhanced grounding / beyond grounding.
+
+
+SUBMISSIONS
+
+ Papers must describe original research and should not exceed 15 pages
+ in the Springer LNCS format <URL:http://www.springeronline.com/lncs/>.
+
+ Paper submission will be handled electronically by means of the
+ Easychair system. The submission page is available at
+
+  http://www.easychair.org/conferences/?conf=aspocp08 .
+
+
+IMPORTANT DATES
+
+ Submission Deadline:       September 25, 2008
+ Notification:              October 20, 2008
+ Camera-ready articles due: November 10, 2008
+ Workshop:                  December 9-13, 2008 (exact day to be determined)
+
+
+PROCEEDINGS
+
+ The workshop contributions will be published electronically, using
+ the Computing Research Repository (CoRR). Informal printed
+ proceedings will be provided at the workshop. It is planned to
+ publish significantly extended versions of selected contributions as
+ post-proceedings, preferably as a special edition of a journal. The
+ post-proceeding articles will be subject to a further peer-reviewing
+ round.
+
+
+LOCATION
+
+ The workshop will be held in Udine, Italy, collocated with the
+ International Conference on Logic Programming (ICLP) 2008.
+
+
+WORKSHOP CO-CHAIRS
+
+ Wolfgang Faber (University of Calabria, Italy)
+ Joohyung Lee   (Arizona State University, USA)
+
+
+PROGRAM COMMITTEE
+
+Chitta Baral (Arizona State University, USA)
+Gerhard Brewka (University of Leipzig, Germany)
+Pedro Cabalar (University of A Coruña, Spain)
+Marc Denecker (Katholieke Universiteit Leuven, Belgium)
+Nicola Leone (University of Calabria, Italy)
+Vladimir Lifschitz (University of Texas at Austin, USA)
+Fangzhen Lin (Hong Kong University of Science and Technology, China)
+Thomas Lukasiewicz (University of Oxford, UK)
+Ilkka Niemelä (Helsinki University of Technology, Finland)
+Miroslaw Truszczynski (University of Kentucky, USA)
+Dirk Vermeir (Vrije Universiteit Brussel, Belgium)
+Stefan Woltran (Vienna University of Technology, Austria)
+Yan Zhang (University of Western Sydney, Austrailia)
+Yuanlin Zhang (Texas Tech University, USA)

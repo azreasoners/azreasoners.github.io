@@ -1,0 +1,103 @@
+//%%% ZOO LANDSCAPE %%%
+
+//:- sorts
+//  position;
+//  location >> cage;
+//  gate.
+
+//#domain position :elements {}
+#domain position :integer :lb 1 :ub 9
+#domain location :elements {outside} 
+#domain cage :parent location :elements {}
+#domain gate :elements {}
+
+
+//:- variables
+//  P,P1                              :: position;
+//  L                                 :: location;
+//  C                                 :: cage;
+//  G,G1                              :: gate.
+
+
+//:- constants
+//% Each position is included in exactly one location (lmw)
+//  loc(position)                     :: location;
+//  neighbor(position,position)       :: boolean;
+//  side1(gate)                       :: position;
+//  side2(gate)                       :: position;
+//  opened(gate)                      :: inertialFluent.
+
+#feature loc(position) :domain location :function :showname
+#feature neighbor(position,position) :domain boolean :function :hide
+#feature side1(gate) :domain position :function :hide
+#feature side2(gate) :domain position :function :hide
+#feature sides(position,position,gate) :domain boolean :function :hide
+#feature opened(gate) :domain boolean :showname 
+
+
+//default -neighbor(P,P1).
+
+//% Each position must have at least one neighbor (lmw)
+//constraint [\/P1 | neighbor(P,P1)].
+
+#dom forall position,t [[t] exists position1 [ neighbor(position,position1) ] ]
+
+
+//% The neighbor relation is irreflexive
+//constraint -neighbor(P,P).
+#dom forall position,t [ [t] !neighbor(position,position) ]
+
+
+//% The neighbor relation is symmetric (lmw)
+//constraint neighbor(P,P1) ->> neighbor(P1,P).
+#dom forall position, position1, t [ [t] neighbor(position,position1) -> [t] neighbor(position1,position) ]
+
+//:- objects
+//% One designated location is called the outside (lmw)
+//  outside                           :: location.
+
+
+//% All other locations are cages (lmw)
+//constraint [\/C | L=C] where L\=outside.
+
+#dom forall location [ location != outside -> exists cage [location = cage] ]
+
+
+
+//% Two positions are the sides of a gate
+//:- constants
+//  sides(position,position,gate)     :: boolean.
+
+//caused sides(P,P1,G) if side1(G)=P & side2(G)=P1.
+//caused sides(P,P1,G) if side1(G)=P1 & side2(G)=P.
+//default -sides(P,P1,G).
+
+#dom forall position, position1, gate, t [[t] side1(gate) == position & side2(gate) == position1 -> [t] sides(position,position1,gate) ]
+#dom forall position, position1, gate, t [[t] side2(gate) == position & side1(gate) == position1 -> [t] sides(position,position1,gate) ]
+
+
+//% Each gate is associated with exactly two positions that are 
+//%  said to be at its sides, and these positions must belong to 
+//%  different locations  (lmw)
+//constraint loc(side1(G))\=loc(side2(G)).
+#dom forall gate, position, position1, location, t [[t] !(loc(position) == loc(position1) & 
+		side1(gate) == position & side2(gate) == position1)]
+
+
+
+//% No two gates have the same two sides
+//constraint sides(P,P1,G) & sides(P,P1,G1) ->> G=G1.
+#dom forall position, position1, gate, gate1, t [ [t] sides(position,position1,gate) & 
+		sides(position,position1,gate1) -> gate = gate1 ]
+
+//% Two positions are neighbors if they are the sides of a gate
+//constraint sides(P,P1,G) ->> neighbor(P,P1).
+#dom forall position, position1, gate, t [ [t] sides(position,position1,gate) -> [t] neighbor(position,position1) ]
+
+
+//% Two positions in different locations are neighbors only if 
+//%  they are the two sides of a gate
+//constraint loc(P)\=loc(P1) & neighbor(P,P1) 
+//                  ->> [\/G | sides(P,P1,G)].
+#dom forall position, position1, t [[t] loc(position) != loc(position1) & neighbor(position,position1) 
+		-> exists gate [ sides(position,position1,gate) ] ]

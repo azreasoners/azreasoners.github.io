@@ -1,0 +1,38 @@
+%%% ANIMALS %%%
+
+
+%both are intertial
+-occlude(T+1,pos(A)) & T < maxstep ->
+![P]: (holds(T+1,pos(A),P) <-> holds(T,pos(A),P)).
+
+-occlude(T+1,mounted(H,A)) & T < maxstep ->
+![B]: (holds(T+1,mounted(H,A),B) <-> holds(T,mounted(H,A),B)).
+
+% unique value axioms
+1{holds(T,pos(A),Po):position(Po)}1.
+1{holds(T,mounted(H,A),Bo):bool(Bo)}1.
+
+
+%#dom forall human,t [[t] sp(human) == humanSpecies]
+%#dom forall animal,t [[t] sp(animal) == humanSpecies -> exists human [animal = human]]
+
+
+adult(A) & ?[S]:(largeSpecies(S) & sp(A,S)) -> large(A).
+
+
+% There is at least one human-species animal in each scenario 
+%  (lmw) 
+
+% Two large animals can not occupy the same position,
+%  except if one of them rides on the other (lmw)
+
+%#dom forall animal, animal1, t [[t] pos(animal) == pos(animal1) & large(animal) & large(animal1) & 
+%		animal != animal1 ->
+%		[t] exists human [(human = animal & mounted(human,animal1)) | 
+%			      (human = animal1 & mounted(human,animal))]]
+
+-(holds(T,pos(A),P) & holds(T,pos(A1),P) & A != A1 & large(A) & large(A1) &
+ -?[H]: ((H = A & holds(T,mounted(H,A1),true)) | (H = A1 & holds(T,mounted(H,A),true)))).
+
+
+

@@ -1,0 +1,5 @@
+AuthGroupFile /dev/null
+AuthName "CSE 591"
+AuthType Basic
+AuthUserFile /home/joolee/domains/peace.eas.asu.edu/.htpasswd/public_html/joolee/teaching/kr-f09/Handouts/.htpasswd
+require valid-user

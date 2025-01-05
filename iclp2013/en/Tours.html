@@ -1,0 +1,558 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- Mirrored from www.iclp2013.org/en/Tours.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Dec 2014 08:03:05 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<title>ICLP 2013 - 29. International Conference on Logic Programming</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-9">
+<meta name="description" content="ICLP 2013 - 29. International Conference on Logic Programming, 24-29 August 2013 - Istanbul/Turkey">
+<meta name="keywords" content="ICLP, 2013, International, conference, logic programming, august, Istanbul, Turkey, Türkiye, Dekon, Congress, Tourism, Milk Ad Agency">
+
+<link rel="stylesheet" type="text/css" href="../inc/styles.css">
+<link rel="stylesheet" type="text/css" href="Reg-inc/reg-default.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="../inc/superfish-menu/css/superfish.css" media="screen"/>
+<link rel="stylesheet" media="screen" href="../inc/superfish-menu/css/superfish-vertical.css" /> 
+<script language="JavaScript" type="text/JavaScript" src="../inc/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../inc/superfish-menu/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../inc/superfish-menu/js/superfish.js"></script>
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.mouseover.js"></script>
+
+<!-- Jquery Cycle Plugin -->
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.easing.1.3.js"></script>
+
+<link href="../inc/jquery/plugins/jquery.fancybox/jquery.fancybox-1.3.1.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="../inc/jquery/plugins/jquery.fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+
+<script type="text/javascript">
+
+// initialise plugins
+$(document).ready(function(){ 
+        $("ul.sf-menu").superfish({ 
+            animation: {height:'show'},   // slide-down effect without fade-in 
+            delay:     300               // 1.2 second delay on mouseout 
+        }); 
+    }); 
+</script>
+
+<script language="JavaScript" type="text/javascript"> 
+
+	$().ready(function() {
+			$("a.fancybox").fancybox();
+		
+			$("a.fbiframe").fancybox({
+				'width': '60%',
+				'height': '75%',
+				'autoScale': false,
+				'type': 'iframe'
+			});
+		
+			$("a.suggest").fancybox({
+				'padding'		: 0,
+				'autoScale'		: false,
+				'width'			: 580,
+				'height'		: 540,
+				'type'			: 'iframe',
+				'scrolling'		: false,
+				'overlayOpacity': 0.8 
+			});	
+			$('#InvSpeakers').cycle({
+				fx:     'scrollHorz', 
+				prev:   '#LeftArrow', 
+				next:   '#RightArrow', 
+				timeout: 5000,
+				easing: 'easeOutCubic',
+				width: 180,
+				height: 235,
+			});	
+			
+			$(".Speakers").each(function(){
+			});
+	});
+	/*------- Top Image Slider ------------------------------------------------------------*/
+		$('#SliderWrapper').cycle({
+			fx:     'scrollHorz', 
+			prev:   '#LeftArrow', 
+			next:   '#RightArrow', 
+			timeout: 5000,
+			easing: 'easeOutCubic',
+			width: '100%',
+			height: 380
+		});	
+		
+		$("#SliderWrapper").width(window.innerWidth * $(".SW-Image").length);
+	
+		$(".SW-Image img").each(function(){
+			$(this).css({
+			  marginLeft: "-" + $(this).width()/2 + "px",
+			  marginTop: "-" + $(this).height()/2 + "px" 
+		});
+
+		$("#RightArrow").click(function(){
+			var currentMargin = parseInt($(".SW-Image").eq(0).css("marginLeft").replace("px","")),
+			newMargin = currentMargin - window.innerWidth;
+	
+			$(".SW-Image").eq(0).animate({
+			marginLeft: newMargin + "px"
+			});
+	
+		});
+
+		$("#LeftArrow").click(function(){
+    		var currentMargin = parseInt($(".SW-Image").eq(0).css("marginLeft").replace("px","")),
+        	newMargin = currentMargin + window.innerWidth;
+
+			$(".SW-Image").eq(0).animate({
+				marginLeft: newMargin + "px"
+			});
+
+		});
+
+});
+</script>
+</head>
+<body>
+<div id="TM-Container">
+	<div id="TM-Wrapper">
+    	<div class="AvanGarde"><ul class="sf-menu"><li><a href="default.html" target="">Home</a>
+<li><a href="Timetable.html" target="">Timetable</a></il>
+<li><a href="Calls.html" target="">Calls</a></il>
+<li><a href="Submissions.html" target="">Submissions</a></il>
+<li><a href="Program.html" target="">Program</a></il>
+<ul>
+<li><a href="Program-Overview.html" target="">Program Overview</a></il>
+<li><a href="Conference.html" target="">Conference</a></il>
+<li><a href="Workshops.html" target="">Workshops</a></il>
+<li><a href="DC.html" target="">DC</a></il>
+<li><a href="Invited-Speakers.html" target="">Invited Speakers</a></il>
+<li><a href="Banquet-Speaker.html" target="">Banquet Speaker</a></il>
+<li><a href="List-of-Accepted-Papers.html" target="">List of Accepted Papers</a></il>
+<li><a href="List-of-Technical-Communications.html" target="">List of Technical Communications</a></il>
+<li><a href="Prolog-Programming-Contest.html" target="">Prolog Programming Contest </a></il>
+</ul><li><a href="Registration.html" target="">Registration</a></il>
+<ul>
+<li><a href="Registration-Information.html" target="">Registration Information</a></il>
+<li><a href="Accommodation-and-Transfer.html" target="">Accommodation and Transfer</a></il>
+</ul><li><a href="Tours.html" target="">Tours</a></il>
+<li><a href="Venue.html" target="">Venue</a></il>
+<ul>
+<li><a href="Conference-Venue.html" target="">Conference Venue</a></il>
+<li><a href="Workshops-Venue.html" target="">Workshops Venue</a></il>
+<li><a href="About-Turkey.html" target="">About Turkey</a></il>
+<li><a href="About-Istanbul.html" target="">About Istanbul</a></il>
+<li><a href="Useful-Tips.html" target="">Useful Tips</a></il>
+<li><a href="Visa-Information.html" target="">Visa Information</a></il>
+</ul><li><a href="Committees.html" target="">Committees</a></il>
+<li><a href="Contacts.html" target="">Contacts</a></il>
+</div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="LR-Container">
+	<div id="LR-Wrapper">
+    	<a href="default.html" id="Logo"></a>
+        <div id="Logo-Text">
+        	<span class="Title_02 Klavika-Bold">29<sup>TH</sup> INTERNATIONAL CONFERENCE ON LOGIC PROGRAMMING</span><br />
+            <span class="Title_03 Klavika">24 - 29 AUGUST 2013 // ISTANBUL, TURKEY</span>
+        </div>
+    </div>
+</div>
+<script language="javascript" type="text/javascript" src="../inc/jquery/plugins/jquery.ajaxmanager.js"></script>
+<div id="ContentContainer">
+	<a href="#" id="Timeline" style="height:100px;"></a>
+    <div id="ContentWrapper">
+    	<div class="Title_01 ContentTitle">Tours</div>
+        <div class="BreadCrumbs Title_04">
+        	<span><a href="default.html">MAIN PAGE</a> </span>
+        </div>
+        <div>
+        	<div id="Content">
+            	<div class="ShortDescription"></div>                
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:20px;">  
+	<tbody>
+		<tr>    
+			<td><a href="reg.html"><img src="../files/images/content/btn_onlineForm.png" width="350" height="61" /></a></td>    
+			<td align="right"><a href="../files/downloads/ICLP2013_RegistrationForm.pdf" target="_blank"><img src="../files/images/content/btn_manualForm.png" width="350" height="61" /></a></td>  
+		</tr>
+	</tbody>
+</table><a name="top" id="top"></a>
+<p class="Title_02">Daily Tour Information</p>
+<p class="ArrowyList"><a href="#DT01">Byzantine &amp; Ottoman Relics</a></p>
+<p class="ArrowyList"><a href="#DT02">Bosphorus Cruise</a></p>
+<p class="ArrowyList"><a href="#DT03">Dinner Cruise</a></p>
+<p class="ArrowyList"><a href="#DT04">1001 Nights</a></p>
+<p class="ArrowyList"><a href="#DT05">Bosphorus Cruise + Dolmabahçe Palace &amp; Two Continents</a></p>
+<p class="ArrowyList"><a href="#DT06">To Byzantium</a></p>
+<p class="ArrowyList"><a href="#DT07">Eyüp Sultan Mosque &amp; Tomb + Pierre Loti Coffee House + Miniatürk</a></p>
+<p class="ArrowyList"><a href="#DT08">Troy</a></p>
+<p>&nbsp;</p>
+<ul>  
+	<li>Participation for daily tours is on a first-come first-served basis.</li>  
+	<li>For any queries, please contact us via e-mail at: <a href="mailto:registration@iclp2013.org" target="_blank">registration@iclp2013.org</a></li>  
+	<li>Rates quoted are in Euros, per person, including taxes.</li>  
+	<li>Reservations will only be confirmed after receiving the full payment by credit card or bank transfer. If the payment has not been received by August 1, 2013, it will be assumed that the participant no longer wishes to go on the tour and the reservation will be cancelled.</li>  
+	<li>Above tours are available between or on August 22 - September 1, 2013.</li>  
+	<li>Above tours can be operated with a minimum of 10 attendees, except Troy which requires minimum 5 attendees. Dekon may cancel a tour if the minimum number of people required is not reached. In such cases, the fees will be fully refunded.</li>
+</ul>
+<p><span class="Title_07">Cancellation Policy - Daily Tour:</span><br />
+	  Cancellations of daily tours should be received in writing by the ICLP 2013 Registration Secretariat (DEKON) by fax at +90 212 347 63 63, or via e-mail to <a href="mailto:registration@iclp2013.org">registration@iclp2013.org</a>. An administrative fee of &euro;10 will be applied for any cancellations before or on <span class="DarkGreen" style="font-weight: bold; ">August 14, 2013</span><span style="font-weight: bold; ">.</span><br />
+	  <span style="font-weight: bold; ">Absolutely no refund will be processed for cancellations on or after <span class="DarkGreen">August 15, 2013</span>.<br />
+		    </span><span style="font-weight: bold;">Please note that tour refunds will be processed within 30 days after the end of ICLP 2013, bank charges will be deducted from the refund.</span></p>
+<p class="Title_02">Pre-Post Tour Information</p>
+<p class="ArrowyList"><a href="#DT09">Troy &amp; Gallipoli</a></p>
+<p class="ArrowyList"><a href="#DT10">Cappadocia</a></p>
+<p class="ArrowyList"><a href="#DT10b">Cappadocia with Balloon Tour (Standard)</a></p>
+<p class="ArrowyList"><a href="#DT11">Ephesus &amp; Pamukkale</a></p>
+<p>&nbsp;</p>
+<ul>  
+	<li>Participation for pre-post tours is on a first-come first-served basis.</li>  
+	<li>For any queries, please contact us via e-mail at: <a href="mailto:registration@iclp2013.org">registration@iclp2013.org</a></li>  
+	<li>Rates quoted are in Euros, per room, including flight or/and bus tickets and taxes.</li>  
+	<li>Reservations will only be confirmed after receiving the full payment by credit card or bank transfer. If the payment has not been received by August 1, 2013, it will be assumed that the participant no longer wishes to go on the tour and the reservation will be cancelled.</li>  
+	<li>Above tours can be operated with a minimum of 5 attendees. Dekon may cancel a tour if the minimum number of people required is not reached. In such cases, the fees will be fully refunded.</li>
+</ul>
+<p><span class="Title_07">Cancellation Policy - Pre-Post Tour:</span><br />
+	  Cancellations of pre-post  tours should be received in writing by the ICLP 2013 Registration Secretariat  (DEKON) by fax at +90 212 347 63 63, or via e-mail to <a href="mailto:registration@iclp2013.org">registration@iclp2013.org</a>.  An administrative fee of &euro; 50 will be applied for any cancellations before or  on <span class="DarkGreen"><strong>July 30, 2013</strong></span><strong>.</strong><br />
+	  Cancellations received  between or on <strong class="DarkGreen">July 31 - August 14, 2013</strong>:  Eligible for 50% refund.<span style="font-weight: bold; "><br />
+		  <strong>Absolutely  no refund will be processed for cancellations on or after <span class="DarkGreen">August 15, 2013</span>.</strong><br />
+		  <strong>Please  note that tour refunds will be processed within 30 days after the end of ICLP  2013, bank charges will be deducted from the refund.</strong></span></p>
+<p>&nbsp;</p>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT01" id="DT01"></a>DEKON TOUR 1 - BYZANTINE &amp; OTTOMAN RELICS</div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Full Day</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/01.png" /><img src="../files/images/content/Tours/02.png" /><img src="../files/images/content/Tours/03.png" /><img src="../files/images/content/Tours/04.png" /></div>    
+		<div class="TourDescription">      
+			<p>Tour of  <strong>"Sultan Ahmet Center"</strong>, the heart of the <strong>"Old City"</strong> from where the Byzantine and Ottoman Empires were ruled.</p>      
+			<p><strong>Hagia Sophia</strong>, one of the greatest marvels of architecture, constructed as a basilica in the 6th century by Emperor Justinian.</p>      
+			<p><strong>Blue Mosque</strong>, facing Hagia Sophia, famous with its blue İznik tiles and unique with 6 minarets, built in the name of <strong>Sultan Ahmet</strong>.</p>      
+			<p><span style="font-weight: bold; ">Hippodrome</span>, center of sportive events (chariot races, athletics) and political activities of theold city. <span style="font-weight: bold; ">Serpentine Column, Obelisk of Theodosius</span> and <span style="font-weight: bold; ">German Fountain of Wilhelm II</span> are the monuments decorating the Hippodrome. </p>      
+			<p><strong>Grand Covered Bazaar</strong>, most attractive shopping center and the biggest "<strong>souk</strong>" in the world with nearly 4000 shops selling antiques, jewellery, gold, carpets, leatherware and souvenir.<br />
+				        <em>(Art demonstration of handmade Turkish carpets)</em></p>      
+			<p><strong>Lunch</strong> at a Turkish Restaurant.</p>      
+			<p><span style="font-weight: bold; ">Topkapı Palace</span>, residence of Ottoman Sultans exhibiting imperial treasury, sacred Islamic relics of Prophet Mohammed, kitchen, Chinese porcelain, weapons, calligraphy section etc. Live guide commentary is not allowed in special sections. <em>(Harem is not included in the program)</em></p>      
+			<p><span style="font-weight: bold; ">Rüstem Paşa Mosque</span>, designed by the court architect Sinan for the Grand Vizier of Süleyman The Magnificent. A typical sample of Islamic architecture amidst the rows of shops near the Spice Bazaar, famed with its exquisite and colorful tiles set in floral and geometric designs.</p>      
+			<p style="text-align:center;"><em>also visioned during the tour</em><br />
+				        <em><span style="font-weight: bold; ">GALATA BRIDGE </span></em><span style="font-weight: bold; ">&bull;<em> GOLDEN HORN </em>&bull;<em> LEANDER'S TOWER</em></span></p>      
+			<p><strong>Cost: &euro; 80.- (V.A.T. included) / pax</strong><br />
+				        <span style="font-weight: bold; ">Note: </span><span class="Red" style="font-style: italic; ">The tour can be operated with minimum of 10 people.</span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above rate include roundtrip transfers from/to the hotel with deluxe vehicle, English speaking professional guide, entrance fees, lunch and VAT; exclude drinks.</span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT02" id="DT02"></a>DEKON TOUR 2 - BOSPHORUS CRUISE ON PRIVATE BOAT</div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Half Day Morning/Afternoon</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/05.png" /><img src="../files/images/content/Tours/06.png" /><img src="../files/images/content/Tours/07.png" /></div>    
+		<div class="TourDescription">      
+			<p><strong>Golden Horn </strong><em>(from the bus)</em>, the arm of the Bosphorus and a natural harbour of the historical peninsula separating the old and the new parts of İstanbul where the first colonies settled during the Byzantines. The residential area for Byzantine Jews, Italian traders and other non-muslim minorities. Drive along the traces of history at <strong>Balat </strong>viewing<strong> Fener Orthodox Patriarchate</strong>, <strong>Metal Church of St. Stephen the Bulgarian</strong>, <strong>Ahrida Synagogue</strong>, <strong>Eyüp Sultan Mosque</strong>, named after the flagbearer of Prophet Mohammed, a place to worship and pilgrimage for the faithful and religious visitors, 22 kms. long<strong> Byzantine City Walls</strong>, the strongest fortification of the middle age.</p>      
+			<p><strong>Spice Bazaar </strong>(Egyptian Bazaar), mystical smells of different aromas of various spices. Shops selling fruits, vegetables, fish, flowers etc.</p>      
+			<p><strong>Bosphorus Cruise</strong>, through the waterway separating the two continents, Europe and Asia, with a possibility to take photographs of marble palaces, ancient wooden villas of Ottoman architecture besides modern residentials and luxurious apartments.</p>      
+			<p><strong>Rumeli Fortress </strong><em>(from the boat - no interior visit)</em>, historical armament built by the Conqueror to control and protect the Bosphorus. A unique example of military architecture.</p>      
+			<p>In the afternoon Spice Bazaar maybe substitued with <span style="font-weight: bold; ">Zindan Han</span>, built during the Byzantine Empire and was used as the first <span style="font-weight: bold; ">Women Prison</span> in the world by the Ottomans. Restored back to the original style, today it is the Jewellery Center by <span style="font-weight: bold; ">Storks</span> exhibiting the unique collections of famed products.</p>      
+			<p class="Red" style="text-align:center;"><span style="font-weight: bold; ">HALF DAY MORNING TOURS TERMINATE<br />
+					          AT SULTANAHMET CENTER IN FRONT OF HAGIA SOPHIA</span></p>      
+			<p class="Red" style="text-align:center;"><span style="font-weight: bold; ">IMPORTANT NOTICE<br />
+					          Bosphorus Tours are practiced with regular boat if minimum number of attendants is not provided for the private boat</span></p>      
+			<p><strong>Cost: &euro; 50.- (V.A.T. included) / pax</strong><br />
+				        <span style="font-weight: bold; ">Note: </span><span class="Red" style="font-style: italic; ">The tour can be operated with minimum of 10 people.</span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above rate include roundtrip transfers from/to the hotel with deluxe vehicle, English speaking professional guide, Bosphorus cruise fee and VAT.</span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT03" id="DT03"></a>DEKON TOUR 3 - DINNER CRUISE (Bosphorus by Night)</div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Night Tour (operates all year round)</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/08.png" /><img src="../files/images/content/Tours/09.png" /></div>    
+		<div class="TourDescription">      
+			<p>Dinner at a first class restaurant with limited local drinks included, watching spectacular <strong>floorshow </strong>of famous <strong>belly dancers </strong>and typical <strong>Anatolian Folk Dances</strong>. Turkish singer and groups featuring popular musical instruments. </p>      
+			<p><strong>Cost: &euro; 85.- (V.A.T. included) / pax</strong><br />
+				        <span style="font-weight: bold; ">Note: </span><span class="Red" style="font-style: italic; ">The tour can be operated with minimum of 10 people.</span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above rate include roundtrip transfers from/to the hotel with deluxe vehicle, English speaking professional guide, Bosphorus cruise fee and VAT.</span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT04" id="DT04"></a>DEKON TOUR 4 - 1001 NIGHTS (İstanbul by Night)</div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Night Tour</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/10.png" /><img src="../files/images/content/Tours/11.png" width="160" height="125" /></div>    
+		<div class="TourDescription">      
+			<p>Dinner with a rich variety of specialities from the Turkish and international cuisine including <strong>unlimited local drinks</strong> on board of a Bosphorus yacht.</p>      
+			<p><strong>Belly dancers</strong> <strong>Folklore show</strong></p>      
+			<p>Cruise through the Bosphorus waterway almost touching the two continents Europe and Asia, viewing the architectural masterpieces from different times of history; marble palaces, ancient wooden villas of Ottoman style besides modern residentials.</p>      
+			<p><strong>Cost: &euro; 75.- (V.A.T. included) / pax</strong><br />
+				        <span style="font-weight: bold; ">Note: </span><span class="Red" style="font-style: italic; ">The tour can be operated with minimum of 10 people.</span></p>      
+			<p class="Red"><span style="font-style: italic;">Above rate include roundtrip transfers from/to the hotel with deluxe vehicle, Dinner with unlimited local drinks and VAT.</span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT05" id="DT05"></a>DEKON TOUR 5 - BOSPHORUS CRUISE + DOLMABAHÇE PALACE &amp; TWO CONTINENTS</div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Full Day</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/12.png" width="160" height="125" /><img src="../files/images/content/Tours/13.png" width="160" height="125" /><img src="../files/images/content/Tours/14.png" width="160" height="125" /><img src="../files/images/content/Tours/15.png" width="160" height="125" /><img src="../files/images/content/Tours/16.png" width="160" height="125" /></div>    
+		<div class="TourDescription">      
+			<p><strong>Golden Horn </strong><em>(from the bus)</em>, the arm of the Bosphorus and a natural harbour of the historical peninsula separating the old and the new parts of İstanbul where the first colonies settled during the Byzantines. The residential area for Byzantine Jews, Italian traders and other non-muslim minorities. Drive along the traces of history at <strong>Balat </strong>viewing <strong>Fener Orthodox Patriarchate</strong>, <strong>Metal Church of St. Stephen the Bulgarian</strong>, <strong>Ahrida Synagogue</strong>, <strong>Eyüp Sultan Mosque</strong>, named after the flagbearer of Prophet Mohammed, a place to worship and pilgrimage for the faithful and religious visitors, 22 kms. long <strong>City Walls</strong>, the strongest fortification of the middle age.</p>      
+			<p><strong>Spice Bazaar </strong>(Egyptian Bazaar), mystical smells of different aromas of various spices. Shops selling fruits, vegetables, fish, flowers etc.</p>      
+			<p><strong>Bosphorus Cruise</strong>, through the waterway separating the two continents, Europe and Asia, with a possibility to take photographs of marble palaces, ancient wooden villas of Ottoman architecture besides modern residentials and luxurious apartments.</p>      
+			<p><strong>Rumeli Fortress </strong><em>(from the boat - no interior visit)</em>, historical armament built by the Conqueror to control and protect the Bosphorus. A unique example of military architecture<em>.</em></p>      
+			<p><strong>Lunch </strong>at a Turkish Restaurant.</p>      
+			<p><strong>Dolmabahçe Palace</strong>, recent residence for Ottoman Sultans built by two Ottoman architects; Karabet and Nikogos Balyan on a 110.000 m2 area ans served as the main administrative center of Ottoman Empire. Famous with great collection of European antiquity, furniture and 4.5 tons chandelier, the palace has 285 rooms and 46 halls.</p>      
+			<p>Study and restingroom of <strong>ATATÜRK</strong>, founder of the Turkish Republic is also here.</p>      
+			<p>Bosphorus Bridge, unique chance to step from one continent (Europe) to another (Asia) in 2 minutes. </p>      
+			<p><strong>Çamlıca Hill </strong>or<strong> Yeditepe</strong>, exposing a panoramic view of İstanbul and Bosphorus from the best point of view. </p>      
+			<p align="center"><em>also visioned during the tour </em><br />
+				        <em><span style="font-weight: bold; ">IMPERIAL GARDENS OF ROYAL YILDIZ PALACE &bull; ÇIRAĞAN PALACE HOTEL KEMPINSKI İSTANBUL</span><br />
+					          <span style="font-weight: bold; ">BOSPHORUS BRIDGE</span> connecting <span style="font-weight: bold; ">EUROPE &amp; ASIA</span> continents <span style="font-weight: bold; ">&bull; BEYLERBEYİ PALACE</span> from the boat</em></p>      
+			<p align="center" class="Red"><strong><em>IMPORTANT NOTICE<br />
+						            Bosphorus Tours are practiced with regular boat if minimum number of attendants is not provided for the private boat</em></strong></p>      
+			<p><strong>Cost: &euro; 85.- (V.A.T. included) / pax</strong><br />
+				        <span style="font-weight: bold; ">Note:</span><span class="Red" style="font-style: italic; ">The tour can be operated with minimum of 10 people. </span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above rate include roundtrip transfers from/to the hotel with deluxe vehicle, English speaking professional guide, entrance fees, Bosphorus cruise fee, lunch and VAT; exclude drinks.</span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT06" id="DT06"></a>    
+		<div style="width:75%; float:left;">DEKON TOUR 6 - TO BYZANTIUM (Golden Horn)</div>    
+		<div style="width:25%; float:right;">advance reservation</div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Full Day</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/17.png" width="160" height="125" /><img src="../files/images/content/Tours/18.png" width="160" height="125" /><img src="../files/images/content/Tours/19.png" width="160" height="125" /></div>    
+		<div class="TourDescription">      
+			<p><strong><em>Back into the history</em></strong><em>... </em></p>      
+			<p><em>Natural naval harbour of the Byzantines named as <strong>Golden Horn</strong> because of its hornlike shape and golden reflection of the glittering waves under sunshine when viewed from the hill tops.</em></p>      
+			<p>Visit the Patriarchate at Fener which is the seat of Orthodox Christianity since Constantine The Great's declaration of Christianity as the religion of Roman Empire. </p>      
+			<p><span style="font-weight: bold; ">Church of Panagia of Blachernae</span>, the best known and most celebrated shrine of the Holy Virgin famed with the "Hagiasma&rdquo; (holy water) and the "Hagion Lousma&rdquo; (sacred bath).</p>      
+			<p><strong>St. Savior in Chora</strong> (Kariye Museum) originally a Byzantine monastery with fantastic mosaics and frescoes portraying scenes from a bible, the life and miracles of Jesus. </p>      
+			<p><strong>Anemas Dungeons</strong> were part of the Blachernae Palace, unique in the world with its historical and architectural structure. It consists of 14 separate dungeons, each having 2 basements below sea-level with cells for the prisoners and two towers. It was used as a prison for high ranked statesmen.</p>      
+			<p><strong>Tekfur Palace</strong><em>(from outside) </em>built in the 12<sup>th</sup> century adjacent to the city walls. The only surviving pavillion of the Blachernae Palace.</p>      
+			<p><strong>Byzantine City Walls</strong> surrounded the acropolis of Byzantium with 22 kms. long fortification with 96 towers and 9 main gates dating back to the 5<sup>th</sup> century.</p>      
+			<p align="center" class="Red"><span style="font-weight: bold; ">HALF DAY MORNING TOURS TERMINATE<br />
+					          AT SULTANAHMET CENTER IN FRONT OF HAGIA SOPHIA </span></p>      
+			<p><strong>Cost: &euro; 40.- (V.A.T. included) / pax</strong><br />
+				        <span style="font-weight: bold; ">Note:</span><span class="Red" style="font-style: italic; ">The tour can be operated with minimum of 10 people. </span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above rate include roundtrip transfers from/to the hotel with deluxe vehicle, English speaking professional guide, entrance fees and VAT.</span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT07" id="DT07"></a>DEKON TOUR 7 - EYÜP SULTAN MOSQUE &amp; TOMB+PIERRE LOTI COFFEE HOUSE + MİNİATÜRK
+  </div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Regular / Half Day Afternoon</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/20.png" width="160" height="125" /><img src="../files/images/content/Tours/21.png" width="160" height="125" /><img src="../files/images/content/Tours/22.png" width="160" height="125" /></div>    
+		<div class="TourDescription">      
+			<p><strong><em>"To embrace sharp harmony and historic curiosities in the most sacred site of İstanbul&rdquo;</em></strong></p>      
+			<p><strong>Eyüp Sultan Mosque</strong> and his <strong>Tomb</strong> are the most sacred sites in İstanbul after Mecca and Jerusalem where thousands of faithful pilgrims visit everday.</p>      
+			<p>Eyüp-El-Ensari was the flagbearer of Prophet Mohammed and died here during the Arabic siege of the city in the 7<sup>th</sup> century. The old trees, pigeons, praying believers and the visiting crowd create a mystical and colorful atmosphere around the mosque.</p>      
+			<p><strong>Pierre Loti Coffee House</strong> among the green, is located on a hill with beautiful trees where you can enjoy the wonderful panorama of the Golden Horn.</p>      
+			<p>Bird's eye view of the Golden Horn with the teleferique (cable car) while climbing to the caf&eacute;, 550 beeline meters in 115 seconds. The coffee house takes its name from Pierre Loti, the French author and poet who was very fond of İstanbul and wrote as he sat in this coffee house while enjoying the view.</p>      
+			<p><strong>Miniatürk</strong>, "a story land", the most influencing open field miniature park exhibiting scaled models of the most known masterpieces which create a fairy tale environment of İstanbul, Anatolia and the former Ottoman territories. It reflects the revival of Turkish culture and history in all its magnificence. Countless human figure models situated throughout the park such as a railroad worker, Muslims in a mosque courtyard, Jews praying in a synagogue, flower seller etc., portray lifestyle of the society through ages.</p>      
+			<p>You will mostly enjoy the colorful shopping center where you may find the best souvenirs from İstanbul.</p>      
+			<p><strong>Cost: &euro; 45.- (V.A.T. included) / pax</strong><br />
+				        <span style="font-weight: bold; ">Note:</span><span class="Red" style="font-style: italic; ">The tour can be operated with minimum of 10 people. </span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above rate include roundtrip transfers from/to the hotel with deluxe vehicle, English speaking professional guide, entrance fees and VAT</span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT08" id="DT08"></a>DEKON TOUR 8 - TROY</div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Private / Long Day</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/23.png" width="160" height="125" /></div>    
+		<div class="TourDescription">      
+			<p>Early morning drive to the ancient city of <strong>Troy</strong>, famous with the legendary <strong>Trojan Horse</strong> from the times of Beautiful Helen, the Queen of Sparta and Paris, the Trojan Prince.</p>      
+			<p>Ferry across <strong>Dardanelles </strong>and lunch at <strong>Çanakkale</strong>. Visit to <strong>Gallipoli</strong>, famous battlefield, Anzac Cove, War Cemeteries (Beach Cemetery, Quinn' s Post, The Nek) and the <strong>Anzac Memorials</strong> (Lone Pine - Australian Memorial, Conk Bayırı - New Zealand Memorial, Hellespont - English Memorial) of the naval battle (18 March 1915) during World War I.</p>      
+			<p>Dinner on the way and late evening return to İstanbul.</p>      
+			<p style="text-align:center;"><strong>TROY, LIKE MANY OTHER HISTORICAL TREASURES, IS IN TÜRKİYE</strong></p>      
+			<p><strong>Cost: &euro; 225.- (V.A.T. included) / pax</strong><br />
+				        <span style="font-weight: bold; ">Note:</span><span class="Red" style="font-style: italic; "> The tour can be operated with minimum of 5 people.</span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above tour rates include round trip transfers from/to central hotels, private A/C transportation, English speaking professional private guide, museum entrance fees, parking fees, highway tolls, ferry tickets, lunch, dinner and V.A.T.; exclude drinks. </span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT09" id="DT09"></a>DEKON TOUR 9 - TROY &amp; GALLIPOLI (Anzacs)</div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Private / 2 Days &amp; 1 Night</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/23.png" width="160" height="125" /></div>    
+		<div class="TourDescription">      
+			<p><span style="font-weight: bold; ">Day 1:</span> Early morning drive to the ancient city of <span style="font-weight: bold; ">Troy</span>, famous with the legendary <span style="font-weight: bold; ">Trojan Horse</span> from the times of Beautiful Helen, the Queen of Sparta and Paris, the Trojan Prince.<br />
+				        Ferry across <strong>Dardanelles </strong>and lunch at <strong>Çanakkale</strong>. Dinner and accommodation.</p>      
+			<p><strong>Day 2:</strong> Visit to <strong>Gallipoli</strong>, famous battlefield, Anzac Cove, War Cemeteries (Beach Cemetery, Quinn' s Post, The Nek) and the <strong>Anzac Memorials</strong> (Lone Pine - Australian Memorial, Conk Bayırı - New Zealand Memorial, Hellespont - English Memorial) of the naval battle (18 March 1915) during World War I.</p>      
+			<p>Dinner on the way and late evening return to İstanbul. </p>      
+			<p style="text-align:center;"><strong>TROY, LIKE MANY OTHER HISTORICAL TREASURES, IS IN TÜRKİYE</strong></p>      
+			<p><strong>Cost: &euro; 425.- (V.A.T. included) / in double per person,  &euro; 75.- (V.A.T. included) single supplement</strong><br />
+				        <span style="font-weight: bold; ">Note:</span><span class="Red" style="font-style: italic; "> The tour can be operated with minimum of 5 people.</span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above tour rates include round trip transfers from/to central hotels, private A/C transportation, English speaking professional private guide, museum entrance fees, parking fees, highway tolls, ferry tickets, lunch, dinner and V.A.T.; exclude drinks.<br />
+					          <strong><em>2 Days Tour (1 Day Gallipoli - 1 Day Troy)</em></strong><em> prices also include half-board accommodation at a 4* hotel (breakfast &amp; dinner).</em></span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT10" id="DT10"></a>DEKON TOUR 10 - CAPPADOCIA / UNESCO Heritage Site</div>  
+	<div style="margin:15px 0px 0px 0px;">    
+		<p><span style="font-weight: bold; ">The Cappadocian region</span> is a place where nature and history come together with the most beautiful scenery in the world.</p>    
+		<p>While geographic events formed peribacaları (fairy chimneys) during the historical period, humans used the signs of thousand-years-old civilizations by carving houses and churches within these earth pillars and decorating them with friezes.</p>    
+		<p>Traditional Cappadocian houses and dovecotes carved into the stone show the uniqueness of the region. These houses are constructed at the foot of the mountain using rocks or cut stone.</p>    
+		<p>Rock, which is the only construction material of the region, as it is very soft after quarrying due to the structure can be easily processed but after contact with air it hardens and turns into a very strong construction material.</p>    
+		<p>Due to being plentiful and easy to process, regional unique masonry is developed and turned into an architectural tradition. Materials of neither courtyard nor house door are wood. Upper parts of the doors built with arches are decorated with stylized ivy or rosette motifs.</p>    
+		<p>Dovecotes within the region are small structures constructed within 18th century and end of 19th century. Some of the dovecotes, which are important in showing Islamic art, are constructed on monasteries or churches. Surfaces of dovecotes are decorated with rich inscriptions and adornments by regional artists.</p></div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Regular / 3 Days &amp; 2 Nights</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/24.png" width="160" height="125" /><img src="../files/images/content/Tours/25.png" width="160" height="125" /><img src="../files/images/content/Tours/26.png" width="160" height="125" /></div>    
+		<div class="TourDescription">      
+			<p>Early morning flight to Kayseri.</p>      
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content">        
+				<tbody>          
+					<tr>            
+						<td width="10%" valign="top" style="padding-bottom:10px;"><strong>Day 1</strong></td>            
+						<td width="90%" valign="top" style="padding-bottom:10px;">Walk through the "<span style="font-weight: bold; ">Fairy Chimneys</span>&rdquo; in <span style="font-weight: bold; ">Devrent Valley</span>, <span style="font-weight: bold; ">Paşabağ</span> (Monks') <span style="font-weight: bold; ">Valley</span>, practice pottery production with the ancient technique in <span style="font-weight: bold; ">Avanos</span>. Visit to <span style="font-weight: bold; ">Göreme</span>, the "<span style="font-weight: bold; ">open-air museum</span>" holding the earliest churches and chapels carved in fairy chimneys presenting finest examples of frescoes, <span style="font-weight: bold; ">Pigeon Valley</span>, petrified valley of <span style="font-weight: bold; ">Uçhisar</span>, the highest point in the region. Dinner at hotel and overnight.</td>          
+					</tr>          
+					<tr>            
+						<td valign="top" style="padding-bottom:10px;"><strong>Day 2</strong></td>            
+						<td valign="top" style="padding-bottom:10px;">Visit to the <span style="font-weight: bold; ">Hospital Monastery</span>. Walk into the "<span style="font-weight: bold; ">wonderland</span>&rdquo; at <span style="font-weight: bold; ">Kızılçukur</span> (Red Valley) and the village of <span style="font-weight: bold; ">Çavuşin</span> with rock-cut dwellings. <span style="font-weight: bold; ">Underground City of Kaymaklı</span>, rock-cut city beneath the earth up to 8-9 levels where early Christians used to hide from Roman and Byzantine persecution. Explore the rock formations in <span style="font-weight: bold; ">Çatalkaya</span>.<br />
+							              A fantastic overview of the fairy chimneys from <span style="font-weight: bold; ">Esentepe</span>. Dinner at hotel and overnight.</td>          
+					</tr>          
+					<tr>            
+						<td valign="top"><strong>Day 3</strong></td>            
+						<td valign="top"><strong>Derinkuyu Underground City</strong><strong>, walk through the amazing Ihlara V</strong><strong>alley</strong>. Lunch at <strong>Belisırma</strong><strong>.</strong><br />
+							              Visit to the monasteries at<strong> Yaprakhisar </strong>and <strong>Selime</strong>. Dinner at hotel and overnight.<br />
+							              Evening flight from Kayseri  to İstanbul.</td>          
+					</tr>        
+				</tbody>      
+			</table><br />
+			      
+      
+			<p><strong>Cost: &euro; 675.- (V.A.T. included) / in double per person,  &euro; 125.- (V.A.T. included) single supplement</strong><br />
+				        <span style="font-weight: bold; ">Note:</span><span class="Red" style="font-style: italic; "> The tour can be operated with minimum of 5 people.</span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above tour rates include round trip plane or bus tickets, round trip transfers from/to central hotels, English speaking professional guide, half-board accommodation at a 4* or boutique cave hotel (breakfast &amp; dinner), lunch during tours <span style="font-weight: bold; ">("lunch only&rdquo; in daily tour)</span>, museum entrance fees and V.A.T.; exclude drinks. For arranging flight tickets, an advanced reservation is required.</span></p></div>    
+		<div class="clear">&nbsp;</div></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT10b" id="DT10b"></a>BALLOON TOURS in Cappadocia</div>  
+	<div style="margin:15px 0px 0px 0px;">    
+		<p><span style="font-weight: bold; ">STANDARD BALLOON TOUR (1 hour/capacity of the balloon is max. 20 people):</span> &euro; 160 / pax<br />
+			      <span style="font-weight: bold; ">DELUXE BALLOON TOUR (1,5 hours/capacity of the balloon is max. 10 people):</span> &euro; 220 / pax</p>    
+		<ul>      
+			<li>Above tour rates include round trip transfers from/to central hotels, snacks and hot drinks before the tour, a glass of champagne, flight certificate at the end of the tour and insurance up to &euro; 1.000.000 by Allianz.</li>      
+			<li>50% discount for children below the age 12, free for the ages of 0-6. Children are not allowed in case of bad weather conditions.</li>      
+			<li>Ballon Tour starts with the sunrise. Guests arrive back to the hotel before the city tour starts.</li>    
+		</ul>    
+		<p><img src="../files/images/content/Tours/28.png" width="680" height="230" /></p></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<div class="Tours">  
+	<div class="TourTitle"><a name="DT11" id="DT11"></a>DEKON TOUR 11 - EPHESUS &amp; PAMUKKALE (Hierapolis)</div>  
+	<div class="TourDetails">    
+		<div class="SecondTitle">Regular Tour / 2 Days &amp; 1 Night</div>    
+		<div class="PictureContainer"><img src="../files/images/content/Tours/29.png" width="160" height="125" /><img src="../files/images/content/Tours/30.png" width="160" height="125" /><img src="../files/images/content/Tours/31.png" width="160" height="125" /></div>    
+		<div class="TourDescription">      
+			<table width="100%" border="0" cellpadding="0" cellspacing="0" class="content">        
+				<tbody>          
+					<tr>            
+						<td width="10%" valign="top" style="padding-bottom:10px;"><strong>Day 1</strong></td>            
+						<td width="90%" valign="top" style="padding-bottom:10px;">              
+							<p>Flight to Izmir and depart for <strong>Ephesus</strong> which was one of the largest and most interesting ancient cities of Asia Minor. It is considered to be the most fantastic Greco-Roman site in Turkey. You may imagine the Ephesians shouting at the silversmith Demetrius, " Great is Artemis of the Ephesians" in reaction to the preaching of St. Paul against man-made idols. A visit to the house where the Virgin Mary spent her last days, and the <strong>Temple of Artemis</strong>, which was one of the Seven Wonders of the World. See spectacularly restored monuments such as the great <strong>Library of Celsus</strong>, <strong>the Agora</strong>, <strong>Hadrian's Gate</strong>, <strong>Odeon</strong>, <strong>Trajan Fountain</strong>, <strong>Domitianus Temple</strong>, <strong>Theater and Roman Latrines</strong>. Visit <strong>St John's Basilica</strong> and the <strong>House of Virgin Mary</strong>, where she is said to have spent her final years.</p>              
+							<p>Lunch during the visits Dinner and overnight in Izmir or Kusadasi.</p></td>          
+					</tr>          
+					<tr>            
+						<td valign="top" style="padding-bottom:10px;"><strong>Day 2</strong></td>            
+						<td valign="top" style="padding-bottom:10px;">After breakfast, depart to <strong>Pamukkale</strong> which is one of the most interesting places in the world, justly famous not only for the entrancing beauty of its unique geological formations but also for its historical remains. Pamukkale has always been a very popular settlement where the hot springs were believed to have healing powers, so the city became the center of a pagan cult in antiquity and a spa resort today. It represents a shimmering white cascade, formed by limestone-laden hot springs, which have formed stalactites, potholes and magical fairy-tables. The water is reputed to be beneficial to the eyes and skin and to alleviate the ills of rheumatism, asthma and dermatitis.<br />
+							              Lunch will be taken at a typical village restaurant. Then relax in one of the famous natural spa pools formed by cascades of purified calcium-enriched water.<br />
+							              Return to Istanbul via Denizli or Izmir airport</td>          
+					</tr>        
+				</tbody>      
+			</table><br />
+			      
+      
+			<p><strong>Cost: &euro; 675.- (V.A.T. included) / in double per person, &euro; 125.- (V.A.T. included) single supplement</strong><br />
+				        <span style="font-weight: bold; ">Note:</span><span class="Red" style="font-style: italic; "> The tour can be operated with minimum of 5 people.</span></p>      
+			<p class="Red"><span style="font-style: italic; ">Above "net" tour rates include round trip plane or bus tickets, round trip transfers from/to central hotels, half-board accommodation at a 4* hotel (breakfast &amp; dinner) in Kuşadası, lunch during tours, English speaking professional guide, museum entrance fees and V.A.T.; exclude drinks.For arranging flight tickets, an advanced reservation is required.</span></p></div>    
+		<div class="clear">&nbsp;</div></div>  
+	<div class="TopBtn"><a href="#top">Back to the top</a></div></div>
+<p>&nbsp;</p>
+<p class="Title_07">GENERAL CONDITIONS</p>
+<ul>  
+	<li>30% discount for children below the age 7, free for the ages 0-2,</li>  
+	<li>We kindly request our guests to be ready 10 minutes before departure time,</li>  
+	<li>Courtesy transfers from/to in-city hotels,</li>  
+	<li>Guests not using courtesy transfers should be ready 10 minutes before given departure time at the given meeting point,</li>  
+	<li>Owing to traffic difficulties, pick-ups may delay beyond our control,</li>  
+	<li>No smoking on our tours,</li>  
+	<li>Dekon reserves the right to alter, postpone or cancel the tour without prior notice due to unforeseen circumstances,</li>  
+	<li>Dekon disclaims any responsibility and shall not pay any indemnity or reimbursement in the event that certain museums or monuments included in the program could not be visited with any reason beyond control,</li>  
+	<li>Dekon is not responsible for any loss or theft of personal belongings during the tour,</li>  
+	<li>Guests are to be promptly on time at the meeting points given by the tour guide during the tour. Tours will proceed without waiting the delayers.</li>
+</ul>
+<div>  
+	<p align="center"><span style="font-weight: bold; ">CLOSED</span><br />
+		    Hagia Sophia on <strong>Monday</strong><br />
+		    <em>replaced with Underground Basilica Cistern (Yerebatan Sarnıcı),</em><br />
+		    Topkapı Palace on <strong>Tuesday</strong><br />
+		    Dolmabahçe Palace on<strong> Monday &amp; Thursday</strong><br />
+		    <em>both replaced with Eyüp + Pierre Loti Coffee House + Miniatürk,</em><br />
+		    Grand Covered Bazaar on <strong>Sunday</strong><br />
+		    Spice (Egyptian) Bazaar on <strong>Sunday</strong><br />
+		    <em>both replaced with authentic shops,</em><br />
+		    St. Savior in Chora (Kariye Museum) on <strong>Wednesday</strong></p></div>
+            </div>
+            <div id="PageMenu" class="Klavika">
+				<div class="Blue Klavika" style="margin-left:15px;">PAGE MENU</div>
+				<ul class="PageMenu"><li class="Normal"><a href="default.html" target="_parent" title="Home">Home</a></li><li class="Normal"><a href="Timetable.html" target="_parent" title="Timetable">Timetable</a></li><li class="Normal"><a href="Calls.html" target="_parent" title="Calls">Calls</a></li><li class="Normal"><a href="Submissions.html" target="_parent" title="Submissions">Submissions</a></li><li class="Normal"><a href="Program.html" target="_parent" title="Program">Program</a></li><li class="Normal"><a href="Registration.html" target="_parent" title="Registration">Registration</a></li><li class="Normal"><a href="Tours.html" target="_parent" title="Tours">Tours</a></li><li class="Normal"><a href="Venue.html" target="_parent" title="Venue">Venue</a></li><li class="Normal"><a href="Committees.html" target="_parent" title="Committees">Committees</a></li><li class="Normal"><a href="Contacts.html" target="_parent" title="Contacts">Contacts</a></li></ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div id="Sponsors">
+    <div class="Title_04"><span>SPONSORS</span></div>
+    <div>
+        <a href="http://www.cs.nmsu.edu/ALP/" target="_blank" title="Association for Logic Programming"><img src="../files/images/content/Sponsors/alp.png" alt="Association for Logic Programming" /></a>
+        <a href="http://www.sabanciuniv.edu/en" target="_blank" title="Sabancı University"><img src="../files/images/content/Sponsors/sabanci.png" alt="Sabancı University" /></a>
+        <a href="#" title="Artificial Intelligence"><img src="../files/images/content/Sponsors/artint.png" alt="Artificial Intelligence" /></a>
+    </div>
+</div>
+
+<div id="FooterContainer">
+	<div id="FooterBorder"></div>
+	<div id="FooterWrapper">
+    	<div class="FooterSection">
+        	<div class="FooterTitle Klavika-Bold">GENERAL CO-CHAIRS</div>
+            <div>
+                <div class="Footer" style="float:left; margin-right:15px;">
+                    <b>Esra Erdem</b><br />
+                    Sabancı University<br />
+                    E-mail: <a href="mailto:esraerdem@sabanciuniv.edu" target="_blank">esraerdem@sabanciuniv.edu</a>
+                </div>
+                <div class="Footer" style="float:left;">
+                    <b>Joohyung Lee</b><br />
+                    Arizona State University<br />
+                    E-mail: <a href="mailto:joolee@asu.edu" target="_blank">joolee@asu.edu</a>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+		</div>
+    	<div class="FooterSection">
+        	<div class="FooterTitle Klavika-Bold">ORGANIZING SECRETARIAT</div>
+            <div class="Footer">
+				<a href="http://www.dekon.com.tr/" target="_blank"><img src="../files/images/layout/general/logo_dekon.png" style="margin-right:10px;" /></a> <a href="http://www.dekon.com.tr/" target="_blank">www.dekon.com.tr</a><br />
+                Yıldız Posta C. Akın Sitesi 1. Blok No: 6 Kat: 1 D: 3 Gayrettepe Şişli - İstanbul / TURKEY<br />
+                Phone: +90 212 347 63 00  Fax: +90 212 347 63 63  E-mail: <a href="mailto:onuryeniyigit@dekon.com.tr" target="_blank">onuryeniyigit@dekon.com.tr</a>
+            </div>
+        </div>
+        <div class="FooterSection" style="float:right; border:none; text-align:right;">
+        	<div class="FooterTitle Klavika-Bold">DESIGNED & POWERED BY</div>
+            <div class="Footer" style="text-align:right;">
+            	<a href="http://www.milk.com.tr/" target="_blank"><img src="../files/images/layout/general/logo_milk.png" /></a><br />
+                Milk Creative & Events<br />
+                E-mail: <a href="mailto:info@milk.com.tr" target="_blank">info@milk.com.tr</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+</body>
+
+<!-- Mirrored from www.iclp2013.org/en/Tours.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Dec 2014 08:05:27 GMT -->
+</html>

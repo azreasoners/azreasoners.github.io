@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en" class="gr__reasoning_eas_asu_edu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>lpod2asprin - Examples</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="./src/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="./src/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="./src/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="./src/css" rel="stylesheet" type="text/css">
+    <link href="./src/css(1)" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <!-- <a class="navbar-brand" href="http://reasoning.eas.asu.edu/lpod2asprin/index.html">lpod2asprin</a> -->
+                <a class="navbar-brand" href="./index.html">lpod2asprin</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <!-- <a href="http://reasoning.eas.asu.edu/lpod2asprin/index.html">Home</a> -->
+                        <a href="./index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/zhunyoung/lpod2asprin">Installation</a>
+                    </li>
+                    <li>
+                        <a href="./tutorial.html">Tutorial</a>
+                    </li>
+                    <li>
+                        <a href="./examples.html">Examples</a>
+                    </li>
+<!--                     <li>
+                        <a href="http://reasoning.eas.asu.edu/lpod2asprin/manual/sysmanual.pdf">Manual</a>
+                    </li> -->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h3>Examples</h3>
+                        <hr class="small">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+<div class="container">
+        <div class="row">
+            <div class="col-lg-10  col-md-10 col-md-offset-1">
+                <div class="post-preview">
+                    <br>
+                    <h2>
+                        Example LPOD Programs
+                    </h2>
+                    <a>
+                        <h4 class="post-subtitle">
+                            <p>
+                            This section comprises of some domains that we have tested the lpmln2asp program on. 
+                            </p>
+                        </h4>
+                    </a>
+                    <h3>
+                        <li><a href="https://github.com/zhunyoung/lpod2asprin/blob/master/Examples/abcd.txt">abcd Example</a></li>
+                    </h3>
+                    <br>
+                    <pre>
+                        <code>
+a >> b :- not c.
+b >> c :- not d.
+                        </code>
+                    </pre>
+
+                    <h3>
+                        <li><a href="https://github.com/zhunyoung/lpod2asprin/blob/master/Examples/hotel.txt">hotel Example</a></li>
+                    </h3>
+                    <br>
+                    <pre>
+                        <code>
+dom(1..3).
+
+1{hotel(X): dom(X)}1.
+:- hotel(1), not close.
+:- hotel(1), not star2.
+:- hotel(2), not med.
+:- hotel(2), not star3.
+:- hotel(3), not tooFar.
+:- hotel(3), not star4.
+
+close >> med >> far >> tooFar.
+
+star4 >> star3 >> star2.
+                        </code>
+                    </pre>
+                    <h3>
+                        <li><a href="https://github.com/zhunyoung/lpod2asprin/blob/master/Examples/abc.txt">abc Example</a></li>
+                    </h3>
+                    <br>
+                    <pre>
+                        <code>
+dom(1..2).
+
+1{a(X): dom(X)}2.
+1{c(X): dom(X)}2.
+
+% b is true iff a is false
+b(X) :- dom(X), not a(X).
+:- a(X), b(X).
+
+a(X) >> b(X) :- c(X).
+                        </code>
+                    </pre>
+                    <h3>
+                        <li><a href="https://github.com/zhunyoung/lpod2asprin/blob/master/Examples/university.txt">university Example</a></li>
+                    </h3>
+                    <br>
+                    <pre>
+                        <code>
+% We need to choose a university and a major from 3 universities and 3 majors: computer science & engineering (major(1)), electrical engineering (major(2)), and industrial engineering (major(3)). 
+
+dom(1..3).
+
+:- univ(X), univ(Y), dom(X), dom(Y), X!=Y.
+:- major(X), major(Y), dom(X), dom(Y), X!=Y.
+
+% We have a preference on majors
+major(1) >> major(2) >> major(3).
+
+% We have a specific preference on the majors for each university
+
+major(1) >> major(3) >> major(2) :- univ(1).
+major(2) >> major(3) >> major(1) :- univ(2).
+major(2) >> major(1) >> major(3) :- univ(3).
+
+% We know the ranking of the universities
+
+univ(3) >> univ(1) >> univ(2).
+
+% We know the ranking of the universities for each major
+
+univ(3) >> univ(1) >> univ(2) :- major(1).
+univ(1) >> univ(2) >> univ(3) :- major(2).
+univ(2) >> univ(3) >> univ(1) :- major(3).
+
+% There are some majors in some universities that our applications were rejected
+:- univ(1), major(1).
+:- univ(3), major(1).
+:- univ(3), major(2).
+                        </code>
+                    </pre>
+                    <h2>Benchmark Examples and Results</h2>
+                    <a>
+                        <h4 class="post-subtitle">
+                            <p>
+                            This section comprises of the benchmark examples that we have tested the lpmln2asp program on. Note that we include the atom "dom(*)" in the body of some regular ASP rules because they are necessary in the input program to the original implementation of LPOD -- <button onclick="window.location.href='http://www.tcs.hut.fi/Software/smodels/priority/'">psmodels</button>, and we want our comparison in the following tables to be fair.
+                            </p>
+                        </h4>
+                    </a>
+
+                    <h3>
+                        <li><a href="https://github.com/zhunyoung/lpod2asprin/blob/master/Examples/N_hotel">N_hotel Example</a></li>
+                    </h3>
+                    <a>
+                        <h4 class="post-subtitle">
+                            <p>
+                            This example contains 3 LPOD rules with n atoms in the heads.
+                            The benckmark for N_Hotel example is automatically generated with a parameter n, which denotes the number of candidate hotels and determines the complexity of each LPOD rule. 
+                            Below is a generated program when n = 10. 
+                            </p>
+                        </h4>
+                    </a>
+                    <pre>
+                        <code>
+% We need to choose a hotel from n hotels. We randomly assign the order of their price, distance, and service.
+
+1{hotel(X): dom(X)}1.
+
+price(X) :- hotel(X), dom(X).
+distance(X) :- hotel(X), dom(X).
+service(X) :- hotel(X), dom(X).
+
+:- hotel(X), price(Y), X!=Y, dom(X), dom(Y).
+:- hotel(X), distance(Y), X!=Y, dom(X), dom(Y).
+:- hotel(X), service(Y), X!=Y, dom(X), dom(Y).
+
+dom(1..10).
+
+price(9) >> price(1) >> price(6) >> price(5) >> price(10) >> price(3) >> price(4) >> price(8) >> price(2) >> price(7).
+distance(4) >> distance(6) >> distance(10) >> distance(8) >> distance(2) >> distance(7) >> distance(1) >> distance(3) >> distance(5) >> distance(9).
+service(10) >> service(5) >> service(1) >> service(7) >> service(6) >> service(4) >> service(2) >> service(9) >> service(3) >> service(8).
+                        </code>
+                    </pre>
+                    <a>
+                        <h4 class="post-subtitle">
+                            <p>
+                            The run-time comparison of finding Pareto-preferred answer sets of this program is shown below where we use the original LPOD implementation as our baseline. 
+                            </p>
+                        </h4>
+                    </a>
+                    <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>n = </th>
+                        <th> PSMODELS </th>
+                        <th>LPOD2ASPRIN</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>10</td>
+                        <td>0.060s</td>
+                        <td>0.438s</td>
+                      </tr>
+                      <tr>
+                        <td>50</td>
+                        <td>2.485s</td>
+                        <td>1.961s</td>
+                      </tr>
+                      <tr>
+                        <td>60</td>
+                        <td>4.825s</td>
+                        <td>1.788s</td>
+                      </tr>
+                      <tr>
+                        <td>70</td>
+                        <td>Terminate with No Result</td>
+                        <td>3.147s</td>
+                      </tr>
+                      <tr>
+                        <td>100</td>
+                        <td>Terminate with No Result</td>
+                        <td>6.730s</td>
+                      </tr>
+                      <tr>
+                        <td>200</td>
+                        <td>Terminate with No Result</td>
+                        <td>47.868s</td>
+                      </tr>
+                      <tr>
+                        <td>300</td>
+                        <td>Terminate with No Result</td>
+                        <td>1m45.006s</td>
+                      </tr>
+                    </tbody>
+                    </table>
+                    <a>
+                        <h4 class="post-subtitle">
+                            <p>
+                            As we see, our system is much more tolerant to increasing the complexity of LPOD rules than the original LPOD implementation.
+                            Besides, the original LPOD implementation cannot find any answer set if the number (n) of atoms in the head of an LPOD rule exceeds 70 whereas our system can find the preferred answer set even when n=800 (800 is not an upper bound for our system, but is just the biggest number we've tested). 
+                            </p>
+                        </h4>
+                    </a>
+
+                    <h3>
+                        <li><a href="https://github.com/zhunyoung/lpod2asprin/blob/master/Examples/N_abc.txt">N_abc Example</a></li>
+                    </h3>
+                    <a>
+                        <h4 class="post-subtitle">
+                            <p>
+                            This example contains n LPOD rules with 2 atoms in the heads. 
+                            To run the following benchmark, please add "-c n=NUMBER" in your command line to define the value of n, where NUMBER is replaced by any positive integer.
+                            </p>
+                        </h4>
+                    </a>
+                    <pre>
+                        <code>
+dom(1..n).
+
+1{a(X): dom(X)}2.
+1{c(X): dom(X)}2.
+
+% b is true iff a is false
+b(X) :- dom(X), not a(X).
+:- a(X), b(X).
+
+a(X) >> b(X) :- c(X).
+                        </code>
+                    </pre>
+                    <a>
+                        <h4 class="post-subtitle">
+                            <p>
+                            The run-time comparison of finding Pareto-preferred answer sets of this program is shown below where we use the original LPOD implementation as our baseline. 
+                            </p>
+                        </h4>
+                    </a>
+                    <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>n = </th>
+                        <th> PSMODELS </th>
+                        <th>LPOD2ASPRIN</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>10</td>
+                        <td>1.244s</td>
+                        <td>3.432s</td>
+                      </tr>
+                      <tr>
+                        <td>15</td>
+                        <td>10.088s</td>
+                        <td>11.374s</td>
+                      </tr>
+                      <tr>
+                        <td>20</td>
+                        <td>47.689s</td>
+                        <td>34.677s</td>
+                      </tr>
+                      <tr>
+                        <td>25</td>
+                        <td>2m47.842s</td>
+                        <td>1m32.202s</td>
+                      </tr>
+                      <tr>
+                        <td>30</td>
+                        <td>8m12.839s</td>
+                        <td>3m40.439s</td>
+                      </tr>
+                      <tr>
+                        <td>35</td>
+                        <td>18m26.952s</td>
+                        <td>7m42.605s</td>
+                      </tr>
+                      <tr>
+                        <td>40</td>
+                        <td>42m6.830s</td>
+                        <td>14m41.012s</td>
+                      </tr>
+                    </tbody>
+                    </table>
+
+                     <a>
+                        <h4 class="post-subtitle">
+                            <p>
+                            As we see, our system is much more tolerant to increasing the number of LPOD rules than the original LPOD implementation. 
+                            </p>
+                            <p>
+                            Furthermore, it is known that using preference statements, some fragment of LPOD can be succinctly represented in the language of <font face="Cursive" >asprin</font> via the translation into Answer Set Optimization (ASO). We manually translate N_abc program into an ASO program, which is then translated into the language of <font face="Cursive" >asprin</font>, including the <button onclick="window.location.href='https://github.com/zhunyoung/archive/blob/master/LPOD_ASO_asprin/N_abc_P.txt'">P</button> component, the <button onclick="window.location.href='https://github.com/zhunyoung/archive/blob/master/LPOD_ASO_asprin/N_abc_Fs.txt'">F&#x302;<sub>s</sub></button> component, and the <button onclick="window.location.href='https://github.com/zhunyoung/archive/blob/master/LPOD_ASO_asprin/E_ts.lp'">E<sub>t<sub>s</sub></sub></button> component. With these three programs, one can find the Pareto-preferred answer sets of N_abc program following the instructions in <button onclick="window.location.href='https://github.com/zhunyoung/archive/tree/master/LPOD_ASO_asprin'">this website</button>. However, the reduction under inclusion preference requires a translation from LPOD to ''ranked'' ASO programs, which further requires a more complex reduction to the language of <font face="Cursive" >asprin</font>. Besides, the reductions from LPOD to ASO programs under cardinality and penalty-sum preferences were not shown. 
+                            In comparison, our method reduces LPOD directly to the language of <font face="Cursive" >asprin</font>, which yields a simpler and uniform method that applies to all preference criteria for LPOD. 
+                            Our experiments show that our method is more efficient than the method via the reduction to ASO even for Pareto preference.
+                            </p>
+                        </h4>
+                    </a>
+
+                     
+                </div>
+                <hr>
+            </div>
+
+            <div class="col-lg-10 col-md-10 col-md-offset-1">
+                <div class="post-preview">
+  
+                </div>
+ 
+        </div>
+    </div>
+
+</div>
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+    <div id="footer">
+
+
+            <div id="copyright-wrapper" class="horizontal-wrapper">
+              <div id="site-map" class="horizontal-content">
+                <table id="site-map-table"><tbody><tr>
+                  <td>
+                    <p class="site-map-heading">Contact Information</p>
+                    <p>Joohyung Lee, Zhun Yang</p>
+                    <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                    <p>Email: joolee@asu.edu, zyang90@asu.edu</p>
+                  </td>
+                </tr></tbody></table>
+              </div>
+
+            </div>
+      
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p class="copyright text-muted">Copyright © 2016</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="./src/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./src/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="./src/jqBootstrapValidation.js"></script>
+    <script src="./src/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="./src/clean-blog.min.js"></script>
+    <!-- jQuery -->
+    <script src="./src/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./src/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="./src/jqBootstrapValidation.js"></script>
+    <script src="./src/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="./src/clean-blog.min.js"></script>
+
+</script>
+
+</body></html>

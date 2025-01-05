@@ -1,0 +1,25 @@
+% File 'clique'
+% Find a clique of size 3 in the given graph
+
+:- include 'graph-description'.
+
+:- sorts
+  index.
+
+:- objects
+  1..3			:: index.
+
+:- constants
+  member(index)		:: node.
+
+:- variables
+  I,J	 		:: index.
+
+% members of the clique are arbitrary
+exogenous member(I).
+
+% except that they should be pairwise distinct neighbors.
+
+constraint member(I)=member(J) ->> I=J.
+constraint edge(member(I),member(J)) ++ edge(member(J),member(I)) ++ I=J.
+

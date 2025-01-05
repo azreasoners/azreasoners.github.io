@@ -1,0 +1,138 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cplus2ASP - Examples</title>
+<link rel="stylesheet" type="text/css" href="../cplus2aspstyle.css" />
+</head>
+<body>
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="../index.html" class="directoryLink" title="Back to Index">Home</a></li>
+<li><a href="./index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="../downloads.html" class="directoryLink" title="Links to Cplus2ASP downloads">Downloads</a></li>
+</ul>
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="../installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="../release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+</ul>
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+</ul>
+</p>
+</div>
+<div id="pagebody">
+<p class="bigtitle">Examples</p>
+<p class="text">We used several examples as benchmarks of performance and analysis of the C+ to ASP translation framework.  Listed below are all of the sample domains, along with downloadable files for Cplus2ASP-compatible versions of each.</p>
+<p class="text">To run the examples using Cplus2ASP, install all the tool chain software mentioned on the main page, then simply call Cplus2ASP and pass it the file name(s) of the file(s) associated with the example, optionally specifying which query to run.  For example, for Monkey &amp; Bananas, the command line to run the formalization with the classic &quot;monkey gets the bananas&quot; query is as follows:
+<br /><span class="code">cplus2asp monkey.cp query=2</span>
+<br />The results should look like this:
+<span class="code">
+<br />Solution 1:
+<br />0:  loc(bananas)=l2  loc(box)=l3  loc(monkey)=l1  
+<br />  ACTIONS:  walk(l3)  
+<br />1:  loc(bananas)=l2  loc(box)=l3  loc(monkey)=l3  
+<br />  ACTIONS:  pushBox(l2)  
+<br />2:  loc(bananas)=l2  loc(box)=l2  loc(monkey)=l2  
+<br />  ACTIONS:  climbOn  
+<br />3:  loc(bananas)=l2  loc(box)=l2  loc(monkey)=l2  onBox  
+<br />  ACTIONS:  graspBananas  
+<br />4:  hasBananas  loc(bananas)=l2  loc(box)=l2  loc(monkey)=l2  onBox  
+</span>
+<br />Note that due to the translator module (Cplus2ASP.bin) being in the prototype phase of development, it is not yet able to translate the non-NMCT examples directly without some minor edits to the original domain descriptions.
+</p>
+<p class="title">NMCT Examples</p>
+<p class="text">The simple examples from the paper &quot;Nonmonotonic Causal Theories&quot; serve as good baseline domains to verify the functionality of various aspects of the CCalc language.  Each covers different properties of causal logic, including associated syntax and constructs.</p>
+<p class="text">
+<ul class="exampleList">
+<li><span class="header">Going to Work:</span>
+<br /><a href="./nmct/going.cp" alt="going.cp" title="going.cp">going.cp</a>
+</li>
+<li class="exampleListItem"><span class="header">Lifting the Table:</span>
+<br /><a href="./nmct/lifting.cp" alt="lifting.cp" title="lifting.cp">lifting.cp</a>
+</li>
+<li class="exampleListItem"><span class="header">Monkey &amp; Bananas:</span>
+<br /><a href="./nmct/monkey.cp" alt="monkey.cp" title="monkey.cp">monkey.cp</a>
+</li>
+<li class="exampleListItem"><span class="header">Pendulum:</span>
+<br /><a href="./nmct/pendulum.cp" alt="pendulum.cp" title="pendulum.cp">pendulum.cp</a>
+</li>
+<li class="exampleListItem"><span class="header">Publishing Papers:</span>
+<br /><a href="./nmct/publishing.cp" alt="publishing.cp" title="publishing.cp">publishing.cp</a>
+</li>
+<li class="exampleListItem"><span class="header">Shooting Turkeys:</span>
+<br /><a href="./nmct/shooting.cp" alt="shooting.cp" title="shooting.cp">shooting.cp</a>
+</li>
+</ul>
+</p>
+<p class="title">Zoo World and Traffic World</p>
+<p class="text">
+<ul class="exampleList">
+<li class="exampleListItem">
+<span class="header">Zoo World:</span> The Zoo World is a larger domain referenced in &quot;Representing the Zoo World and the Traffic World in the Language of the Causal Calculator&quot; that is a framework for describing a functioning zoo with people, animals, areas, and cages, including rules for moving animals around and performing basic tricks.
+<br />
+<a href="./zooworld/zoo-actions.cp" alt="zoo-actions.cp" title="zoo-actions.cp">zoo-actions.cp</a> 
+<a href="./zooworld/zoo-animals.cp" alt="zoo-animals.cp" title="zoo-animals.cp">zoo-animals.cp</a> 
+<a href="./zooworld/zoo-landscape.cp" alt="zoo-landscape.cp" title="zoo-landscape.cp">zoo-landscape.cp</a> 
+<a href="./zooworld/zoo-movement.cp" alt="zoo-movement.cp" title="zoo-movement.cp">zoo-movement.cp</a> 
+<a href="./zooworld/zoo-example.cp" alt="zoo-example.cp" title="zoo-example.cp">zoo-example.cp</a> 
+<a href="./zooworld/zoo-test1.cp" alt="zoo-test1.cp" title="zoo-test1.cp">zoo-test1.cp</a> 
+<a href="./zooworld/zoo-test2.cp" alt="zoo-test2.cp" title="zoo-test2.cp">zoo-test2.cp</a> 
+<a href="./zooworld/zoo-test3.cp" alt="zoo-test3.cp" title="zoo-test3.cp">zoo-test3.cp</a> 
+<a href="./zooworld/zoo-test4.cp" alt="zoo-test4.cp" title="zoo-test4.cp">zoo-test4.cp</a> 
+<a href="./zooworld/zoo-test5.cp" alt="zoo-test5.cp" title="zoo-test5.cp">zoo-test5.cp</a> 
+<a href="./zooworld/zoo-test6.cp" alt="zoo-test6.cp" title="zoo-test6.cp">zoo-test6.cp</a> 
+<a href="./zooworld/zoo-example-bigger.cp" alt="zoo-example-bigger.cp" title="zoo-example-bigger.cp">zoo-example-bigger.cp</a> 
+<a href="./zooworld/zoo-bigger-test1.cp" alt="zoo-bigger-test1.cp" title="zoo-bigger-test1.cp">zoo-bigger-test1.cp</a><br />
+Running the Zoo World is a bit more complex than the other examples due to its size.  Use this command to run the Zoo World:<br />
+<span class="code">cplus2asp zoo-landscape.cp zoo-animals.cp zoo-movement.cp zoo-actions.cp zoo-example.cp zoo-test1.cp</span><br />
+&quot;zoo-test1.cp&quot; can be replaced with any of the normal test files, and the &quot;Big Cage Shuffle&quot; can be run by using &quot;zoo-example-bigger.cp&quot; and &quot;zoo-bigger-test1.cp&quot; in place of their respective normal files.  Cplus2ASP will automatically find the queries for the given test, and will ask which one to run.
+</li>
+<li class="exampleListItem">
+<span class="header">Traffic World:</span> The Traffic World is similar to the Zoo World size-wise, and acts as a framework for describing vehicles driving along roads and highways.
+<br />
+<a href="./trafficworld/traffic.cp" alt="traffic.cp" title="traffic.cp">traffic.cp</a> 
+<a href="./trafficworld/scenario1.cp" alt="scenario1.cp" title="scenario1.cp">scenario1.cp</a> 
+<a href="./trafficworld/scenario2.cp" alt="scenario2.cp" title="scenario2.cp">scenario2.cp</a> 
+<a href="./trafficworld/scenario3.cp" alt="scenario3.cp" title="scenario3.cp">scenario3.cp</a> 
+<a href="./trafficworld/scenario_altmerge.cp" alt="scenario_altmerge.cp" title="scenario_altmerge.cp">scenario_altmerge.cp</a><br />
+Running the Traffic World is less complex than the Zoo World, only requiring the inclusion of &quot;traffic.cp&quot; and one of the scenario files, like so:<br />
+<span class="code">cplus2asp traffic.cp scenario1.cp</span><br />
+&quot;scenario1.cp&quot; can be replaced with any of the scenario files.  Cplus2ASP will automatically find the queries for the given scenario, and will ask which one to run.
+</li>
+<li class="exampleListItem">
+<span class="header">Knapsack of Marbles:</span> A version of the knapsack problem, this is a puzzle version of the original problem wherein quantities of differently-sized marbles have to be placed into bags of certain sizes such that everything perfectly fits and no marbles are left out.
+<br /><a href="./marbles/container.cp" alt="container.cp" title="container.cp">container.cp</a> 
+<a href="./marbles/marblebags.cp" alt="marblebags.cp" title="marblebags.cp">marblebags.cp</a>
+</li>
+<li class="exampleListItem">
+<span class="header">Tower of Hanoi:</span> This is a classic puzzle involving moving discs across a set of pegs while following a few simple rules regarding when and where discs can move.
+<br /><a href="./hanoi/hanoi.cp" alt="hanoi.cp" title="hanoi.cp">hanoi.cp</a> 
+</li>
+</ul>
+</p>
+<p class="title">Lua Examples</p>
+<p class="text">
+<ul class="exampleList">
+<li class="exampleListItem">
+With the addition of Lua support to ASP, we have extended cplus2asp to be able to incorporate this addition. To demonstrate the syntax of using Lua, we have two simple examples. One is the standard Towers of Hanoi except that the move action does not always work (note this is decided at grounding time so this is not truly non-determinism). The other is a simple domain that reads the value of a hypothetical sensor whose value is stored in a file called "sensor". 
+<br />
+<a href="./cplus2asp_lua_examples.zip" alt="cplus2asp_lua_examples.zip" title="cplus2asp_lua_examples.zip">cplus2asp_lua_examples.zip</a> 
+</li>
+</ul>
+</p>
+<hr />
+<p class="title">Archive of Examples</p>
+<p class="text">We've put all the above examples into a single archive for those interested in downloading the complete collection: <a href="./sample_domains.zip" title="Archive of all examples">cplus2asp_examples.zip</a></p>
+</div>
+</body>
+</html>

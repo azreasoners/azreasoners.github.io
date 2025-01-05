@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)http://reasoning.eas.asu.edu/lpod2asprin/Tutorial.html -->
+<html lang="en" class="gr__reasoning_eas_asu_edu"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>DeepLPMLN - Tutorial</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="./src/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Theme CSS -->
+    <link href="./src/clean-blog.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="./src/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="./src/css" rel="stylesheet" type="text/css">
+    <link href="./src/css(1)" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body data-gr-c-s-loaded="true">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    Menu <i class="fa fa-bars"></i>
+                </button>
+                <!-- <a class="navbar-brand" href="http://reasoning.eas.asu.edu/lpod2asprin/index.html">lpod2asprin</a> -->
+                <a class="navbar-brand" href="./index.html">DeepLPMLN</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <!-- <a href="http://reasoning.eas.asu.edu/lpod2asprin/index.html">Home</a> -->
+                        <a href="./index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/zhunyoung/dlpmln">Installation</a>
+                    </li>
+                    <li>
+                        <a href="./tutorial.html">Tutorial</a>
+                    </li>
+                    <li>
+                        <a href="./examples.html">Examples</a>
+                    </li>
+<!--                     <li>
+                        <a href="http://reasoning.eas.asu.edu/lpod2asprin/manual/sysmanual.pdf">Manual</a>
+                    </li> -->
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+    <!-- Set your background image for this header on the line below. -->
+    <header class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h3>Tutorial</h3>
+                        <hr class="small">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+<div class="container">
+        <div class="row">
+            <div class="col-lg-10  col-md-10 col-md-offset-1">
+                <div class="post-preview">
+                    <a>
+                        <h2 class="post-title">
+                            Introduction
+                        </h2>
+
+                        <h4 class="post-subtitle">
+                            <p>
+                                This tutorial explains the API of DeepLPMLN with some examples.
+                            </p>
+                        </h4>
+
+                        <h2 class="post-title">
+                            API for python class DeepLPMLN
+                        </h2>
+
+                        <h4 class="post-subtitle">
+                            <p>
+                                <code>
+                                    __init__(self, dprogram, functions, optimizers)
+                                </code>
+                                <br>
+                                <b>dprogram</b> is a string for a DeepLPMLN program.
+                                <br>
+                                <b> functions </b> is a dictionary that mapps the neural network names (i.e., strings) to the neural networks (i.e., torch.nn.Module object).
+                                <br>
+                                <b> optimizers </b> is a dictionary that mapps the neural network names (i.e., strings) to its corresponding optimizer (e.g., torch.optim.Adam object). 
+                                <br>
+                                <font face="Cursive">Example:</font>
+                                <pre>
+                                    <code>
+dprogram = '''
+img(i1). img(i2).
+addition(A,B,N) :- digit(A,0,N1), digit(B,0,N2), N=N1+N2.
+nn(m(X,1), digit, [0,1,2,3,4,5,6,7,8,9]) :- img(X).
+'''
+
+class Net(nn.Module):
+    def __init__(self):
+        super(Net, self).__init__()
+        self.encoder = nn.Sequential(
+            nn.Conv2d(1, 6, 5), 
+            nn.MaxPool2d(2, 2),  
+            nn.ReLU(True),       
+            nn.Conv2d(6, 16, 5), 
+            nn.MaxPool2d(2, 2),  
+            nn.ReLU(True) 
+        )
+        self.classifier =  nn.Sequential(
+            nn.Linear(16 * 4 * 4, 120),
+            nn.ReLU(),
+            nn.Linear(120, 84),
+            nn.ReLU(),
+            nn.Linear(84, 10),
+            nn.Softmax(1)
+        )
+
+    def forward(self, x):
+        x = self.encoder(x)
+        x = x.view(-1, 16 * 4 * 4)
+        x = self.classifier(x)
+        return x
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+m = Net().to(device)
+functions = {'m': m}
+
+optimizers = {'m': torch.optim.Adam(m.parameters(), lr=0.001)}
+
+dlpmlnObj = DeepLPMLN(dprogram, functions, optimizers)
+                                    </code>
+                                </pre> 
+                                <br>
+                                <code>
+                                    learn(self, dataList, obsList, epoch)
+                                </code>
+                                <br>
+                                <b>dataList</b> is a list of dictionaries, where each dictionary mapps terms to tensors.
+                                <br>
+                                <b> obsList </b> is a list of strings, where each string is a set of constraints denoting an observation.
+                                <br>
+                                <b> epoch </b> is an integer denoting the number of epochs. 
+                                <br>
+                                <font face="Cursive">Example:</font>
+                                <pre>
+                                    <code>
+train_loader = torch.utils.data.DataLoader(
+    datasets.MNIST('./data', train=True, download=True,
+                   transform=transforms.Compose([
+                       transforms.ToTensor(),
+                       transforms.Normalize((0.1307,), (0.3081,))
+                   ])),
+    batch_size=2, shuffle=True)
+
+dataList = []
+obsList = []
+for dataIdx, data in enumerate(train_loader):
+    dataList.append({"m": {"i1":data[0][0].view(1, 1, 28, 28), 
+                           "i2":data[0][1].view(1, 1, 28, 28)}})
+    obsList.append(":- not addition(i1, i2, {}).".format(data[1][0]+data[1][1]))
+
+dlpmlnObj.learn(dataList, obsList, 1)
+                                    </code>
+                                </pre> 
+                                <br>
+                                <code>
+                                    testNN(self, nn, testLoader)
+                                </code>
+                                <br>
+                                <b>nn</b> is the name (i.e., a string) of the neural network whose accuracy is to be checked.
+                                <br>
+                                <b> testLoader </b> is the input and output pairs (i.e., torch.utils.data.DataLoader) for the test data.
+                                <br>
+                                <font face="Cursive">Example:</font>
+                                <pre>
+                                    <code>
+test_loader = torch.utils.data.DataLoader(
+    datasets.MNIST('./data', train=False, transform=transforms.Compose([
+                       transforms.ToTensor(),
+                       transforms.Normalize((0.1307,), (0.3081,))
+                   ])),
+    batch_size=1000, shuffle=True)
+
+dlpmlnObj.testNN("m", test_loader)
+                                    </code>
+                                </pre>   
+                            </p> 
+                        </h4>
+                    </a>
+                   
+                </div>
+                <hr>
+            </div>
+
+            
+    </div>
+
+</div>
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+    <div id="footer">
+
+
+            <div id="copyright-wrapper" class="horizontal-wrapper">
+              <div id="site-map" class="horizontal-content">
+                <table id="site-map-table"><tbody><tr>
+                  <td>
+                    <p class="site-map-heading">Contact Information</p>
+                    <p>Joohyung Lee, Zhun Yang</p>
+                    <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                    <p>Email: joolee@asu.edu, zyang90@asu.edu</p>
+                  </td>
+                </tr></tbody></table>
+              </div>
+
+            </div>
+      
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <p class="copyright text-muted">Copyright © 2019</p>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="./src/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./src/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="./src/jqBootstrapValidation.js"></script>
+    <script src="./src/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="./src/clean-blog.min.js"></script>
+    <!-- jQuery -->
+    <script src="./src/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./src/bootstrap.min.js"></script>
+
+    <!-- Contact Form JavaScript -->
+    <script src="./src/jqBootstrapValidation.js"></script>
+    <script src="./src/contact_me.js"></script>
+
+    <!-- Theme JavaScript -->
+    <script src="./src/clean-blog.min.js"></script>
+
+
+
+</body></html>

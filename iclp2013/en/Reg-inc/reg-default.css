@@ -1,0 +1,71 @@
+
+	.txtBoxReg01{
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:12px;
+		height:22px;
+		width:350px;
+	}
+	.stepHidden{
+		visibility:hidden;
+	}
+	.stepVisible{
+		visibility:visible;
+	}
+	
+	div#oMenuStep1,div#oMenuStep2,div#oMenuStep3,div#oMenuStep4,div#oMenuStep5,div#oMenuStep6,div#oMenuStep7,div#oMenuStep8{
+		color: #333!Important;
+		font-family: Arial, Helvetica, sans-serif;
+		font-size:16px;	
+		font-weight:bold;
+		border-bottom:#333 solid 1px;
+		padding-bottom:20px;
+	}
+	
+	.content2 {
+	font-family: Arial, Helvetica, sans-serif!Important;
+	font-size: 13px!Important;
+	color: #333!Important;
+	text-align:left!Important;
+}
+	
+	.txtBox2{
+		font-family:Arial, Helvetica, sans-serif;
+		font-size:12px;
+		width:280px;
+		border:1px solid #999; 
+		padding:3px;
+	}
+
+
+
+.button {
+   border-top: 1px solid #ccdae3;
+   background: #C24949;
+   background: -webkit-gradient(linear, left top, left bottom, from(#9B090D), to(#C24949));
+   background: -webkit-linear-gradient(top, #9B090D, #C24949);
+   background: -moz-linear-gradient(top, #9B090D, #C24949);
+   background: -ms-linear-gradient(top, #9B090D, #C24949);
+   background: -o-linear-gradient(top, #9B090D, #C24949);
+   padding: 14.5px 29px;
+   -webkit-border-radius: 18px;
+   -moz-border-radius: 18px;
+   border-radius: 18px;
+   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+   box-shadow: rgba(0,0,0,1) 0 1px 0;
+   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+   color: white;
+   font-size: 19px;
+   font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+   text-decoration: none;
+   vertical-align: middle;
+   }
+.button:hover {
+   border-top-color: #f27f27;
+   background: #f27f27;
+   color: #000000;
+   }
+.button:active {
+   border-top-color: #377299;
+   background: #377299;
+   }

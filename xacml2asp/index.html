@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XACML2ASP</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="css/style_main.css"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css" />
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="navbar-wrapper">
+          <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid horizontal-content">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><p class="title-text">XACML2ASP</p></a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="index.html">Home</a></li>
+                  <!--<li><a href="#">Download</a></li>-->
+                  <li><a href="tutorial.html">Tutorial</a></li>
+                  <li><a href="example.html">Example</a></li>
+                  <li><a href="reference.html">Reference</a></li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div>
+      </div>
+      <div id="content">
+        <div id="title-wrapper">
+          <div id="title" class="horizontal-content"><h1>XACML2ASP</h1><p>Automated XACML 3.0 Policy Reasoning based on Answer Set Programming</p></div>
+        </div>
+        <div id="other-content-wrapper" class="horizontal-wrapper">
+	  <div id="other-content" class="horizontal-content">
+            <div class="passage">
+              <p>XACML2ASP is an automated XACML 3.0 policy reasoning tool based on Answer Set Programming. It consists of two parts: a translator that turns XACML 3.0 policy description into ASP facts, and an ASP program that simulates the Policy Decision Point(PDP). The translator and the PDP simulator together form an ASP reasoning engine. Given the policy description as ASP fact, an ASP solver can serve as a PDP to generate the decision for any access request. Any policy reasoning task is reduced to verifying whether the input ASP program as a whole(policy description and the PDP simulator) has certain properties, which can be achieved by writing and running additional queries.</p>
+              
+              <p>In our implementation, the PDP simulation program is written as a set of first-order formulas. <a href="http://reasoning.eas.asu.edu/f2lp/index.html">F2lp</a> is used to turn arbitrary first-order formulas into normal and disjunctive logic programs, which can be parsed and solved using <a href="http://potassco.sourceforge.net/">Clingo</a>.</p>
+
+	<table style="width: 100%;">
+                  <tr>
+	  <td style="width: 70%; vertical-align: top;">
+	    <p><a href="files/translator/xacml3translator.jar">Click here to download the translator</a>.</p>
+	    <p>To use the translator, create a folder called "policies" in the same directory, and put the xacml policy files in this folder. Execute the .jar file directly. The ASP fact will be generated in a text file called "out.txt".</p>
+	    <p><a href="files/PDPSimulator/PDP.lp">Click here to download the PDP simulation program</a>.</p>
+            <p>Make sure F2lp and Clingo are installed. Run F2lp on PDP.lp as well as other asp files(policy facts, queries, etc.), and feed the output to Clingo.</p>
+            <p>You can also download <a href="files/xacml2asp.zip">one single zip file containing the translator, the pdp simulation program, and the examples</a>.</p>
+	  </td>
+	  <td style="width: 30%;">
+	    <!--<img src="images/ASP_Implentation_of_xacml.png"/>-->
+	  </td>
+                  </tr>
+                  </table>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="copyright-wrapper" class="horizontal-wrapper">
+          <div id="site-map" class="horizontal-content">
+            <table id="site-map-table"><tr>
+              <td>
+                <p class="site-map-heading">Contact Information</p>
+                <p>Joohyung Lee, Yi Wang</p>
+                <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                <p>Email: joolee (at) asu.edu, ywang485 (at) asu.edu</p>
+              </td>
+            </tr></table>
+          </div>
+          <div id="copyright" class="horizontal-content">
+            <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-arrow-up"></span> Back to top</a></p>
+            <p>&copy; 2014</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

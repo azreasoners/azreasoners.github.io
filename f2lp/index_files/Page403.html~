@@ -1,0 +1,854 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:dt="uuid:C2F41010-65B3-11d1-A29F-00AA00C14882"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+b\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Examples</title>
+<style>
+<!--
+ /* Font Definitions */
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:"Trebuchet MS";
+	panose-1:2 11 6 3 2 2 2 2 2 4;}
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{text-indent:0pt;
+	margin-left:0pt;
+	margin-right:0pt;
+	margin-top:0pt;
+	margin-bottom:0pt;
+	text-align:left;
+	font-family:"Times New Roman";
+	font-size:10.0pt;
+	color:black;}
+p.MsoOrganizationName, li.MsoOrganizationName, div.MsoOrganizationName
+	{text-indent:0pt;
+	margin-left:0pt;
+	margin-right:0pt;
+	margin-top:0pt;
+	margin-bottom:0pt;
+	line-height:113%;
+	text-align:left;
+	font-family:"Trebuchet MS";
+	font-size:9.0pt;
+	color:#6633FF;
+	font-weight:bold;}
+p.MsoTagline, li.MsoTagline, div.MsoTagline
+	{text-indent:0pt;
+	margin-left:0pt;
+	margin-right:0pt;
+	margin-top:0pt;
+	margin-bottom:0pt;
+	line-height:113%;
+	text-align:left;
+	font-family:"Trebuchet MS";
+	font-size:8.0pt;
+	color:black;}
+ol
+	{margin-top:0in;
+	margin-bottom:0in;
+	margin-left:.25in;}
+ul
+	{margin-top:0in;
+	margin-bottom:0in;
+	margin-left:.25in;}
+@page
+	{size:8.5in 11.0in;}
+-->
+</style>
+</head>
+
+<body link=purple vlink=navy style='margin:0'>
+
+<div style='position:absolute;width:7.9319in;height:19.3902in'>
+<!--[if gte vml 1]><v:rect id="_x0000_s1127" style='position:absolute;left:182pt;
+ top:-182pt;width:54.39pt;height:418.39pt;rotation:-90;flip:y;z-index:22;
+ visibility:visible;mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;
+ mso-wrap-distance-top:2.88pt;mso-wrap-distance-right:2.88pt;
+ mso-wrap-distance-bottom:2.88pt;mso-position-horizontal:absolute;
+ mso-position-horizontal-relative:text;mso-position-vertical:absolute;
+ mso-position-vertical-relative:text' fillcolor="#f90 [3]" stroked="f"
+ strokecolor="black [0]" strokeweight=".25pt" o:cliptowrap="t">
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="#ccc [4]"/>
+ <v:path insetpenok="f"/>
+ <o:lock v:ext="edit" shapetype="t"/>
+ <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:rect><![endif]--><![if !vml]><span style='position:absolute;z-index:22;
+left:0px;top:0px;width:558px;height:73px'><img width=558 height=73
+src=image306.gif v:shapes="_x0000_s1127"></span><![endif]><!--[if gte vml 1]><v:shape
+ id="_x0000_s1128" alt="" style='position:absolute;left:47.11875mm;top:-163.44369mm;
+ width:573.75pt;height:1500.36pt;rotation:17691452fd;z-index:23;visibility:visible;
+ mso-wrap-edited:f;mso-wrap-distance-left:9.36pt;mso-wrap-distance-top:0;
+ mso-wrap-distance-right:9.36pt;mso-wrap-distance-bottom:0;
+ mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:text'
+ coordorigin="-32000,-32000" coordsize="64000,64000" o:spt="100" adj="25858,-17922,136"
+ path="wr-32000,-32000,32000,32000@10@11@13@14,-32000,-32000,32000,32000@18@14@19@20l@0@20@0@24wa-32000,-32000,32000,32000@23@24@22@11xe"
+ fillcolor="white [7]" stroked="f" o:cliptowrap="t">
+ <v:stroke joinstyle="miter">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:formulas>
+  <v:f eqn="val #0"/>
+  <v:f eqn="val #1"/>
+  <v:f eqn="val #2"/>
+  <v:f eqn="ellipse @0 32000 32000"/>
+  <v:f eqn="ellipse @1 32000 32000"/>
+  <v:f eqn="ellipse @2 32000 32000"/>
+  <v:f eqn="sum 0 0 @3"/>
+  <v:f eqn="sum 0 0 @4"/>
+  <v:f eqn="sum 0 0 @5"/>
+  <v:f eqn="sum 0 @4 @0"/>
+  <v:f eqn="if @9 @4 @0"/>
+  <v:f eqn="if @9 @1 @6"/>
+  <v:f eqn="sum 0 @5 @0"/>
+  <v:f eqn="if @12 @5 @0"/>
+  <v:f eqn="if @12 @2 @3"/>
+  <v:f eqn="sum @11 0 1"/>
+  <v:f eqn="sum @14 1 0"/>
+  <v:f eqn="sum 0 @14 @3"/>
+  <v:f eqn="if @17 @8 @13"/>
+  <v:f eqn="if @17 @0 @13"/>
+  <v:f eqn="if @17 @3 @16"/>
+  <v:f eqn="sum 0 @6 @11"/>
+  <v:f eqn="if @21 @7 @10"/>
+  <v:f eqn="if @21 @0 @10"/>
+  <v:f eqn="if @21 @6 @15"/>
+  <v:f eqn="min @10 @13"/>
+  <v:f eqn="max @8 @7"/>
+  <v:f eqn="max @26 @0"/>
+ </v:formulas>
+ <v:path gradientshapeok="t" insetpenok="f" o:connecttype="segments"
+  textboxrect="@27,@11,@25,@14"/>
+ <v:handles>
+  <v:h position="#0,#1" xrange="-32000,32000" yrange="-32000,32000"/>
+  <v:h position="#0,#2" xrange="-32000,32000" yrange="-32000,32000"/>
+ </v:handles>
+ <o:lock v:ext="edit" shapetype="t"/>
+ <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:shape><![endif]--><![if !vml]><span style='position:absolute;z-index:23;
+left:0px;top:-1px;width:565px;height:75px'><img width=565 height=75
+src=image307.gif v:shapes="_x0000_s1128"></span><![endif]><!--[if gte vml 1]><v:group
+ id="_x0000_s1129" style='position:absolute;left:7.2pt;top:60.75pt;width:126pt;
+ height:126pt;z-index:24' coordorigin="106657140,89011125" coordsize="1600200,1600204">
+ <v:rect id="_x0000_s1130" alt="" style='position:absolute;left:106657140;
+  top:89011125;width:1600200;height:320040;visibility:hidden;mso-wrap-edited:f;
+  mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" strokecolor="black [0]" insetpen="t"
+  o:cliptowrap="t">
+  <v:stroke dashstyle="1 1" endcap="round">
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:rect><v:shapetype id="_x0000_t202" coordsize="21600,21600" o:spt="202"
+  path="m,l,21600r21600,l21600,xe">
+  <v:stroke joinstyle="miter"/>
+  <v:path gradientshapeok="t" o:connecttype="rect"/>
+ </v:shapetype><v:shape id="_x0000_s1131" type="#_x0000_t202" alt="" style='position:absolute;
+  left:106841665;top:89022555;width:1361542;height:297180;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" strokecolor="black [0]" o:cliptowrap="t">
+  <v:stroke dashstyle="dash">
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <v:path insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox style='mso-column-margin:5.76pt' inset="2.88pt,2.88pt,2.88pt,2.88pt">
+   <div dir=ltr style='padding-top:1.9949pt'>
+   <p class=MsoNormal style='line-height:113%'><span style='font-size:9.0pt;
+   line-height:113%;font-family:Verdana;color:black;language:EN'>Home</span></p>
+   </div>
+  </v:textbox>
+ </v:shape><v:shapetype id="_x0000_t87" coordsize="21600,21600" o:spt="87"
+  adj="1800,10800" path="m21600,qx10800@0l10800@2qy0@11,10800@3l10800@1qy21600,21600e"
+  filled="f">
+  <v:formulas>
+   <v:f eqn="val #0"/>
+   <v:f eqn="sum 21600 0 #0"/>
+   <v:f eqn="sum #1 0 #0"/>
+   <v:f eqn="sum #1 #0 0"/>
+   <v:f eqn="prod #0 9598 32768"/>
+   <v:f eqn="sum 21600 0 @4"/>
+   <v:f eqn="sum 21600 0 #1"/>
+   <v:f eqn="min #1 @6"/>
+   <v:f eqn="prod @7 1 2"/>
+   <v:f eqn="prod #0 2 1"/>
+   <v:f eqn="sum 21600 0 @9"/>
+   <v:f eqn="val #1"/>
+  </v:formulas>
+  <v:path arrowok="t" o:connecttype="custom" o:connectlocs="21600,0;0,10800;21600,21600"
+   textboxrect="13963,@4,21600,@5"/>
+  <v:handles>
+   <v:h position="center,#0" yrange="0,@8"/>
+   <v:h position="topLeft,#1" yrange="@9,@10"/>
+  </v:handles>
+ </v:shapetype><v:shape id="_x0000_s1132" type="#_x0000_t87" style='position:absolute;
+  left:106711274;top:89047412;width:72707;height:247466;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text'
+  fillcolor="white [7]" strokecolor="#a3cc51 [2 darken(204)]" strokeweight="1pt"
+  o:cliptowrap="t">
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <v:path insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:shape><v:rect id="_x0000_s1133" alt="" href="../index.html" style='position:absolute;
+  left:106657140;top:89011125;width:1600200;height:320040;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:9pt;mso-wrap-distance-top:0;
+  mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:0;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" o:cliptowrap="t">
+  <v:fill color2="white [7]"/>
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:path strokeok="f" fillok="f" insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:rect><v:shape id="_x0000_s1134" type="#_x0000_t202" alt="" style='position:absolute;
+  left:106841665;top:89342596;width:1361542;height:297180;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" strokecolor="black [0]" o:cliptowrap="t">
+  <v:stroke dashstyle="dash">
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <v:path insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox style='mso-column-margin:5.76pt' inset="2.88pt,2.88pt,2.88pt,2.88pt">
+   <div dir=ltr style='padding-top:1.9949pt'>
+   <p class=MsoNormal style='line-height:113%'><span style='font-size:9.0pt;
+   line-height:113%;font-family:Verdana;color:black;language:EN'>Download</span></p>
+   </div>
+  </v:textbox>
+ </v:shape><v:shape id="_x0000_s1135" type="#_x0000_t87" style='position:absolute;
+  left:106711274;top:89367453;width:72707;height:247466;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text'
+  fillcolor="white [7]" strokecolor="#a3cc51 [2 darken(204)]" strokeweight="1pt"
+  o:cliptowrap="t">
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <v:path insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:shape><v:rect id="_x0000_s1136" alt="" href="Page333.html" style='position:absolute;
+  left:106657140;top:89331166;width:1600200;height:320040;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:9pt;mso-wrap-distance-top:0;
+  mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:0;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" o:cliptowrap="t">
+  <v:fill color2="white [7]"/>
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:path strokeok="f" fillok="f" insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:rect><v:shape id="_x0000_s1137" type="#_x0000_t202" alt="" style='position:absolute;
+  left:106841665;top:89662637;width:1361542;height:297180;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" strokecolor="black [0]" o:cliptowrap="t">
+  <v:stroke dashstyle="dash">
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <v:path insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox style='mso-column-margin:5.76pt' inset="2.88pt,2.88pt,2.88pt,2.88pt">
+   <div dir=ltr style='padding-top:1.9949pt'>
+   <p class=MsoNormal style='line-height:113%'><span style='font-size:9.0pt;
+   line-height:113%;font-family:Verdana;color:black;language:EN'>References</span></p>
+   </div>
+  </v:textbox>
+ </v:shape><v:shape id="_x0000_s1138" type="#_x0000_t87" style='position:absolute;
+  left:106711274;top:89687494;width:72707;height:247466;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text'
+  fillcolor="white [7]" strokecolor="#a3cc51 [2 darken(204)]" strokeweight="1pt"
+  o:cliptowrap="t">
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <v:path insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:shape><v:rect id="_x0000_s1139" alt="" href="Page302.html" style='position:absolute;
+  left:106657140;top:89651207;width:1600200;height:320040;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:9pt;mso-wrap-distance-top:0;
+  mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:0;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" o:cliptowrap="t">
+  <v:fill color2="white [7]"/>
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:path strokeok="f" fillok="f" insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:rect><v:shape id="_x0000_s1172" type="#_x0000_t202" alt="" style='position:absolute;
+  left:106841664;top:89982678;width:1361542;height:297180;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" strokecolor="black [0]" insetpen="t"
+  o:cliptowrap="t">
+  <v:stroke dashstyle="dash">
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox style='mso-column-margin:5.76pt' inset="2.88pt,2.88pt,2.88pt,2.88pt">
+   <div dir=ltr style='padding-top:1.9949pt'>
+   <p class=MsoNormal style='line-height:113%'><span style='font-size:9.0pt;
+   line-height:113%;font-family:Verdana;color:black;language:EN'>Examples</span></p>
+   </div>
+  </v:textbox>
+ </v:shape><v:shape id="_x0000_s1173" type="#_x0000_t87" style='position:absolute;
+  left:106711274;top:90007535;width:72707;height:247466;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text'
+  fillcolor="white [7]" strokecolor="#63f [1]" strokeweight="1pt" o:cliptowrap="t">
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:shape><v:shape id="_x0000_s1231" type="#_x0000_t202" alt="" style='position:absolute;
+  left:106841665;top:90302719;width:1361542;height:297180;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" strokecolor="black [0]" o:cliptowrap="t">
+  <v:stroke dashstyle="dash">
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <v:path insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox style='mso-column-margin:5.76pt' inset="2.88pt,2.88pt,2.88pt,2.88pt">
+   <div dir=ltr style='padding-top:1.9949pt'>
+   <p class=MsoNormal style='line-height:113%'><span style='font-size:9.0pt;
+   line-height:113%;font-family:Verdana;color:black;language:EN'>Encoding Guidelines</span></p>
+   </div>
+  </v:textbox>
+ </v:shape><v:shape id="_x0000_s1232" type="#_x0000_t87" style='position:absolute;
+  left:106711274;top:90327576;width:72707;height:247466;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+  mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text'
+  fillcolor="white [7]" strokecolor="#a3cc51 [2 darken(204)]" strokeweight="1pt"
+  o:cliptowrap="t">
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:shadow color="#ccc [4]"/>
+  <v:path insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:shape><v:rect id="_x0000_s1233" alt="" href="Page388.html" style='position:absolute;
+  left:106657140;top:90291289;width:1600200;height:320040;visibility:visible;
+  mso-wrap-edited:f;mso-wrap-distance-left:9pt;mso-wrap-distance-top:0;
+  mso-wrap-distance-right:9pt;mso-wrap-distance-bottom:0;
+  mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+  mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+  fillcolor="white [7]" stroked="f" o:cliptowrap="t">
+  <v:fill color2="white [7]"/>
+  <v:stroke>
+   <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+   <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+  </v:stroke>
+  <v:path strokeok="f" fillok="f" insetpenok="f"/>
+  <o:lock v:ext="edit" shapetype="t"/>
+  <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+ </v:rect></v:group><![endif]--><![if !vml]><span style='position:absolute;
+z-index:24;left:10px;top:81px;width:168px;height:168px'><map
+name=MicrosoftOfficeMap0><area shape=Rect
+coords="0, 134, 168, 168" href="Page388.html"><area shape=Rect
+coords="0, 67, 168, 101" href="Page302.html"><area shape=Rect
+coords="0, 34, 168, 67" href="Page333.html"><area shape=Rect
+coords="0, 0, 168, 34" href="../index.html"></map><img border=0 width=168
+height=168 src=image406.gif usemap="#MicrosoftOfficeMap0" v:shapes="_x0000_s1129 _x0000_s1131 _x0000_s1132 _x0000_s1133 _x0000_s1134 _x0000_s1135 _x0000_s1136 _x0000_s1137 _x0000_s1138 _x0000_s1139 _x0000_s1172 _x0000_s1173 _x0000_s1231 _x0000_s1232 _x0000_s1233"></span><![endif]><!--[if gte vml 1]><v:shape
+ id="_x0000_s1140" type="#_x0000_t202" style='position:absolute;left:151.12pt;
+ top:38.62pt;width:298.88pt;height:15.77pt;z-index:25;visibility:visible;
+ mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+ mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+ fillcolor="black [0]" stroked="f" strokecolor="black [0]" strokeweight="0"
+ o:cliptowrap="t">
+ <v:fill color2="white [7]"/>
+ <v:stroke>
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="#ccc [4]"/>
+ <v:path insetpenok="f"/>
+ <o:lock v:ext="edit" shapetype="t"/>
+ <v:textbox style='mso-column-margin:5.7pt' inset="2.85pt,2.85pt,2.85pt,2.85pt"/>
+</v:shape><![endif]--><![if !vml]><span style='position:absolute;z-index:25;
+left:202px;top:52px;width:399px;height:22px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=399 height=22 style='vertical-align:top'><![endif]>
+  <div v:shape="_x0000_s1140" style='padding:2.85pt 2.85pt 2.85pt 2.85pt'
+  class=shape>
+  <p class=MsoTagline><span style='font-size:10.0pt;line-height:113%;
+  font-family:Verdana;language:EN'>F2LP: Computing Answer Sets of First Order Formulas</span></p>
+  </div>
+  <![if !vml]></td>
+ </tr>
+</table>
+
+</span><![endif]><!--[if gte vml 1]><v:oval id="_x0000_s1141" style='position:absolute;
+ left:122.17pt;top:29.85pt;width:21.83pt;height:2.85pt;z-index:26;visibility:visible;
+ mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+ mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:text'
+ fillcolor="black [0]" stroked="f" strokecolor="black [0]" o:cliptowrap="t">
+ <v:fill color2="white [7]" rotate="t" focusposition=".5,.5" focussize=""
+  focus="100%" type="gradientRadial"/>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="#ccc [4]"/>
+ <v:path insetpenok="f"/>
+ <o:lock v:ext="edit" shapetype="t"/>
+ <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:oval><![endif]--><![if !vml]><span style='position:absolute;z-index:26;
+left:162px;top:39px;width:30px;height:5px'><img width=30 height=5
+src=image315.gif v:shapes="_x0000_s1141"></span><![endif]><!--[if gte vml 1]><v:oval
+ id="_x0000_s1142" style='position:absolute;left:119.1pt;top:19.11pt;width:8.39pt;
+ height:8.39pt;z-index:27;visibility:visible;mso-wrap-edited:f;
+ mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+ mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:text'
+ fillcolor="white [7]" stroked="f" strokecolor="black [0]" o:cliptowrap="t">
+ <v:fill color2="#cf6 [2]" rotate="t" focus="100%" type="gradientRadial">
+  <o:fill v:ext="view" type="gradientCenter"/>
+ </v:fill>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="#ccc [4]"/>
+ <v:path insetpenok="f"/>
+ <o:lock v:ext="edit" shapetype="t"/>
+ <v:textbox inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:oval><![endif]--><![if !vml]><span style='position:absolute;z-index:27;
+left:158px;top:25px;width:12px;height:12px'><img width=12 height=12
+src=image316.gif v:shapes="_x0000_s1142"></span><![endif]><!--[if gte vml 1]><v:shape
+ id="_x0000_s1143" type="#_x0000_t202" alt="" style='position:absolute;left:151.12pt;
+ top:22.37pt;width:298.88pt;height:16.25pt;z-index:28;visibility:visible;
+ mso-wrap-edited:f;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt;
+ mso-position-horizontal:absolute;mso-position-horizontal-relative:text;
+ mso-position-vertical:absolute;mso-position-vertical-relative:text' filled="f"
+ fillcolor="black [0]" stroked="f" strokecolor="black [0]" strokeweight="0"
+ o:cliptowrap="t">
+ <v:stroke>
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="#ccc [4]"/>
+ <v:path insetpenok="f"/>
+ <o:lock v:ext="edit" shapetype="t"/>
+ <v:textbox style='mso-column-margin:5.7pt' inset="2.85pt,2.85pt,2.85pt,2.85pt"/>
+</v:shape><![endif]--><![if !vml]><span style='position:absolute;z-index:28;
+left:202px;top:30px;width:399px;height:22px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=399 height=22 valign=bottom style='vertical-align:top'><![endif]>
+  <div v:shape="_x0000_s1143" style='padding:2.85pt 2.85pt 2.85pt 2.85pt'
+  class=shape></div>
+  <![if !vml]></td>
+ </tr>
+</table>
+
+</span><![endif]><!--[if gte vml 1]><v:shape id="_x0000_s1179" type="#_x0000_t202"
+ style='position:absolute;left:138pt;top:63pt;width:420pt;height:1332pt;
+ z-index:65;mso-wrap-distance-left:2.88pt;mso-wrap-distance-top:2.88pt;
+ mso-wrap-distance-right:2.88pt;mso-wrap-distance-bottom:2.88pt' filled="f"
+ fillcolor="white [7]" stroked="f" strokecolor="black [0]" o:cliptowrap="t">
+ <v:fill color2="white [7]"/>
+ <v:stroke color2="white [7]">
+  <o:left v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:top v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:right v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:bottom v:ext="view" color="black [0]" color2="white [7]"/>
+  <o:column v:ext="view" color="black [0]" color2="white [7]"/>
+ </v:stroke>
+ <v:shadow color="#ccc [4]"/>
+ <v:path insetpenok="f"/>
+ <v:textbox style='mso-column-margin:2mm' inset="2.88pt,2.88pt,2.88pt,2.88pt"/>
+</v:shape><![endif]--><![if !vml]><span style='position:absolute;z-index:65;
+left:184px;top:84px;width:560px;height:1776px'>
+
+<table cellpadding=0 cellspacing=0>
+ <tr>
+  <td width=560 height=1776 style='vertical-align:top'><![endif]>
+  <div v:shape="_x0000_s1179" style='padding:2.88pt 2.88pt 2.88pt 2.88pt'
+  class=shape>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>This page lists a few example descriptions in the language of F2LP. A detailed manual is available <a href="./manual.html">here</a>.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  font-weight:bold;language:EN'>Example 1:</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* Begin F2LP input */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% file example1.fof</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% domain from 0 to 9</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>number(0..9).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% domain variables X and Y</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#domain number(X;Y).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>r(1).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'> s(X) &lt;- r(X) &amp; not ?[X]:(p(X,Y) &amp; q(X,Y)) .</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* End F2LP input */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>Run F2LP: </span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>f2lp example1.fof</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* Begin F2LP output */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>number(0..9).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#domain number(X;Y).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>r(1) :- true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>s(X) :- r(X), not _new_pred_1(Y).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>_new_pred_1(Y) :- p(X,Y), q(X,Y).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>:- false.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#hide true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* End F2LP output */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>Here "_new_pred_1" is the new predicate introduced by F2LP.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  font-weight:bold;language:EN'>Example 2:</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  font-weight:bold;language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* Begin F2LP input */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% file example2.fof</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% domain {a,b,c}</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>object(a;b;c).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% domain variable X</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#domain object(X).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>p(a).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>r(c).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>q(b) &lt;- ?[X]:(p(X) &amp; r(X)).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% rule in lparse/gringo syntax</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>r(X) :- p(X).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* End F2LP input */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* Begin F2LP output */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>object(a;b;c).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#domain object(X).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>p(a) :- true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>r(c) :- true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#domain object(_NV_1).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>q(b) :- p(_NV_1), r(_NV_1).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>r(X) :- p(X).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>:- false.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#hide true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* End F2LP output */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>Here "_NV_1" is the new variable introduced which has the same domain as the variable it replaced (X). Also, the rule in lparse/gringo syntax is copied directly to the output. F2LP does not check for parse errors for such rules.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  font-weight:bold;language:EN'>Example 3:</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  font-weight:bold;language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* Begin F2LP input */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% file example3.fof</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% domain 0 - 9</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>number(0..9).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% domain variables X and Y</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#domain number(X;Y).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>% rule with strong negation</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>-p(1).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>q(2) &lt;- (Y &lt; 2 &amp; r(Y)) | ?[X]:(p(X) &amp; r(X)).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* End F2LP input */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* Begin F2LP output */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>number(0..9).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#domain number(X;Y).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>-p(1) :- true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#domain number(_NV_1).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>q(2) :- Y&lt;2, r(Y).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>q(2) :- p(_NV_1), r(_NV_1).</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>:- false.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>#hide true.</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'>/* End F2LP output */</span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  <p class=MsoNormal><span style='font-size:9.0pt;font-family:Verdana;
+  language:EN'><![if !supportEmptyParas]>&nbsp;<![endif]></span></p>
+  </div>
+  <![if !vml]></td>
+ </tr>
+</table>
+
+</span><![endif]>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+// Airplane Highjack Scenario
+//
+// This scenario was suggested by Vladimir Lifschitz in the
+// ENAI discussions. It tests the distinction between a 
+// ramification constraint and a qualification constraint.
+// Things that are in your pocket are still in your pocket
+// as you travel from place to place. But if you have a 
+// gun in your pocket and try to get on a plane, the 
+// indirect effect that the gun follows with you should
+// instead behave as a qualification constraint to the plane
+// boarding action. 
+//
+
+#maxocc 50
+
+#domain thing :elements {gun, comb1, comb2, comb3, boris, dimiter, erik, sas609}
+#domain location :elements {home1, home2, home3, office, airport, run609, run609b, air}
+#domain runway :parent location :elements {run609, run609b}
+#domain airplane :parent thing :elements {sas609}
+#domain person :parent thing :elements {[boris .. erik]}
+#domain pthing :parent thing :elements {gun, [ comb1 .. comb3 ]}
+#domain pocket :elements {pocket1, pocket2, pocket3}
+
+#feature loc(thing) :domain location :showname
+#feature inpocket(person,pthing) :domain boolean
+#feature poss_board(person,airplane) :domain boolean :durational true
+#feature drunk(person) :domain boolean
+#feature onplane(airplane,person) :domain boolean
+
+#action put(person, pthing, pocket) 
+#action travel(person, location, location)
+#action fly(airplane, runway, runway)
+#action board(person, airplane)
+
+#valuevar loc1, loc2, loc3 :domain location
+//valuevar person1 person, person2 person
+//valuevar pthing1 pthing, phting2 pthing
+
+#obs [0] loc(boris) == home1 & loc(gun) == office & loc(comb1) == home1 & !drunk(boris) 
+#obs [0] loc(erik) == home2 & loc(comb2) == home2 & !drunk(erik)
+#obs [0] loc(dimiter) == home3 & loc(comb3) == home3 & drunk(dimiter) // & inpocket(dimiter, comb3)
+#obs [0] loc(sas609) == run609
+#occ [1,2] put(boris, comb1, pocket1)
+#occ [1,2] put(erik, comb2, pocket2)
+#occ [2,4] travel(dimiter, home3, office)
+#occ [3,5] travel(boris, home1, office)
+#occ [4,6] travel(erik, home2, office)
+#occ [6,7] put(boris, gun, pocket1)
+#occ [5,7] travel(dimiter, office, airport)
+#occ [7,9] travel(erik, office, airport)
+#occ [8,10] travel(boris, office, airport)
+#occ [9,10] board(dimiter, sas609)
+#occ [10,11] board(boris, sas609)
+#occ [11,12] board(erik, sas609)
+#occ [13,16] fly(sas609, run609, run609b)
+#occ [30,35] fly(sas609, run609b, run609)
+#occ [40,41] board(dimiter, sas609)
+#occ [41,45] board(boris, sas609)
+#occ [45,50] fly(sas609, run609, run609b)
+
+#acs [t1,t2] put(person, pthing, pocket) -> [t1] loc(person) == loc(pthing) -> R((t1,t2] inpocket(person, pthing))
+#acs [t1,t2] travel(person, loc1, loc2) -> [t1] loc(person) == loc1 -> R([t2] loc(person) == loc2)
+
+#acs [t1,t2] board(person, airplane) -> [t1] poss_board(person, airplane) & loc(person) == airport 
+                -> R([t2] loc(person) == value(t2, loc(airplane)) & onplane(airplane, person))
+
+// When an airplane flies from loc1 to loc2, it will be in the air for
+// the inner part of the time interval and at loc2 at the end of the
+// time interval.
+
+#acs [t1,t2] fly(airplane, runway1, runway2) -> [t1] loc(airplane) == runway1 -> 
+	I((t1,t2) loc(airplane) == air) & R([t2] loc(airplane) == runway2)
+
+// If a person has a gun, it is not possible for the person to board an airplane.
+#dep forall t, person [ t <= $maxocc & [t] inpocket(person, gun) -> I([t] forall airplane [ !poss_board(person, airplane) ])]  
+
+// If a person is drunk, it may or may not be possible for him to board an airplane.
+#dep forall t, person [ t <= $maxocc & [t] drunk(person) -> X([t] forall airplane [ !poss_board(person, airplane) ])]  
+
+
+// If the plane is not at the airport, it is not possible to board
+#dep forall t, person, airplane [ t <= $maxocc & [t] !(loc(airplane) == run609) -> 
+		I([t] !poss_board(person,airplane)) ]
+
+
+// If an airplane moves, all persons on board the airplane move.
+#dep forall t, airplane, person, loc3 [ [t] onplane(airplane, person) & 
+	   Ct([t] loc(airplane) == loc3) -> R([t] loc(person) == value(t, loc(airplane)))]
+
+// If a person moves, all things in his pocket move.
+#dep forall t, person, pthing, loc3 [ [t] inpocket(person, pthing) & 
+	   Ct([t] loc(person) == loc3) -> R([t] loc(pthing) == value(t, loc(person)))]
+
+// One pthing can not be in two different pockets
+#dom forall t, pthing1, person1, person2 [!(person1 = person2) & [t] inpocket(person1, pthing1) ->
+	[t] !inpocket(person2, pthing1)]
+
+// One person can not be on board two different airplanes
+#dom forall t, person1, airplane1, airplane2 [!(airplane1 = airplane2) & [t] onplane(airplane1, person1) ->
+	[t] !onplane(airplane2, person1)]

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MVSM</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="css/style_main.css"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css" />
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="navbar-wrapper">
+          <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid horizontal-content">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><p class="title-text">MVSM</p></a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="download.html">Downloads</a></li>
+                  <li class="active"><a href="tutorial.html">Tutorial</a></li>
+                  <li><a href="example.html">Examples</a></li>
+                  <!--<li><a href="reference.html">Reference</a></li>-->
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div>
+      </div>
+      <div id="content">
+        <div id="title-wrapper">
+          <div id="title" class="horizontal-content"><h1>Tutorial</h1><p>Computing Stable Models of Multi-valued Propositional Formulas using Propositional Answer Set Solvers</p></div>
+        </div>
+        <div id="other-content-wrapper" class="horizontal-wrapper">
+	  <div id="other-content" class="horizontal-content">
+            <div class="passage">
+              <div id="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                  <li><a href="#aspmt_declarations">MVSM Declarations</a></li>
+				  <li><a href="#aspmt_formulas">MVSM Formulas</a></li>
+				  <li><a href="#aspmt_formulas">Running MVSM</a></li>
+                </ul>
+              </div>
+              <h4 id="aspmt_declarations"> MVSM Declarations </h4> 
+              <p> The tutorial describes the leaking bucket example. Consider a leaking bucket with 
+			  maximum capacity c that loses one unit of water every time step by default. The bucket 
+			  can be refilled to its maximum capacity by the action fill. The initial capacity is 5 and the 
+			  desired capacity is 10. Here, the argument variable corresponding to the length of the plan 
+			  increases so both systems suffer scalability issues.
+			  </p>
+			  <p>
+			  Declarations in MVSM are used to specify the valid ranges of values for arguments of 
+			  functions and for functions themselves. In addition, they allow specification of user-defined 
+			  sorts. They also specify the sorts of variables (if a variable is not declared it is understood 
+			  to be a numeric variable). To declare two user defined sorts "atime" and "time", we write</p>
+              <div class="code-wrap">
+<script type="text/plain">
+:-sorts
+  atime;time.
+</script>
+              </div>
+			  <p>To specify that "time" ranges over the number range 0..10, "atime" ranges of the number range 0..9, and "amount" ranges over the number range 0..10, we write</p>
+<div class="code-wrap">
+<script type="text/plain">
+
+:-objects
+  0..10 :: time;
+  0..9  :: atime;
+  0..10 :: amount.
+</script>
+              </div>
+			  <p>To declare "amt" as a function from "time" to the sort "amount", and "fill"
+			  as a function from "atime" to boolean values, we write</p>
+<div class="code-wrap">
+<script type="text/plain">
+
+:-constants
+  amt(time) :: amount;
+  fill(atime) :: boolean.
+</script>
+              </div>
+			  <p>To declare T as a variable of sort "time", ST as a variable of sort "atime", and X as a variable of sort "amount", we write</p>
+<div class="code-wrap">
+<script type="text/plain">
+
+:-variables
+  T :: time;
+  ST :: atime;
+  X :: amount.
+
+</script>
+              </div>
+
+              <h4 id="aspmt_formulas"> MVSM Formulas </h4> 
+              <p>The multi-valued propositional rules are formed using the constants, variables, objects, and propositional connectives, 
+			  which include & (conjunction), | (disjunction), -> (implication), <- (reverse direction implication), not (negation). 
+			  Below is an annotated example.</p>
+              <div class="code-wrap">
+<script type="text/plain">
+%By default, the amount at the next timestep is 1 less than the amount at this timestep
+{amt(ST+1) = X-1} <- amt(ST) = X.
+
+%The fill action is exogenous at all timesteps (other than the final timestep, when actions are not executed).
+{fill(ST) = true}.
+{fill(ST) = false}.
+
+%If the fill action is executed at the current timestep, then the amount at the next timestep is 10.
+amt(ST+1) = X <- fill(ST) = true & X = 10.
+
+%Do not allow the amount to become less than 2 at any time.
+<- amt(T) = X & X < 2.
+
+%Initially, the amount is 5.
+amt(0) = 5.
+
+%A plan should result in the amount being 8 at time 10.
+<- not amt(10) = 8.
+</script>
+</div>
+			  
+			  <h4 id="running_aspmt2smt"> Running MVSM </h4> 
+			  <p>Typical invocation of the toolchain script will be mvsm [FILENAME] [CONSTANTS] [NUMBER OF SOLUTIONS] where [FILENAME] is
+			  the name of the input file, [CONSTANTS] are of the form "-c [CONST]=[VALUE]". If the number of solutions is omitted, the default value
+			  1 is used. To show all solutions, specify 0 for [NUMBER OF SOLUTIONS]. For example, to obtain one stable model of the leaking bucket
+			  example, we write</p>
+
+              <div class="code-wrap">
+<script type="text/plain">
+mvsm amt.mvsm 
+</script>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="copyright-wrapper" class="horizontal-wrapper">
+          <div id="site-map" class="horizontal-content">
+            <table id="site-map-table"><tr>
+              <td>
+                <p class="site-map-heading">Contact Information</p>
+                <p>Joohyung Lee, Michael Bartholomew</p>
+                <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                <p>Email: joolee (at) asu.edu, mjbartho (at) asu.edu</p>
+              </td>
+            </tr></table>
+          </div>
+          <div id="copyright" class="horizontal-content">
+            <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-arrow-up"></span> Back to top</a></p>
+            <p>&copy; 2014</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

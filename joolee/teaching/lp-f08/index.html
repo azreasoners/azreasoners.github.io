@@ -1,0 +1,296 @@
+<html>
+<head>
+<title>CSE 494/598: Logic Programming (Fall 2008)</title>
+<meta http-equiv="Content-Type" content="text/html">
+
+</head>
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+
+<H1>CSE 494/598: Logic Programming (Fall, 2008)</H1>
+
+<p>
+<b> <a href="lp-syllabus.pdf">Syllabus</a> </b> 
+
+
+<p>
+<b>Time and Place:</b> TTh 10:30-11:45 a.m.,  BYAC 240
+
+<p>
+<b>Instructor:</b>	  Joohyung Lee (joolee (at) asu (dot) edu)
+
+<p>
+<b>Instructor's Office Hours:</b>   W 5-6 p.m., F 1-2 p.m., and by
+appointment (preferably made at least one day ahead), BY 574. 
+
+
+<p>
+<b>Description:</b>
+
+Beyond the study of proofs in mathematics, logic has been applied to
+designing and reasoning about computer hardware and software. One of
+the prominent applications of logic in computer science
+is the use of logic for <b>declarative programming</b>.
+<!--Declarative programming specifies <i>what</i> is to be computed,
+but not necessarily <i>how</i> to compute.-->
+
+<p>
+<b>Answer set programming (ASP)</b> is a recent form of declarative programming 
+oriented towards difficult combinatorial search problems, and has 
+found to be useful in many knowledge-intensive applications. 
+It has emerged from interaction between two lines of
+research---on the semantics of negation in logic programming and on
+applications of satisfiability solvers to search problems. 
+<!-- It was identified as a new programming paradigm in 1999.  -->
+
+The idea of ASP is to represent the search problem we are interested 
+in as a logic program whose intended models, known as ``answer sets'',
+correspond to the solutions of the problem, and then find them using
+an <i>answer set solver</i> -- a system for computing answer sets. 
+
+Applications of ASP include knowledge representation, plan generation, 
+and product configuration problems in artificial intelligence and 
+to graph-theoretic problems arising in VLSI design, in historical 
+linguistics, and in bioinformatics. 
+Fully declarative semantics of ASP makes it easy to write provably
+correct programs, and allows 
+easy communication between other users of computational methods besides 
+computer scientists. The significance of this new approach is heightened 
+by the multidisciplinary nature of collaborations and new computing areas 
+that are emerging. For example,
+<ul>
+<li> <b>Automated Product Configuration:</b> An ASP-based technology
+that has been commercialized ({\tt www.variantum.com/en}).
+
+<li> <b>Decision Support for the Space Shuttle:</b> An ASP system has
+been a part of autonomous control of the Space Shuttle.
+
+<li> <b>Inferring Phylogenetic Trees:</b> An ASP-based method for
+reconstructing a phylogeny for a set of taxa has been applied to historical
+analysis of languages and of parasite-host systems.
+</ul>
+
+Other applications (showcases) are listed at
+   <a
+   href="http://www.kr.tuwien.ac.at/research/projects/WASP/showcase.html">
+http://www.kr.tuwien.ac.at/research/projects/WASP/showcase.html
+</a>
+
+<p>
+There will be no textbook; the necessary material will be handed out
+in class. No prerequisite is needed, but general knowledge of
+mathematical logic 
+is recommended.  Your grade will be determined by class participation,
+homework, two tests and one term project.
+
+<!-- Your grade will be determined by your solutions to homework problems
+and by class participation.-->
+<!--<p>
+<b>Prerequisites: </b>
+Basic knowledge on mathematical logic (propositional
+logic and first-order logic) will be assumed.  -->
+
+<ul>
+<hr width=30% align="left">
+</ul>
+
+<p>
+<h3>Announcement </h3>
+<ul>
+<li> The second midterm will be on October 21 in class. 
+<li> The project proposals are due by October 23, 9AM. 
+<li> The progress presentation slides are due by November 12, 9PM, and the progress reports
+are due by November 13, 9PM. 
+<li> The final presentations will be done in the last week. 
+
+
+</ul>
+
+
+<ul>
+<hr width=30% align="left">
+</ul>
+
+
+<h3>Handouts</h3>
+<ol>
+<li><a href="lp-intro.pdf">Introduction</a>
+<li><a href="lp1.pdf">Review of Propositional Logic</a>
+<li><a href="lp2.pdf">Answer Sets of Traditional Logic Programs</a>
+<li><a href="lp3.pdf">Answer Sets of Propositional Formulas</a>
+<li><a href="lp4.pdf">Constraints, Choice, and Counting</a>
+<li><a href="lp5.pdf">Programming Methodology</a>
+<li><a href="lp6.pdf">Strong Negation and Planning</a>
+<li><a href="lp7.pdf">Logic of Here and There and Strong Equivalence</a>
+<li>Completion and Loop Formulas
+</ol>
+
+<ul>
+<hr width=30% align="left">
+</ul>
+
+
+<h3>Papers</h3>
+<ul>
+<li>E. Erdem and F. Ture. 
+<a href="http://people.sabanciuniv.edu/esraerdem/papers/aaai08.pdf">Efficient
+haplotype inference with answer set programming.</a> In Proc. of AAAI'08,
+pp. 436-441.
+
+<li>
+E. Erdem, V. Lifschitz, L. Nakhleh, and D. Ringe. 
+<a href="http://people.sabanciuniv.edu/esraerdem/papers/padl03.ps">
+Reconstructing the evolutionary history of Indo-European languages
+using answer set programming.</a> 
+In Proc. of PADL'03, pp. 160-176.
+
+<li>M. Cayli, A. G. Karatop, E. Kavlak, H. Kaynar, F. Ture, and
+E. Erdem. 
+<a href="http://people.sabanciuniv.edu/esraerdem/papers/puzzles-final.pdf">
+Solving challenging grid puzzles with answer set
+programming.</a>
+In Proc. of ASP'07, pp. 175-190. 
+
+<li>Monica Nogueira, Marcello Balduccini, Michael Gelfond, Richard
+Watson, and Matthew Barry. 
+<a href="http://www.krlab.cs.ttu.edu/Papers/download/bbgnw01b.pdf">
+An A-Prolog decision support system for the Space Shuttle.</a>
+In PADL 2001, pages 169-183, 2001. 
+
+<li>A. Armando, L. Compagna, Y. Lierler, 
+<a href="http://www.avispa-project.org/papers/satmc-lp-jelia04.ps">
+Automatic Compilation of Protocol Insecurity Problems into Logic
+Programming.</a> 
+In Proceedings of the 9th European Conference on Logics
+in Artificial Intelligence (JELIA 2004)
+</ul>
+
+<ul>
+<hr width=30% align="left">
+</ul>
+
+<h3> Projects </h3>
+
+Students completed non-trivial ASP programming tasks for their term projects. 
+
+<ul> <h4>Undergraduate Student Projects</h4>
+<li> Jacob Griffin, <a href="Projects/JakeGriffin.pdf">Paint by Numbers</a> <br>
+       Jake formalized in ASP a type of grid puzzle called "Paint by Number", which is to complete a picture 
+directed by constraints given by numbers.  He also implemented GUI in C#.net to make input of puzzles easier 
+to test and show the pretty pictures. 
+<p>
+<li> Tylar Hoag, <a href="Projects/TylarHoag.pdf">Wumpus World</a><br>
+Tylar formalized in ASP a reasonably restricted version of the Wumpus World, in which reasoning 
+has to involve unknown environment. 
+<p>
+<li> Thomas Lang, <a href="Projects/TomLang.pdf">Some Variations of Sudoku</a><br>
+Tom formalized in ASP three variations of Sudoku puzzles, for instance one involving 5 different 5x5 boards with one
+board overlapping with the other four board. 
+<p>
+<li> Houston Murphy, <a href="Projects/HoustonMurphy.pdf">Jealous Husbands Puzzle</a><br>
+Houston's project is to test elaboration tolerance of ASP language by formalizing some elaborations of 
+Jealous Husbands Puzzle,  which is similar to Missionaries and Cannibals puzzle. He investigated how much of the code
+can be reused, each time some elaborations have to taken into account.
+<p>
+<li> Matthew Roberson, <a href="Projects/MattRoberson.pdf">Using ASP to Solve Binary-Determination Logic Puzzles</a><br>
+Matt formalized two grid puzzles "Kuromasu" and "Light up"  in ASP. 
+<p>
+<li> Richard Seale, <a href="Projects/RichardSeale.pdf">Rubik's Cube</a><br>
+Richard's project is to formalize the movement of Rubik's cube and analyzed possible configurations of the puzzle using
+ASP.
+</ul>
+
+<ul> <h4>Graduate Student Projects</h4>
+<li> Michael Casolary, <a href="Projects/MichaelCasolary.pdf">Comparing Solver Performance Using Peg Solitaire</a><br>
+Michael formalized a few Peg Solitaire games and analyzed the performance ASP solvers on this domain. He also formalized
+the games in C+ and compared the performance with CCalc.  
+<p>
+<li> Benoit Catherinet, <a href="Projects/BenoitCatherinet.pdf">Endgame Chess</a><br>
+Benoit investigated how to use ASP to prove a small theorems about Chess game, such as detecting checkmate.  
+<p>
+<li> Juraj Dzifcak, <a href="Projects/JurajDzifcak.pdf">Using CCG and Lambda Calculus together with the New ASP Semantics to Characterize NL sentences</a><br>
+Juraj investigated how natural language sentences involving existential quantification can be represented in the new
+language of stable models proposed in [Ferraris, Lee and Lifschitz, 2007].
+<p>
+<li> Tae-Won Kim, <a href="Projects/TaewonKim.pdf">Formalizing Korean Honorification in ASP</a><br>
+Honorifics in Korean language has many sophisticated rules. Tae-won formalized these rules as ASP knowledge base, 
+which can be used to infer speaker's relation from the use of honorific markers.
+<p>
+<li> Tuan Nguyen, <a href="Projects/TuanNguyen.pdf">Logic Programming Approach to Partial Satisfaction Planning</a><br>
+Tuan formalized partial satisfaction planning problem in ASP, in which actions have cost and goals have reward. 
+He applied the splitting theorem to prove if his encoding is correct. 
+</ul>
+
+<h3> Participation </h3>
+
+<ul>
+<li>2.1 Benoit Catherinet 
+<li>2.3 Thomas Lang
+<li>2.4 Tuan Nguyen
+<li>2.5 Jake Griffin
+<li>2.7 Thomas Lang
+<li>3.2 Michael Casolary
+<li>3.3 Tae-Won Kim
+<li>3.4 Jake Griffin
+<li>3.5 Michael Casolary
+<li>3.6 Saleel Kudchadker
+<li>3.8 Saleel Kudchadker
+<li>4.1 Michael Casolary
+<li>4.2
+<li>4.3 Benoit Catherinet 
+<li>4.4 Matthew Roberson
+<li>4.5 Tuan Nguyen
+<li>6.1 Matthew Roberson
+<li>7.1 Houston Murphy
+<li>7.2 Juraj Dzifcak
+<li>7.3 Richard Seale
+<li>7.5 Houston Murphy
+<li>7.6 Tae-Won Kim
+<li>7.7 Taylar Hoag
+<li>7.8 Taylar Hoag
+<li>7.10 Juraj Dzifcak
+</ul>
+
+<ul>
+<hr width=30% align="left">
+</ul>
+
+
+<h3>LP implementations</h3>
+<ul>
+   <li> <a href="http://www.tcs.hut.fi/Software/smodels/">SMODELS</a> 
+   <ul> 
+     <li> <a href="http://www.tcs.hut.fi/Software/smodels/lparse.ps">LPARSE
+           User's Manual</a>
+   </ul>
+   <li> <a href="http://www.dbai.tuwien.ac.at/proj/dlv/">DLV</a>
+   <li> <a href="http://www.cs.utexas.edu/~tag/cmodels/">CMODELS</a>
+
+<hr>
+
+   <li> Pre-compiled versions of lparse and smodels for XP: (replace "_" in the names by ".")
+    <ul>
+    <li> <a href="lparse_exe">lparse_exe</a> 
+    <li> <a href="smodels_exe">smodels_exe</a> 
+    <li> You may need file <a href="cygwin1.dll">cygwin1.dll</a> as well. 
+         (The complete cygwin is available at <a
+	 href="http://www.cygwin.com/">http://www.cygwin.com/)</a>
+    <li> Try another cygwin dll if the above doesn't work: <a
+    href="cygwin2/cygwin1.dll">cygwin1.dll</a>.
+</ul>
+</ul>
+
+
+<hr width=30% align="left">
+<p>
+
+<h3>References</h3>
+<ul>
+    <li><a href="notation.pdf">An ASCII Convention for Special Symbols (for email-communication)</a>
+
+</ul>
+
+
+
+</body>
+</html>

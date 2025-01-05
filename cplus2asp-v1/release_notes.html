@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cplus2ASP - Release Notes</title>
+<link rel="stylesheet" type="text/css" href="./cplus2aspstyle.css" />
+</head>
+<body>
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Back to Index">Home</a></li>
+<li><a href="./examples/index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./downloads.html" class="directoryLink" title="Links to Cplus2ASP downloads">Downloads</a></li>
+</ul>
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="./installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="./release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+</ul>
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+</ul>
+</p>
+</div>
+<div id="pagebody">
+<p class="text">The Cplus2ASP system attempts to support or emulate many features of the original CCalc system.  However, Cplus2ASP (in particular, the <span class="code">cplus2asp.bin</span> translator module) is currently in the prototype stage of development, and as such certain advanced features of CCalc are not present or not supported in the current version of Cplus2ASP.
+</p>
+<p class="title">Translator Limitations</p>
+<p class="text">Generally, <span class="code">cplus2asp.bin</span> supports the same syntax as CCalc, including many syntactic shortcuts.  However, the following features and syntax are not yet supported:
+<ul>
+<li><span class="header">Use of &quot;<span class="code">where</span>&quot; clauses in macro definitions: </span> Simple macro definitions are supported, but &quot;<span class="code">where</span>&quot; clauses are currently ignored.</li>
+<li><span class="header">External predicates in causal law &quot;<span class="code">where</span>&quot; clauses: </span> &quot;<span class="code">where</span>&quot; clauses are allowed for most causal law forms, but are not evaluated during translation, and are not allowed to contain externally-defined predicates or arbitrary code.  Simple uses of causal law &quot;<span class="code">where</span>&quot; clauses, like mathematical evaluation, are allowed.</li>
+<li><span class="header">Dynamic declaration of numeric sorts: </span> CCalc supports dynamic declaration of numeric sorts in places like constant and variable declarations (e.g., &quot;<span class="code">numItems :: inertialFluent(0..5)</span>&quot;).  Cplus2ASP does not yet support this.<br />
+<span class="header">Workaround: </span>Explicitly declare all sorts and objects, including numeric sorts.</li>
+<li><span class="header">Nested constants: </span> CCalc allows constants to be used directly as parameters to other constants in causal laws (e.g., If <span class="code">isInside(place)</span> and <span class="code">location(person)</span> are both constants and <span class="code">location</span>'s domain is <span class="code">place</span>, using &quot;<span class="code">isInside(location(homer))</span>&quot; in a causal law).  Cplus2ASP does not directly support this.<br />
+<span class="header">Workaround: </span>Assuming the aforementioned example was in the body of a causal law, replace &quot;<span class="code">isInside(location(homer))</span>&quot; with the existential quantification &quot;<span class="code">[ \/ P | isInside(P) &amp; location(homer)=P ]</span>&quot;, where <span class="code">P</span> is a variable of the <span class="code">place</span> sort.</li>
+<li><span class="header">The &quot;<span class="code">:- include</span>&quot; directive: </span> This directive tells CCalc to add and parse other code files at the point where the directive is given.  This directive will be supported in the near future, but for now a workaround is necessary.<br />
+<span class="header">Workaround: </span>Instead of using the &quot;<span class="code">:- include</span>&quot; directive in your Cplus2ASP input files, simply list out all of the files you would like to include as arguments to Cplus2ASP.</li>
+<li><span class="header">The &quot;<span class="code">:- show</span>&quot; directive: </span> This directive tells CCalc to only show the listed constants in its output, hiding all others from any solutions returned by the solver.  Like the &quot;<span class="code">:- include</span>&quot; directive, this directive should be supported in the near future, but for now a workaround is necessary.<br />
+<span class="header">Workaround: </span>Generally, the best way to deal with the lack of this directive is to just let all predicates be shown in the output from Cplus2ASP.  If you really want to hide predicates, you can insert raw ASP code that hides their translated forms.  For example, the (non-rigid) CCalc constant &quot;<span class="code">location(person)</span>&quot; can be hidden via the following code segment:<br />
+<span class="code">:- begin_asp.<br />
+#hide h(eql(location(_),_),_).<br />
+:- end_asp.</span></li>
+<li><span class="header">Use of <span class="code">min(X,Y)</span> and <span class="code">max(X,Y)</span>: </span> CCalc allows these to be used in causal laws and automatically replaces them with the appropriate value <span class="code">X</span> or <span class="code">Y</span>.  Cplus2ASP does not directly support this.<br />
+<span class="header">Workaround: </span>If you need to use one of these operators in a causal law, replace &quot;<span class="code">min(X,Y)</span>&quot; with the expression &quot;<span class="code">V &amp; (X &lt; Y ->> V=X) &amp; (Y =&lt; X ->> V=Y)</span>&quot;, where V is an appropriate variable ranging over the values of X and Y.  The same is true for &quot;<span class="code">max(X,Y)</span>&quot;, just replace the instances of &quot;<span class="code">&lt;</span>&quot; with &quot;<span class="code">&gt;</span>&quot;.</li>
+</ul></p>
+
+<p class="title">Additional Features</p>
+<p class="text">Some capabilities have been added to Cplus2ASP that were not present in the original CCalc.  These features may be in the experimental stage, and thus may have their functionality altered or improved as new versions are released.
+<ul>
+<li><span class="header">Raw ASP/F2LP code: </span>Cplus2ASP supports the insertion of raw ASP/F2LP code in its input files.  This allows for more low-level interaction with the translated input, or permits you to create additional ASP-style rules alongside the CCalc-style laws.  The directive &quot;<span class="code">:- begin_asp.</span>&quot; tells Cplus2ASP to start treating any input following it as raw ASP/F2LP code that should be passed through as-is into the translated output.  The directive &quot;<span class="code">:- end_asp.</span>&quot; tells Cplus2ASP to resume processing of an input file as CCalc-style code.</li>
+</ul></p>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,217 @@
+<hr align="center" width="50"> <html>
+<head>
+<title>User Manual</title>
+</head>
+
+<!-- frameset cols="," -->
+<!-- frame name=" " src=" " -->
+<!-- frame name=" " src=" " -->
+<!-- noframes -->
+
+<!-- /noframes -->
+<!-- /frameset -->
+
+<body>
+This page is being updated .......
+<br> <br> <br>
+<h3> <a name="contents"> Contents </a> </h3>
+1. <a href="#Encoding">Encoding in F2LP</a><br>
+2. <a href="#Domain and domain variable declarations">Domain and domain variable declarations</a><br>
+3. <a href="#Lparse rules">Lparse rules</a><br>
+4. <a href="#Strong negation in Lparse rules">Strong negation in Lparse rules</a><br>
+5. <a href="#Built-in predicates and functions">Built-in predicates and functions</a><br>
+6. <a href="#New predicates and variables introduced">New predicates and variables introduced</a><br>
+7. <a href="#Reserved characters">Reserved characters</a><br>
+8. <a href="#Extensional predicates">Extensional predicates</a><br>
+9. <a href="#Invoking F2LP and F2LP options">Invoking F2LP and F2LP options</a><br>
+10. <a href="#Debugging">Debugging</a><br>
+11. <a href="#Temporary files created">Temporary files created</a><br>
+12. <a href="#Configuration Options">Configuration Options</a><br>
+
+<br><br><br>
+<h4><a name = "Encoding">Encoding in F2LP</a></h4>
+Formulas can be encoded in the languauge of F2LP using 
+the following ASCII representations.
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>conjunction</TD> <TD>disjunction</TD> <TD>implication</TD>
+     <TD>default negation</TD> <TD>strong negation</TD> 
+     <TD>true</TD> <TD>falsity</TD>
+     <TD>forall x,y,z</TD> <TD>exists x,y,z</TD>
+</TR>
+<TR>     
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&</TD> <TD>&nbsp;&nbsp;&nbsp;&nbsp;|</TD> <TD>&nbsp;&nbsp;&nbsp;&nbsp;-></TD>
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-</TD> <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;~</TD> 
+     <TD>true</TD> <TD>false</TD>
+     <TD>![X,Y,Z]:</TD> <TD>?[X,Y,Z]:</TD>
+<TR>
+</TABLE>
+Each formula must end with a dot(.).<br>
+In F2LP, the precedence for the quantifiers is same as the precedence 
+for default negation.<br> This implies that the third occurrence of X in
+?[X]:p(X) & q(X) is considered to be free. <br>The formula ?[X]:(p(X) & q(X)). has no free occurrences of variables.
+
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name = "Domain and domain variable declarations">Domain and domain variable declarations</a></h4>
+The domains and domain variable declarations are similar to the
+declarations in the language of Lparse.<br> For example, the following
+line declares the domain of object to be {a,b,c}:<br> 
+object(a;b;c).
+<br>
+The following line declares X and Y as variables ranging over
+the domain of "object":<br>
+#domain object(X;Y).
+<br><br>
+The following is a complete example:<br>
+% file example1.fof<br>
+
+% domain from 0 to 9<br>
+number(0..9).<br>
+% domain variables X and Y <br>
+#domain number(X;Y).<br>
+
+r(1).<br>
+r(X) & -?[X]:(p(X,Y) & q(X,Y)) -> s(X).<br>
+
+<br><br><br>
+<a href="#contents">up</a>
+
+
+<h4><a name="Lparse rules">Lparse rules</a></h4>
+F2LP supports rules in Lparse syntax. These rules are
+simply copied to the output.<br>
+The following is an example:<br>
+% file example2.fof<br>
+
+% domain {a,b,c}<br>
+object(a;b;c).<br>
+
+% domain variable X<br>
+#domain object(X).<br>
+
+p(a).<br>
+r(c).<br>
+?[X]:(p(X) & r(X)) -> q(b).<br>
+
+% rule in Lparse syntax<br>
+q(X) :- p(X), not r(X).<br>
+% rule in Lparse syntax<br>
+{r(X)}.<br><br>
+Note that F2LP does not recognize weight constraints and
+a parse error is generated if they are used
+in formulas. <br>However, they can be used in Lparse rules
+if the rules contain the arrow (:-). For example, the following
+rule is accepted:<br>
+p :- 1[a=1].<br>
+Though cardinality constraints do not have this restriction
+(i.e, they can be used in rules not containing the arrow(:-)),
+they cannot be used inside formulas.
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name="Strong negation in Lparse rules">Strong negation in Lparse rules</a></h4>
+Since F2LP simply copies the Lparse rules to the output,
+strong negation in such rules should be represented 
+using "-". <br>Note that this symbol is used to represent default
+negation in the language of F2LP.<br><br>
+The following is an example that uses strong negation
+in formulas and Lparse rules :<br>
+% file example3.fof<br>
+% domain 0 - 9<br>
+number(0..9).<br>
+
+% domain variables X and Y<br>
+#domain number(X;Y).<br><br>
+
+% formula with strong negation<br>
+~p(1).<br>
+(Y < 2 & r(Y)) | ?[X]:(p(X) & r(X)) -> q(2).<br>
+
+% rule in Lparse syntax<br>
+% here - is strong negation.<br>
+r(X) :- -p(X), X <= 2.<br>
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name="Built-in predicates and functions">Built-in predicates and functions</a></h4>
+F2LP supports the following built-in predicates and functions:
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>eq(X,Y)</TD> <TD>neq(X,Y)</TD> <TD>lt(X,Y)</TD>
+     <TD>le(X,Y)</TD> <TD>gt(X,Y)</TD> <TD>ge(X,Y)</TD>
+</TR>
+<TR>     
+     <TD>X=Y, X==Y</TD> <TD>X!=Y</TD> <TD>X&lt;Y</TD>
+     <TD>X&lt;=Y</TD> <TD>X&gt;Y</TD> <TD>X&gt;=Y</TD>
+<TR>
+</TABLE>
+
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>X+Y</TD> <TD>X-Y</TD> <TD>X*Y</TD>
+     <TD>X/Y</TD> <TD>X mod Y</TD> <TD>X^Y (xor)</TD>
+</TR>
+</TABLE>
+For built-in predicates, either representation can be used.
+For example, if F2LP encounters neq(X,a), it will simply
+turn it to X != a.
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name="New predicates and variables introduced">New predicates and variables introduced</a></h4>
+In order to eliminate positive occurrences of existential quantifier, F2LP introduces new predicates "new_pred*" where * is a number that is incremented every time a new predicate is introduced. For this reason names of the form "new_pred1", "new_pred2", etc. should not be used for encoding in F2LP.<br>
+The following is an example that shows introduction of
+new predicates:<br>
+
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name="Reserved characters">Reserved characters</a></h4>
+
+
+<br><br><br>
+<a href="#contents">up</a>
+<h4> <a name="Extensional predicates">Extensional predicates</a></h4>
+
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name="Invoking F2LP and F2LP options">Invoking F2LP and F2LP options</a></h4>
+
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name="Debugging">Debugging</a></h4>
+
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name="Temporary files created">Temporary files created</a></h4>
+
+
+<br><br><br>
+<a href="#contents">up</a>
+
+<h4><a name="Configuration Options">Configuration Options</a></h4>
+
+
+<br><br><br>
+<a href="#contents">up</a>
+
+
+
+</body>
+<br><br><br>
+&nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a> &nbsp; &nbsp; 
+	
+</html>

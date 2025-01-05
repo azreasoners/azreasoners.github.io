@@ -1,0 +1,300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>LPMLN Inference Tutorial - Network Connectivity  </title>
+    <style type="text/css" media="screen">
+        #main_content_editor_1{
+          width: 100%;
+          height: 200px;
+        }
+        #evid_content_editor_1{
+          width: 100%;
+          height: 200px;
+        }
+        .bottom-buffer { margin-bottom:50px; }
+    </style>
+</head>
+<body>
+
+
+
+<div class="container bottom-buffer" >
+    <div class="row bottom-buffer">
+        <h5>LPMLN can encode the network connectivity example.</h5>
+        <span>Consider an (unstable) communication network such as the
+            one following figure, where each node represents a signal station
+            that sends and receives signals. A station may fail, making it
+            impossible for signals to go through the station.</span>
+        <img src="img/network.png" class="mx-auto d-block" alt="Girl in a jacket">
+
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+
+            <div class="row" id="div_row_main_content_content_1">
+                <h3>Main Program</h3>
+                <div class="row" id="main_content_editor_1"></div>
+            </div>
+            <div class="row" id="div_row_evid_content_1">
+                <h3>Evidence</h3>
+                <div class="row" id="evid_content_editor_1"></div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12" >
+                <div id="div_infer_sub_menu__1" class="row">
+                    <label for="dropdown_infer_sub_menu_1">Inerence Methods:</label>
+                    <select class="form-control" id="dropdown_infer_sub_menu_1" onchange="infer_mode_dropdown_on_change('_1')">
+                        <option value="map" >MAP</option>
+                        <option value="exact" selected>Exact</option>
+                        <option value="mcasp">MC-ASP Sampling</option>
+                        <option value="simple">K-coherent Sampling</option>
+                        <option value="sdd1">Completion + SDD</option>
+                        <option value="sdd2">ASP2SDD</option>
+                    </select>
+                    <div id="div_infer_map_sub_menu_1" class="hidden_at_start_1">
+                        <span ><input type="checkbox" id="cb_infer_map_hard_rule_1">Convert Hard Rules</span>
+                    </div>
+                    <div id="div_infer_exact_sub_menu_1" class="hidden_at_start_1">
+                        <span><input type="checkbox" id="cb_infer_exact_hard_rule_1">Convert Hard Rules</span><br>
+                        <span> <input type="checkbox" id="cb_infer_exact_all_prob_1">Display All Probabilities</span><br>
+                    </div>
+
+                    <div id="div_infer_mcasp_sub_menu_1" class="hidden_at_start_1">
+                        <span>Samples: <span id="span_infer_mcasp_sample_1">20</span> <input id="slider_infer_mcasp_sample_1" class="align-bottom" type="range" min="10" max="100" value="20" oninput="slider_on_change('infer_mcasp_sample_1')"/></span>
+                    </div>
+                    <div id="div_infer_simple_sub_menu_1" class="hidden_at_start_1">
+                        <span>Samples: <span id="span_infer_simple_sample_1" > 500</span> <input id="slider_infer_simple_sample_1" class="align-bottom" type="range" value="500" min="100" max="1000" oninput="slider_on_change('infer_simple_sample_1')"/></span>
+                    </div>
+
+                    <div id="div_infer_query_1" class="hidden_at_start_1 w-100">
+                        <label for="text_infer_query_1">Query: </label>
+                        <input class="form-control" type="text" id="text_infer_query_1" placeholder="Queries. (Seperated by , )">
+                    </div>
+                </div>
+            </div>
+            <div class="float-right">
+                <button type="button" id="btn_solve_1" class="btn btn-outline-primary" onclick="solve('_1')">Solve</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-secondary">
+                <span>Command Line: </span>
+                <span id="span_cmdline_1"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-12">
+            <div class="alert alert-primary">
+                <span id="span_result_1">Result goes here</span>
+            </div>
+        </div>
+    </div>
+
+
+     <div class="row">
+        <div class=" col-md-12">
+            <div class="alert alert-success">
+                <span id="span_exp_result_5">Expected result: <br/> connected(1, 2) : 0.19999999999999998 <br/> connected(2, 4) : 0.16<br/>
+connected(1, 3) : 0.5<br/>
+connected(3, 4) : 0.4<br/>
+connected(2, 3) : 0.1<br/>
+connected(1, 4) : 0.48000000000000004</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<script src="../../src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+var editor_1 = ace.edit("main_content_editor_1");
+editor_1.setTheme("ace/theme/textmate");
+editor_1.session.setMode("ace/mode/prolog");
+
+
+
+
+var evid_editor_1 = ace.edit("evid_content_editor_1");
+evid_editor_1.setTheme("ace/theme/textmate");
+evid_editor_1.session.setMode("ace/mode/prolog");
+
+
+
+
+function slider_on_change(id){
+    $("#span_"+id).text($("#slider_"+id).val());
+}
+function send_request(data,btn_id){
+    $.ajax({
+        url: "../../sender.php",
+	    type: "POST",
+	    data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function(response){
+            var obj = jQuery.parseJSON( response );
+            console.log(response);
+            if(data["request_type"] == "tutorial"){
+                editor_1.setValue(obj.main_content);
+                evid_editor_1.setValue(obj.evid);
+                $('#text_infer_query_1').val(obj.query);
+            }
+            else{
+                            console.log(obj);
+                if(obj.successful){
+                                                console.log(obj.successful);
+
+                    $("#span_result"+btn_id).html(obj.result.replace(/\n/g, "<br />"));
+                }
+                else{
+                    if (obj.error.toLowerCase().indexOf("returned non-zero exit status 124") >0){
+                        $("#span_result"+btn_id).html("Timeout. Please run on local version")
+                    }
+                    else if (obj.error.toLowerCase().indexOf("returned non-zero exit status 1") >0){
+                        $("#span_result"+btn_id).html(obj.result.replace(/\n/g, "<br />"));
+                    }
+                    else if (obj.error.toLowerCase().indexOf("returned non-zero exit status 2") >0){
+                        $("#span_result"+btn_id).html(obj.result.replace(/\n/g, "<br />"));
+                    }
+                    else{
+                        $("#span_result"+btn_id).html("Server Error. Please contact system administrator. ")
+                    }
+                }
+                $("#btn_solve"+btn_id).prop('disabled', false);
+            }
+        },
+	});
+}
+
+function solve(id) {
+    var command="";
+    if ($.trim(eval('editor'+id).getValue())){
+        command += "lpmln-infer input.lpmln";
+        if ($.trim(eval('evid_editor'+id).getValue())){
+            command += " -e input.evid"
+        }
+        if($("#dropdown_infer_sub_menu"+id+" option:selected").val() == "exact" &&  $("#text_infer_query"+id).val().trim()){
+            command += " -exact";
+            if($("#cb_infer_exact_hard_rule"+id).is(':checked')){
+                command+=' -hard'
+            }
+
+            if($("#cb_infer_exact_all_prob"+id).is(':checked')){
+                command+=' -all'
+            }
+            command+= " -q "+ $("#text_infer_query"+id).val().replace(/\s/g,'');
+        }
+        else if($("#dropdown_infer_sub_menu"+id+" option:selected").val() == "mcasp"  &&  $("#text_infer_query"+id).val().trim()){
+            command += " -approx";
+            command +=" -samp "+ $("#slider_infer_mcasp_sample"+id).val();
+            command+= " -q "+ $("#text_infer_query"+id).val().replace(/\s/g,'');
+        }
+        else if($("#dropdown_infer_sub_menu"+id+" option:selected").val() == "simple" &&  $("#text_infer_query"+id).val().trim()){
+            command += " -kcor";
+            command +=" -samp "+ $("#slider_infer_simple_sample"+id).val();
+            command+= " -q "+ $("#text_infer_query"+id).val().replace(/\s/g,'');
+        }
+        else if($("#dropdown_infer_sub_menu"+id+" option:selected").val() == "sdd1"  &&  $("#text_infer_query"+id).val().trim()){
+            command += " -sdd";
+            command+= " -q "+ $("#text_infer_query"+id).val().replace(/\s/g,'');
+        }
+        else if($("#dropdown_infer_sub_menu"+id+" option:selected").val() == "sdd2"  &&  $("#text_infer_query"+id).val().trim()){
+            command += " -sdd2";
+            command+= " -q "+ $("#text_infer_query"+id).val().replace(/\s/g,'');
+        }
+        else if ($("#dropdown_infer_sub_menu"+id+" option:selected").val() == "map"){
+            if($("#cb_infer_map_hard_rule"+id).is(':checked')){
+                command+=' -hard';
+            }
+        }
+        else{
+            window.alert("Query field cannot be empty!");
+            return;
+        }
+        $("#span_result"+id).text("Solving...");
+        $('#btn_solve'+id).prop('disabled', true);
+        var postData = {
+            request_type:"inference",
+            command:command,
+            content:eval('editor'+id).getValue(),
+            evidence:eval('evid_editor'+id).getValue()
+        };
+        send_request(postData,id);
+        $("#span_cmdline"+id).text(command)
+    }
+    else{
+        window.alert("Necessary fields cannot be empty!");
+    }
+}
+
+
+function infer_mode_dropdown_on_change(id) {
+    $(".hidden_at_start" + id).hide();
+
+    if ($("#dropdown_infer_sub_menu" + id + " option:selected").val() == 'map') {
+        $("#div_infer_map_sub_menu" + id).toggle('slow', function () {
+        });
+    } else if ($("#dropdown_infer_sub_menu" + id + " option:selected").val() == 'exact') {
+        $("#div_infer_exact_sub_menu" + id).toggle('slow', function () {
+        });
+        $("#div_infer_query" + id).toggle('slow', function () {
+        });
+    } else if ($("#dropdown_infer_sub_menu" + id + " option:selected").val() == 'mcasp') {
+        $("#div_infer_mcasp_sub_menu" + id).toggle('slow', function () {
+        });
+        $("#div_infer_query_" + id).toggle('slow', function () {
+        });
+    } else if ($("#dropdown_infer_sub_menu" + id + " option:selected").val() == 'simple') {
+        $("#div_infer_simple_sub_menu" + id).toggle('slow', function () {
+        });
+        $("#div_infer_query" + id).toggle('slow', function () {
+        });
+    } else if ($("#dropdown_infer_sub_menu" + id + " option:selected").val() == 'sdd1') {
+        $("#div_infer_query" + id).toggle('slow', function () {
+        });
+    } else {
+        $("#div_infer_query" + id).toggle('slow', function () {
+        });
+    }
+}
+
+$( document ).ready(function() {
+
+    for(var i =1;i<=1;i++){
+        infer_mode_dropdown_on_change('_'+i);
+    }
+
+
+    var postData = {
+        request_type: "tutorial",
+        type: "infer",
+        instance: "network"
+    };
+    send_request(postData,-1);
+
+});
+
+
+</script>
+
+
+
+
+</body>
+</html>

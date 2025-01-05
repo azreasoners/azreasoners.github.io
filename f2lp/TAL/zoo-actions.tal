@@ -1,0 +1,244 @@
+//%%% ACTIONS %%%
+//#include "zoo-landscape.tal"
+//#include "zoo-animals.tal"
+//#include "zoo-movement.tal"
+
+//:- variables
+//  A,A1                              :: exogenousAction.
+
+//:- constants
+//  move(animal,position),
+//  open(human,gate),
+//  close(human,gate),
+//  mount(human,animal),
+//  getOff(human,animal,position),
+//  throwOff(animal,human)            :: exogenousAction.
+
+//#feature accessible(position,position) :domain boolean :showname
+
+#action move(animal,position)
+#action open(human,gate)
+#action close(human,gate)
+#action mount(human,animal)
+#action getOff(human,animal, position)
+// using feature to represent throwOff since exogenous actions are not
+// allowed in VITAL
+#feature throwOff(animal,human) :domain boolean :showname
+
+#dep forall animal,human,t [t <= $maxocc -> X([t] throwOff(animal,human))]
+
+//#dep forall animal, human [ X((0,20] throwOff(animal,human)) ]
+
+//:- macros
+//% Action #1 is executed by animal #2
+//  doneBy(#1,#2) ->
+//    ([\/P | #1==move(#2,P)] ++
+//     [\/G | #1==open(#2,G) ++ #1==close(#2,G)] ++
+//     [\/ANML | #1==mount(#2,ANML)] ++
+//     [\/ANML \/P | #1==getOff(#2,ANML,P)] ++
+//     [\/H | #1==throwOff(#2,H)]).
+
+// actions cannot be defined like above in TAL. 
+
+
+//% A failed mount is not subject to the usual, rather strict, 
+//%  movement restriction on large animals
+//mount(H,ANML) causes ab(H).
+
+//% If the position a large human is thrown into was previously 
+//%  occupied by another large animal, the usual movement restric-
+//%  tion doesn't apply
+//throwOff(ANML,H) causes ab(H).
+
+//% Every animal can execute only one action at a time
+//nonexecutable A & A1 if doneBy(A,ANML1) & doneBy(A1,ANML1) 
+//                                              where A@<A1. 
+
+//% Direct effect of move action
+//move(ANML,P) causes pos(ANML)=P.
+#acs [t1,t2] move(animal,position) -> ([t1] !(pos(animal) == position) & 
+		!exists human, animal1 [ human = animal & mounted(human,animal1) ] ->
+		R((t1,t2] pos(animal) == position))
+
+
+
+//% An animal can't move to the position where it is now
+//nonexecutable move(ANML,pos(ANML)).
+
+//% A human riding an animal cannot perform the move action (lmw)
+//nonexecutable move(H,P) if mounted(H,ANML).
+
+//% Effect of opening a gate
+//open(H,G) causes opened(G).
+#acs [t1,t2] open(human,gate) -> ([t1] (pos(human) == side1(gate) | pos(human) == side2(gate))
+		& !exists animal [mounted(human,animal)] & !opened(gate) ->
+		R((t1,t2] opened(gate)))
+
+//% A human cannot open a gate if he is not located at a position
+//%  to the side of the gate (lmw)
+//nonexecutable open(H,G)
+//           if -(pos(H)=side1(G) ++ pos(H)=side2(G)).
+
+//% A human cannot open a gate if he is mounted on an animal
+//nonexecutable open(H,G) if mounted(H,ANML).
+
+//% A human cannot open a gate if it is already opened
+//nonexecutable open(H,G) if opened(G).
+
+//% Effect of closing a gate
+//close(H,G) causes -opened(G).
+#acs [t1,t2] close(human,gate) -> ([t1] (pos(human) == side1(gate) | 
+					 pos(human) == side2(gate))
+		& !exists animal [mounted(human,animal)] & opened(gate) ->
+		R((t1,t2] !opened(gate)))
+
+//% A human cannot close a gate if he is not located at a posi-
+//%  tion to the side of the gate (lmw)
+//nonexecutable close(H,G)
+//           if -(pos(H)=side1(G) ++ pos(H)=side2(G)).
+
+//% A human cannot close a gate if he is mounted on an animal
+//nonexecutable close(H,G) if mounted(H,ANML).
+
+//% A human cannot close a gate if it is already closed
+//nonexecutable close(H,G) if -opened(G).
+
+//% When a human rides an animal, his position is the same as the 
+//%  animal's position while the animal moves (lmw)
+//caused pos(H)=P if mounted(H,ANML) & pos(ANML)=P.
+
+#dep forall human, animal, position, t [ t <= $maxocc & [t] mounted(human,animal) & pos(animal) == position
+		-> R([t] pos(human) == position) ]
+
+
+//% If a human tries to mount an animal that doesn't change posi-
+//%  tion, mounting is successful
+//caused mounted(H,ANML) if pos(ANML)=P
+//                       after pos(ANML)=P & mount(H,ANML).
+
+#acs [t1,t2] mount(human,animal) ->
+(!exists position [ ([t1] pos(animal) == position)  & ([t2] !(pos(animal) == position)) ] &
+ [t1] !exists animal1 [ mounted(human,animal1) ] &
+ large(animal) & 
+ !exists animal1,human1 [large(animal1) & human = animal1 & animal = human1] &
+ !exists human1 [mounted(human1,animal)] &
+ !exists human1,animal1 [mounted(human1,animal1) & animal1 = human] &
+ !exists human1,animal1 [mounted(human1,animal1) & animal = human1] ->
+	R((t1,t2] mounted(human,animal))) &
+(exists position [ ([t1] pos(animal) == position)  & ([t2] !(pos(animal) == position)) ]
+	-> R((t1,t2] pos(human) == value(t1,pos(animal))))
+
+
+//% The action fails if the animal changes position, and in this 
+//%  case the result of the action is that the human ends up in 
+//%  the position where the animal was (lmw)
+//caused pos(H)=P if pos(ANML)\=P
+//                after pos(ANML)=P & mount(H,ANML).
+
+
+//#acs [t1,t2] mount(human,animal) ->
+//(exists position [ ([t1] pos(animal) == position)  & ([t2] !(pos(animal) == position)) ]
+//	-> R((t1,t2] pos(human) == value(t1,pos(animal))))
+
+//% A human already mounted on some animal cannot attempt to mount
+//nonexecutable mount(H,ANML) if mounted(H,ANML1).
+
+//% A human can only be mounted on a large animal
+//constraint mounted(H,ANML) ->> large(ANML).
+
+#dom forall human,animal,t [ [t] mounted(human,animal) -> [t] large(animal) ]
+
+//% A human cannot attempt to mount a small animal (lmw)
+//nonexecutable mount(H,ANML) if -large(ANML).
+
+//% A large human cannot be mounted on a human
+//constraint mounted(H,H1) ->> -large(H).
+
+#dom forall human, human1,t [ [t] mounted(human,human1) -> [t] !large(human) ]
+
+//% A large human cannot attempt to mount a human
+//nonexecutable mount(H,H1) if large(H).
+
+//% An animal can be mounted by at most one human at a time
+//constraint -(mounted(H,ANML) & mounted(H1,ANML)) where H@<H1.
+
+#dom forall human, human1, animal, t [[t] mounted(human,animal) & mounted(human1,animal) ->
+		human = human1]
+
+
+//% A human cannot attempt to mount an animal already mounted by
+//%  a human
+//nonexecutable mount(H,ANML) if mounted(H1,ANML).
+
+//% A human cannot be mounted on a human who is mounted
+//constraint -(mounted(H,H1) & mounted(H1,ANML)).
+#dom forall human, human1, animal, t [[t] !(mounted(human,human1) & mounted(human1,animal))]
+
+//% A human cannot attempt to mount an animal if the human is 
+//%  already mounted by a human
+//nonexecutable mount(H,ANML) if mounted(H1,H).
+
+//% A human cannot attempt to mount a human who is mounted
+//nonexecutable mount(H,H1) if mounted(H1,ANML).
+
+//% The getOff action is successful provided that the animal does 
+//%  not move at the same time.  It fails if the animal moves, and
+//%  in this case the rider stays on the animal (lmw)
+//caused pos(H)=P if pos(ANML)=P1
+//                after pos(ANML)=P1 & getOff(H,ANML,P).
+
+#acs [t1,t2] getOff(human,animal,position) ->
+(!exists position1 [ ([t1] pos(animal) == position1)  & ([t2] !(pos(animal) == position1)) ] &
+ [t1] mounted(human,animal) & accessible(value(t1,pos(animal)),position) &
+ !throwOff(animal,human) ->
+	R((t1,t2] pos(human) == position & !mounted(human,animal)))
+
+
+
+
+
+//caused -mounted(H,ANML) if pos(ANML)=P1
+//                        after pos(ANML)=P1 & getOff(H,ANML,P).
+
+//% The action cannot be performed by a human not riding an animal
+//%  (lmw)
+//nonexecutable getOff(H,ANML,P) if -mounted(H,ANML).
+
+//% A human cannot attempt to getOff to a position that is not
+//%  accessible from the current position
+//nonexecutable getOff(H,ANML,P) if -accessible(pos(ANML),P).
+
+//% The throwOff action results in the human no longer riding the 
+//%  animal and ending in a position adjacent to the animal's 
+//%  present position. It is nondeterministic since the rider may 
+//%  end up in any position adjacent to the animal's present posi-
+//%  tion (lmw)
+//throwOff(ANML,H) may cause pos(H)=P.
+//throwOff(ANML,H) causes -mounted(H,ANML).
+
+#dep forall animal, human, t, position [t < $maxocc & [t] throwOff(animal,human) -> X([t+1] pos(human) == position)]
+#dep forall animal, human, t [t < $maxocc & [t] throwOff(animal,human) -> R([t+1] !mounted(human,animal))]
+
+
+//% If the resultant position is occupied by another large animal 
+//%  then the human will result in riding that animal instead 
+//%  (lmw)
+//caused mounted(H,ANML1) if pos(H)=pos(ANML1) & large(ANML1)
+//   after throwOff(ANML,H) where H\=ANML1.
+#dep forall animal, animal1, human, t [t < $maxocc & animal1 != human & animal != animal1 & 
+([t] throwOff(animal,human)) &
+[t+1] pos(human) == pos(animal1) & large(animal1) ->
+		R([t+1] mounted(human,animal1)) ]
+
+
+//% The action cannot be performed by an animal not ridden by a 
+//%  human  (lmw)
+//nonexecutable throwOff(ANML,H) if -mounted(H,ANML).
+
+#dom forall animal, human, t [[t] throwOff(animal,human) -> [t] mounted(human,animal)]
+
+// remodeled this part: if they both occur at the same time, then
+// effect is effect of throwOff
+//% The actions getOff and throwOff cannot be executed 
+//%  concurrently
+//nonexecutable getOff(H,ANML,P) & throwOff(ANML,H).

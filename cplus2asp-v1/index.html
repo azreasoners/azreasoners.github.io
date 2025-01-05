@@ -1,0 +1,61 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Cplus2ASP Homepage</title>
+<link rel="stylesheet" type="text/css" href="./cplus2aspstyle.css" />
+</head>
+<body>
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Back to Index">Home</a></li>
+<li><a href="./examples/index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./downloads.html" class="directoryLink" title="Links to Cplus2ASP downloads">Downloads</a></li>
+</ul>
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="./installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="./release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+</ul>
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+</ul>
+</p>
+</div>
+<div id="pagebody">
+<p class="text">Cplus2ASP is a system designed to perform a modular translation of action descriptions written for CCalc into answer set programs. The current work comprises a suite of tools that translate CCalc action descriptions, solve the translated ASP programs, and produce answer sets similar to the models output by CCalc. If you're unfamiliar with CCalc, it's an implementation of the action language C+ (an extension of causal logic) that is very useful for describing and reasoning about time- and state-based domains using relatively intuitive syntax. For more information, check out the CCalc website using the link in the side bar. Our goal is to combine the user-friendliness of the CCalc language with the speed of modern answer set solvers to capture the best of both worlds.</p>
+<hr />
+<p class="text">The Cplus2ASP system consists of the following items:</p>
+<p class="title">Cplus2ASP</p>
+<p class="text">The main orchestrator program of the tool chain acts as a unified interface that accepts all input and options, automatically handling the process of calling the programs below in the right order with the correct configurations. While it is possible to manually call each part of the tool chain separately, we highly recommend letting this system handle the details of organizing and executing the software tool chain.</p>
+<p class="title">cplus2asp.bin</p>
+<p class="text">This is the automated translator module for Cplus2ASP. It accepts normal CCalc files as input and translates them into F2LP input. Currently this part of the software tool chain is a prototype, and as such lacks support for some of the more advanced featurs of CCalc. The Release Notes page documents these limitations in more detail.</p>
+<p class="title">F2LP</p>
+<p class="text">To allow greater flexibility for the translated programs, we use F2LP as the target language of translation. F2LP supports the use of first-order formulas in its rules, transforming them into equivalent ASP code. A guide to F2LP's syntax and usage can be found on the F2LP web page (the link in the side bar will take you there).</p>
+<p class="title">Gringo &amp; Clasp</p>
+<p class="text">Gringo and Clasp are an ASP grounder and solver (respectively) produced as part of the Potsdam Answer Set Solving Collection (Potassco). The more complex rules used in the CCalc to F2LP translation depend on the syntax and functionality of Gringo to produce correct results. While solvers other than Clasp can be used (so long as they're compatible with the output from Gringo), we generally advise that Gringo and Clasp be used together. Both programs are available from the Potassco website (see link in side bar).</p>
+<p class="title">as2transition</p>
+<p class="text">as2transition is a tool designed to take output of a translated CCalc action description from Clasp (&amp; some other popular answer set solvers) and transform it into a human-readable format similar to the output of CCalc. Using this tool on translated answer sets is almost a must for any non-trivial action description, as anything larger than a simple example will produce answer sets that, while readable, will not be easy to quickly parse and analyze.</p>
+<p class="text">Everything but Gringo and Clasp can be downloaded together via the Cplus2ASP link in the sidebar. The grounder and solver should be downloaded from the Potassco website (link in sidebar) and installed separately.</p>
+<hr />
+<p class="text">To supplement the aforementioned files and tools, the following items may help make translating and working with CCalc action descriptions easier:</p>
+<p class="title">Sample Domains</p>
+<p class="text">We've collected &quot;benchmark&quot; problems from CCalc for the purposes of testing and demonstration, and we've made them available as a handy reference. The Examples link in the sidebar will take you to the page where we've archived all of the examples, including sample domains from the seminal CCalc paper &quot;Nonmonotonic Causal Theories&quot;, medium-sized domains called the Zoo World and Traffic World, and a couple of other custom examples we've created or adapted into the language of CCalc. These sample files can be used directly, as they have been set up to be compatible with the translator (Cplus2ASP.bin) as well as the rest of the tool chain.</p>
+<hr />
+<p class="footnotetitle">Contact Information</p>
+<p class="footnote">Cplus2ASP is maintained by Joohyung Lee (joolee &lt;at&gt; asu &lt;dot&gt; edu) and Michael Casolary (Michael &lt;dot&gt; Casolary &lt;at&gt; asu &lt;dot&gt; edu). Feel free to contact us with any questions, comments, or feedback.</p>
+<p class="footnotetitle">Acknowledgements</p>
+<p class="footnote">This work was partially supported by the National Science Foundation under Grant IIS-0916116.
+</div>
+
+</div>
+</body>
+</html>

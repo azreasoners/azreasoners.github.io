@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>LPMLN Web Runner</title>
+    <style type="text/css" media="screen">
+        #main_content_editor {
+          width: 100%;
+          height: 200px;
+        }
+        #evid_content_editor {
+          width: 100%;
+          height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+<div class="container">
+    <div class="row">
+        <h1>Editor</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row" id="div_row_main_content_content">
+                <h3>Main Program</h3>
+                <div class="row" id="main_content_editor"></div>
+            </div>
+            <div class="row" id="div_row_evid_content">
+                <h4 id="h3_evid_obs"></h4>
+                <div class="row" id="evid_content_editor"></div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <label for="dropdown_task">Task:</label>
+            <select class="form-control" id="dropdown_task" onchange="task_dropdown_on_change()">
+                <option value="infer" selected>Inference</option>
+                <option value="learn">Learning</option>
+                <option value="dt">Decision Theory</option>
+            </select>
+
+            <div id="div_dropdown_project_infer" class="hidden_at_start 2nd_menu">
+                <label for="dropdown_project_infer">Project:</label>
+                <select class="form-control" id="dropdown_project_infer" onchange="project_infer_dropdown_on_change()">
+                    <option value="basic" selected>Bird</option>
+                    <option value="fire_bays">Fire</option>
+                    <option value="pearl">Firing Squad</option>
+                    <option value="prob_states">Simple Transition System</option>
+                    <option value="monty_hall">Monty Hall Problem</option>
+                    <option value="network">Communication Network</option>
+                    <option value="robot">Robot</option>
+                    <option value="no_preload">No Preload</option>
+                </select>
+            </div>
+
+            <div id="div_dropdown_project_learn" class="hidden_at_start 2nd_menu">
+                <label for="dropdown_project_learn">Project:</label>
+                <select class="form-control" id="dropdown_project_learn" onchange="project_learn_dropdown_on_change()">
+                    <option value="basic" selected>Basic</option>
+                    <option value="network">Communication Network</option>
+                    <!-- <option value="network_mvpp">Communication Network MVPP</option> -->
+                    <option value="robot">Robot</option>
+                    <option value="smoker">Smoker</option>
+                    <option value="shooting">Yale Shooting</option>
+                    <option value="no_preload">No Preload</option>
+                </select>
+            </div>
+
+            <div id="div_dropdown_project_dt" class="hidden_at_start 2nd_menu">
+                <label for="dropdown_project_dt">Project:</label>
+                <select class="form-control" id="dropdown_project_dt" onchange="project_dt_dropdown_on_change()">
+                    <option value="umbrella" selected>Umbrella</option>
+                    <option value="viral_marketing">Viral Marketing</option>
+                    <option value="no_preload">No Preload</option>
+                </select>
+            </div>
+
+            <div class="col-md-12" >
+                <div id="div_infer_sub_menu" class="row hidden_at_start 3rd_menu">
+                    <label for="dropdown_infer_sub_menu">Inerence Methods:</label>
+                    <select class="form-control" id="dropdown_infer_sub_menu" onchange="infer_mode_dropdown_on_change()">
+                        <option value="map" selected>MAP</option>
+                        <option value="exact">Exact</option>
+                        <option value="mcasp">MC-ASP Sampling</option>
+                        <!-- <option value="simple">K-coherent Sampling</option> -->
+                        <!-- <option value="sdd1">Completion + SDD</option> -->
+                        <option value="sdd2">ASP2SDD</option>
+                    </select>
+                    <div id="div_infer_map_sub_menu" class="hidden_at_start 4th_menu">
+                        <span ><input type="checkbox" id="cb_infer_map_hard_rule">Convert Hard Rules</span>
+                    </div>
+                    <div id="div_infer_exact_sub_menu" class="hidden_at_start 4th_menu">
+                        <span><input type="checkbox" id="cb_infer_exact_hard_rule">Convert Hard Rules</span><br>
+                        <span> <input type="checkbox" id="cb_infer_exact_all_prob">Display All Probabilities</span><br>
+                    </div>
+
+                    <div id="div_infer_mcasp_sub_menu" class="hidden_at_start 4th_menu">
+                        <span>Samples: <span id="span_infer_mcasp_sample">20</span> <input id="slider_infer_mcasp_sample" class="align-bottom" type="range" min="10" max="100" value="20" oninput="slider_on_change('infer_mcasp_sample')"/></span>
+                    </div>
+                    <div id="div_infer_simple_sub_menu" class="hidden_at_start 4th_menu">
+                        <span>Samples: <span id="span_infer_simple_sample" > 500</span> <input id="slider_infer_simple_sample" class="align-bottom" type="range" value="500" min="100" max="1000" oninput="slider_on_change('infer_simple_sample')"/></span>
+                    </div>
+
+                    <div id="div_infer_query" class="hidden_at_start 4th_menu w-100">
+                        <label for="text_infer_query">Query: </label>
+                        <input class="form-control" type="text" id="text_infer_query" placeholder="Queries. (Seperated by , )">
+                    </div>
+                </div>
+
+
+
+                <div id="div_learn_sub_menu"  class="row hidden_at_start 3rd_menu">
+                    <label for="dropdown_learn_sub_menu">Learning Methods:</label>
+                    <select class="form-control" id="dropdown_learn_sub_menu" onchange="learn_mode_dropdown_on_change()">
+                        <option value="mcasp" selected>MC-ASP</option>
+                        <option value="sdd2">ASP2SDD</option>
+                        <!-- <option value="simple">Simple LPMLN</option> -->
+                        <!-- <option value="mvpp">MVPP</option> -->
+                        <!-- <option value="sdd">Completion + SDD</option> -->
+
+                    </select>
+                    <div id="div_learn_simple_sub_menu" class="hidden_at_start 4th_menu">
+                        <span ><input type="checkbox" id="cb_learn_simple_complete_evidence">Completed Interpretation</span><br>
+                        <span>Samples: <span id="span_learn_simple_sample">30</span> <input id="slider_learn_simple_sample" class="align-bottom" type="range" min="10" max="50" value="30" oninput="slider_on_change('learn_simple_sample')"/></span><br>
+                        <span>Iteration: <span id="span_learn_simple_iteration">30</span> <input id="slider_learn_simple_iteration" class="align-bottom" type="range" min="10" max="100" value="30" oninput="slider_on_change('learn_simple_iteration')"/></span><br>
+                        <span>Learning Rate: <span id="span_learn_simple_learn_rate">0.01</span> <input id="slider_learn_simple_learn_rate" class="align-bottom" type="range" min="0" max="1" step="0.01" value="0.01" oninput="slider_on_change('learn_simple_learn_rate')"/></span><br>
+                    </div>
+                    <div id="div_learn_mcasp_sub_menu" class="hidden_at_start 4th_menu">
+                        <span ><input type="checkbox" id="cb_learn_mcasp_complete_evidence">Completed Interpretation</span><br>
+                        <span>Samples: <span id="span_learn_mcasp_sample">30</span> <input id="slider_learn_mcasp_sample" class="align-bottom" type="range" min="10" max="50" value="30" oninput="slider_on_change('learn_mcasp_sample')"/></span><br>
+                        <span>Iteration: <span id="span_learn_mcasp_iteration">30</span> <input id="slider_learn_mcasp_iteration" class="align-bottom" type="range" min="10" max="100" value="30" oninput="slider_on_change('learn_mcasp_iteration')"/></span><br>
+                        <span>Learning Rate: <span id="span_learn_mcasp_learn_rate">0.01</span> <input id="slider_learn_mcasp_learn_rate" class="align-bottom" type="range" min="0" max="1" step="0.01" value="0.01" oninput="slider_on_change('learn_mcasp_learn_rate')"/></span><br>
+                    </div>
+
+
+                    <div id="div_learn_mvpp_sub_menu" class="hidden_at_start 4th_menu">
+                        <span>Samples: <span id="span_learn_mvpp_sample">30</span> <input id="slider_learn_mvpp_sample" class="align-bottom" type="range" min="10" max="50" value="30" oninput="slider_on_change('learn_mvpp_sample')"/></span><br>
+                        <span>Iteration: <span id="span_learn_mvpp_iteration">30</span> <input id="slider_learn_mvpp_iteration" class="align-bottom" type="range" min="10" max="100" value="30" oninput="slider_on_change('learn_mvpp_iteration')"/></span><br>
+                        <span>Learning Rate: <span id="span_learn_mvpp_learn_rate">0.01</span> <input id="slider_learn_mvpp_learn_rate" class="align-bottom" type="range" min="0" max="1" step="0.01" value="0.01" oninput="slider_on_change('learn_mvpp_learn_rate')"/></span><br>
+                        <span>Pre-Training: <span id="span_learn_mvpp_pretrain">5</span> <input id="slider_learn_mvpp_pretrain" class="align-bottom" type="range" min="0" max="100" value="5" oninput="slider_on_change('learn_mvpp_pretrain')"/></span><br>
+                    </div>
+
+                    <div id="div_learn_sdd_sub_menu" class="hidden_at_start 4th_menu">
+                        <span>Learning Rate: <span id="span_learn_sdd_learn_rate">0.01</span> <input id="slider_learn_sdd_learn_rate" class="align-bottom" type="range" min="0" max="1" step="0.01" value="0.01" oninput="slider_on_change('learn_sdd_learn_rate')"/></span><br>
+                        <span>Iteration: <span id="span_learn_sdd_iteration">30</span> <input id="slider_learn_sdd_iteration" class="align-bottom" type="range" min="10" max="100" value="30" oninput="slider_on_change('learn_sdd_iteration')"/></span><br>
+                    </div>
+                </div>
+
+
+
+
+                <div id="div_dt_sub_menu" class="row hidden_at_start 3rd_menu">
+                    <label for="dropdown_dt_sub_menu">Decision Theory Methods</label>
+                    <select class="form-control" id="dropdown_dt_sub_menu" onchange="dt_mode_dropdown_on_change()">
+                        <option value="cal_utility" selected>Finding Expected Utility Given Decision</option>
+                        <option value="cal_decision">Finding Decision Maximizing Expected Utility</option>
+                    </select>
+
+                    <select class="form-control" id="dropdown_dt_sub_sub_menu" onchange="dt_mode_sub_dropdown_on_change()">
+                        <option value="dt_exact" selected>Exact</option>
+                        <option value="dt_mcasp">MC-ASP</option>
+                        <!-- <option value="dt_sdd">Completion + SDD</option> -->
+                        <option value="dt_sdd2">ASP2SDD</option>
+                    </select>
+
+
+
+                    <div id="div_dt_cal_decision_sub_menu" class="hidden_at_start 4th_menu">
+                        <input class="align-middle" type="radio" name="dec_find_alg" id="dt_ratio_exactmax" checked> Exact-MAX
+                        <input class="align-middle" type="radio" name="dec_find_alg" id="dt_ratio_maxwalksat">MAXWALKSAT<br>
+                    </div>
+
+                    <div id="div_dt_cal_decision_mcasp_sub_menu" class="hidden_at_start 4th_menu">
+                        <span>Samples: <span id="span_dt_mcasp_sample">20</span> <input id="slider_dt_mcasp_sample" class="align-bottom" type="range" min="10" max="100" value="20" oninput="slider_on_change('dt_mcasp_sample')"/></span>
+                    </div>
+                    <input class="form-control" id="txt_dec_atoms" type="text" placeholder="Decision Atoms.(Seperated by , )">
+                </div>
+            </div>
+            <div id="div" class="float-right">
+                <button type="button" id="btn_solve" class="btn btn-outline-primary" onclick="solve()">Solve</button>
+            </div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-secondary">
+                <span>Command Line: </span>
+                <span id="span_cmdline"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-12">
+            <div class="alert alert-primary">
+                <span id="span_result">Result goes here</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+var editor = ace.edit("main_content_editor");
+editor.setTheme("ace/theme/textmate");
+editor.session.setMode("ace/mode/prolog");
+
+
+var evid_editor = ace.edit("evid_content_editor");
+evid_editor.setTheme("ace/theme/textmate");
+evid_editor.session.setMode("ace/mode/prolog");
+
+function slider_on_change(id){
+    $("#span_"+id).text($("#slider_"+id).val());
+}
+function send_request(data){
+    $.ajax({
+        url: "sender.php",
+	    type: "POST",
+	    data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function(response){
+            var obj = jQuery.parseJSON( response );
+            if(data["request_type"] == "example"){
+                editor.setValue(obj.main_content);
+                evid_editor.setValue(obj.evid_content);
+                $('#text_infer_query').val(obj.query_content);
+
+                if (data['type'] == "dt"){
+                    $('#txt_dec_atoms').val(obj.dec)
+                }
+            }
+            else{
+                if(obj.successful){
+                    $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                }
+                else{
+                    if (obj.error.toLowerCase().indexOf("returned non-zero exit status 124") >0){
+                        $('#span_result').html("Timeout. Please run on local version")
+                    }
+                    else if (obj.error.toLowerCase().indexOf("returned non-zero exit status 1") >0){
+                        $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                    }
+                    else if (obj.error.toLowerCase().indexOf("returned non-zero exit status 2") >0){
+                        $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                    }
+                    else{
+                        $('#span_result').html("Server Error. Please contact system administrator. ")
+                    }
+                }
+                $('#btn_solve').prop('disabled', false);
+            }
+        },
+	});
+}
+
+
+
+function solve() {
+    var command="";
+
+    if ($("#dropdown_task option:selected").val() =="infer" && ($.trim(editor.getValue()))){
+        command += "lpmln-infer input.lpmln";
+        if ($.trim(evid_editor.getValue())){
+            command += " -e input.evid"
+        }
+        if($("#dropdown_infer_sub_menu option:selected").val() == "exact" && (($("#text_infer_query").val().trim()) || (!$("#text_infer_query").val().trim()) && ($("#cb_infer_exact_hard_rule").is(':checked') || $("#cb_infer_exact_all_prob").is(':checked'))) ){
+            command += " -exact";
+            if($("#cb_infer_exact_hard_rule").is(':checked')){
+                command+=' -hard'
+            }
+
+            if($("#cb_infer_exact_all_prob").is(':checked')){
+                command+=' -all'
+            }
+
+            if($("#text_infer_query").val().trim()){
+                command+= " -q "+ $("#text_infer_query").val().replace(/\s/g,'');
+            }
+        }
+        else if($("#dropdown_infer_sub_menu option:selected").val() == "mcasp"  &&  $("#text_infer_query").val().trim()){
+            command += " -mcasp";
+            command +=" -samp "+ $("#slider_infer_mcasp_sample").val();
+            command+= " -q "+ $("#text_infer_query").val().replace(/\s/g,'');
+        }
+        else if($("#dropdown_infer_sub_menu option:selected").val() == "simple" &&  $("#text_infer_query").val().trim()){
+            command += " -kcor";
+            command +=" -samp "+ $("#slider_infer_simple_sample").val();
+            command+= " -q "+ $("#text_infer_query").val().replace(/\s/g,'');
+        }
+        else if($("#dropdown_infer_sub_menu option:selected").val() == "sdd1"  &&  $("#text_infer_query").val().trim()){
+            command += " -sdd";
+            command+= " -q "+ $("#text_infer_query").val().replace(/\s/g,'');
+        }
+        else if($("#dropdown_infer_sub_menu option:selected").val() == "sdd2"  &&  $("#text_infer_query").val().trim()){
+            command += " -sdd2";
+            command+= " -q "+ $("#text_infer_query").val().replace(/\s/g,'');
+        }
+        else if ($("#dropdown_infer_sub_menu option:selected").val() == "map"){
+            if($("#cb_infer_map_hard_rule").is(':checked')){
+                command+=' -hard';
+            }
+        }
+        else{
+            window.alert("Query field cannot be empty!");
+            return;
+        }
+        $("#span_result").text("Solving...");
+        $('#btn_solve').prop('disabled', true);
+        var postData = {
+            request_type:"inference",
+            command:command,
+            content:editor.getValue(),
+            evidence:evid_editor.getValue()
+        };
+        send_request(postData);
+        $("#span_cmdline").text(command)
+    }
+    else if ($("#dropdown_task option:selected").val() =="learn" && ($.trim(evid_editor.getValue()))&& ($.trim(editor.getValue()))){
+        command += "lpmln-learn input.lpmln -o input.evid";
+
+        if($("#dropdown_learn_sub_menu option:selected").val() == "simple"){
+            command+=" -kcor";
+            if($("#cb_learn_simple_complete_evidence").is(':checked')){
+                command+=" -complete";
+            }
+            command+=" -samp "+ $("#slider_learn_simple_sample").val();
+            command+=" -mcsatiter "+ $("#slider_learn_simple_iteration").val();
+            command+=" -lr "+ $("#slider_learn_simple_learn_rate").val();
+        }
+        else if($("#dropdown_learn_sub_menu option:selected").val() == "mcasp"){
+
+            command+=" -mcasp";
+            if($("#cb_learn_mcasp_complete_evidence").is(':checked')){
+                command+=" -complete";
+            }
+            command+=" -samp "+ $("#slider_learn_mcasp_sample").val();
+            command+=" -mcsatiter "+ $("#slider_learn_mcasp_iteration").val();
+            command+=" -lr "+ $("#slider_learn_mcasp_learn_rate").val();
+        }
+        else if ($("#dropdown_learn_sub_menu option:selected").val() == "mvpp"){
+            command+=" -mvpp";
+            command+=" -samp "+ $("#slider_learn_mvpp_sample").val();
+            command+=" -mcsatiter "+ $("#slider_learn_mvpp_iteration").val();
+            command+=" -lr "+ $("#slider_learn_mvpp_learn_rate").val();
+            command+=" -pretrain "+ $("#slider_learn_mvpp_pretrain").val();
+        }
+        else if ($("#dropdown_learn_sub_menu option:selected").val() == "sdd2"){
+            command+=" -sdd2";
+            command+=" -sdditer "+ $("#slider_learn_sdd_iteration").val();
+            command+=" -lr "+ $("#slider_learn_sdd_learn_rate").val();
+        }
+        else{
+            command+=" -sdd";
+            command+=" -sdditer "+ $("#slider_learn_sdd_iteration").val();
+            command+=" -lr "+ $("#slider_learn_sdd_learn_rate").val();
+        }
+
+        $("#span_result").text("Solving...");
+        $('#btn_solve').prop('disabled', true);
+        var postData = {
+            request_type:"learn",
+            command:command,
+            content:editor.getValue(),
+            observation:evid_editor.getValue()
+        };
+        send_request(postData);
+        $("#span_cmdline").text(command)
+
+    }
+    else if ($("#dropdown_task option:selected").val() =="dt" && $("#txt_dec_atoms").val().trim()){
+        command += "dtlpmln input.lpmln -dec " + $("#txt_dec_atoms").val().replace(/\s/g,'');
+        if ($("#div_dt_sub_menu option:selected").val() == "cal_utility"){
+            command += " -q input.query";
+        }
+        else{
+            if($("#dt_ratio_exactmax option:checked")) {
+                command += " -exmax";
+            }
+            else{
+                command += " -maxwalksat";
+            }
+        }
+        if ($("#dropdown_dt_sub_sub_menu option:selected").val() == "dt_exact"){
+            command += " -ex";
+        }
+        else if($("#dropdown_dt_sub_sub_menu option:selected").val() == "dt_mcasp"){
+            command += " -mcasp";
+            command += " -samp "+ $("#slider_dt_mcasp_sample").val();
+        }
+        else if($("#dropdown_dt_sub_sub_menu option:selected").val() == "dt_sdd"){
+            command += " -sdd";
+        }
+        else if($("#dropdown_dt_sub_sub_menu option:selected").val() == "dt_sdd2"){
+            command += " -sdd2";
+        }
+
+        $("#span_result").text("Solving...");
+        $('#btn_solve').prop('disabled', true);
+        var postData = {
+            request_type:"dt",
+            command:command,
+            content:editor.getValue(),
+            query:evid_editor.getValue()
+        };
+        send_request(postData);
+        $("#span_cmdline").text(command)
+    }
+    else{
+        window.alert("Necessary fields cannot be empty!");
+    }
+
+
+}
+
+function task_dropdown_on_change(){
+    $(".hidden_at_start").hide();
+    if ($("#dropdown_task option:selected").val() == 'infer'){
+        $("#div_dropdown_project_infer").toggle( 'slow', function(){});
+
+        project_infer_dropdown_on_change();
+        $("#h3_evid_obs").text("Evidence")
+    }
+    else if ($("#dropdown_task option:selected").val() == 'learn'){
+        $("#div_dropdown_project_learn").toggle( 'slow', function(){});
+        project_learn_dropdown_on_change();
+        $("#h3_evid_obs").text("Observation(Multiple observations should separate by \'#evidence\')")
+    }
+    else{
+        $("#div_dropdown_project_dt").toggle( 'slow', function(){});
+        project_dt_dropdown_on_change();
+        $("#h3_evid_obs").text("Query Decisions.(Optional)")
+    }
+}
+
+function project_infer_dropdown_on_change(){
+    $(".3rd_menu").hide();
+    $(".4th_menu").hide();
+
+    if ($("#dropdown_project_infer option:selected").val() == "no_preload"){
+        editor.setValue("");
+        evid_editor.setValue("");
+        $("#text_infer_query").val("");
+        infer_mode_dropdown_on_change();
+        $("#div_infer_sub_menu").toggle('slow', function () {});
+        return;
+    }
+
+    var postData = {
+        request_type: "example",
+        type: "infer",
+        instance: $("#div_dropdown_project_infer option:selected").val()
+    };
+    infer_mode_dropdown_on_change();
+    $("#div_infer_sub_menu").toggle('slow', function () {});
+
+    send_request(postData);
+
+}
+
+function project_learn_dropdown_on_change(){
+    $(".3rd_menu").hide();
+    $(".4th_menu").hide();
+
+    if ($("#dropdown_project_learn option:selected").val() == "no_preload"){
+        editor.setValue("");
+        evid_editor.setValue("");
+        learn_mode_dropdown_on_change();
+        $("#div_learn_sub_menu").toggle('slow', function () {});
+        return;
+    }
+
+    var postData = {
+        request_type: "example",
+        type: "learn",
+        instance: $("#dropdown_project_learn option:selected").val()
+    };
+
+    learn_mode_dropdown_on_change();
+    $("#div_learn_sub_menu").toggle('slow', function () {});
+    send_request(postData);
+}
+
+function project_dt_dropdown_on_change(){
+    $(".3rd_menu").hide();
+    $(".4th_menu").hide();
+
+
+    if ($("#dropdown_project_dt option:selected").val() == "no_preload"){
+        editor.setValue("");
+        evid_editor.setValue("");
+        dt_mode_dropdown_on_change();
+        $("#div_dt_sub_menu").toggle('slow', function () {});
+        return;
+    }
+
+    var postData = {
+        request_type: "example",
+        type: "dt",
+        instance: $("#dropdown_project_dt option:selected").val()
+    };
+
+    dt_mode_dropdown_on_change();
+    $("#div_dt_sub_menu").toggle('slow', function () {});
+    send_request(postData);
+}
+
+
+
+function infer_mode_dropdown_on_change(){
+    $(".4th_menu").hide();
+    if ($("#dropdown_infer_sub_menu option:selected").val() == 'map'){
+        $("#div_infer_map_sub_menu").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_infer_sub_menu option:selected").val() == 'exact'){
+        $("#div_infer_exact_sub_menu").toggle( 'slow', function(){});
+        $("#div_infer_query").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_infer_sub_menu option:selected").val() == 'mcasp'){
+        $("#div_infer_mcasp_sub_menu").toggle( 'slow', function(){});
+        $("#div_infer_query").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_infer_sub_menu option:selected").val() == 'simple'){
+        $("#div_infer_simple_sub_menu").toggle( 'slow', function(){});
+        $("#div_infer_query").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_infer_sub_menu option:selected").val() == 'sdd1'){
+        $("#div_infer_query").toggle( 'slow', function(){});
+    }
+    else{
+        $("#div_infer_query").toggle( 'slow', function(){});
+    }
+}
+
+function learn_mode_dropdown_on_change(){
+    $(".4th_menu").hide();
+    if ($("#dropdown_learn_sub_menu option:selected").val() == 'simple'){
+        $("#div_learn_simple_sub_menu").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_learn_sub_menu option:selected").val() == 'mcasp'){
+        $("#div_learn_mcasp_sub_menu").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_learn_sub_menu option:selected").val() == 'mvpp'){
+        $("#div_learn_mvpp_sub_menu").toggle( 'slow', function(){});
+    }
+    else if ($("#dropdown_learn_sub_menu option:selected").val() == 'sdd' || $("#dropdown_learn_sub_menu option:selected").val() == 'sdd2'){
+        $("#div_learn_sdd_sub_menu").toggle( 'slow', function(){});
+    }
+}
+
+function dt_mode_dropdown_on_change() {
+    $(".4th_menu").hide();
+    $("#div_row_evid_content").hide();
+
+    if ($("#dropdown_dt_sub_menu option:selected").val() == 'cal_utility') {
+        $("#div_learn_simple_sub_menu").toggle('slow', function () {});
+        $("#div_row_evid_content").toggle('slow', function () {});
+
+    }
+    else if ($("#dropdown_dt_sub_menu option:selected").val() == 'cal_decision') {
+        $("#div_dt_cal_decision_sub_menu").toggle('slow', function () {});
+    }
+    dt_mode_sub_dropdown_on_change()
+}
+
+function dt_mode_sub_dropdown_on_change(){
+     if ($("#dropdown_dt_sub_sub_menu option:selected").val() == 'dt_mcasp') {
+        $("#div_dt_cal_decision_mcasp_sub_menu").toggle('slow', function () {});
+     }
+     else{
+         $("#div_dt_cal_decision_mcasp_sub_menu").hide('slow', function () {});
+     }
+}
+$( document ).ready(function() {
+    task_dropdown_on_change();
+});
+
+
+
+
+</script>
+
+
+
+
+</body>
+</html>

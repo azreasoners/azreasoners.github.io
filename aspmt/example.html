@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ASMPT2SMT</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="css/style_main.css"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css" />
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="navbar-wrapper">
+          <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid horizontal-content">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><p class="title-text">ASPMT2SMT</p></a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="index.html">Home</a></li>
+                  <li><a href="download.html">Downloads</a></li>
+                  <li><a href="tutorial.html">Tutorial</a></li>
+                  <li class="active"><a href="example.html">Examples</a></li>
+                  <!--<li><a href="reference.html">Reference</a></li>-->
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div>
+      </div>
+      <div id="content">
+        <div id="title-wrapper">
+          <div id="title" class="horizontal-content"><h1>Examples</h1><p>Computing ASPMT Theories using SMT Solvers</p></div>
+        </div>
+        <div id="other-content-wrapper" class="horizontal-wrapper">
+	  <div id="other-content" class="horizontal-content">
+            <div class="passage">
+              <h4>Example Domains written as ASPMT Theories</h4>
+			  <p>Encodings in the language of Clingo and Clingcon are provided in addition to the ASPMT encodings except for the Bouncing Ball domain
+			  since neither is able to perform the continuous reasoning needed for this domain.</p>
+              <p><a href="files/benchmarks/car.zip">Car Example:</a>(from the <a href="http://www.cs.utexas.edu/users/vl/tag/continuous_problem">Texas Action Group discussion</a>) A car is on a road of length L.  If the accelerator is activated, the car will speed up with constant acceleration A until the accelerator is
+			  released or the car reaches its maximum speed MS, whichever comes first. If the brake is activated, the car will slow down 
+			  with acceleration -A until the brake is released or the car stops, whichever comes first. Otherwise, the speed of the car 
+			  remains constant. Generate a plan satisfying the following conditions: at duration 0, the car is at rest at one end of the road; at duration T, it should be at rest at the other end.</p>
+			  
+              <p><a href="files/benchmarks/amt.zip">Leaking Bucket:</a> Consider a leaking bucket with maximum capacity c that loses one unit of water every time step by default. The bucket can be refilled to its maximum capacity by the action fill. The initial capacity is 5 and the desired capacity is 10. Here, the argument variable corresponding to the length of the plan increases so both systems suffer scalability issues.</p>
+			  
+			  <p><a href="files/benchmarks/ball.zip">Bouncing Ball:</a> (from Chintabathina, 2008). Consider an agent acting in a domain consisting of a ball. The ball is held above the ground by the agent. The actions available to the agent are drop and catch. Dropping the ball causes the height of the ball to change continuously with time as defined by Newton's laws of motion. As the ball accelerates towards the ground it gains velocity. If the ball is not caught before it reaches the ground it hits the ground with speed s and bounces up into the air with speed r * s where r = .95 is the rebound coefficient. The bouncing ball reaches a certain height and falls back towards the ground due to gravity. A robot is holding a ball at height 100k. We want to have the ball hit the ground and caught at height 50.</p>
+              
+			  
+			  <p><a href="files/benchmarks/space.zip">Space Shuttle</a> (from Lee, 2003). A spacecraft is not
+			  affected by any external forces. It has two jets and the force that can be applied by each jet along each axis is at most 4k. The initial position of the rocket is (0,0,0) and it's initial velocity is (0,1,1). How can it get to (0,3k,2k) within 2 seconds? Assume the mass is 2.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="copyright-wrapper" class="horizontal-wrapper">
+          <div id="site-map" class="horizontal-content">
+            <table id="site-map-table"><tr>
+              <td>
+                <p class="site-map-heading">Contact Information</p>
+                <p>Joohyung Lee, Michael Bartholomew</p>
+                <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                <p>Email: joolee (at) asu.edu, mjbartho (at) asu.edu</p>
+              </td>
+            </tr></table>
+          </div>
+          <div id="copyright" class="horizontal-content">
+            <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-arrow-up"></span> Back to top</a></p>
+            <p>&copy; 2014</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

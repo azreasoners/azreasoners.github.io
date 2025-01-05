@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LP<sup>MLN</sup> Learning System</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="css/style_main.css"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css" />
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="navbar-wrapper">
+          <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid horizontal-content">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><p class="title-text">LP<sup>MLN</sup> Learning System</p></a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="index.html">Home</a></li>
+                  <!--<li><a href="#">Download</a></li>-->
+                  <li><a href="lpmln-learn-manual.pdf">Manual</a></li>
+                  <li><a href="example.html">Example</a></li>
+                  <li><a href="reference.html">Reference</a></li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div>
+      </div>
+      <div id="content">
+        <div id="title-wrapper">
+          <div id="title" class="horizontal-content"><h1>LP<sup>MLN</sup> Learning System</h1><p>Gradient Ascent Based Learner with MC-ASP sampling</p></div>
+        </div>
+        <div id="other-content-wrapper" class="horizontal-wrapper">
+	  <div id="other-content" class="horizontal-content">
+            <div class="passage">
+              <p>Our LP<sup>MLN</sup> learning system is a tool for weight learning in LP<sup>MLN</sup> programs. It is a collection of Python scripts that execute gradient ascent based learning with a MC-SAT like sampling method called MC-ASP, based on <a href="http://potassco.sourceforge.net/">Clingo</a> and <a href="http://reasoning.eas.asu.edu/lpmln/index.html">lpmln2asp</a></p>
+              <p>The language LP<sup>MLN</sup> is an extension of Answer Set Programming (ASP) where each ASP rule can be associated with a weight, which roughly indicates how important the rule is. It extends ASP with a possible world semantics, and allows probabilistic informataion to be expressed in ASP. It was proposed in the paper <a href="https://www.aaai.org/ocs/index.php/KR/KR16/paper/view/12901">Weighted Rules under the Stable Model Semantics</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="copyright-wrapper" class="horizontal-wrapper">
+          <div id="site-map" class="horizontal-content">
+            <table id="site-map-table"><tr>
+              <td>
+                <p class="site-map-heading">Contact Information</p>
+                <p>Joohyung Lee, Yi Wang</p>
+                <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                <p>Email: joolee (at) asu.edu, ywang485 (at) asu.edu</p>
+              </td>
+            </tr></table>
+          </div>
+          <div id="copyright" class="horizontal-content">
+            <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-arrow-up"></span> Back to top</a></p>
+            <p>&copy; 2018</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

@@ -1,0 +1,331 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- Mirrored from www.iclp2013.org/en/Registration-Information.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Dec 2014 08:03:05 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+<title>ICLP 2013 - 29. International Conference on Logic Programming</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-9">
+<meta name="description" content="ICLP 2013 - 29. International Conference on Logic Programming, 24-29 August 2013 - Istanbul/Turkey">
+<meta name="keywords" content="ICLP, 2013, International, conference, logic programming, august, Istanbul, Turkey, Türkiye, Dekon, Congress, Tourism, Milk Ad Agency">
+
+<link rel="stylesheet" type="text/css" href="../inc/styles.css">
+<link rel="stylesheet" type="text/css" href="Reg-inc/reg-default.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="../inc/superfish-menu/css/superfish.css" media="screen"/>
+<link rel="stylesheet" media="screen" href="../inc/superfish-menu/css/superfish-vertical.css" /> 
+<script language="JavaScript" type="text/JavaScript" src="../inc/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../inc/superfish-menu/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../inc/superfish-menu/js/superfish.js"></script>
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.mouseover.js"></script>
+
+<!-- Jquery Cycle Plugin -->
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.easing.1.3.js"></script>
+
+<link href="../inc/jquery/plugins/jquery.fancybox/jquery.fancybox-1.3.1.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="../inc/jquery/plugins/jquery.fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+
+<script type="text/javascript">
+
+// initialise plugins
+$(document).ready(function(){ 
+        $("ul.sf-menu").superfish({ 
+            animation: {height:'show'},   // slide-down effect without fade-in 
+            delay:     300               // 1.2 second delay on mouseout 
+        }); 
+    }); 
+</script>
+
+<script language="JavaScript" type="text/javascript"> 
+
+	$().ready(function() {
+			$("a.fancybox").fancybox();
+		
+			$("a.fbiframe").fancybox({
+				'width': '60%',
+				'height': '75%',
+				'autoScale': false,
+				'type': 'iframe'
+			});
+		
+			$("a.suggest").fancybox({
+				'padding'		: 0,
+				'autoScale'		: false,
+				'width'			: 580,
+				'height'		: 540,
+				'type'			: 'iframe',
+				'scrolling'		: false,
+				'overlayOpacity': 0.8 
+			});	
+			$('#InvSpeakers').cycle({
+				fx:     'scrollHorz', 
+				prev:   '#LeftArrow', 
+				next:   '#RightArrow', 
+				timeout: 5000,
+				easing: 'easeOutCubic',
+				width: 180,
+				height: 235,
+			});	
+			
+			$(".Speakers").each(function(){
+			});
+	});
+	/*------- Top Image Slider ------------------------------------------------------------*/
+		$('#SliderWrapper').cycle({
+			fx:     'scrollHorz', 
+			prev:   '#LeftArrow', 
+			next:   '#RightArrow', 
+			timeout: 5000,
+			easing: 'easeOutCubic',
+			width: '100%',
+			height: 380
+		});	
+		
+		$("#SliderWrapper").width(window.innerWidth * $(".SW-Image").length);
+	
+		$(".SW-Image img").each(function(){
+			$(this).css({
+			  marginLeft: "-" + $(this).width()/2 + "px",
+			  marginTop: "-" + $(this).height()/2 + "px" 
+		});
+
+		$("#RightArrow").click(function(){
+			var currentMargin = parseInt($(".SW-Image").eq(0).css("marginLeft").replace("px","")),
+			newMargin = currentMargin - window.innerWidth;
+	
+			$(".SW-Image").eq(0).animate({
+			marginLeft: newMargin + "px"
+			});
+	
+		});
+
+		$("#LeftArrow").click(function(){
+    		var currentMargin = parseInt($(".SW-Image").eq(0).css("marginLeft").replace("px","")),
+        	newMargin = currentMargin + window.innerWidth;
+
+			$(".SW-Image").eq(0).animate({
+				marginLeft: newMargin + "px"
+			});
+
+		});
+
+});
+</script>
+</head>
+<body>
+<div id="TM-Container">
+	<div id="TM-Wrapper">
+    	<div class="AvanGarde"><ul class="sf-menu"><li><a href="default.html" target="">Home</a>
+<li><a href="Timetable.html" target="">Timetable</a></il>
+<li><a href="Calls.html" target="">Calls</a></il>
+<li><a href="Submissions.html" target="">Submissions</a></il>
+<li><a href="Program.html" target="">Program</a></il>
+<ul>
+<li><a href="Program-Overview.html" target="">Program Overview</a></il>
+<li><a href="Conference.html" target="">Conference</a></il>
+<li><a href="Workshops.html" target="">Workshops</a></il>
+<li><a href="DC.html" target="">DC</a></il>
+<li><a href="Invited-Speakers.html" target="">Invited Speakers</a></il>
+<li><a href="Banquet-Speaker.html" target="">Banquet Speaker</a></il>
+<li><a href="List-of-Accepted-Papers.html" target="">List of Accepted Papers</a></il>
+<li><a href="List-of-Technical-Communications.html" target="">List of Technical Communications</a></il>
+<li><a href="Prolog-Programming-Contest.html" target="">Prolog Programming Contest </a></il>
+</ul><li><a href="Registration.html" target="">Registration</a></il>
+<ul>
+<li><a href="Registration-Information.html" target="">Registration Information</a></il>
+<li><a href="Accommodation-and-Transfer.html" target="">Accommodation and Transfer</a></il>
+</ul><li><a href="Tours.html" target="">Tours</a></il>
+<li><a href="Venue.html" target="">Venue</a></il>
+<ul>
+<li><a href="Conference-Venue.html" target="">Conference Venue</a></il>
+<li><a href="Workshops-Venue.html" target="">Workshops Venue</a></il>
+<li><a href="About-Turkey.html" target="">About Turkey</a></il>
+<li><a href="About-Istanbul.html" target="">About Istanbul</a></il>
+<li><a href="Useful-Tips.html" target="">Useful Tips</a></il>
+<li><a href="Visa-Information.html" target="">Visa Information</a></il>
+</ul><li><a href="Committees.html" target="">Committees</a></il>
+<li><a href="Contacts.html" target="">Contacts</a></il>
+</div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="LR-Container">
+	<div id="LR-Wrapper">
+    	<a href="default.html" id="Logo"></a>
+        <div id="Logo-Text">
+        	<span class="Title_02 Klavika-Bold">29<sup>TH</sup> INTERNATIONAL CONFERENCE ON LOGIC PROGRAMMING</span><br />
+            <span class="Title_03 Klavika">24 - 29 AUGUST 2013 // ISTANBUL, TURKEY</span>
+        </div>
+    </div>
+</div>
+<script language="javascript" type="text/javascript" src="../inc/jquery/plugins/jquery.ajaxmanager.js"></script>
+<div id="ContentContainer">
+	<a href="#" id="Timeline" style="height:100px;"></a>
+    <div id="ContentWrapper">
+    	<div class="Title_01 ContentTitle">Registration Information</div>
+        <div class="BreadCrumbs Title_04">
+        	<span><a href="default.html">MAIN PAGE</a>  &raquo; <a href="contentc8d7.html?PID={67CEA8E2-94D2-49CC-8117-92B231D0FA55}" target="" title="Registration">Registration</a></span>
+        </div>
+        <div>
+        	<div id="Content">
+            	<div class="ShortDescription"></div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" style="margin-bottom:20px;">  
+	<tbody>
+		<tr>    
+			<td><a href="reg.html"><img src="../files/images/content/btn_onlineForm.png" width="350" height="61" /></a></td>    
+			<td align="right"><a href="../files/downloads/ICLP2013_RegistrationForm.pdf" target="_blank"><img src="../files/images/content/btn_manualForm.png" width="350" height="61" /></a></td>  
+		</tr>
+	</tbody>
+</table>
+<table width="100%" border="0" cellpadding="5" cellspacing="0" class="programtable">  
+	<tbody>
+		<tr>    
+			<th style="text-align:left;">Type of Registration</th>    
+			<th align="center"><span style="color:#b9ed60;">Early Bird Registration</span><br />
+				      Before and on<br />
+				      July 18, 2013
+			  </th>    
+			<th align="center"><span style="color:#b9ed60;">Late Registration</span><br />
+				      On and between<br />
+				      July 19 - August 12, 2013</th>
+			<th align="center"><span style="color:#b9ed60;">Onsite Registration</span><br />
+				      On and after<br />
+				      August 13, 2013</th>
+		</tr>  
+		<tr>    
+		  
+			<td style="border-left: 1px solid #41525d;"><span style="font-weight: bold;">Regular Conference Registration</span></td>    
+		  
+			<td align="center">&euro; 430</td>    
+		  
+			<td align="center">&euro; 490</td>  
+			<td align="center">&euro; 550</td>  
+		  
+		</tr>  
+		<tr>    
+		  
+			<td style="border-left: 1px solid #41525d;"><span style="font-weight: bold;">Regular Conference Registration + Workshops</span></td>    
+		  
+			<td align="center">&euro; 480</td>    
+		  
+			<td align="center">&euro; 540</td>  
+			<td align="center">&euro; 600</td>  
+		  
+		</tr>  
+		<tr>    
+			<td style="border-left: 1px solid #41525d;"><span style="font-weight: bold;">Student Conference Registration + Workshops <span class="Red">*&nbsp;</span></span></td>    
+			<td align="center">&euro; 225</td>    
+			<td align="center">&euro; 260</td>
+			<td align="center">&euro; 300</td>  
+		</tr>  
+		<tr>    
+			<td style="border-left: 1px solid #41525d;"><span style="font-weight: bold;">Workshops Only</span></td>    
+			<td align="center">&euro; 100</td>    
+			<td align="center">&euro; 150</td>
+			<td align="center">&euro; 200</td>  
+		</tr>  
+		<tr>    
+			<td style="border-left: 1px solid #41525d;"><span style="font-weight: bold;">Additional Gala Dinner Ticket on August 28, 2013</span></td>    
+			<td colspan="3" align="center">&euro; 60</td>    
+		</tr>  
+		<tr>    
+			<th colspan="4" class="specalt" style="padding:30px;">
+				<ul>      
+					<li>Registration  will be confirmed after receiving full payment. Those who do not receive a  confirmation notice before the conference are requested to contact the  registration secretariat at <a href="mailto:registration@iclp2013.org">registration@iclp2013.org</a>. Only participants  who complete their registration will be included in the programme.</li>      
+					<li>The  date of payment is decisive for the registration fee. Even if the registration  form is received before the early bird deadline, it will not be considered as  early registration if the payment has not been received before the deadline.</li>      
+					<li>Registration  Fees include 18% VAT.</li>      
+				</ul>      
+				<p><span class="Red">*</span> To be eligible for the student rates, students  are required to produce documentary evidence of their status. Without this  documentation, regular fees will be applied. You may send necessary document by  fax at +90 212 347 63 63 or via e-mail to <a href="mailto:registration@iclp2013.org">registration@iclp2013.org</a>.</p></th>    
+		</tr>              
+	</tbody>
+</table>
+<p class="Title_07">Conference Registration Fees include:</p>
+<ul>
+	<li>Entrance to all scientific meetings</li>
+	<li>Conference bag &amp; publications</li>
+	<li>Coffee service in the coffee breaks during the conference</li>    
+	<li>Welcome Reception on August 26, 2013 (at the hotel)</li>    
+	<li>Gala Dinner on August 28, 2013 (Bosphorus tour by cruise)</li>
+</ul>
+<p class="Title_07">Conference Registration + Workshops Fees include:</p>
+<ul>
+	<li>Entrance to all scientific meetings</li>
+	<li>Conference bag &amp; publications</li>
+	<li>Coffee service in the coffee breaks during the conference</li>    
+	<li>Welcome Reception on August 26, 2013 (at the hotel)</li>    
+	<li>Gala Dinner on August 28, 2013 (Bosphorus tour by cruise)</li>    
+	<li>Workshop attendance</li>
+</ul>
+<p class="Title_07">Workshops Only Fees include:</p>
+<ul>    
+	<li>Workshops Attendance</li>    
+</ul>
+<p class="Title_07">Cancellation Policy - Registration:</p>
+<p>Requests for registration cancellation must be  received in writing by the ICLP 2013 Registration Secretariat (DEKON) by fax at  +90 212 347 63 63, or via e-mail to <a href="mailto:registration@iclp2013.org">registration@iclp2013.org</a>. An administrative fee of &euro;  50 will be applied for any cancellation received before or on <span class="DarkGreen" style="font-weight: bold;">July 22, 2013</span><span style="font-weight: bold;">.</span><br />
+	  <span style="font-weight: bold;">Absolutely no refund  will be processed for cancellations received on or after <span class="DarkGreen">July 23, 2013</span>.</span><br />
+	  <span style="font-weight: bold;">Please note that  registration refunds will be processed within 30 days after the end of ICLP  2013, bank charges will be deducted from the refund.</span></p> 
+            </div>
+            <div id="PageMenu" class="Klavika">
+				<div class="Blue Klavika" style="margin-left:15px;">PAGE MENU</div>
+				<ul class="PageMenu"><li class="Normal"><a href="Registration-Information.html" target="_parent" title="Registration Information">Registration Information</a></li><li class="Normal"><a href="Accommodation-and-Transfer.html" target="_parent" title="Accommodation and Transfer">Accommodation and Transfer</a></li></ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div id="Sponsors">
+    <div class="Title_04"><span>SPONSORS</span></div>
+    <div>
+        <a href="http://www.cs.nmsu.edu/ALP/" target="_blank" title="Association for Logic Programming"><img src="../files/images/content/Sponsors/alp.png" alt="Association for Logic Programming" /></a>
+        <a href="http://www.sabanciuniv.edu/en" target="_blank" title="Sabancı University"><img src="../files/images/content/Sponsors/sabanci.png" alt="Sabancı University" /></a>
+        <a href="#" title="Artificial Intelligence"><img src="../files/images/content/Sponsors/artint.png" alt="Artificial Intelligence" /></a>
+    </div>
+</div>
+
+<div id="FooterContainer">
+	<div id="FooterBorder"></div>
+	<div id="FooterWrapper">
+    	<div class="FooterSection">
+        	<div class="FooterTitle Klavika-Bold">GENERAL CO-CHAIRS</div>
+            <div>
+                <div class="Footer" style="float:left; margin-right:15px;">
+                    <b>Esra Erdem</b><br />
+                    Sabancı University<br />
+                    E-mail: <a href="mailto:esraerdem@sabanciuniv.edu" target="_blank">esraerdem@sabanciuniv.edu</a>
+                </div>
+                <div class="Footer" style="float:left;">
+                    <b>Joohyung Lee</b><br />
+                    Arizona State University<br />
+                    E-mail: <a href="mailto:joolee@asu.edu" target="_blank">joolee@asu.edu</a>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+		</div>
+    	<div class="FooterSection">
+        	<div class="FooterTitle Klavika-Bold">ORGANIZING SECRETARIAT</div>
+            <div class="Footer">
+				<a href="http://www.dekon.com.tr/" target="_blank"><img src="../files/images/layout/general/logo_dekon.png" style="margin-right:10px;" /></a> <a href="http://www.dekon.com.tr/" target="_blank">www.dekon.com.tr</a><br />
+                Yıldız Posta C. Akın Sitesi 1. Blok No: 6 Kat: 1 D: 3 Gayrettepe Şişli - İstanbul / TURKEY<br />
+                Phone: +90 212 347 63 00  Fax: +90 212 347 63 63  E-mail: <a href="mailto:onuryeniyigit@dekon.com.tr" target="_blank">onuryeniyigit@dekon.com.tr</a>
+            </div>
+        </div>
+        <div class="FooterSection" style="float:right; border:none; text-align:right;">
+        	<div class="FooterTitle Klavika-Bold">DESIGNED & POWERED BY</div>
+            <div class="Footer" style="text-align:right;">
+            	<a href="http://www.milk.com.tr/" target="_blank"><img src="../files/images/layout/general/logo_milk.png" /></a><br />
+                Milk Creative & Events<br />
+                E-mail: <a href="mailto:info@milk.com.tr" target="_blank">info@milk.com.tr</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+</body>
+
+<!-- Mirrored from www.iclp2013.org/en/Registration-Information.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Dec 2014 08:03:05 GMT -->
+</html>

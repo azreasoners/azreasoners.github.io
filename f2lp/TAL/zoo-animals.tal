@@ -1,0 +1,76 @@
+//%%% ANIMALS %%%
+//:- sorts
+//  animal >> human;
+//  species.
+
+#domain animal :elements {}
+#domain human :parent animal :elements {}
+#domain species :elements {humanSpecies}
+
+//:- variables
+//  ANML,ANML1                        :: animal;
+//  H,H1                              :: human;
+//  SP                                :: species.
+
+//:- objects
+//% One of the species is human (lmw)
+//  humanSpecies                      :: species.
+
+//:- constants
+//% Each animal belongs to exactly one of a number of species. 
+//%  (lmw)  Membership of an animal in a species does not change 
+//%  over time (lmw)
+//  sp(animal)                        :: species;
+
+//% Some species are large, some are not (lmw)
+//  largeSpecies(species)             :: boolean;
+//% Each animal has a position at each point in time (lmw)
+//  pos(animal)                       :: inertialFluent(position);
+//% Boolean properties of animals (lmw)
+//  adult(animal)                     :: boolean;
+//  mounted(human,animal)             :: inertialFluent.
+
+#feature sp(animal) :domain species :function :hide
+#feature largeSpecies(species) :domain boolean :function :hide
+#feature pos(animal) :domain position :showname
+#feature adult(animal) :domain boolean :function :hide
+#feature mounted(human,animal) :domain boolean :showname
+#feature large(animal) :domain boolean :function :hide
+
+
+//default largeSpecies(SP).
+//default adult(ANML).
+
+//% Humans are a species called humanSpecies
+//caused sp(H)=humanSpecies.
+//constraint sp(ANML)=humanSpecies ->> [\/H | ANML=H].
+
+#dom forall human,t [[t] sp(human) == humanSpecies]
+#dom forall animal,t [[t] sp(animal) == humanSpecies -> exists human [animal = human]]
+
+
+//:- macros
+//% Adult members of large species are large animals (lmw)
+//  large(#1) -> adult(#1) & largeSpecies(sp(#1)).
+#dom forall animal,t [[t] large(animal) <-> [t] adult(animal) & 
+					    exists species [largeSpecies(species) & 
+					                    sp(animal) == species]]
+
+
+//% There is at least one human-species animal in each scenario 
+//%  (lmw) 
+//constraint [\/H | true].  
+
+//% Two large animals can not occupy the same position,
+//%  except if one of them rides on the other (lmw)
+//constraint pos(ANML)=pos(ANML1) & large(ANML) & large(ANML1)
+//     ->> [\/H | (H=ANML & mounted(H,ANML1)) ++
+//                (H=ANML1 & mounted(H,ANML))] where ANML@<ANML1.
+
+#dom forall animal, animal1, t [[t] pos(animal) == pos(animal1) & large(animal) & large(animal1) & 
+		animal != animal1 ->
+		[t] exists human [(human = animal & mounted(human,animal1)) | 
+			      (human = animal1 & mounted(human,animal))]]
+
+
+

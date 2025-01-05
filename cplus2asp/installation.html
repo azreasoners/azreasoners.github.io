@@ -1,0 +1,284 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!--
+  -
+  - Copyright (c) 2010-2013 <Joseph Babb, Michael Cassollary, Joohyung Lee>
+  -
+  - For information on how to contact the authors, please visit
+  -      http://reasoning.eas.asu.edu/Cplus2ASP
+  -
+  - This file is part of the Cplus2ASP system.
+  -
+  - Cplus2ASP is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License as published by
+  - the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - Cplus2ASP is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+<head>
+<title>Cplus2ASP v3.1 - Installation</title>
+<link rel="stylesheet" type="text/css" href="./cplus2aspstyle.css" />
+<style media="screen" type="text/css">
+.indented-table {
+	margin-left:70px;
+	border: 1px solid black;
+	border-collapse:collapse;
+}
+
+.indented-table th {
+	padding-right:10px;
+	text-align:center;
+	border: 1px solid black;
+	background:#FFC266;
+}
+
+.indented-table td {
+	padding-right:10px;
+	text-align:center;
+	border: 1px solid black;
+}
+</style>
+</head>
+<body>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Header / Navigation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP v3.1</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Back to Index">Home</a></li>
+</ul>
+
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="./release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+<li><a href="./obtaining_cplus2asp.html" class="directoryLink" title="Obtaining Cplus2ASP">Obtaining Cplus2ASP</a></li>
+<li><a href="./installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="./running_cplus2asp.html" class="directoryLink" title="Running Cplus2ASP">Running Cplus2ASP</a></li>
+<li><a href="./cplus2asp_programs.html" class="directoryLink" title="Cplus2ASP Programs">Cplus2ASP Programs</a></li>
+</ul>
+
+<hr />
+<p class="title">Examples and Features:</p>
+<ul class="directoryList">
+<li><a href="./examples/index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./examples/benchmarks.html" class="directoryLink" title="Cplus2ASP Benchmarking Results">Benchmarks</a></li>
+<li><a href="./examples/lua.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using LUA</a></li>
+<li><a href="./examples/python.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Python</a></li>
+<li><a href="./examples/config.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Config file</a></li>
+<li><a href="./examples/bc.html" class="directoryLink" title="Using the Language BC">Language BC</a></li>
+<li><a href="./examples/reactive.html" class="directoryLink" title="Using Reactive Mode">Reactive Mode</a></li>
+</ul>
+
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+<li><a href="../cplus2asp_old/index.html" class="directoryLink" title="Cplsu2asp v3.0">Cplus2asp v3.0</a></li>
+</ul>
+</p>
+</div>
+
+<div id="pagebody">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Body ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<h2> Installation Guide </h2>
+
+<h3> Precompiled Binary Releases </h3>
+
+<p class="body">
+	Beginning at Cplus2ASP v2.2, binary releases will be provided periodically for major revisions in
+	order to facilitate a more user-friendly installation process. The release (shown in the table
+	below) provide all neccessary runtime dependencies and encapsulate installation in a simple
+	installation script that will guide you through the process.
+</p>
+
+
+
+<table class="indented-table" >
+	<tr>
+		<th >Version</th>
+		<th  colspan="3">Binaries</th>
+	</tr>
+	<tr>
+		<th></th>
+		<th >Linux 32bit</th>
+		<th >Linux 64bit</th>
+		<th >Windows 32bit</th>
+	</tr>
+	<tr>
+		<th>3.1</th>
+		<td><a href="cplus2asp-3-1_x86.tar.gz">link</a></td>
+		<td><a href="cplus2asp-3-1_x86_64.tar.gz">link</a></td>
+		<td>N/A</td>
+	</tr>
+
+	<tr>
+		<th>2.3</th>
+		<td><a href="cplus2asp-2-3_x86.tar.gz">link</a></td>
+		<td><a href="cplus2asp-2-3_x86_64.tar.gz">link</a></td>
+		<td>N/A</td>
+	</tr>
+<!--
+	<tr>
+		<th>2.2</th>
+		<td><a href="cplus2asp-2-2_x86.tar.gz">link</a></td>
+		<td><a href="cplus2asp-2-2_x86_64.tar.gz">link</a></td>
+		<td>N/A</td>
+	</tr>
+-->
+</table>
+
+
+<p class="note">
+	Linux 32bit and 64bit executables require GLIBC 2.2.5, GLIBCXX 3.4.15 and certain boost libraries in order to execute. 
+</p>
+
+
+
+<p class="body">
+	After obtaining the appropriate package listed above, Cplus2ASP can be installed by unpacking
+	the package and running the installation script. Before running the installation scripts make sure you have the lua library and boost filesystem library. Type the following into console. The command is distribution specific and works on debian based systems:
+</p>
+
+
+
+<p class="note">
+	In ubuntu 16.04 or newer to install libboost1.54* add "deb http://mirrors.kernel.org/ubuntu trusty main universe" without the quotes to /etc/apt/sources.list and then run sudo apt-get update from terminal before executing the below command.  
+</p>
+
+<pre class="code" style="white-space: pre-wrap;">
+sudo apt-get install liblua5.1 libboost1.54-dev libboost-filesystem1.54-dev libboost-regex1.54-dev libboost-program-options1.54 libtbb2
+</pre>
+
+
+
+<p class="body">
+Then use the installation script as follows:
+</p>
+
+
+<pre class="code">
+	tar xvf package-name.tar.gz
+	cd package-name
+	./install.sh
+</pre>
+
+<p class="body">
+	Alternatively, for a system-wide install, replace the last command with one of:
+</p>
+
+<pre class="code">
+	sudo ./install.sh
+	su -c "./install.sh"
+</pre>
+
+<p class="body">
+	depending on your distribution.
+</p>
+
+<p class="body">
+	The default installation directory is determined by the priviledge level the script is run at. 
+	If the command is run on a non-root account, it will default to installing the program in the 
+	'bin' and 'lib' subdirectories of your home directory (creating them if neccessary). 
+	Otherwise, it will default to /usr/local/bin and /usr/local/lib, which is appropriate for many 
+	distributions.
+</p>
+
+<p class="body">
+	The script will install the appropriate versions of F2LP and Clingo
+	required by Cplus2ASP.
+<p>
+
+
+
+<h2> Compiling from Git </h3>
+
+<p class="body">
+	If you wish to install Cplus2ASP on your system, you will first need to acquire the distribution
+	package (see above) and then compile and install the package. The following assumes that you've
+	already downloaded the source code and navigated to the subdirectory created 
+	(Cplus2ASP-master if you've downloaded and extracted the .zip file, Cplus2ASP otherwise).
+</p>
+
+<p class="body">
+	Before continuing, verify that your system has the Autotools and Make suites installed
+	(autoconfig, automake, and autoheader), if your system is a Debian based distribution (such as
+	Debian, Ubuntu, or Mint) this can be done by running the command:
+</p>
+
+<pre class="code">
+	sudo apt-get install autoconf automake libtool make
+</pre>
+
+<p class="body">
+	Additionally, new versions of Cplus2ASP now depend on the Boost libraries version 1.44+
+	as well as the Flex, Bison, and RE2C build tools. 
+	If you're running Ubuntu 11.10 (Oneiric) or later this can be done by using the command
+</p>
+
+<pre class="code">
+	sudo apt-get install libboost-all-dev flex bison re2c
+</pre>
+
+<p class="body">
+	Otherwise, you should see if Boost 1.44+ and the fore-mentioned build tools have packages for 
+	your distribution. Alternatively, Boost can be compiled from the source distribution available
+	<a href="http://www.boost.org/users/download/">here</a>.
+</p>
+
+<p class="body">
+	After verifying that the appropriate dependencies have been installed, you may configure, compile, 
+	and install Cplus2ASP by running the following commands, assuming you're running on a Debian based 
+	distribution.
+</p>
+
+<pre class="code">
+	./bootstrap && make && sudo make install
+</pre>
+
+<p class="body">
+	On other systems, the following may also work (assuming you have access to the Super User account).
+</p>
+
+<pre class="code">
+	./bootstrap && make && su -c "make install"
+</pre>
+
+<p class="body">
+	Finally, Cplus2ASP requires, at a minimum, systems F2LP v1.4+ and clingo 4+ to run effectively. For using python and lua code in cplus2asp you need to use clingo compiled with python and lua support. Please refer to clingo documentation for instructions on how to compile this program.
+	These systems can be found at the following locations:
+</p>
+<ul>
+<li><span class="header">F2LP:</span> <a href="http://reasoning.eas.asu.edu/f2lp/">http://reasoning.eas.asu.edu/f2lp</a> </li>
+<li><span class="header">Clingo:</span> <a href="http://potassco.sourceforge.net/">http://potassco.sourceforge.net</a> </li>
+</ul>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Copyright -->
+<hr />
+<center>
+<p class="footnote"> Copyright (C) 2010-2013 - Joseph Babb, Michael Cassolary, and Joohyung Lee. </p>
+<p class="footnote">&#123; jbabb1, Michael.Casolary, joolee &#125; &lt;at&gt; asu &lt;dot&gt; edu.  </p>
+<p class="footnote"> This work was partially supported by the National Science Foundation under Grant IIS-0916116.</p>
+</center>
+</div>
+</body>
+</html>

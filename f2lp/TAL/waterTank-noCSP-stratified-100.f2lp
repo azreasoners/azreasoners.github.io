@@ -1,0 +1,440 @@
+% This is the first scenario from "Physical Modeling using Temporal Action Logic".
+
+time(0..maxstep).
+#domain time(T). #domain time(T1). #domain time(T2).
+
+% ----------------------------------------------------------------------------------------------------
+% Value Domains
+% ----------------------------------------------------------------------------------------------------
+
+%#domain tankorreservoir :elements { reservoir, lowertank, upperleft, upperright }
+%#domain pipeorpump :elements { leftpump, rightpump, leftpipe, rightpipe, lowerpipe }
+
+%#domain pipe :parent pipeorpump :elements { [leftpipe .. lowerpipe] }
+%#domain pump :parent pipeorpump :elements { [leftpump .. rightpump] }
+%#domain tank :parent tankorreservoir :elements { [lowertank .. upperright] }
+
+pipe(leftpipe;rightpipe;lowerpipe).
+pump(leftpump;rightpump).
+tank(lowertank;upperleft;upperright).
+#domain pipe(Pi).
+#domain pump(Pu).
+#domain tank(Ta).
+value(Pi). value(Pu). value(Ta).
+tankorreservoir(reservoir).
+tankorreservoir(Ta).
+pipeorpump(Pi).
+pipeorpump(Pu).
+#domain tankorreservoir(TR).
+#domain pipeorpump(PP).
+value(TR). value(PP).
+bool(true;false).
+#domain bool(Bo).
+value(Bo).
+#domain value(V). #domain value(V1). #domain value(V2).
+
+
+%// ----------------------------------------------------------------------------------------------------
+%// Attachments
+%// ----------------------------------------------------------------------------------------------------
+
+%#propagation :split-by-time :constraints-by-time
+
+%// We want to use fixed point numbers.
+%#domain fixedpoint :fixedpoint :lb 0 :ub 1000 :decimals 6
+% using integers for simplicity
+num(0..100).
+#domain num(Nu).
+#domain num(Nu1).
+#domain num(Nu2).
+#domain num(Nu3).
+#domain num(Nu4).
+#domain num(Nu5).
+#domain num(Nu6).
+
+
+%// The time step.  Decrease this value to simulate with greater precision
+%// (less time between each discrete time step).  Unit:  Seconds.
+%#valueconst Ts :domain fixedpoint :parameter :default 12.5
+%#timescale Ts
+% simply provide this as run-time argument or use 1 for simplicity
+
+%// We only specify the height of tanks.  We assume implicitly that pipes and pumps
+%// are defined in a way consistent with some 'real' arrangement of tanks.  Pipes
+%// and pumps go from the lowest level of one tank to the highest level of another
+%// one.  Pipes go from a higher level to a lower one.   Pumps go from a lower level
+%// to a higher one.
+
+%//  dh1 = -0.1040*Ts*sqrt(h1) + 0.0334*Ts*u1
+%//  dhs = -0.0512*Ts*sqrt(hs) + 0.0343*Ts*us
+%//  dh2 = -0.0750*Ts*sqrt(h2) + 0.1040*Ts*sqrt(h1) + 0.0656*Ts*sqrt(hs)
+%//
+%// d�r h1 - left tank
+%//     hs - right tank
+%//     h2 - lower tank
+%//     u1 - left pump
+%//     us - right pump
+%//     Ts - samplingstiden (12.5, 4, el. 1s) 
+%//     dh - f�r�ndring i resp. tank under Ts sekunder.
+%//
+
+% scaling by mapping 0.01 to 1	
+%#function alpha(pipe) :domain fixedpoint = {
+%	<leftpipe> = $times(Ts, 0.1040), %using Ts*10 for f2lp
+%	<rightpipe> = $times(Ts, 0.0512), %using Ts*5
+%	<lowerpipe> = $times(Ts, 0.0750) %using Ts*7
+%}
+alpha(leftpipe,timescale*10).
+alpha(rightpipe,timescale*5).
+alpha(lowerpipe,timescale*7).
+
+
+%#function beta(pump) :domain fixedpoint = {
+%	<leftpump> = $times(Ts, 0.0334), %using Ts*3
+%	<rightpump> = $times(Ts, 0.0343) %using Ts*3
+%}
+
+beta(leftpump,timescale*3).
+beta(rightpump,timescale*3).
+
+
+%#function epsilon(pipe) :domain fixedpoint = {
+%	<leftpipe> = $times(Ts, 0.1040), %Ts*10
+%	<rightpipe> = $times(Ts, 0.0512), %Ts*5
+%	<lowerpipe> = $times(Ts, 0.0750) %Ts*7
+%}
+
+epsilon(leftpipe,timescale*10).
+epsilon(rightpipe,timescale*5).
+epsilon(lowerpipe,timescale*7).
+
+%#function height(tankorreservoir) :domain fixedpoint = {
+%	<reservoir> = 0.10, %using 10 for f2lp
+%	<lowertank> = 5.657, %using 565
+%	<upperleft> = 5.657, %using 565
+%	<upperright> = 5.657 %using 565
+%}
+
+height(reservoir,10).
+height(lowertank,50).
+height(upperleft,50).
+height(upperright,50).
+
+%#function source(pipeorpump) :domain tankorreservoir = {
+%	<leftpump> = reservoir,
+%	<rightpump> = reservoir,
+%	<leftpipe> = upperleft,
+%	<rightpipe> = upperright,
+%	<lowerpipe> = lowertank
+%}
+% for compatibility with clingcon, we use predicates here....
+source(leftpump,reservoir).
+source(rightpump,reservoir).
+source(leftpipe,upperleft).
+source(rightpipe,upperright).
+source(lowerpipe,lowertank).
+
+
+%#function dest(pipeorpump) :domain tankorreservoir = {
+%	<leftpump> = upperleft,
+%	<rightpump> = upperright,
+%	<leftpipe> = lowertank,
+%	<rightpipe> = lowertank,
+%	<lowerpipe> = reservoir
+%}
+dest(leftpump,upperleft).
+dest(rightpump,upperright).
+dest(leftpipe,lowertank).
+dest(rightpipe,lowertank).
+dest(lowerpipe,reservoir).
+
+
+%#feature pipeopen(pipe) :domain fixedpoint :showname
+%#feature pumpvoltage(pump) :domain fixedpoint :showname
+
+%#feature pipeflow(pipeorpump) :domain fixedpoint :showname
+
+%#feature overflow(tankorreservoir) :domain boolean
+%#feature empty(tankorreservoir) :domain boolean
+%#feature waterlev(tankorreservoir) :domain fixedpoint :showname
+
+%#feature inflow(tankorreservoir) :domain fixedpoint :showname
+%#feature outflow(tankorreservoir) :domain fixedpoint :showname
+
+feature(pipeopen(Pi);pumpvoltage(Pu);pipeflow(PP);overflow(TR);empty(TR);waterlev(TR);inflow(TR);outflow(TR)).
+#domain feature(Fe).
+
+%all are persistent
+-occlude(T+1,pipeopen(Pi)) & T < maxstep ->
+![Nu]:(holds(T+1,pipeopen(Pi),Nu) <-> holds(T,pipeopen(Pi),Nu)).
+
+-occlude(T+1,pumpvoltage(Pu)) & T < maxstep ->
+![Nu]:(holds(T+1,pumpvoltage(Pu),Nu) <-> holds(T,pumpvoltage(Pu),Nu)).
+
+-occlude(T+1,pipeflow(PP)) & T < maxstep ->
+![Nu]:(holds(T+1,pipeflow(PP),Nu) <-> holds(T,pipeflow(PP),Nu)).
+
+-occlude(T+1,overflow(TR)) & T < maxstep ->
+![Bo]:(holds(T+1,overflow(TR),Bo) <-> holds(T,overflow(TR),Bo)).
+
+-occlude(T+1,empty(TR)) & T < maxstep ->
+![Bo]:(holds(T+1,empty(TR),Bo) <-> holds(T,empty(TR),Bo)).
+
+-occlude(T+1,waterlev(TR)) & T < maxstep ->
+![Nu]:(holds(T+1,waterlev(TR),Nu) <-> holds(T,waterlev(TR),Nu)).
+
+-occlude(T+1,inflow(TR)) & T < maxstep ->
+![Nu]:(holds(T+1,inflow(TR),Nu) <-> holds(T,inflow(TR),Nu)).
+
+-occlude(T+1,outflow(TR)) & T < maxstep ->
+![Nu]:(holds(T+1,outflow(TR),Nu) <-> holds(T,outflow(TR),Nu)).
+
+%Unique value axioms
+1{holds(T,overflow(TR),Boo):bool(Boo)}1.
+1{holds(T,empty(TR),Boo):bool(Boo)}1.
+%1{holds(T,pipeopen(Pi),Number):num(Number)}1.
+%1{holds(T,pumpvoltage(Pu),Number):num(Number)}1.
+%1{holds(T,pipeflow(PP),Number):num(Number)}1.
+%1{holds(T,waterlev(TR),Number):num(Number)}1.
+%1{holds(T,inflow(TR),Number):num(Number)}1.
+%1{holds(T,outflow(TR),Number):num(Number)}1.
+
+%{holds(T,pipeopen(Pi),Nu)}.
+%{holds(T,pumpvoltage(Pu),Nu)}.
+%{holds(T,pipeflow(PP),Nu)}.
+%{holds(T,waterlev(TR),Nu)}.
+%{holds(T,inflow(TR),Nu)}.
+%{holds(T,outflow(TR),Nu)}.
+%{holds(T,overflow(TR),Bo)}.
+%{holds(T,empty(TR),Bo)}.
+%-(holds(T,Fe,Nu) & holds(T,Fe,Nu1) & Nu != Nu1).
+%-(holds(T,Fe,true) & holds(T,Fe,false)).
+
+%#attach	"logic.gui.plot.PlotAttachment"
+%	"pumpvoltage(leftpump), pumpvoltage(rightpump), waterlev(upperleft), waterlev(upperright), waterlev(lowertank)"
+
+%#attach	SaveText
+%	"pumpvoltage(leftpump), pumpvoltage(rightpump), waterlev(upperleft), waterlev(upperright), waterlev(lowertank)"
+
+%#action setflow(pipe, fixedpoint)
+%#action setvoltage(pump, fixedpoint)
+
+%#action stopflow, stoppumps
+action(setflow(Pi,Nu);setvoltage(Pu,Nu);stopflow;stoppumps).
+#domain action(Ac).
+
+
+%#valuevar flow, voltage :domain fixedpoint
+
+%#obs [0] waterlev(reservoir) == 0.05 & !empty(reservoir)
+%#obs [0] waterlev(lowertank) == 0.00 & empty(lowertank)
+%#obs [0] waterlev(upperleft) == 0.00 & empty(upperleft)
+%#obs [0] waterlev(upperright) == 0.00 & empty(upperright)
+holds(0,waterlev(reservoir),5).
+holds(0,waterlev(lowertank),0).
+holds(0,waterlev(upperleft),0).
+holds(0,waterlev(upperright),0).
+-holds(0,empty(reservoir),true).
+holds(0,empty(lowertank),true).
+holds(0,empty(upperleft),true).
+holds(0,empty(upperright),true).
+
+%#acs [t1,t2] setflow(pipe, flow)       -> R((t1,t2] pipeopen(pipe) == flow)
+occurs(T1,T2,setflow(Pi,Nu)) ->
+![T]:(T > T1 & T <= T2 -> occlude(T,pipeopen(Pi))) & holds(T2,pipeopen(Pi),Nu).
+
+%%#acs [t1,t2] setvoltage(pump, voltage) -> R((t1,t2] pumpvoltage(pump) == voltage)
+occurs(T1,T2,setvoltage(Pu,Nu)) ->
+![T]:(T > T1 & T <= T2 -> occlude(T,pumpvoltage(Pu))) & holds(T2,pumpvoltage(Pu),Nu).
+
+%#acs [t1,t2] stopflow  -> R((t1,t2] forall pump [ pumpvoltage(pump) == 0.00 ] & forall pipe [ pipeopen(pipe) == 0.00 ])
+occurs(T1,T2,stopflow) ->
+![T]:(T > T1 & T <= T2 -> occlude(T,pumpvoltage(Pu)) & occlude(T,pipeopen(Pi))) & 
+holds(T2,pipeopen(Pi),0) & holds(T2,pumpvoltage(Pu),0).
+
+%#acs [t1,t2] stoppumps -> R((t1,t2] forall pump [ pumpvoltage(pump) == 0.00 ])
+occurs(T1,T2,stoppumps) ->
+![T]:(T > T1 & T <= T2 -> occlude(T,pumpvoltage(Pu))) & holds(T2,pumpvoltage(Pu),0).
+
+
+
+%#occ [$scale( 40)-1,$scale( 40)] setvoltage(leftpump, 6.00)
+%#occ [$scale( 57)-1,$scale( 57)] setvoltage(rightpump, 4.50)
+%#occ [$scale( 87)-1,$scale( 87)] stoppumps
+%#occ [$scale(200)-1,$scale(200)-0] stopflow
+occurs(2,3,setvoltage(leftpump,6)).
+occurs(3,4,setvoltage(rightpump,5)).
+occurs(6,7,stoppumps).
+occurs(15,16,stopflow).
+
+%#dep X((0,$scale(200)]
+%	forall pipeorpump [ pipeflow(pipeorpump) !== {} ] &
+%	forall tank [ overflow(tank) !== {} ] &
+%	forall tank [ empty(tank) !== {} ] &
+%	forall tank [ waterlev(tank) !== {} ] &
+%	forall tank [ inflow(tank) !== {} ] &
+%	forall tank [ outflow(tank) !== {} ])
+![T]:(T > 0 & T <= maxstep -> occlude(T,pipeflow(PP)) & occlude(T,overflow(Ta)) & 
+                         occlude(T,empty(Ta)) & occlude(T,waterlev(Ta)) &
+    			 occlude(T,inflow(Ta)) & occlude(T,outflow(Ta))).
+                         
+
+
+%// No tank is overflowing in state 0.  No pumps are on, but all other pipes are open.
+
+%#obs [0] forall tankorreservoir [ !overflow(tankorreservoir) ]
+%#obs [0] pumpvoltage(leftpump) == 5.00 & pumpvoltage(rightpump) == 0.00
+%#obs [0] forall pipe [ pipeopen(pipe) == 15.99 ]
+
+-holds(0,overflow(TR),true).
+holds(0,pumpvoltage(leftpump),5).
+holds(0,pumpvoltage(rightpump),0).
+holds(0,pipeopen(Pi),16).
+
+%// Pipe flow depends on water levels.  If there is no water, no water will flow out.
+%// If there is one level of water, then if there are two outgoing pipes, one will get
+%// all the flow; if there is one outgoing pipe, it will get all the flow.  If there
+%// is enough water, both (all) pipes will get flow.
+
+%// Pipes from the reservoir (assumed to be pumps) always get as much water as they want.
+
+%#dom forall t, pump [ [t] pipeflow(pump) == $times(beta(pump), pumpvoltage(pump)) ]
+holds(T,pumpvoltage(Pu),Nu1) & beta(Pu,Nu2) -> holds(T,pipeflow(Pu),Nu1*Nu2).
+
+
+%// Pipes not from the reservoir (assumed not to be pumps) get water depending on the
+%// inflow and the water level.
+
+%// In this special case, there are no tanks with two outgoing pipes.
+
+%////////////////////////////////////////////////////////////////////////////////
+
+%// Total inflow depends on pipeflow.  The reservoir has no inflow and no outflow.
+
+%#obs [0] inflow(reservoir) == 0.00
+%#obs [0] outflow(reservoir) == 0.00
+holds(0,inflow(reservoir),0).
+holds(0,outflow(reservoir),0).
+
+
+%// For the other tanks, the inflow is equal to the sum of all inflows from
+%// incoming pipes and all inflows from incoming pumps.  Note that we need to
+%// compensate for the fact that the alpha and epsilon of a pipe may not be
+%// equal, even though they happen to be equal in this specific scenario.
+
+%#dom forall t, tank [
+%	[t] inflow(tank) == $plus($sum(<pipe>, [t] dest(pipe) == tank, $times($div(epsilon(pipe),alpha(pipe)),pipeflow(pipe))),
+%	                         $sum(<pump>, [t] dest(pump) == tank, pipeflow(pump)))
+%]
+
+holds(T,pipeflow(leftpump),Nu) ->  holds(T,inflow(upperleft),Nu).
+holds(T,pipeflow(rightpump),Nu) -> holds(T,inflow(upperright),Nu).
+holds(T,pipeflow(leftpipe),Nu1) & epsilon(leftpipe,Nu2) & 
+alpha(leftpipe,Nu3) & holds(T,pipeflow(rightpipe),Nu4) & 
+epsilon(rightpipe,Nu5) & alpha(rightpipe,Nu6) ->
+holds(T,inflow(lowertank),(Nu1*(Nu2/10) + Nu4*(Nu5/5))).
+
+%////////////////////////////////////////////////////////////////////////////////
+
+%// Above we got the complete inflow to the upper level of tanks (those that have
+%// only incoming pumps, no incoming pipes).  Now we calculate the pipeflow out
+%// of those tanks.  Doing this before calculating outflow means that we get
+%// information more quickly -- we can calculate some of the outflow this loop,
+%// instead of all outflow having to wait until next loop.  This is about twice
+%// as fast as if we had inverted the order of this and the next formula!
+
+%#dom forall t, pipe [ [t] pipeflow(pipe) == $min(
+%		  $plus(waterlev(source(pipe)), inflow(source(pipe))),
+%		  $min($times(alpha(pipe), $sqrt(waterlev(source(pipe)))), pipeopen(pipe))) ]
+% clingcon does not support sqrt...so dividing by 2 instead
+%1{holds(T,dummy_sum(Pi),Number):num(Number)}1.
+%1{holds(T,dummy_min(Pi),Number):num(Number)}1.
+
+holds(T,waterlev(upperleft),Nu1) & holds(T,inflow(upperleft),Nu2)
+-> holds(T,dummy_sum(leftpipe),Nu1+Nu2).
+
+alpha(leftpipe,Nu) & holds(T,waterlev(upperleft),Nu1) & 
+holds(T,pipeopen(leftpipe),Nu2) & Nu*(Nu1/2) <= Nu2
+-> holds(T,dummy_min(leftpipe),Nu*(Nu1/2)).
+
+alpha(leftpipe,Nu) & holds(T,waterlev(upperleft),Nu1) & 
+holds(T,pipeopen(leftpipe),Nu2) & Nu2 <= Nu*(Nu1/2)
+-> holds(T,dummy_min(leftpipe),Nu2).
+
+holds(T,waterlev(upperright),Nu1) & holds(T,inflow(upperright),Nu2)
+-> holds(T,dummy_sum(rightpipe),Nu1+Nu2).
+
+alpha(rightpipe,Nu) & holds(T,waterlev(upperright),Nu1) & 
+holds(T,pipeopen(rightpipe),Nu2) & Nu*(Nu1/2) <= Nu2
+-> holds(T,dummy_min(rightpipe),Nu*(Nu1/2)).
+
+alpha(rightpipe,Nu) & holds(T,waterlev(upperright),Nu1) & 
+holds(T,pipeopen(rightpipe),Nu2) & Nu2 <= Nu*(Nu1/2)
+-> holds(T,dummy_min(rightpipe),Nu2).
+
+holds(T,waterlev(lowertank),Nu1) & holds(T,inflow(lowertank),Nu2)
+-> holds(T,dummy_sum(lowerpipe),Nu1+Nu2).
+
+alpha(lowerpipe,Nu) & holds(T,waterlev(lowertank),Nu1) & 
+holds(T,pipeopen(lowerpipe),Nu2) & Nu*(Nu1/2) <= Nu2
+-> holds(T,dummy_min(lowerpipe),Nu*(Nu1/2)).
+
+alpha(lowerpipe,Nu) & holds(T,waterlev(lowertank),Nu1) & 
+holds(T,pipeopen(lowerpipe),Nu2) & Nu2 <= Nu*(Nu1/2)
+-> holds(T,dummy_min(lowerpipe),Nu2).
+
+holds(T,dummy_sum(Pi),Nu) & holds(T,dummy_min(Pi),Nu1) & Nu <= Nu1
+-> holds(T,pipeflow(Pi),Nu).
+
+holds(T,dummy_sum(Pi),Nu) & holds(T,dummy_min(Pi),Nu1) & Nu1 <= Nu
+-> holds(T,pipeflow(Pi),Nu1).
+
+
+%// Total outflow depends on pipeflow.
+
+%#dom forall t, tank [
+%	[t] outflow(tank) == $sum(<pipe>, [t] source(pipe) == tank, pipeflow(pipe)) ]
+
+holds(T,pipeflow(leftpipe),Nu) -> holds(T,outflow(upperleft),Nu).
+holds(T,pipeflow(rightpipe),Nu) -> holds(T,outflow(upperright),Nu).
+holds(T,pipeflow(lowerpipe),Nu) -> holds(T,outflow(lowertank),Nu).
+
+%////////////////////////////////////////////////////////////////////////////////
+
+%// Dynamic fluent definition: empty
+
+holds(T,waterlev(Ta),0) -> holds(T,empty(Ta),true).
+
+%// Dynamic fluent definition: waterlev.  We calculate the newlevel as oldlevel+inflow-outflow.
+%// If this fits in the tank, the tank gets this new level and no overflow; if it doesn't fit,
+%// the tank becomes full and overflows.
+
+%#dom forall t, tank [ [t] $lessequal($minus($plus(waterlev(tank), inflow(tank)), outflow(tank)), height%(tank)) ->
+%	[t+1] waterlev(tank) == value(t, $minus($plus(waterlev(tank), inflow(tank)), outflow(tank))) & !overflow(tank)]
+holds(T,waterlev(Ta),Nu1) & holds(T,inflow(Ta),Nu2) & 
+holds(T,outflow(Ta),Nu3) & height(Ta,Nu4) & Nu4 >= (Nu1+Nu2-Nu3)
+-> holds(T+1,waterlev(Ta),Nu1+Nu2-Nu3).
+
+holds(T,waterlev(Ta),Nu1) & holds(T,inflow(Ta),Nu2) & 
+holds(T,outflow(Ta),Nu3) & height(Ta,Nu4) & Nu4 >= (Nu1+Nu2-Nu3)
+-> -holds(T+1,overflow(Ta),true).
+
+
+%#dom forall t, tank [ [t] $greater($minus($plus(waterlev(tank), inflow(tank)), outflow(tank)), height(tank)) ->
+%	[t+1] waterlev(tank) == height(tank) & overflow(tank)]
+
+holds(T,waterlev(Ta),Nu1) & holds(T,inflow(Ta),Nu2) & 
+holds(T,outflow(Ta),Nu3) & height(Ta,Nu4) & Nu4 < (Nu1+Nu2-Nu3)
+-> holds(T+1,waterlev(Ta),Nu4).
+
+holds(T,waterlev(Ta),Nu1) & holds(T,inflow(Ta),Nu2) & 
+holds(T,outflow(Ta),Nu3) & height(Ta,Nu4) & Nu4 < (Nu1+Nu2-Nu3)
+-> holds(T+1,overflow(Ta),true).
+
+% Adding just for readability
+holdsAt(T,Fe,Nu) :- holds(T,Fe,Nu).
+holdsAt(T,Fe,Bo) :- holds(T,Fe,Bo).
+
+#hide.
+#show holdsAt/3.
+#show occurs/3.

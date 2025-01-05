@@ -1,0 +1,85 @@
+%%% CHANGING POSITION %%%
+
+
+%inertial and unique value axioms
+-occlude(T+1,accessible(P,P1)) & T < maxstep ->
+![B]:(holds(T+1,accessible(P,P1),B) <-> holds(T,accessible(P,P1),B)).
+
+1{holds(T,accessible(P,P1),Bo):bool(Bo)}1.
+
+%#dep forall position, position1, t [[t] neighbor(position,position1) &
+%!exists gate [sides(position,position1,gate) & !opened(gate)] ->
+%	R([t] accessible(position,position1))]
+
+%#dom forall position,position1,t [[t] accessible(position,position1) ->
+%	[t] neighbor(position,position1) & 
+%	!exists gate [sides(position,position1,gate) & !opened(gate)] ]
+
+neighbor(P,P1) & -?[G]: (sides(P,P1,G) & holds(T,opened(G),false)) ->
+occlude(T,accessible(P,P1)) & holds(T,accessible(P,P1),true).
+
+-(holds(T,accessible(P,P1),true) & 
+  (-neighbor(P,P1) | ?[G]: (sides(P,P1,G) & holds(T,opened(G),false)))).
+
+
+% In one unit of time, an animal can move to one of the posi-
+%  tions accessible from its present one, or stay in the posi-
+%  tion where it is.  Moves to non-accessible positions are 
+%  never possible (lmw)
+
+%#dom forall animal,position,position1,t [ ([t] pos(animal) == position) &
+%	([t+1] pos(animal) == position1) & position != position1 ->
+%	[t] accessible(position,position1) ]
+
+T < maxstep & holds(T,pos(A),P) & holds(T+1,pos(A),P1) & P != P1 ->
+holds(T,accessible(P,P1),true).
+
+
+% A concurrent move where animal A moves into a position at the 
+%  same time as animal B moves out of it, is only possible if 
+%  at least one of A and B is a small animal. (lmw)   
+%  Exceptions for (failed) mount actions and certain occurrences
+%  of throwOff -- when thrown human ends up where another large 
+%  animal was (see the first two propositions in '%%% ACTIONS %%%')
+
+%#dom forall animal, animal1, position, t [ 
+%([t] !(pos(animal) == position) & pos(animal1) == position) &
+%([t+1] pos(animal) == position & !(pos(animal1) == position)) -> 
+%[t] !large(animal) | !large(animal1) ]
+
+T < maxstep & -holds(T,pos(A),P) & holds(T,pos(A1),P) & 
+holds(T+1,pos(A),P) & -holds(T+1,pos(A1),P) -> 
+-large(A) | -large(A1).
+
+
+% Two large animals cannot pass through a gate at the same time
+% (neither in the same direction nor opposite directions) (lmw)
+
+%#dom forall animal, animal1, position, position1, gate, t [
+%([t] pos(animal) == position & pos(animal1) == position) &
+%([t+1] pos(animal) == position1 & pos(animal1) == position1) &
+%[t] sides(position,position1,gate) & animal != animal1 -> 
+%[t] !large(animal) | !large(animal1) ]
+
+T < maxstep & holds(T,pos(A),P) & holds(T,pos(A1),P) &
+holds(T+1,pos(A),P1) & holds(T+1,pos(A1),P1) & A != A1 &
+sides(P,P1,G) -> -large(A) | -large(A1).
+
+%#dom forall animal, animal1, position, position1, gate, t [
+%([t] pos(animal) == position & pos(animal1) == position1) &
+%([t+1] pos(animal) == position1 & pos(animal1) == position) &
+%[t] sides(position,position1,gate) & animal != animal1 -> 
+%[t] !large(animal) | !large(animal1) ]
+
+T < maxstep & holds(T,pos(A),P) & holds(T,pos(A1),P1) &
+holds(T+1,pos(A),P1) & holds(T+1,pos(A1),P) & A != A1 &
+sides(P,P1,G) -> -large(A) | -large(A1).
+
+% While a gate is closing, an animal cannot pass through it
+%#dom forall animal, gate, position, position1, t [
+%([t] pos(animal) == position) & ([t+1] pos(animal) == position1)
+%& [t] sides(position,position1,gate) & opened(gate) -> [t+1] opened(gate)]
+
+T < maxstep & holds(T,pos(A),P) & holds(T+1,pos(A),P1) & 
+sides(P,P1,G) & holds(T,opened(G),true) -> holds(T+1,opened(G),true).
+

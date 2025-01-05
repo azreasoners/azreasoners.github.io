@@ -1,0 +1,33 @@
+:- sorts
+name; coin.
+
+:- objects
+John, Mary :: name;
+penny, nickel, dime :: coin.
+
+:- constants
+owner(coin) :: inertialFluent(name+none);
+give(coin) :: exogenousAction;
+throw(coin) :: exogenousAction.
+
+:- variables
+C :: coin;
+C1 :: coin;
+C2 :: coin.
+
+give(C) causes owner(C)=John if owner(C)=Mary.
+give(C) causes owner(C)=Mary if owner(C)=John.
+throw(C) causes owner(C)=none.
+nonexecutable throw(C) if owner(C)=none.
+nonexecutable give(C) if owner(C)=none.
+
+
+noconcurrency.
+
+:- query
+label :: 1;
+maxstep :: 0..5;
+0: owner(C)=Mary;
+maxstep: [\/ C1 \/ C2 | owner(C1)=John & owner(C2)=John & -(C1=C2)];
+maxstep: [\/ C | -(owner(C)=John)];
+maxstep: -[\/ C | owner(C) = Mary].

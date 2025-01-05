@@ -1,0 +1,37 @@
+#titlebar {background-color:#eeeeee; border:1px dashed black; left:1%; padding:0.25em; position:absolute; top:1%; width:90%;}
+#directory {background-color:#eeeeee; border:1px solid black; left:1%; padding:0.25em; position:absolute; top:6.5em; width:15%;}
+#pagebody {background-color:#eeeeee; left:18%; padding:0.25em; position:absolute; top:6.5em; width:73%;}
+#maintitle {font-family:courier; font-size:xx-large; font-weight:bold; margin-bottom:0em; margin-top:0em;}
+
+.directoryList {margin:0em; padding-bottom:0em; padding-left:1em; padding-top:0em;}
+.directoryLink {font-family:sans-serif; font-size:large; font-weight:normal;}
+.exampleList {list-style-type:none; margin:0em; padding-bottom:0em; padding-left:1em; padding-top:0em;}
+.exampleListItem {padding-bottom:0.25em; padding-top:0.25em;}
+.footnote{color:#000000; font-family:serif; font-size:small; font-weight:normal;}
+.footnotetitle{color:#000000; font-family:sans-serif; font-size:small; font-weight:bold; margin-bottom:0.5em; margin-top:0.5em;}
+.header {color:#000000; font-family:sans-serif; font-weight:bold;}
+.quote {color:#000000; font-family:serif; font-size:medium; font-weight:normal; font-style:oblique; margin-left:3em;}
+.title {color:#000000; font-family:sans-serif; font-size:medium; font-weight:bold; margin-bottom:0.5em; margin-top:0.5em;}
+.bigtitle {color:#000000; font-family:sans-serif; font-size:x-large; font-weight:bold; margin-bottom:0.75em; margin-top:0.75em;}
+
+/* Body stuff */
+.text, .indented-text, .indented2-text, .indented3-text {color:#000000; font-family:serif; font-size:medium; font-weight:normal;}
+.note, .indented-note, .indented2-note, .indented3-note {color:#800000; font-style:italic;}
+.code, .indented-code, .indented2-code, .indented3-code {font-family:courier; font-size:medium; font-weight:normal}
+
+/* Indentation */
+.indented, .indented-text, .indented-table, .indented-code, .indented-note { margin-left:40px; }
+.indented2, .indented2-text, .indented2-table, .indented2-code, .indented2-note { margin-left:80px; }
+.indented3, .indented3-text, .indented3-table, .indented3-code, .indented3-note { margin-left:120px; }
+
+/* Tables */
+.table, .indented-table, .indented2-table, .indented3-table { border: 1px solid black; border-collapse:collapse; }
+.table th, .indented-table th, .indented2-table th, .indented3-table th { text-align:center; border: 1px solid black; background:#FFC266; }
+.table td, .indented-table td, .indented2-table td, .indented3-table td { text-align:center; border: 1px solid black; }
+
+
+/* Links */
+a:link {color:#339933;}
+a:visited {color:#333399;}
+a:hover {color:#33CC66;}
+body {background-image:url("./nodeGraphBG.jpg")}

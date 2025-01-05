@@ -1,0 +1,187 @@
+%%% ACTIONS %%%
+
+
+% unique value axioms for throwOff
+1{holds(T,throwOff(A,H),Bo):bool(Bo)}1.
+
+%#dep forall animal,human,t [t <= $maxocc -> X([t] throwOff(animal,human))]
+occlude(T,throwOff(A,H)).
+
+
+% Action #1 is executed by animal #2
+%  doneBy(#1,#2) ->
+%    ([\/P | #1==move(#2,P)] ++
+%     [\/G | #1==open(#2,G) ++ #1==close(#2,G)] ++
+%     [\/ANML | #1==mount(#2,ANML)] ++
+%     [\/ANML \/P | #1==getOff(#2,ANML,P)] ++
+%     [\/H | #1==throwOff(#2,H)]).
+
+
+
+% A failed mount is not subject to the usual, rather strict, 
+%  movement restriction on large animals
+%mount(H,ANML) causes ab(H).
+
+% If the position a large human is thrown into was previously 
+%  occupied by another large animal, the usual movement restric-
+%  tion doesn't apply
+%throwOff(ANML,H) causes ab(H).
+
+% Every animal can execute only one action at a time
+%nonexecutable A & A1 if doneBy(A,ANML1) & doneBy(A1,ANML1) 
+%                                              where A@<A1. 
+
+% Direct effect of move action
+%#acs [t1,t2] move(animal,position) -> ([t1] !(pos(animal) == position) & 
+%		!exists human, animal1 [ human = animal & mounted(human,animal1) ] ->
+%		R((t1,t2] pos(animal) == position))
+
+occurs(T1,T2,move(A,P)) ->
+(-holds(T1,pos(A),P) & -?[H,A1]: (H = A & holds(T1,mounted(H,A1),true)) 
+-> ![T]:(T > T1 & T <= T2 -> occlude(T,pos(A))) & holds(T2,pos(A),P)).
+
+
+% Effect of opening a gate
+%#acs [t1,t2] open(human,gate) -> ([t1] (pos(human) == side1(gate) | pos(human) == side2(gate))
+%		& !exists animal [mounted(human,animal)] & !opened(gate) ->
+%		R((t1,t2] opened(gate)))
+occurs(T1,T2,open(H,G)) -> 
+( holds(T1,pos(H),P) & (side1(G,P) | side2(G,P)) &
+  -?[A]: holds(T1,mounted(H,A),true) & -holds(T1,opened(G),true)
+-> ![T]:(T > T1 & T <= T2 -> occlude(T,opened(G))) & holds(T2,opened(G),true)).
+
+
+
+% Effect of closing a gate
+%#acs [t1,t2] close(human,gate) -> ([t1] (pos(human) == side1(gate) | 
+%					 pos(human) == side2(gate))
+%		& !exists animal [mounted(human,animal)] & opened(gate) ->
+%		R((t1,t2] !opened(gate)))
+occurs(T1,T2,close(H,G)) -> 
+( holds(T1,pos(H),P) & (side1(G,P) | side2(G,P)) &
+  -?[A]: holds(T1,mounted(H,A),true) & holds(T1,opened(G),true)
+-> ![T]:(T > T1 & T <= T2 -> occlude(T,opened(G))) & holds(T2,opened(G),false)).
+
+
+% When a human rides an animal, his position is the same as the 
+%  animal's position while the animal moves (lmw)
+
+%#dep forall human, animal, position, t [ t <= $maxocc & [t] mounted(human,animal) & pos(animal) == position
+%		-> R([t] pos(human) == position) ]
+
+holds(T,mounted(H,A),true) & holds(T,pos(A),P) -> 
+occlude(T,pos(H)) & holds(T,pos(H),P).
+
+
+
+% If a human tries to mount an animal that doesn't change posi-
+%  tion, mounting is successful
+
+%#acs [t1,t2] mount(human,animal) ->
+%(!exists position [ ([t1] pos(animal) == position)  & ([t2] !(pos(animal) == position)) ] &
+% [t1] !exists animal1 [ mounted(human,animal1) ] &
+% large(animal) & 
+% !exists animal1,human1 [large(animal1) & human = animal1 & animal = human1] &
+% !exists human1 [mounted(human1,animal)] &
+% !exists human1,animal1 [mounted(human1,animal1) & animal1 = human] &
+% !exists human1,animal1 [mounted(human1,animal1) & animal = human1] ->
+%	R((t1,t2] mounted(human,animal))) &
+%(exists position [ ([t1] pos(animal) == position)  & ([t2] !(pos(animal) == position)) ]
+%	-> R((t1,t2] pos(human) == value(t1,pos(animal))))
+
+occurs(T1,T2,mount(H,A)) ->
+( -?[P]: (holds(T1,pos(A),P) & -holds(T2,pos(A),P)) &
+  -?[A1]: holds(T1,mounted(H,A1),true) & 
+  large(A) &
+  -?[A1,H1]: (large(A1) & H = A1 & H1 = A) &
+  -?[H1]: holds(T1,mounted(H1,A),true) &
+  -?[H1,A1]: (holds(T1,mounted(H1,A1),true) & A1 = H) &
+  -?[H1,A1]: (holds(T1,mounted(H1,A1),true) & A = H1)
+-> ![T]:(T > T1 & T <= T2 -> occlude(T,mounted(H,A))) & holds(T2,mounted(H,A),true)).
+
+
+% action fails if it moves
+%#acs [t1,t2] mount(human,animal) ->
+%(exists position [ ([t1] pos(animal) == position)  & ([t2] !(pos(animal) == position)) ]
+%	-> R((t1,t2] pos(human) == value(t1,pos(animal))))
+occurs(T1,T2,mount(H,A)) ->
+( holds(T1,pos(A),P) & -holds(T2,pos(A),P) 
+-> ![T]:(T > T1 & T <= T2 -> occlude(T,pos(H))) & holds(T2,pos(H),P)).
+
+
+% A human can only be mounted on a large animal
+%#dom forall human,animal,t [ [t] mounted(human,animal) -> [t] large(animal) ]
+-(holds(T,mounted(H,A),true) & -large(A)).
+
+% A large human cannot be mounted on a human
+%#dom forall human, human1,t [ [t] mounted(human,human1) -> [t] !large(human) ]
+holds(T,mounted(H,H1),true) -> -large(H).
+
+
+% An animal can be mounted by at most one human at a time
+%#dom forall human, human1, animal, t [[t] mounted(human,animal) & mounted(human1,animal) ->
+%		human = human1]
+holds(T,mounted(H,A),true) & holds(T,mounted(H1,A),true) -> H = H1.
+
+
+% A human cannot be mounted on a human who is mounted
+%#dom forall human, human1, animal, t [[t] !(mounted(human,human1) & mounted(human1,animal))]
+-(holds(T,mounted(H,H1),true) & holds(T,mounted(H1,A),true)).
+
+
+% The getOff action is successful provided that the animal does 
+%  not move at the same time.  It fails if the animal moves, and
+%  in this case the rider stays on the animal (lmw)
+
+%#acs [t1,t2] getOff(human,animal,position) ->
+%(!exists position1 [ ([t1] pos(animal) == position1)  & ([t2] !(pos(animal) == position1)) ] &
+% [t1] mounted(human,animal) & accessible(value(t1,pos(animal)),position) &
+% !throwOff(animal,human) ->
+%	R((t1,t2] pos(human) == position & !mounted(human,animal)))
+
+occurs(T1,T2,getOff(H,A,P)) ->
+( -?[P1]: (holds(T1,pos(A),P1) & -holds(T2,pos(A),P1)) &
+  holds(T1,mounted(H,A),true) & 
+  holds(T1,pos(A),P2) & holds(T1,accessible(P2,P),true) &
+  -holds(T1,throwOff(A,H),true) ->
+![T]: (T > T1 & T <= T2 -> occlude(T,pos(H)) & occlude(T,mounted(H,A))) &
+holds(T2,pos(H),P) & holds(T2,mounted(H,A),false) ).
+
+
+
+% The throwOff action results in the human no longer riding the 
+%  animal and ending in a position adjacent to the animal's 
+%  present position. It is nondeterministic since the rider may 
+%  end up in any position adjacent to the animal's present posi-
+%  tion (lmw)
+
+%#dep forall animal, human, t, position [t < $maxocc & [t] throwOff(animal,human) -> X([t+1] pos(human) == position)]
+%#dep forall animal, human, t [t < $maxocc & [t] throwOff(animal,human) -> R([t+1] !mounted(human,animal))]
+
+T < maxstep & holds(T,throwOff(A,H),true) -> 
+occlude(T+1,pos(H)) & occlude(T+1,mounted(H,A)) & holds(T+1,mounted(H,A),false).
+
+
+% If the resultant position is occupied by another large animal 
+%  then the human will result in riding that animal instead 
+%  (lmw)
+%#dep forall animal, animal1, human, t [t < $maxocc & animal1 != human & animal != animal1 & 
+%([t] throwOff(animal,human)) &
+%[t+1] pos(human) == pos(animal1) & large(animal1) ->
+%		R([t+1] mounted(human,animal1)) ]
+
+T < maxstep & holds(T,throwOff(A,H),true) & A1 != H & A1 != A &
+holds(T+1,pos(H),P) & holds(T+1,pos(A1),P) & large(A1) ->
+occlude(T+1,mounted(H,A1)) & holds(T+1,mounted(H,A1),true).
+
+
+% The action cannot be performed by an animal not ridden by a 
+%  human  (lmw)
+%#dom forall animal, human, t [[t] throwOff(animal,human) -> [t] mounted(human,animal)]
+holds(T,throwOff(A,H),true) -> holds(T,mounted(H,A),true).
+
+
+% remodeled this part: if they both occur at the same time, then
+% effect is effect of throwOff
+% The actions getOff and throwOff cannot be executed 
+%  concurrently

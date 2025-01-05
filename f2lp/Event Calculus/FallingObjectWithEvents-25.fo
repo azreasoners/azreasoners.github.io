@@ -1,0 +1,61 @@
+% FallingObjectWithEvents-25.fo
+
+time(0..maxstep).
+height(0..18).
+offset(1..18).
+
+agent(nathan).
+object(apple).
+
+#domain time(T).
+#domain height(H;H1;H2).
+#domain offset(Off).
+#domain agent(A).
+#domain object(Ob).
+
+fluent(falling(Ob);height(Ob,H)).
+
+event(drop(A,Ob);hitGround(Ob)).
+
+% Sigma
+
+initiates(drop(A,Ob),falling(Ob),T).
+
+releases(drop(A,Ob),height(Ob,H),T).
+
+terminates(hitGround(Ob),falling(Ob),T).
+
+holdsAt(height(Ob,H),T) ->
+initiates(hitGround(Ob),height(Ob,H),T).
+
+% Delta
+
+holdsAt(falling(Ob),T) &
+holdsAt(height(Ob,0),T) ->
+happens(hitGround(Ob),T).
+
+happens(drop(nathan,apple),18).
+
+% Psi
+
+holdsAt(height(Ob,H1),T) &
+holdsAt(height(Ob,H2),T) ->
+H1=H2.
+
+% Pi
+
+holdsAt(height(Ob,H1),T) &
+H2 = (H1 - Off) ->
+trajectory(falling(Ob),T,height(Ob,H2),Off).
+
+% Gamma
+
+-holdsAt(falling(apple),0).
+holdsAt(height(apple,3),18).
+
+-releasedAt(falling(Ob),0).
+
+-releasedAt(height(Ob,H),0).
+
+
+% End of file.

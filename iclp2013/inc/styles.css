@@ -1,0 +1,656 @@
+﻿@import url('WebFonts/Klavika/stylesheet.css');
+@import url('WebFonts/AvantGarde/stylesheet.css');
+@import url('WebFonts/Cuprum/stylesheet.css');
+
+body {
+	/*background-image:url(../files/images/layout/general/bg_tile.gif);
+	background-repeat:repeat-x;*/
+	background-color:#f4f4f4;
+	font-family: Arial, Helvetica, sans-serif;
+	line-height:18px;
+	font-size:13px;
+	color:#444;
+	margin: 0px;
+	width:100%;
+	height:100%;
+	text-align:left;
+}
+
+a {
+	color: #6b8090;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #879b3a;
+	text-decoration: none;
+}
+
+a img {
+	border: none;
+}
+
+form  {
+	margin: 0px;
+}
+
+
+.Title_01, h1{
+	font-size:47px;
+	color:#333333;
+	font-weight:bold;
+}
+	
+.Title_02, h2, .Title_06, .Title_07 {
+	font-size:23px;
+	color:#9bc94d;
+	font-weight:bold;
+	}
+
+.Title_03,
+.Title_05 {
+	font-size:20px;
+	color:#6b8090;
+}
+
+.Title_04 {
+	font-size:10px;
+	font-weight:bold;
+	color:#bbbbbb;
+	background-image:url(../files/images/layout/general/bg_MP_title.png);
+	background-repeat:repeat-x;
+	background-position:20px;
+	line-height:18px;
+	text-align:center;
+	margin-bottom:20px;
+}
+
+.Title_04 span {
+	padding:0px 15px; background-color:#F4F4F4;
+}
+
+.Title_05, .Title_06 {
+	font-size:60px!important;
+	/*font-weight:normal;*/
+}
+
+.Title_07 {
+	font-size:15px; color:#6b8090;
+}
+
+.ContentTitle {
+	margin-bottom:20px; padding-top:20px; background-image:url(../files/images/layout/general/bg_MP_title.png); background-repeat:repeat-x; background-position:top;
+}
+
+.Red {
+	color:#C00;
+}
+
+.Green {
+	color:#9bc94d;
+}
+
+.DarkGreen {
+	color:#738737;
+}
+
+.Blue {
+	color:#6b8090;
+}
+
+.DarkGrey {
+	color:#333333;
+}
+
+p {margin-top: 0px;}
+ul {margin-top:0px}
+
+ol.BoldNumbers li{
+	font-weight:normal;
+	padding-bottom:15px;
+	}
+	
+.clear{
+	clear:both;
+	}	
+
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.AvanGarde {
+	font-family: 'avant_garde_medium_btregular';
+}
+
+.AvantGarde-Italic {
+	font-family: 'avant_garde_medium_oblique_Rg';
+}
+
+.Cuprum{
+	font-family: 'CuprumFFURegular';
+	}	
+	
+.Klavika {
+	font-family: 'klavika_rgregular';
+}
+
+.Klavika-Italic {
+	font-family: 'klavika_rgitalic';
+}
+
+.Klavika-Bold {
+	font-family: 'klavika_bdbold';
+}
+
+.Klavika-Bold-Italic {
+	font-family: 'klavika_bdbold_italic';
+}
+
+.Klavika-Light {
+	font-family: 'klavika_ltregular';
+}
+
+.Klavika-Light-Italic {
+	font-family: 'klavika_ltitalic';
+}
+
+.Klavika-MD {
+	font-family: 'klavika_mdbold';
+}
+
+.Klavika-MD-Italic {
+	font-family: 'klavika_mdbold_italic';
+}
+
+/*-------- Layout Definition ------------------*/
+
+/*
+	HEADER STYLES
+*/
+
+/*------------- Slider Styles Begins ---------------------------------------*/
+#SliderContainer {
+	width:100%; height:380px; 
+}
+
+#SliderWrapper{
+	width:100%; 
+	height:380px;
+	/*overflow:hidden;*/
+	z-index:-1;  position:absolute;
+	}
+
+.SW-Image {
+	position:relative;
+    float:left;
+    height:100%;
+    overflow: hidden; background-size: cover;
+}
+
+#SliderContainer .Arrow {
+	width:22px;
+	height:22px;
+	background:url(../files/images/layout/general/slider_arrowB.png) no-repeat;
+	z-index:20;
+	top:320px;
+	display:block;
+	position:absolute;
+	margin-left:25px;
+	cursor:pointer;
+}
+/*------------- Slider Styles Ends ---------------------------------------*/
+
+/*------------- Header Styles Begins ---------------------------------------*/
+#TM-Container {
+	width:100%; background-color:#2d414e;
+}
+
+#TM-Wrapper {
+	width:960px; margin:auto; text-align:center;
+}
+
+#LR-Container {
+	width:100%; background-image:url(../files/images/layout/general/bg_logoRow_tile.gif); background-repeat:repeat-x; height:106px;
+}
+
+#LR-Wrapper {
+	width:940px; margin:auto; z-index:10;  padding-top:16px;
+}
+
+#Logo {
+	width:309px; height:168px; float:left; display:block; position:absolute; background-image:url(../files/images/layout/en/logo.png); background-repeat:no-repeat; cursor:pointer;
+}
+
+#Logo-Text {
+	width:630px; float:right; text-align:right; line-height:22px; margin-top:12px;
+}
+
+/*------------- Header Styles Ends ---------------------------------------*/
+
+/*------------- Header Styles Begins ---------------------------------------*/
+#Timeline {
+	height:130px; background-image:url(../files/images/layout/en/timeline.png); background-repeat:no-repeat; display:block; cursor:pointer; background-position:bottom; margin-bottom:20px;
+}
+
+#WelcomeMessage {
+	font-size:20px; color:#888888; text-align:left; margin-bottom:20px; line-height:25px; /*font-weight:600;*/
+}
+
+#WelcomeMessage ul {
+	margin:0px 20px 20px 20px; list-style:none; text-align:left; font-size:18px;
+}
+
+#WelcomeMessage li {
+	margin-bottom:20px;
+}
+
+#Sponsors {
+	margin-top:20px; text-align:center;
+}
+
+#Sponsors img {
+	width:152px; height:83px;
+}
+
+/*------------- Content --------------------------------------*/	
+#ContentContainer {
+	width:956px; margin:20px auto; padding:0px 2px;
+}
+
+#ContentWrapper {
+	min-height:400px; margin:30px 0px;
+}
+
+#Content {
+	width:740px; float:left; padding-right:15px; border-right:1px dashed #999999; min-height:300px;
+}
+
+#PageMenu {
+	width:200px; float:right;
+}
+
+.content {
+	font-family: Arial, Helvetica, sans-serif!Important;
+	font-size: 13px!Important;
+	color: #333!Important;
+}
+
+.addthis_toolbox{
+	font-size:11px;
+	}
+
+	
+ul.PageMenu{
+	margin:0px;
+	padding:0px;
+	}
+	
+ul.PageMenu li{
+	list-style:none;
+	font-size:13px;
+	}	
+	
+ul.PageMenu li a{
+	color:#2d414e;
+	display:block;
+	padding:5px;
+	padding-left:7px;
+	border-bottom:solid 1px #EEE;
+	margin-left:10px;
+	}
+	
+ul.PageMenu li a:hover{
+	color:#9bc94d;
+	background-color:#F7F7F7;
+	}	
+
+ul.PageMenu li.Active{
+	background-image:url(../files/images/layout/page_menu_active_arrow.html); 
+	background-position:left center;
+	background-repeat:no-repeat;
+	background-color:#EEE;	
+	}
+	
+ul.PageMenu li.Active a,
+ul.PageMenu li.Active a:hover{
+	color:#000;
+	background-color:#EEE;
+	}	
+
+.TransparentTextBox{
+	font-size:12px;
+	font-weight:normal;
+	color:#CCC;
+	border:none;
+	background-color:transparent;
+	width:100%;	
+	}
+
+/*----- Breadcrumbs --------------------------*/
+
+.BreadCrumbs , .BreadCrumbs a{
+	font-size: 11px;
+	color: #727272; padding-bottom:3px; text-align:left; margin-top:10px;
+}
+.BreadCrumbs a:hover {
+	color: #06C;
+	text-decoration: none;
+}
+
+
+
+
+/* Pager --------------------- */
+.Pager{
+	font-size:11px;
+	font-weight:normal;
+	color:#666;
+	padding-top:10px;
+	padding-left:7px;
+	margin-top:10px;
+	border-top:dotted 1px #DDD;
+	}
+
+.Pager a,
+.Pager	span.active{
+	padding:3px 6px;
+	margin:0px 3px 3px 0px;
+	background-color:#EEE;
+	color:#666;
+	text-decoration:none;
+	display:block;
+	float:left;
+	}
+	
+.Pager a:hover{
+	color:#FFF;
+	background-color:#fb6b01;
+	text-decoration:none;
+	}
+	
+.Pager span.active{
+	color:#FFF;
+	font-weight:bold;
+	background-color:#fba801;
+	}
+	
+.Pager-Active{
+	font-size:11px;
+	font-weight:normal;
+	color:#ffffff;
+	background-color:#fba801;
+	padding:6px;
+	padding-top:3px;
+	padding-bottom:3px;
+	margin-right:3px;
+	}
+	
+	
+	
+/*--------------- CATEGORY ITEMS ------------------------------------*/
+
+.CategoryPagesItem{
+	margin-bottom:25px;
+	font-size:12px;
+	}
+
+.CategoryPagesItem h3{
+	font-size:14px;
+	color:#333;
+	line-height:19px;
+	padding:2px;
+	padding-left:7px;
+	font-weight:bold;
+	display:block;
+	border-bottom:dotted 1px #cccccc;
+	margin-bottom:5px;
+	}
+
+.CategoryPagesItem h3 a{
+	color:#333;
+	text-decoration:none;
+	}
+
+.CategoryPagesItem h3 a:hover{
+	color:#09F;
+	}
+
+
+
+/*--------------- FOOTER ---------------------------------------------*/
+#FooterContainer {
+	background-color:#FFF; padding-top:2px; min-height:100px; padding-bottom:10px;
+}
+
+#FooterBorder {
+	height:1px; background-color:#666;
+}
+
+#FooterWrapper {
+	width:950px; margin:10px auto 0px auto;
+}
+
+.FooterSection {
+	padding:10px 10px; border-right:1px solid #666; text-align:left; float:left;
+}
+
+.FooterTitle {
+	font-size:12px; margin-bottom:10px; color:#4f4f4f;
+}
+
+.Footer{
+	font-size: 10px;
+	color: #535353;
+	line-height:12px; 
+	
+}
+.Footer a{
+	color:#898989;
+	text-decoration:none;
+	white-space:normal;
+	 }
+	 
+.Footer a:hover{
+	color:#06F;
+	}
+
+/*------ CONTENT STYLES -----------------------------*/	
+
+.button{
+	font-family: Arial, Helvetica, sans-serif;
+	background:url(../files/images/layout/btn_bg2.html) left top no-repeat;
+	display:block;
+	line-height:30px;
+	height:30px;
+	padding-left:10px;
+	color:#FFF;
+	font-size:15px;
+	text-align:center;
+	}	
+
+.button span{
+	display:block;
+	line-height:30px;
+	height:30px;
+	background:url(../files/images/layout/btn_bg2.html) right -30px no-repeat;
+	padding-right:10px;
+	}
+	
+.button:hover{
+	background-position:left -60px;	
+	color:#FFF;
+	}	
+	
+.button:hover span{
+	background-position:right -90px;	
+	}
+
+/*--------- Tour Page Styles -----------------------------------------*/
+
+.Tours {
+	margin-bottom:15px; padding-bottom:15px; border-bottom:1px dotted #666666;
+}
+
+.TourTitle {
+	background-color:#6b8090; padding:5px; line-height:18px; font-size:15px; color:#FFF; font-weight:bold; margin-bottom:5px;
+}
+
+.SecondTitle {
+	padding:5px; color:#333; line-height:18px; font-size:13px; border-bottom:1px solid #333; font-weight:bold; margin-bottom:10px;
+}
+
+.PictureContainer {
+	width:160px; margin-right:10px; text-align:center; float:left;
+}
+
+.TourDescription {
+	width:535px; float:right;
+}
+
+.Topics,
+.ArrowyList {
+	background-image:url(../files/images/layout/news_arrow_a.png); background-repeat:no-repeat; background-position:left 4px; padding-left:12px; font-size:17px; color:#36C; font-family:'FuturaLight'; margin-left:3px; margin-bottom:7px; font-weight:bold; letter-spacing:0,5px;
+}
+
+.ArrowyList {
+	color:#333;
+	font-size:15px;
+	font-family:'CuprumFFU';
+}
+
+.TopBtn {
+	text-align:right; margin-top:20px; background-image:url(../files/images/content/tours/btn_top.png); background-repeat:no-repeat; background-position:right; padding:3px 30px 3px 0px; font-size:14px; font-weight:bold; color:#3d4d65; text-transform:uppercase;
+}
+
+.TopBtn a {
+	text-decoration:none;
+}
+
+.TopBtn a:hover {
+	text-decoration:none;
+	color:#39F;
+}
+
+.Left_Column {
+	width:190px;
+	margin-right:20px;
+	float:left;
+}
+
+.Middle_Column {
+	width:480px;
+	float:left;
+}
+
+.Right_Column {
+	width:190px;
+	float:right;
+}
+
+/* Quicklinks Buttons ----------------------- */
+.Quicklink_Container {
+	width:220px;
+	margin-right:20px;
+	float:left;
+}
+
+a.Quicklinks {
+	display:block;
+	background:url(../files/images/layout/NumberStickers/01.html) no-repeat top left;
+	padding-left:50px;
+	margin-bottom:20px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+	color:#6b6a6a;
+}
+
+a.Quicklinks .Titles {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	color:#5c6591;
+	line-height:19px;
+}
+
+#easyhtml5video {
+	position:relative; width:320px; height:213px; float:left; background-image:url(../files/images/layout/general/video_mask.html); background-position:center top; background-repeat:no-repeat; padding:7px;
+}
+
+/*------------ Program Table Styles ------------*/
+
+.programtable {
+	width:100%;
+	padding: 0;
+	margin: 0px 0px 20px 0px;
+}
+
+.programtable th {
+	font-size:13px;
+	font-weight:bold;
+	color: #FFF;
+	border-right: 1px solid #41525d;
+	border-bottom: 1px solid #41525d;
+	border-top: 1px solid #41525d;
+	padding: 6px;
+	text-align:center;
+	vertical-align:top;
+	background-color: #6b8090;
+}
+
+.programtable th.nobg {
+	border-top: 0;
+	border-left: 0;
+	border-right: 1px solid #41525d;
+	background: none;
+	vertical-align:top;
+}
+
+.programtable td {
+	border-right: 1px solid #41525d;
+	border-bottom: 1px solid #41525d;
+	background: #fff;
+	padding:3px;
+	font-size:13px;
+}
+
+.programtable td.alt {
+	background: #F5FAFA;
+	color: #3d4d65;
+	font-weight:bold;
+	text-align:center;
+}
+
+.programtable td.Date {
+	text-align:center; background-color:#313131; padding:8px 0px; color:#FFF; font-weight:bold; font-size:13px; text-transform:uppercase;
+}
+
+.programtable th.spec {
+	border-left: 1px solid #41525d;
+	border-top: 0;
+	background: #fff url(../files/images/content/program/bullet1.html) no-repeat;
+	font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color:#3d4d65;
+	width:80px;
+}
+
+.programtable th.specalt {
+	border-left: 1px solid #41525d;
+	border-top: 0;
+	background-color: #edeeef;
+	font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
+	color: #3d4d65;
+	text-align:left;
+}
+
+#InvSpeakers-Container {
+	width:160px; float:right; margin-top:40px; text-align:center;
+}
+
+#InvSpeakers-Title {
+	border-bottom:1px dashed #999999; margin-bottom:10px;
+}
+
+#InvSpeakers {
+	width:154px; margin-left:5px;
+}

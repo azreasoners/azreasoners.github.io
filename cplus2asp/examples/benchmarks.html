@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+  -
+  - Copyright (c) 2010-2013 <Joseph Babb, Michael Cassollary, Joohyung Lee>
+  -
+  - For information on how to contact the authors, please visit
+  -      /Cplus2ASP
+  -
+  - This file is part of the Cplus2ASP system.
+  -
+  - Cplus2ASP is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License as published by
+  - the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - Cplus2ASP is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<title>Cplus2ASP v3.1- Benchmarks</title> <!-- TODO: Set title -->
+<link rel="stylesheet" type="text/css" href="/cplus2asp/cplus2aspstyle.css">
+<style media="screen" type="text/css">
+.coloredTable {
+	border: 1px solid black;
+	border-collapse:collapse;
+}
+
+.coloredTable th {
+	padding-right:10px;
+	text-align:center;
+	padding-left:10px;
+	border: 1px solid black;
+	background:#FFC266;
+}
+
+.coloredTable td {
+	padding-right:10px;
+	text-align:center;
+	padding-left:10px;
+	border: 1px solid black;
+}
+
+.bad {
+	color:#DF0101;
+}
+
+</style>
+</head>
+<body>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Header / Navigation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP v3.1</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="/cplus2asp/index.html" class="directoryLink" title="Back to Index">Home</a></li>
+</ul>
+
+<hr>
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="/cplus2asp/release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+<li><a href="/cplus2asp/obtaining_cplus2asp.html" class="directoryLink" title="Obtaining Cplus2ASP">Obtaining Cplus2ASP</a></li>
+<li><a href="/cplus2asp/installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="/cplus2asp/running_cplus2asp.html" class="directoryLink" title="Running Cplus2ASP">Running Cplus2ASP</a></li>
+<li><a href="/cplus2asp/cplus2asp_programs.html" class="directoryLink" title="Cplus2ASP Programs">Cplus2ASP Programs</a></li>
+</ul>
+
+<hr />
+<p class="title">Examples and Features:</p>
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./benchmarks.html" class="directoryLink" title="Cplus2ASP Benchmarking Results">Benchmarks</a></li>
+<li><a href="./lua.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using LUA</a></li>
+<li><a href="./python.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Python</a></li>
+<li><a href="./config.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Config file</a></li>
+<li><a href="./bc.html" class="directoryLink" title="Using the Language BC">Language BC</a></li>
+<li><a href="./reactive.html" class="directoryLink" title="Using Reactive Mode">Reactive Mode</a></li>
+</ul>
+
+
+<hr>
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+<li><a href="../../cplus2asp_old/index.html" class="directoryLink" title="Cplsu2asp v3.0">Cplus2asp v3.0</a></li>
+</ul>
+<p></p>
+</div>
+
+<div id="pagebody">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Body ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<h2>Cplus2ASP v3 Benchmarking Results</h2> <!-- TODO: Set Title -->
+
+<p class="text">
+	In order to test the performance of the Cplus2ASP v2 system, we compared its performance to its predecessors,
+	Cplus2ASP v1 and CCALC 2, as well as <a href="http://www.cs.uni-potsdam.de/wv/coala">COALA</a>, a similar system
+	which implements a subset of the language C+ (C_taid) as well as the language B. 
+</p>
+
+<p class="text">
+	We used a number of large domain variants, including the Traffic World, Spacecraft Integer,  Towers of Hanoi,
+	and Ferryman domains in order to perform the tests. Each test was run on an Intel Core 2 Duo 3.0 GHZ CPU with
+	4 GB of RAM running Ubuntu 11.10. The CCALC 2 tests used Relsat 2.0 as a SAT solver, while the others used the
+	Clingo 3.0.5 suite as an ASP grounder/solver. All tests were directed to find the minimum the length plan
+	satisfying a set of goals.
+</p>
+
+<p class="text">
+	The table below details the results of the benchmarks and provides the files used for each benchmark (as well
+	as a trace of the benchmark output) and graph displaying the amount of time taken per step on each system. #
+	indicates the length of the minimum length plan.
+</p>
+
+<center>
+<table class="coloredTable">
+<tbody><tr> 
+	<th rowspan="2">Domain</th>
+	<th rowspan="2">Files</th>
+	<th rowspan="2">#</th>
+	<th rowspan="2">CCalc 2</th>
+	<th rowspan="2">Cplus2ASP v1</th>
+	<th colspan="2">COALA </th>
+	<th colspan="2">Cplus2ASP v2</th>
+</tr>
+<tr> 
+	<th>static</th>
+	<th>incr.</th>
+	<th>static</th>
+	<th>incr.</th>
+</tr>
+<tr> 
+	<td>traffic (altmerge)</td> 
+	<td><a href="files/benchmarks/traffic-bench.tar.gz">link</a></td>
+	<td>11</td>
+	<td>889.92s</td>
+	<td>121.63s</td>
+	<td class="bad">n/a</td>
+	<td class="bad">n/a</td>
+	<td>108.73s</td>
+	<td>16.89</td>
+</tr>
+<tr> 
+	<td>blocks-cost (15)</td> 
+	<td><a href="files/benchmarks/blocks-bench-15.tar.gz">link</a></td>
+	<td>8</td>
+	<td>222.8s</td>
+	<td>77.19s</td>
+	<td class="bad">n/a</td>
+	<td class="bad">n/a</td>
+	<td>20.45s</td>
+	<td>3.55s</td>
+</tr>
+<tr> 
+	<td>blocks-cost (20)</td> 
+	<td><a href="files/benchmarks/blocks-bench-20.tar.gz">link</a></td>
+	<td>9</td>
+	<td>2289.7s</td>
+	<td>280.7s</td>
+	<td class="bad">n/a</td>
+	<td class="bad">n/a</td>
+	<td>122.85s</td>
+	<td>16.74s</td>
+</tr>
+<tr> 
+	<td>spacecraft (15/8)</td> 
+	<td><a href="files/benchmarks/spacecraft-15-8-bench.tar.gz">link</a></td>
+	<td>3</td>
+	<td>160.11s</td>
+	<td>18.72s</td>
+	<td class="bad">n/a</td>
+	<td class="bad">n/a</td>
+	<td>5.63s</td>
+	<td>2.35s</td>
+</tr>
+<tr> 
+	<td>spacecraft (25/10)</td> 
+	<td><a href="files/benchmarks/spacecraft-25-10-bench.tar.gz">link</a></td>
+	<td>4</td>
+	<td class="bad">timeout</td>
+	<td>688.44s</td>
+	<td class="bad">n/a</td>
+	<td class="bad">n/a</td>
+	<td>70.97s</td>
+	<td>17.87s</td>
+</tr>
+<tr> 
+	<td>hanoi (6/3)</td> 
+	<td><a href="files/benchmarks/hanoi-6-3-bench.tar.gz">link</a></td>
+	<td>64</td>
+	<td>1997.33s</td>
+	<td>176.17s</td>
+	<td>1546.27s</td>
+	<td>52.74s</td>
+	<td>595.43s</td>
+	<td>4.32s</td>
+</tr>
+<tr> 
+	<td>hanoi (8/4)</td> 
+	<td><a href="files/benchmarks/hanoi-8-4-bench.tar.gz">link</a></td>
+	<td>33</td>
+	<td class="bad">timeout</td>
+	<td>133.88s</td>
+	<td>3321.89s</td>
+	<td>471.89s</td>
+	<td>192.17s</td>
+	<td>15.93s</td>
+</tr>
+<tr> 
+	<td>ferryman (10/4)</td> 
+	<td><a href="files/benchmarks/ferryman-10-4-bench.tar.gz">link</a></td>
+	<td>33</td>
+	<td>39.45s</td>
+	<td>11.25s</td>
+	<td>49.56s</td>
+	<td>2.77s</td>
+	<td>23.96s</td>
+	<td>0.92s</td>
+</tr>
+<tr> 
+	<td>ferryman (15/4)</td> 
+	<td><a href="files/benchmarks/ferryman-15-4-bench.tar.gz">link</a></td>
+	<td>33</td>
+	<td>1004.26s</td>
+	<td>124.75s</td>
+	<td>962.31s</td>
+	<td>21.05s</td>
+	<td>352.8s</td>
+	<td>7.24s</td>
+</tr>
+</tbody></table>
+</center>
+
+
+<p class="text">
+	These results indicate a significant increase in performance between Cplus2ASP v2's incremental running mode
+	and Cplus2ASP v1 as well as 3x increase in performance between Cplus2ASP v2 and COALA. The primary advantages
+	Cplus2ASP has over COALA leading to the performance increase focus around the enhanced expressivity of the 
+	input language (resulting in a less verbose representation of domains) as well as a streamlined translation
+	with the use of F2LP and standard translation library files.
+</p>
+
+<br>
+<br>
+<br>
+<p class="title">Downloads:</p>
+<ul>
+<li> <a href="files/benchmarks/benchmarks.tar.gz">benchmarks.tar.gz</a></li>
+<li> <a href="files/benchmarks/traffic-bench.tar.gz">traffic-bench.tar.gz</a></li>
+<li> <a href="files/benchmarks/blocks-bench-15.tar.gz">blocks-bench-15.tar.gz</a></li>
+<li> <a href="files/benchmarks/blocks-bench-20.tar.gz">blocks-bench-20.tar.gz</a></li>
+<li> <a href="files/benchmarks/spacecraft-15-8-bench.tar.gz">spacecraft-15-8-bench.tar.gz</a></li>
+<li> <a href="files/benchmarks/spacecraft-25-10-bench.tar.gz">spacecraft-25-10-bench.tar.gz</a></li>
+<li> <a href="files/benchmarks/hanoi-6-3-bench.tar.gz">hanoi-6-3-bench.tar.gz</a></li>
+<li> <a href="files/benchmarks/hanoi-8-4-bench.tar.gz">hanoi-8-4-bench.tar.gz</a></li>
+<li> <a href="files/benchmarks/ferryman-10-4-bench.tar.gz">ferryman-10-4-bench.tar.gz</a></li>
+<li> <a href="files/benchmarks/ferryman-15-4-bench.tar.gz">ferryman-15-4-bench.tar.gz</a></li>
+</ul>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Copyright -->
+<hr>
+<center>
+<p class="footnote"> Copyright (C) 2010-2013 - Joseph Babb, Michael Cassolary, and Joohyung Lee. </p>
+<p class="footnote">{ jbabb1, Michael.Casolary, joolee } &lt;at&gt; asu &lt;dot&gt; edu.  </p>
+<p class="footnote"> This work was partially supported by the National Science Foundation under Grant IIS-0916116.</p>
+</center>
+</div>
+
+
+</body></html>

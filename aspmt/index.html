@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ASPMT2SMT</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="css/style_main.css"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css" />
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="navbar-wrapper">
+          <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid horizontal-content">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><p class="title-text">ASPMT2SMT</p></a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li class="active"><a href="index.html">Home</a></li>
+                  <li><a href="download.html">Downloads</a></li>
+                  <li><a href="tutorial.html">Tutorial</a></li>
+                  <li><a href="example.html">Examples</a></li>
+                  <!--<li><a href="reference.html">Reference</a></li>-->
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div>
+      </div>
+      <div id="content">
+        <div id="title-wrapper">
+          <div id="title" class="horizontal-content"><h1>ASPMT2SMT</h1><p>Computing ASPMT Theories using SMT Solvers</p></div>
+        </div>
+        <div id="other-content-wrapper" class="horizontal-wrapper">
+	  <div id="other-content" class="horizontal-content">
+            <div class="passage">
+              <p>System aspmt2smt is a prototype implementation of multi-valued propositional formulas under the stable model semantics computed by the SMT solver <a href="http://z3.codeplex.com/">Z3</a>. This reduction is based on the
+              theorem on completion which describes how to capture the non-monotonic semantics of ASPMT in classical logic. 
+
+			  The system is a toolchain that includes aspmt-compiler, f2lp, gringo, and z3.</p>
+              
+			  <p>The implementation first compiles the ASPMT theory into a first-order formula without functions. <a href="http://reasoning.eas.asu.edu/f2lp/index.html">F2lp</a> is used to turn these first-order formulas into normal logic programs. <a href="http://potassco.sourceforge.net/">Gringo</a> is then used to partially ground the logic program. The system then converts the logic program back into an ASPMT theory with functions that is now partially ground. Then, the system computes the completion of the partially ground ASPMT theory, eliminates any remaining variables resulting in a variable-free first order formula with function. Finally, <a href="http://z3.codeplex.com/">Z3</a> computes the classical models of this first-order formula, which correspond to the stable models of the original
+			  ASPMT theory.</p>
+			</div>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="copyright-wrapper" class="horizontal-wrapper">
+          <div id="site-map" class="horizontal-content">
+            <table id="site-map-table"><tr>
+              <td>
+                <p class="site-map-heading">Contact Information</p>
+                <p>Joohyung Lee, Michael Bartholomew</p>
+                <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                <p>Email: joolee (at) asu.edu, mjbartho (at) asu.edu</p>
+              </td>
+            </tr></table>
+          </div>
+          <div id="copyright" class="horizontal-content">
+            <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-arrow-up"></span> Back to top</a></p>
+            <p>&copy; 2014</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

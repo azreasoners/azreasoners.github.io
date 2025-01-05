@@ -1,0 +1,267 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+  -
+  - Copyright (c) 2010-2013 <Joseph Babb, Michael Cassollary, Joohyung Lee>
+  -
+  - For information on how to contact the authors, please visit
+  -      http://reasoning.eas.asu.edu/Cplus2ASP
+  -
+  - This file is part of the Cplus2ASP system.
+  -
+  - Cplus2ASP is free software: you can redistribute it and/or modify
+  - it under the terms of the GNU General Public License as published by
+  - the Free Software Foundation, either version 3 of the License, or
+  - (at your option) any later version.
+  -
+  - Cplus2ASP is distributed in the hope that it will be useful,
+  - but WITHOUT ANY WARRANTY; without even the implied warranty of
+  - MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  - GNU General Public License for more details.
+  -
+  - You should have received a copy of the GNU General Public License
+  - along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<html>
+<head>
+<title>Cplus2ASP v3.1 - Examples</title>
+<link rel="stylesheet" type="text/css" href="../cplus2aspstyle.css" />
+
+<style media="screen" type="text/css">
+.indented-table {
+	margin-left:70px;
+	border: 1px solid black;
+	border-collapse:collapse;
+}
+
+.indented-table th {
+	padding-right:80px;
+	text-align:center;
+	border: 1px solid black;
+	background:#FFC266;
+}
+
+.indented-table td {
+	padding-right:80px;
+	border: 1px solid black;
+}
+
+</style>
+
+</head>
+<body>
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Header / Navigation ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<div id="titlebar">
+<p id="maintitle">Cplus2ASP v3.1</p>
+<p class="title">Translating and solving CCalc action descriptions using answer set solvers</p>
+</div>
+<div id="directory">
+<ul class="directoryList">
+<li><a href="../index.html" class="directoryLink" title="Back to Index">Home</a></li>
+</ul>
+<hr />
+<p class="title">Info and Guides:</p>
+<ul class="directoryList">
+<li><a href="../release_notes.html" class="directoryLink" title="Release and usage notes">Release Notes</a></li>
+<li><a href="../obtaining_cplus2asp.html" class="directoryLink" title="Obtaining Cplus2ASP">Obtaining Cplus2ASP</a></li>
+<li><a href="../installation.html" class="directoryLink" title="Installation instructions">Installation Instructions</a></li>
+<li><a href="../running_cplus2asp.html" class="directoryLink" title="Running Cplus2ASP">Running Cplus2ASP</a></li>
+<li><a href="../cplus2asp_programs.html" class="directoryLink" title="Cplus2ASP Programs">Cplus2ASP Programs</a></li>
+</ul>
+
+<hr />
+<p class="title">Examples and Features:</p>
+<ul class="directoryList">
+<li><a href="./index.html" class="directoryLink" title="Examples of using Cplus2ASP">Examples</a></li>
+<li><a href="./benchmarks.html" class="directoryLink" title="Cplus2ASP Benchmarking Results">Benchmarks</a></li>
+<li><a href="./lua.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using LUA</a></li>
+<li><a href="./python.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Python</a></li>
+<li><a href="./config.html" class="directoryLink" title="Using LUA with Cplus2ASP">Using Config file</a></li>
+<li><a href="./bc.html" class="directoryLink" title="Using the Language BC">Language BC</a></li>
+<li><a href="./reactive.html" class="directoryLink" title="Using Reactive Mode">Reactive Mode</a></li>
+</ul>
+
+
+
+<hr />
+<p class="title">Links:</p>
+<ul class="directoryList">
+<li><a href="http://reasoning.eas.asu.edu/f2lp/" class="directoryLink" title="F2LP Homepage">F2LP</a></li>
+<li><a href="http://potassco.sourceforge.net/" class="directoryLink" title="Potassco Homepage (gringo &amp; clasp)">Gringo &amp; Clasp</a></li>
+<li><a href="http://www.cs.utexas.edu/users/tag/cc/" class="directoryLink" title="CCalc Homepage">CCalc</a></li>
+<li><a href="../../cplus2asp_old/index.html" class="directoryLink" title="Cplsu2asp v3.0">Cplus2asp v3.0</a></li>
+</ul>
+</p>
+</div>
+
+<div id="pagebody">
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Body ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<h2>Examples</h2>
+
+<p class="text">
+	We used several examples as benchmarks of performance and analysis of the C+ to ASP translation framework.  
+	Listed below are a number of the sample domains, along with downloadable files for Cplus2ASP-compatible versions of each.
+</p>
+
+<p class="text">
+	A more complete set of examples can be downloaded at the bottom of the page and is also packaged with the Cplus2ASP source
+	code under the 'examples' sub-directory. 
+	(Please see the <a href="../obtaining_cplus2asp.html">Obtaining Cplus2ASP</a> page for details on obtaining the source files).
+</p>
+
+<h3>Examples from <a href="http://www.d.umn.edu/~hudson/papers/nmct.pdf">Nonmonotonic Causal Theories</a></h3>
+<p class="text">The simple examples from the paper &quot;Nonmonotonic Causal Theories&quot; serve as good baseline domains to verify the functionality of various aspects of the CCalc language.  Each covers different properties of causal logic, including associated syntax and constructs.</p>
+
+<br />
+<table class="indented-table">
+<tr> 
+	<th>Domain</th>
+	<th>Files</th> 
+</tr>
+<tr> 
+	<td>Going to Work</td> 
+	<td><a href="./files/nmct/going.cp" alt="going.cp" title="going.cp">going.cp</a></td>
+</tr>
+<tr> 
+	<td>Lifting the Table</td>
+	<td><a href="./files/nmct/lifting.cp" alt="lifting.cp" title="lifting.cp">lifting.cp</a></td>
+</tr>
+<tr>
+	<td>Monkey &amp; Bananas</td>
+	<td><a href="./files/nmct/monkey.cp" alt="monkey.cp" title="monkey.cp">monkey.cp</a></td>
+</tr>
+<tr>
+	<td>Pendulum</td>
+	<td><a href="./files/nmct/pendulum.cp" alt="pendulum.cp" title="pendulum.cp">pendulum.cp</a></td>
+</tr>
+<tr>
+	<td>Publishing Papers</td>
+	<td><a href="./files/nmct/publishing.cp" alt="publishing.cp" title="publishing.cp">publishing.cp</a></td>
+</tr>
+<tr>
+	<td>Shooting Turkeys</td>
+	<td><a href="./files/nmct/shooting.cp" alt="shooting.cp" title="shooting.cp">shooting.cp</a></td>
+</tr>
+</table>
+<br />
+<br />
+
+<h3>Zoo World and Traffic World</h3>
+<p class="note"> Note: The Zoo domain does not compile with Cplus2ASP v3/3.1 since not all features of the language are not currently implemented. </p>
+<p class="text">
+	The Zoo World and Traffic World are two non-trivial domains described by the paper 
+	<a href="http://www.cs.utexas.edu/users/vl/papers/zt.ps">&quot;Representing the Zoo World and the Traffic World in the Language of the Causal Calculator&quot;</a> 
+	which demonstrate the expressiveness of C+. From The paper:
+</p>
+
+<p class="quote">
+	&quot;The Zoo World consists of several cages and the exterior, gates between them, and animals of
+	several species, including humans. Actions in this domain include moving within and between cages,
+	opening and closing gates, and mounting and riding animals. The Traf?c World includes vehicles
+	moving continuously between road crossings subject to a number of restrictions, such as speed
+	limits and keeping a ?xed safety distance away from other vehicles on the road.&quot;
+</p>
+
+<br />
+<table class="indented-table">
+<tr> 
+	<th>Domain</th>
+	<th>Files</th> 
+</tr>
+<tr> 
+	<td>Traffic World</td> 
+	<td><a href="./files/traffic/traffic.tar.gz" alt="traffic.tar.gz" title="traffic.tar.gz">traffic.tar.gz</a></td>
+</tr>
+<tr> 
+	<td>Zoo World</td> 
+	<td><a href="./files/zoo/zoo.tar.gz" alt="zoo.tar.gz" title="zoo.tar.gz">zoo.tar.gz</a></td>
+</tr>
+</table>
+<br />
+<br />
+
+<h3>Additive Examples</h3>
+
+Additive Fluents are described by the paper
+<a href="http://peace.eas.asu.edu/joolee/papers/additive-ijcai.pdf">Describing Additive Fluents in Action Language C+.</a>
+and provide construct which allows the value in the next state to be the sum of all the affects in a transition. Below we
+provide a number of programs demonstrating the usage of additive fluents.
+
+<br />
+<br />
+<br />
+<table class="indented-table">
+<tr> 
+	<th>Domain</th>
+	<th>Files</th> 
+</tr>
+<tr> 
+	<td>Buying</td> 
+	<td>
+		<a href="./files/additive/buying.cp" alt="buying.cp" title="buying.cp">buying.cp</a>,
+		<a href="./files/additive/buying.query" alt="buying.query" title="buying.query">buying.query</a>
+	</td>
+</tr>
+<tr>
+	<td>Missionaries and Cannibals</td> 
+	<td>
+		<a href="./files/additive/mcp.cp" alt="mcp.cp" title="mcp.cp">mcp.cp</a>,
+		<a href="./files/additive/mcp.query" alt="mcp.query" title="mcp.query">mcp.query</a>
+	</td>
+</tr>
+<tr> 
+	<td>Blocks World w/ Cost</td> 
+	<td>
+		<a href="./files/additive/bw-cost.cp" alt="bw-cost.cp" title="bw-cost.cp">bw-cost.cp</a>,
+		<a href="./files/additive/bw-cost.query" alt="bw-cost.query" title="bw-cost.query">bw-cost.query</a>
+	</td>
+</tr>
+<tr> 
+	<td>Spacecraft Integer</td> 
+	<td>
+		<a href="./files/additive/spacecraft.cp" alt="spacecraft.cp" title="spacecraft.cp">spacecraft.cp</a>,
+		<a href="./files/additive/spacecraft.query" alt="spacecraft.query" title="spacecraft.query">spacecraft.query</a>
+	</td>
+</tr>
+</table>
+<br />
+<br />
+
+<h3>Lua Examples</h3>
+
+See the <a href="lua.html">Using LUA</a> page.
+
+
+<h3>Python Examples</h3>
+
+See the <a href="python.html">Using Python</a> page.
+
+<h3>BC Examples</h3>
+
+See the <a href="bc.html">Language BC</a> page.
+
+<p class="title">Downloads:</p>
+<ul>
+<li> <a href="./files/examples.tar.gz">example.tar.gz</a></li>
+<li> <a href="./files/nmct/nmct.tar.gz">nmct.tar.gz</a></li>
+<li> <a href="./files/additive/additive.tar.gz">additive.tar.gz</a></li>
+<li> <a href="./files/zoo/zoo.tar.gz">zoo.tar.gz</a></li>
+<li> <a href="./files/traffic/traffic.tar.gz">traffic.tar.gz</a></li>
+</ul>
+
+
+<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Page Footer ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+
+<!-- Copyright -->
+<hr />
+<center>
+<p class="footnote"> Copyright (C) 2010-2013 - Joseph Babb, Michael Cassolary, and Joohyung Lee. </p>
+<p class="footnote">&#123; jbabb1, Michael.Casolary, joolee &#125; &lt;at&gt; asu &lt;dot&gt; edu.  </p>
+<p class="footnote"> This work was partially supported by the National Science Foundation under Grant IIS-0916116.</p>
+</center>
+</div>
+</body>
+</html>

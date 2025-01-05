@@ -1,0 +1,4 @@
+AuthGroupFile /dev/null
+AuthName "protected"
+AuthType Basic
+AuthUserFile /home/joolee/domains/peace.eas.asu.edu/.htpasswd/public_html/joolee/teaching/459-s09/.htpasswd

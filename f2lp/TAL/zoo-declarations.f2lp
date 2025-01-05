@@ -1,0 +1,85 @@
+
+time(0..maxstep).
+#domain time(T). #domain time(T1). #domain time(T2).
+position(1..8).
+#domain position(P). #domain position(P1). #domain position(P2).
+location(outside).
+cage(cageA).
+#domain cage(C).
+location(C).
+#domain location(L). #domain location(L1). #domain location(L2).
+gate(gateA0).
+#domain gate(G). #domain gate(G1). #domain gate(G2).
+
+bool(true;false).
+#domain bool(B).
+
+value(P). value(L). value(G). value(B).
+#domain value(V). #domain value(V1). #domain value(V2).
+
+elephant(ele1). horse(hor1). dog(dog1).
+#domain elephant(El).
+#domain horse(Ho).
+#domain dog(Do).
+animal(El). animal(Ho). animal(Do).
+human(homer).
+#domain human(H). #domain human(H1). #domain human(H2).
+animal(H).
+#domain animal(A). #domain animal(A1). #domain animal(A2).
+
+species(elephantSpecies;horseSpecies;dogSpecies).
+species(humanSpecies).
+#domain species(S). #domain species(S1). #domain species(S2).
+
+
+largeSpecies(elephantSpecies). 
+largeSpecies(horseSpecies).
+largeSpecies(humanSpecies).
+
+adult(ele1). 
+adult(dog1).
+adult(hor1).
+adult(homer).
+
+sp(El,elephantSpecies).
+sp(Ho,horseSpecies).
+sp(Do,dogSpecies).
+sp(H,humanSpecies).
+
+
+%%% Scenario Landscape
+%   cageA  outside
+%   -------
+%  | 1  2 |  5  6 
+%  | 3  4 ao 7  8 
+%   -------
+%%%
+
+
+P <= 4 -> loc(P,cageA).
+P > 4 -> loc(P,outside).
+
+% The neighbor relation is symmetric (lmw)
+neighbor(P,P1) & P < P1 -> neighbor(P1,P).
+
+
+% Two positions in different locations are neighbors 
+%  if they are the sides of a gate 
+P < P1 & P1 <= 4 -> neighbor(P,P1).
+P < P1 & P > 4 -> neighbor(P,P1).
+neighbor(4,7).
+side1(gateA0,4). side2(gateA0,7).
+
+
+
+
+feature(pos(A)). 
+feature(mounted(H,A)).
+feature(accessible(P,P1)).
+feature(opened(G)).
+feature(throwOff(A,H)).
+#domain feature(F). #domain feature(F1). #domain feature(F2).
+
+action(move(A,P);open(H,G);close(H,G);mount(H,A);getOff(H,A,P)).
+#domain action(Ac). #domain action(Ac1). #domain action(Ac2).
+

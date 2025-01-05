@@ -1,0 +1,175 @@
+// A Planning Version of the Airplane Hijack Scenario
+// 
+// This scenario was suggested by Vladimir Lifschitz in the
+// ENAI discussions. It tests the distinction between a 
+// ramification constraint and a qualification constraint.
+// Things that are in your pocket are still in your pocket
+// as you travel from place to place. But if you have a 
+// gun in your pocket and try to get on a plane, the 
+// indirect effect that the gun follows with you should
+// instead behave as a qualification constraint to the plane
+// boarding action. 
+//
+
+// maximum time by which the plan needs to be achieved
+#maxocc 9
+
+
+#domain thing :elements {gun, comb1, comb2, comb3, agent, sas609}
+#domain location :elements {home1, office, airport, airport1, run609, destrun, air}
+#domain runway :parent location :elements {run609, destrun}
+#domain domesticLoc :parent location :elements {home1, office, airport}
+#domain airplane :parent thing :elements {sas609}
+#domain person :parent thing :elements {agent}
+#domain pthing :parent thing :elements {gun, [ comb1 .. comb3 ]}
+#domain pocket :elements {pocket1, pocket2, pocket3}
+
+#feature loc(thing) :domain location :hide
+#feature inpocket(person,pthing) :domain boolean :hide
+#feature poss_board(person,airplane) :domain boolean :durational true :hide
+#feature drunk(person) :domain boolean :hide
+#feature onplane(airplane,person) :domain boolean :hide
+
+// features representing actions
+#feature put(person, pthing, pocket) :domain boolean :showname
+#feature travel(person, domesticLoc, domesticLoc) :domain boolean :showname
+#feature fly(airplane, runway, runway) :domain boolean :showname
+#feature board(person, airplane) :domain boolean :showname
+
+#valuevar loc1, loc2, loc3 :domain location
+#valuevar dloc1, dloc2, dloc3, dloc4 :domain domesticLoc
+#valuevar pocketa, pocketb :domain pocket
+//valuevar person1 person, person2 person
+//valuevar pthing1 pthing, phting2 pthing
+
+//#domain int :integer :lb 1 :ub 10
+// minimum durations of different actions
+//#timeconst min_dur_put :min 1 :max 2 :parameter :default 1
+//#timeconst min_dur_travel :min 2 :max 3 :parameter :default 2
+//#timeconst min_dur_fly :min 6 :max 7 :parameter :default 6
+//#timeconst min_dur_board :min 1 :max 2 :parameter :default 1
+
+// takeoff times for the planes
+//#valueconst sas609_time :domain int :parameter :default 2 
+//#valueconst sas709_time :domain int :parameter :default 4 
+//#valueconst sas809_time :domain int :parameter :default 6 
+
+
+#obs [0] loc(agent) == office & !drunk(agent) & forall airplane [!onplane(airplane,agent)]
+#obs [0] loc(comb1) == home1 & loc(comb2) == home1 & loc(comb3) == home1 & loc(gun) == home1
+#obs [0] forall pthing [!inpocket(agent,pthing)]
+#obs [0] loc(sas609) == run609
+
+// Occlude all the features representing actions
+#dep forall t,person,pthing,pocket [ X([t] put(person,pthing,pocket)) ]
+#dep forall t,person,dloc1,dloc2 [ X([t] travel(person,dloc1,dloc2)) ]
+#dep forall t,airplane,runway1,runway2 [ X([t] fly(airplane,runway1,runway2)) ]
+#dep forall t,person,airplane [ X([t] board(person,airplane)) ]
+
+#dep forall t,person,pthing,pocket,t1 [ t+t1 <= $maxocc & t1 >= 1 & t1 <= 2 &
+		([t,t+1] put(person, pthing, pocket)) &
+		[t] loc(person) == loc(pthing) & !inpocket(person,pthing)->
+		R((t,t+1] inpocket(person, pthing)) ]
+
+#dep forall t,person,dloc1,dloc2,t1 [ t+t1 <= $maxocc & t1 >= 2 & t1 <= 4 &
+		([t,t+t1] travel(person, dloc1, dloc2)) &
+		[t] loc(person) == dloc1 ->
+		R((t,t+t1] loc(person) == dloc2) ]
+
+#dep forall t,person,airplane,t1 [ t+t1 <= $maxocc & t1 = 1 & 
+		([t,t+t1] board(person, airplane))  &
+		[t] poss_board(person, airplane) &
+		loc(person) == airport & loc(airplane) == run609 & !onplane(airplane,person) ->
+                R((t,t+t1] loc(person) == value(t+t1, loc(airplane)) & onplane(airplane, person)) ]
+
+
+#dep forall t,airplane,runway1,runway2,t1 [ t+t1 <= $maxocc & t1 >= 6 & t1 <= 10 &
+		([t,t+t1] fly(airplane, runway1, runway2)) & 
+		[t] loc(airplane) == runway1 ->
+		I((t,t+t1) loc(airplane) == air) & R([t+t1] loc(airplane) == runway2) ]
+
+// action preconditions
+//#dom forall t, person, pthing, pocket [ [t] put(person,pthing,pocket) -> 
+//		[t] loc(person) == loc(pthing) & !inpocket(person,pthing) ]
+
+//#dom forall t, person, dloc1, dloc2 [ [t] travel(person,dloc1,dloc2) ->
+//		[t] loc(person) == dloc1 ]
+
+//#dom forall t, person, airplane [ [t] board(person,airplane) ->
+//		[t] loc(person) == airport & loc(airplane) == run609 & !onplane(airplane,person) ]
+
+//#dom forall t, airplane, runway1, runway2 [ [t] fly(airplane,runway1,runway2) ->
+//		[t] loc(airplane) == runway1 ]
+
+
+// If a person has a gun, it is not possible for the person to board an airplane.
+#dep forall t, person [ t <= $maxocc & [t] inpocket(person, gun) -> I([t] forall airplane [ !poss_board(person, airplane) ])]  
+
+// If a person is drunk, it may or may not be possible for him to board an airplane.
+#dep forall t, person [ t <= $maxocc & [t] drunk(person) -> X([t] forall airplane [ !poss_board(person, airplane) ])]  
+
+// If an airplane moves, all persons on board the airplane move.
+#dep forall t, airplane, person, loc3 [ [t] onplane(airplane, person) & 
+	   Ct([t] loc(airplane) == loc3) -> R([t] loc(person) == value(t, loc(airplane)))]
+
+// If a person moves, all things in his pocket move.
+#dep forall t, person, pthing, loc3 [ [t] inpocket(person, pthing) & 
+	   Ct([t] loc(person) == loc3) -> R([t] loc(pthing) == value(t, loc(person)))]
+
+// One pthing can not be in two different pockets
+#dom forall t, pthing1, person1, person2 [!(person1 = person2) & [t] inpocket(person1, pthing1) ->
+	[t] !inpocket(person2, pthing1)]
+
+// One person can not be on board two different airplanes
+#dom forall t, person1, airplane1, airplane2 [!(airplane1 = airplane2) & [t] onplane(airplane1, person1) ->
+	[t] !onplane(airplane2, person1)]
+
+
+
+
+// person can do only one thing at a time
+#dom forall t,person,pthing,pocket,dloc1,dloc2,runway1,runway2,airplane [ [t] put(person, pthing, pocket) ->
+		[t] !travel(person,dloc1,dloc2) & [t] !board(person,airplane) & [t] !fly(airplane,runway1,runway2)]
+
+#dom forall t, person, pthing1, pthing2, pocketa, pocketb [ [t] put(person,pthing1,pocketa) & 
+		(!(pthing1 = pthing2) | !(pocketa = pocketb)) -> [t] !put(person,pthing2,pocketb) ]
+
+#dom forall t,person,pthing,pocket,dloc1,dloc2,runway1,runway2,airplane [ [t] travel(person,dloc1,dloc2) -> 
+		[t] !put(person, pthing, pocket) & [t] !board(person,airplane) & [t] !fly(airplane,runway1,runway2)]
+
+#dom forall t,person,dloc1,dloc2,dloc3,dloc4 [ [t] travel(person,dloc1,dloc2) & 
+		(!(dloc3 = dloc1) | !(dloc4 = dloc2)) -> [t] !travel(person,dloc3,dloc4) ]
+
+#dom forall t,person,pthing,pocket,dloc1,dloc2,runway1,runway2,airplane [ [t] board(person, airplane) ->
+		[t] !put(person, pthing, pocket) & [t] !travel(person,dloc1,dloc2) & 
+		[t] !fly(airplane,runway1,runway2) ]
+
+#dom forall t, person, airplane, airplane1 [ [t] board(person,airplane) & 
+		!(airplane = airplane1) -> [t] !board(person,airplane1) ]
+
+#dom forall t,person,pthing,pocket,dloc1,dloc2,runway1,runway2,airplane [ [t] fly(airplane,runway1,runway2) ->
+		[t] !travel(person,dloc1,dloc2) & [t] !put(person, pthing, pocket) & [t] !board(person,airplane)]
+
+#dom forall t,airplane,runway1,runway2,runway3,runway4 [ [t] fly(airplane,runway1,runway2) &
+		(!(runway1 = runway3) | !(runway2 = runway4)) -> [t] !fly(airplane,runway3,runway4) ]
+
+
+// lower and upper bounds  on the duration of actions
+//#dom forall t,t1,person,pthing,pocket [ ([t,t+t1] put(person,pthing,pocket)) -> 
+//t+t1 <= $maxocc & t1 >= 1 ]
+
+//#dom forall t,t1,person,dloc1,dloc2 [ ([t,t+t1] travel(person,dloc1,dloc2)) ->
+//t+t1 <= $maxocc & t1 >= 2 ]
+
+//#dom forall t,t1,person,airplane [ ([t,t+t1] board(person,airplane)) ->
+//t+t1 <= $maxocc & t1 = 1 ]
+
+//#dom forall t,t1,airplane,runway1,runway2 [ ([t,t+t1] fly(airplane,runway1,runway2)) ->
+//t+t1 <= $maxocc & t1 >= 6 & t1 <= 10 ]
+
+// goal
+//#dom [$maxocc] loc(agent) == destrun & inpocket(agent,comb1) & inpocket(agent,comb2) & inpocket(agent,comb3)
+#dom [$maxocc] onplane(sas609,agent) & inpocket(agent,comb1)
+//#dom [$maxocc] onplane(sas609,agent)
+//#dom [0,2] travel(agent,office,home1)
+//#dom [3,4] put(agent,comb1,pocket1)

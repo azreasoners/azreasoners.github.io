@@ -1,0 +1,13 @@
+User-agent: *
+Disallow: /docs/
+Disallow: /img/
+Disallow: /js/
+Disallow: /fonts/
+Disallow: /ajax/
+Disallow: /downloads/
+Disallow: /materiale/
+Disallow: /pages/
+disallow: /*.css$ 
+disallow: /*.txt$ 
+disallow: /*.jpg$ 
+disallow: /pages/page_credits.php

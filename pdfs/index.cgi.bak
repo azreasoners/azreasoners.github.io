@@ -1,0 +1,38 @@
+#!/perl/bin/perl.exe
+
+# Log some information and then display the home page.
+
+# Set the real user ID to the effective user ID.
+$< = $>;
+
+# For safety, set these environment variables.
+$ENV{'SHELL'} = '/bin/sh' if $ENV{'SHELL'} ne '';
+$ENV{'IFS'} = '' if $ENV{'IFS'} ne '';
+$ENV{'PATH'} = '/bin:/usr/bin:/usr/local/bin:/lusr/bin';
+
+# convert host address to a hostname.
+$host = $ENV{'REMOTE_ADDR'};
+($a, $b, $c, $d) = split(/\./, $host);
+$ad = pack('C4', $a, $b, $c, $d);
+($name, $aliases, $addrtype, $length, @addrs) = gethostbyaddr($ad,2);
+
+open (LOG, ">>visitors");
+if ($name eq "") {
+  print LOG $host, "\t", $ENV{HTTP_REFERER}, "\t", $loc, "\t", `date`;
+} else {
+  print LOG $name, "\t", $ENV{HTTP_REFERER}, "\t", $loc, "\t", `date`;
+}
+close (LOG);
+
+print <<"EOT";
+Content-type: text/html
+
+EOT
+
+open (WELCOME, "../papers.html");
+while (<WELCOME>) {
+  print;
+}
+
+close (WELCOME);
+

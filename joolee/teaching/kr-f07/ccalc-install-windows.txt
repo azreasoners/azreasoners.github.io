@@ -1,0 +1,40 @@
+Installing CCalc on Windows
+===========================
+
+1. Download and install Cygwin: www.cygwin.com
+
+2. Download the pre-compiled version of SWI Prolog (for 32bit Windows)
+   "pl.exe.rename" from 
+
+     http://peace.eas.asu.edu/joolee/teaching/kr-f07/pl.exe.rename
+
+   and store it into c:\cygwin\usr\bin (assuming cygwin is installed
+   under c:\cygwin). Rename the file as "pl.exe".
+
+3. Download ccalc.zip file from 
+
+     http://peace.eas.asu.edu/joolee/teaching/kr-f07/ccalc.zip , 
+
+   and store it in a CCalc directory (e.g., c:\ccalc).
+
+4. Unzip the file. 
+
+5. Type "chmod -R 755 *" in the CCalc directory.
+
+(In step 2, alternatively, one can download and install SWI-Prolog
+ from the source code.)
+    
+
+Running CCalc on Windows
+===========================
+
+1. Open a Cygwin shell; cd to CCalc directory.
+
+2. Type "pl" <enter> in the command line.
+
+3. Type "[ccalc]" <enter>
+
+4. Type "loadf <file_name>" <enter> to load a CCalc input file.
+
+
+

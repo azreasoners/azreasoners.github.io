@@ -1,0 +1,41 @@
+% File 'zoo-example' : specific landscape
+
+% landscape specific to a scenario
+% The number of positions, locations, gates may be different among scenarios.
+
+
+%#obs [0] pos(e1) == 1 & pos(h1) == 4 & pos(d1) == 8 & !opened(gateA0)
+%//#obs [0] pos(homer) == 7
+%//#obs [0] mounted(homer,e1)
+%//#occ [0,1] getOff(homer,e1,2)
+%//#dom [1] throwOff(e1,homer)
+%#occ [0,1] open(homer,gateA0)
+%//#occ [1,2] move(homer,5)
+%//#occ [2,3] move(e1,7)
+%#occ [4,5] mount(homer,h1)
+%#occ [6,7] getOff(homer,h1,2)
+%#occ [8,9] mount(homer,e1)
+
+%//#dom [11] throwOff(e1,homer)
+%#dom forall t [t = $maxocc -> [t] opened(gateA0)]
+%//#dom forall t [t = $maxocc -> [t] pos(homer) == 1]
+%//#dom [20] pos(homer) == 2
+
+
+holds(0,pos(ele1),1). holds(0,pos(hor1),4). holds(0,pos(dog1),8).
+holds(0,opened(gateA0),false).
+occurs(0,1,open(homer,gateA0)).
+occurs(4,5,mount(homer,hor1)).
+occurs(6,7,getOff(homer,hor1,2)).
+occurs(8,9,mount(homer,ele1)).
+occurs(10,11,move(ele1,3)).
+occurs(11,12,move(hor1,2)).
+occurs(14,15,move(ele1,4)).
+occurs(15,16,move(ele1,7)).
+%holds(maxstep,opened(gateA0),true).
+holds(maxstep,pos(ele1),7).
+
+-?[P,P1]:(F = accessible(P,P1)) & holds(T,F,true) -> holdsAt(T,F,true).
+holds(T,F,P) -> holdsAt(T,F,P).
+#hide.
+#show holdsAt/3.

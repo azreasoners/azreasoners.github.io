@@ -1,0 +1,28 @@
+body { 
+	background: white; 
+	font-size: 12pt; 
+	color:black;
+}
+	
+#footer,#intro,#menu,#page_right,.btn,.navbar,#right_column,#pagetop,#topmenu,#mybtn{ 
+	display: none; 
+}
+	
+#page
+{
+	margin:0px;
+	padding:0px;
+	width:auto;
+	border:0;
+}
+
+h1
+{
+	margin-top:50px;
+}
+
+.centered
+{
+	text-align:left;
+}
+

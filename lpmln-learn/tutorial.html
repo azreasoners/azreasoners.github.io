@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>XACML2ASP</title>
+  </head>
+  <link rel="stylesheet" type="text/css" href="css/style_main.css"/>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css" />
+  <body>
+    <div id="container">
+      <div id="header">
+        <div id="navbar-wrapper">
+          <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container-fluid horizontal-content">
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><p class="title-text">XACML2ASP</p></a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li><a href="index.html">Home</a></li>
+                  <!--<li><a href="#">Download</a></li>-->
+                  <li class="active"><a href="tutorial.html">Tutorial</a></li>
+                  <li><a href="example.html">Example</a></li>
+                  <li><a href="reference.html">Reference</a></li>
+                </ul>
+              </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+          </nav>
+        </div>
+      </div>
+      <div id="content">
+        <div id="title-wrapper">
+          <div id="title" class="horizontal-content"><h1>Tutorial</h1><p>Automated XACML 3.0 Policy Reasoning based on Answer Set Programming</p></div>
+        </div>
+        <div id="other-content-wrapper" class="horizontal-wrapper">
+	  <div id="other-content" class="horizontal-content">
+            <div class="passage">
+              <div id="toc">
+                <h3>Table of Content</h3>
+                <ul>
+                  <li><a href="#write_xacml_description">Write a policy description in XACML 3.0</a></li>
+                  <li><a href="#turn_into_asp_facts">Translate an XACML 3.0 policy description into ASP facts</a></li>
+                  <li><a href="#pdp_simulation">PDP simulation</a></li>
+                  <li><a href="#policy_analysis">Security property analysis</a></li>
+                </ul>
+              </div>
+              <h4 id="write_xacml_description">Write a policy description in XACML 3.0</h4> 
+              <p>A policy description in XACML 3.0 is needed before our system is used. For information on XACML 3.0, please refer to <a href="https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=xacml">https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=xacml</a></p>
+              <p>In this tutorial, the following policy description will be used as an example, which describes a simple policy that says if John wants to read the record, he should be allowed.</p>
+              <div class="code-wrap">
+<script type="text/plain"><?xml version="1.0" encoding="UTF-8"?>
+<Policy xmlns:xacml3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" PolicyId="http://axiomatics.com/alfa/identifier/SimpleExample.p1" RuleCombiningAlgId="urn:oasis:names:tc:xacml:1.0:rule-combining-algorithm:first-applicable" Version="1.0">
+    <Description />
+    <PolicyDefaults>
+        <XPathVersion>http://www.w3.org/TR/1999/REC-xpath-19991116</XPathVersion>
+    </PolicyDefaults>
+    <Target>
+        <AnyOf>
+            <AllOf>
+                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">John</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:subject:subject-id" DataType="http://www.w3.org/2001/XMLSchema#string" Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" MustBePresent="false" />
+                </Match>
+            </AllOf>
+        </AnyOf>
+        <AnyOf>
+            <AllOf>
+                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">record</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" MustBePresent="false"/>
+                </Match>
+            </AllOf>
+        </AnyOf>
+        <AnyOf>
+            <AllOf>
+                <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
+                    <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">read</AttributeValue>
+                    <AttributeDesignator AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" MustBePresent="false" />
+                </Match>
+            </AllOf>
+        </AnyOf>
+    </Target>
+    <Rule Effect="Permit" RuleId="http://axiomatics.com/alfa/identifier/SimpleExample.p1.Id_23">
+        <Description />
+        <Target />
+    </Rule>
+</Policy></script>
+              </div>
+
+              <h4 id="turn_into_asp_facts">Translate an XACML 3.0 policy description into ASP facts</h4> 
+              <p>Download the <a href="\files/translator/xacml3translator.jar">translator</a>, and create a folder called "policies" in the same directory. Put the XACML 3.0 policy description file in the "policies" folder. Double click "xacml3translator.jar" to execute the translator. A file called "out.txt" will be generated, whose content is the policy description translated into ASP facts. For the example policy, the translator will generate the following ASP facts.</p>
+              <div class="code-wrap"><script type="text/plain">hasAnyOf(t1,any1).
+hasAllOf(any1,all1).
+hasMatch(all1,m1).
+match(m1,"string-equal",ar1,"string", "John").
+attrRetriever(ar1,"subject-id","access-subject",null,false).
+hasAnyOf(t1,any2).
+hasAllOf(any2,all2).
+hasMatch(all2,m2).
+match(m2,"string-equal",ar2,"string", "record").
+attrRetriever(ar2,"resource-id","resource",null,false).
+hasAnyOf(t1,any3).
+hasAllOf(any3,all3).
+hasMatch(all3,m3).
+match(m3,"string-equal",ar3,"string", "read").
+attrRetriever(ar3,"action-id","action",null,false).
+rule(id_50,t2,p, null).
+hasChild(p1,id_50,1).
+policy(p1, t1, fa, null, #supremum).
+policySet(pdp, t0, fa, null, #supremum).
+hasChild(pdp,p1,1).
+</script></div>
+
+              <h4 id="pdp_simulation">PDP simulation</h4> 
+              <p>Download the <a href="files/PDPSimulator/PDP.lp">PDP simulation program</a>. Write the request to be queried as ASP facts. For example, suppose we want to simulate an access where John wants to read the record. We write the following ASP facts.</p>
+              <div class="code-wrap"><script type="text/plain">request(rq, "subject-id", "access-subject", null, "string", "John").
+request(rq, "resource-id", "resource", null, "string", "record").
+request(rq, "action-id", "action", null, "string", "read").</script></div>
+
+              <p class="note">Note: If f2lp 1.3 is used, please wrap all the ASP facts (request and policy description) in "#begin_asp" and "#end_asp."</p>
+
+              <p>Execute f2lp on the PDP simulation program, the policy description, and the request. Then feed the output to Clingo. The complete command line looks like the follows (assume that the policy description is stored in a file policy.txt and the request in stored in req.txt).</p>
+              <div class="code-wrap"><script type="text/plain">f2lp policy.txt req.txt PDP.lp | clingo -n 0</script></div>
+              <p>For this example, Clingo will give the following output.</p>
+              <div class="code-wrap"><script type="text/plain">Answer: 1
+evaluate_policy_ac(p1,rq,p)
+evaluate_policy_ac(pdp,rq,p)
+final_decision(p)
+SATISFIABLE
+</script></div>
+
+              <h4 id="policy_analysis">Security property analysis</h4> 
+              <p></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="footer">
+        <div id="copyright-wrapper" class="horizontal-wrapper">
+          <div id="site-map" class="horizontal-content">
+            <table id="site-map-table"><tr>
+              <td>
+                <p class="site-map-heading">Contact Information</p>
+                <p>Joohyung Lee, Yi Wang</p>
+                <p>School of Computing, Informatics and Decision Systems Engineering<br>Arizona State University<br>Tempe, AZ 85287-8809</p>
+                <p>Email: joolee (at) asu.edu, ywang485 (at) asu.edu</p>
+              </td>
+            </tr></table>
+          </div>
+          <div id="copyright" class="horizontal-content">
+            <p class="pull-right"><a href="#"><span class="glyphicon glyphicon-arrow-up"></span> Back to top</a></p>
+            <p>&copy; 2014</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+  </body>
+</html>

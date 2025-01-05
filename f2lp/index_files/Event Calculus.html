@@ -1,0 +1,245 @@
+<hr align="center" width="50"> <html>
+<head>
+<title>Event Calculus Examples</title>
+</head>
+
+<!-- frameset cols="," -->
+<!-- frame name=" " src=" " -->
+<!-- frame name=" " src=" " -->
+<!-- noframes -->
+
+<!-- /noframes -->
+<!-- /frameset -->
+
+<body>
+
+The table below compares the performance of different tools (combination of tools).<br>
+The time shown with respect to a problem (Event Calculus description) is the time 
+taken to produce one model of the description.<br><br>
+<h4>DEC reasoner:</h4>
+<a href="http://decreasoner.sourceforge.net/">DEC reasoner</a> is a SAT based implementation of the Discrete Event Calculus.<br>
+It is implemented by <a href="http://domino.research.ibm.com/comm/research_people.nsf/pages/etm.index.html">Erik Mueller.</a><br>
+<br>
+version 1.0 (RELSAT version 2.0).<br>
+First row : Total time in seconds (as provided by DEC reasoner).<br>
+Second row : Breakup of the total time - (T1+T2) indicates T1 seconds for
+compiling to SAT and T2 seconds to generate a model of the SAT instance.<br>
+Third row : A - no. of atoms in the SAT instance, 
+            C - no. of clauses in the SAT instance.<br><br>
+<h4>F2LP + Answer Set Solvers:</h4>
+F2LP version 1.0<br>
+Lparse version 1.1.1<br>
+Cmodels version 3.79 (RELSAT version 2.0).<br>
+Gringo version 2.0.3<br>
+Clasp version 1.2.1<br>
+ClaspD version 1.1<br>
+Clingo version 2.0.3 (Clasp version 1.2.0).<br>
+First row : Total time in seconds (obtained using "time" command in linux, 
+                                   not including time taken by F2LP).<br>
+Second row : Breakup of total time - (T1+T2) indicates T1 seconds for
+grounding and T2 seconds for solving.<br>
+Third row : A - no. of atoms after grounding, R - no. of rules after grounding,
+           C - no. of clauses in the SAT instance (only for Cmodels).<br> 
+Time taken by F2LP : Negligible for all the problems.<br><br>
+
+<h4>Running F2LP</h4>
+f2lp *.fo<br><br>
+
+<h4>Running F2LP output using different solvers</h4>
+lparse --dlp-choice -c maxstep=N 
+*.fo.lp DEC.lp (or EC.lp or EC_dur.lp) [ECCausal.lp] | cmodels -rs <br>
+gringo -c maxstep=N 
+*.fo.lp DEC.lp (or EC.lp or EC_dur.lp) [ECCausal.lp] | clasp[D] <br>
+clingo -c maxstep=N 
+*.fo.lp DEC.lp (or EC.lp or EC_dur.lp) [ECCausal.lp] <br><br>
+Replace N by the maximum timepoint in the above command lines.<br>
+
+EC_dur.lp has to be used for problems with durative events (Commuter).<br>
+ECCausal.lp is only necessary for problems involving causal constraints 
+(Thielscher's Circuit).<br>
+Download: 
+<a href = "../Event Calculus/DEC.lp"> DEC.lp </a> &nbsp;
+<a href = "../Event Calculus/EC.lp"> EC.lp </a> &nbsp;
+<a href = "../Event Calculus/EC_dur.lp"> EC_dur.lp </a> &nbsp;
+<a href = "../Event Calculus/ECCausal.lp"> ECCausal.lp </a>
+<br>
+In the following table, claspD is used only for problems that cannot be handled by 
+clasp.<br><br> 
+
+<TABLE BORDER=10 BORDERCOLOR=BLUE>
+<TR> 
+     <TD>Problem (Maximum timepoint)<br>
+     		F2LP input (*.fo)<br>
+     		F2LP output (*.lp)<br>
+     		DEC reasoner input (*.e)<br>
+     </TD> 
+     <TD>DEC reasoner (with RELSAT 2.0)</TD> 
+     <TD>Lparse + Cmodels (with RELSAT 2.0)</TD>
+     <TD>Gringo + Clasp(D)</TD> 
+     <TD>Clingo</TD> 
+</TR>
+<TR>     
+     <TD>Bus Ride (15) <br> 
+     		<a href = "../Event Calculus/BusRide-15.fo"> BusRide.fo </a> <br>
+     		<a href = "../Event Calculus/BusRide-15.fo.lp"> BusRide.lp </a> <br>
+     </TD> 
+     <TD>Cannot handle disjunctive event axioms</TD>
+     <TD>0.47 <br>
+     	(0.43+0.04)<br>
+     	A:902, R:7779, C:0<br>
+     </TD> 
+     <TD>0.04 <br>
+     	(0.03+0.01)<br>
+     	A:778, C:3593<br>
+     </TD> 
+     <TD>Cannot handle disjunctive programs <br>
+     </TD> 
+</TR>
+<TR>     
+     <TD>Commuter (15) <br> 
+     		<a href = "../Event Calculus/Commuter-15.fo"> Commuter.fo </a> <br>
+     		<a href = "../Event Calculus/Commuter-15.fo.lp"> Commuter.lp </a> <br>
+     </TD> 
+     <TD>Cannot handle compound events</TD> 
+     <TD>592.04<br>
+        (536.45+55.59)<br>
+	A:32861, R:8734019, C:0<br>
+     </TD>
+     <TD>49.22<br>
+	(41.47+8.75)<br>
+	A:30092, R:6020143<br>
+     </TD> 
+     <TD>31.32<br>
+     </TD> 
+</TR>
+<TR>     
+     <TD>Kitchen Sink (25) <br> 
+     		<a href = "../Event Calculus/KitchenSink-25.fo"> KitchenSink.fo </a> <br>
+     		<a href = "../Event Calculus/KitchenSink-25.fo.lp"> KitchenSink.lp </a> <br>
+     		<a href = "../Event Calculus/KitchenSink_M25.e"> KitchenSink.e </a> <br>
+     </TD> 
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;71.10 <br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(70.70+0.40)<br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A:1014, C:12109<br>
+     	</TD> 
+     <TD>43.75<br>
+	(37.69+6.06)<br>
+	A:121621, R:480187, C:0<br>
+     </TD>
+     <TD>6.34<br>
+	(4.40+1.94)<br>
+	A:121043, R:474946<br>
+     </TD> 
+     <TD>4.75</TD> 
+</TR>
+<TR>     
+     <TD>Thielscher's Circuit (20) <br> 
+     		<a href = "../Event Calculus/ThielscherCircuit-20.fo"> ThielscherCircuit.fo </a> <br>
+     		<a href = "../Event Calculus/ThielscherCircuit-20.fo.lp"> ThielscherCircuit.lp </a> <br>
+     		<a href = "../Event Calculus/ThielscherCircuit20.e"> ThielscherCircuit.e </a> <br>
+     </TD> 
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 11.10 <br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (10.50+0.60)<br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A:1394, C:42454<br>
+     	</TD> 
+     <TD>0.52<br>
+	(0.47+0.05)<br>
+	A:3932, C:0, R:10999<br></TD>
+     <TD>0.07<br>
+	(0.05+0.02)<br>
+	A:1866, R:6634<br></TD> 
+     <TD>0.05</TD>
+</TR>
+<TR>     
+     <TD>Walking Turkey (15) <br> 
+     		<a href = "../Event Calculus/WalkingTurkey-15.fo"> WalkingTurkey.fo </a> <br>
+     		<a href = "../Event Calculus/WalkingTurkey-15.fo.lp"> WalkingTurkey.lp </a> <br>
+     </TD> 
+     <TD>Cannot handle effect constraints</TD> 
+     <TD>0.03<br>
+	(0.03+0.00)<br>
+	A:370, R:518, C:0<br></TD>
+     <TD>0.01<br>
+	(0.01+0.00)<br>
+	A:367, R:507<br></TD> 
+     <TD>0.01</TD> 
+</TR>
+<TR>     
+     <TD>Falling Object With AntiTrajectory (15) <br> 
+     		<a href = "../Event Calculus/FallingObjectWithAntiTrajectory-15.fo"> FallingObjectWithAntiTrajectory.fo </a> <br>
+     		<a href = "../Event Calculus/FallingObjectWithAntiTrajectory-15.fo.lp"> FallingObjectWithAntiTrajectory.lp </a> <br>
+         <a href = "../Event Calculus/FallingObjectWithAntiTrajectory15.e"> FallingObjectWithAntiTrajectory.e </a> <br>
+     </TD> 
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 270.20 <br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (269.30+0.90)<br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A:416, C:3056<br>
+     	</TD> 
+     <TD>0.74<br>
+	(0.66+0.08)<br>
+	A:4994, R:9717, C:0<br></TD>
+     <TD>0.10<br>
+	(0.07+0.03)<br>
+	A:4125, R:7823<br></TD> 
+     <TD>0.08</TD> 
+</TR>
+<TR>     
+     <TD>Falling Object With Events (25) <br> 
+     		<a href = "../Event Calculus/FallingObjectWithEvents-25.fo"> FallingObjectWithEvents.fo </a> <br>
+     		<a href = "../Event Calculus/FallingObjectWithEvents-25.fo.lp"> FallingObjectWithEvents.lp </a> <br>
+         <a href = "../Event Calculus/FallingObjectWithEvents25.e"> FallingObjectWithEvents.e </a> <br>
+     </TD> 
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 107.70 <br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (107.50+0.20)<br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A:1092, C:12351<br>
+     	</TD> 
+     <TD>34.95<br>
+	(31.12+3.83)<br>
+	A:1240, R:388282, C:1436</TD>
+     <TD>2.99<br>
+	(2.01+0.98)<br>
+	A:146197, R:202202<br></TD> 
+     <TD>2.35</TD> 
+</TR>
+<TR>     
+     <TD>Hot Air Balloon (15) <br> 
+     		<a href = "../Event Calculus/HotAirBalloon-15.fo"> HotAirBalloon.fo </a> <br>
+     		<a href = "../Event Calculus/HotAirBalloon-15.fo.lp"> HotAirBalloon.lp </a> <br>
+         <a href = "../Event Calculus/HotAirBalloon15.e"> HotAirBalloon.e </a> <br>
+     </TD> 
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 61.10 <br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (61.10+0.00)<br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A:288, C:1163<br>
+     	</TD> 
+     <TD>0.18<br>
+	(0.15+0.03)<br>
+	A:494, R:2451, C:689<br></TD>
+     <TD>0.03<br>
+	(0.03+0.00)<br>
+	A:1140, R:1912<br></TD> 
+     <TD>0.03</TD> 
+</TR>
+<TR>     
+     <TD>Telephone1 (40) <br> 
+     		<a href = "../Event Calculus/Telephone1-40.fo"> Telephone1.fo </a> <br>
+     		<a href = "../Event Calculus/Telephone1-40.fo.lp"> Telephone1.lp </a> <br>
+         <a href = "../Event Calculus/Telephone40.e"> Telephone1.e </a> <br>
+     </TD> 
+     <TD>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 18.20 <br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (17.70+0.50)<br>
+     		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A:5419, C:41590<br>
+     	</TD> 
+     <TD>1.69<br>
+	(1.51+0.18)<br>
+	A:21414, R:27277, C:0<br></TD>
+     <TD>0.31<br>
+	(0.26+0.05)<br>
+	A:21376, R:27104<br></TD> 
+     <TD>0.24</TD> 
+</TR>
+</TABLE>
+
+</body>
+<br><br><br>
+&nbsp; &nbsp; <a href = "../index.html"> Back to Home Page</a> &nbsp; &nbsp; 
+	
+</html>

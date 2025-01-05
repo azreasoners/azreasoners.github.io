@@ -1,0 +1,247 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>LPMLN Decision Theory Tutorial - Viral Marketing</title>
+    <style type="text/css" media="screen">
+        #main_content_editor {
+          width: 100%;
+          height: 200px;
+        }
+        #evid_content_editor {
+          width: 100%;
+          height: 200px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+<div class="container">
+    <div class="row">
+        <h1>Editor</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row" id="div_row_main_content_content">
+                <h3>Main Program</h3>
+                <div class="row" id="main_content_editor"></div>
+            </div>
+            <div class="row" id="div_row_evid_content">
+                <h4 id="h3_evid_obs">Query Decisions.</h4>
+                <div class="row" id="evid_content_editor"></div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="col-md-12" >
+                <div id="div_dt_sub_menu" class="row">
+                    <label for="dropdown_dt_sub_menu">Decision Theory Methods</label>
+                    <select class="form-control" id="dropdown_dt_sub_menu" onchange="dt_mode_dropdown_on_change()">
+                        <option value="cal_utility" selected>Finding Expected Utility Given Decision</option>
+                        <option value="cal_decision">Finding Decision Maximizing Expected Utility</option>
+                    </select>
+
+                    <select class="form-control" id="dropdown_dt_sub_sub_menu" onchange="dt_mode_sub_dropdown_on_change()">
+                        <option value="dt_exact">Exact</option>
+                        <option value="dt_mcasp">MC-ASP</option>
+                        <option value="dt_sdd2" selected>ASP2SDD</option>
+                    </select>
+
+                    <div id="div_dt_cal_decision_sub_menu" class="hidden_at_start">
+                        <input class="align-middle" type="radio" name="dec_find_alg" id="dt_ratio_exactmax" checked>Exact-MAX
+                        <input class="align-middle" type="radio" name="dec_find_alg" id="dt_ratio_maxwalksat">MAXWALKSAT<br>
+                    </div>
+                    <div id="div_dt_cal_decision_mcasp_sub_menu" class="hidden_at_start 4th_menu">
+                        <span>Samples: <span id="span_dt_mcasp_sample">20</span> <input id="slider_dt_mcasp_sample" class="align-bottom" type="range" min="10" max="100" value="20" oninput="slider_on_change('dt_mcasp_sample')"/></span>
+                    </div>
+                    <input class="form-control" id="txt_dec_atoms" type="text" placeholder="Decision Atoms.(Seperated by , )">
+                </div>
+            </div>
+            <div id="div" class="float-right">
+                <button type="button" id="btn_solve" class="btn btn-outline-primary" onclick="solve()">Solve</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-secondary">
+                <span>Command Line: </span>
+                <span id="span_cmdline"></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class=" col-md-12">
+            <div class="alert alert-primary">
+                <span id="span_result">Result goes here</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" col-md-12">
+            <div class="alert alert-success">
+                <span id="span_exp_result">Expected result: <br/>
+                    Query expected utility: 1.40<br/>
+                    Decisions that maximize the expected utility: marketed(0): False, marketed(1): False), marketed(2): True, marketed(3): True, marketed(4): True. Giving utility: 1.67
+                    </span>
+            </div>
+        </div>
+
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+
+
+<script src="../../src/ace.js" type="text/javascript" charset="utf-8"></script>
+
+<script>
+var editor = ace.edit("main_content_editor");
+editor.setTheme("ace/theme/textmate");
+editor.session.setMode("ace/mode/prolog");
+
+
+var evid_editor = ace.edit("evid_content_editor");
+evid_editor.setTheme("ace/theme/textmate");
+evid_editor.session.setMode("ace/mode/prolog");
+
+function slider_on_change(id){
+    $("#span_"+id).text($("#slider_"+id).val());
+}
+function send_request(data){
+    $.ajax({
+        url: "../../sender.php",
+	    type: "POST",
+	    data: JSON.stringify(data),
+        contentType: "application/json",
+        success: function(response){
+            var obj = jQuery.parseJSON( response );
+            if(data["request_type"] == "tutorial"){
+                editor.setValue(obj.main_content);
+                evid_editor.setValue(obj.evid);
+                $('#txt_dec_atoms').val(obj.dec)
+            }
+            else{
+                if(obj.successful){
+                    $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                }
+                else{
+                    if (obj.error.toLowerCase().indexOf("returned non-zero exit status 124") >0){
+                        $('#span_result').html("Timeout. Please run on local version")
+                    }
+                    else if (obj.error.toLowerCase().indexOf("returned non-zero exit status 1") >0){
+                        $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                    }
+                    else if (obj.error.toLowerCase().indexOf("returned non-zero exit status 2") >0){
+                        $('#span_result').html(obj.result.replace(/\n/g, "<br />"));
+                    }
+                    else{
+                        $('#span_result').html("Server Error. Please contact system administrator. ")
+                    }
+                }
+                $('#btn_solve').prop('disabled', false);
+            }
+        },
+	});
+}
+
+
+
+function solve() {
+    var command="";
+
+    if ($("#txt_dec_atoms").val().trim()){
+        command += "dtlpmln input.lpmln -dec " + $("#txt_dec_atoms").val().replace(/\s/g,'');
+        if ($("#div_dt_sub_menu option:selected").val() == "cal_utility"){
+            command += " -q input.query";
+        }
+        else{
+            if($("#dt_ratio_exactmax option:checked")) {
+                command += " -exmax";
+            }
+            else{
+                command += " -maxwalksat";
+            }
+        }
+        if ($("#dropdown_dt_sub_sub_menu option:selected").val() == "dt_exact"){
+            command += " -ex";
+        }
+        else if($("#dropdown_dt_sub_sub_menu option:selected").val() == "dt_mcasp"){
+            command += " -mcasp";
+            command += " -samp "+ $("#slider_dt_mcasp_sample").val();
+        }
+        else if($("#dropdown_dt_sub_sub_menu option:selected").val() == "dt_sdd"){
+            command += " -sdd";
+        }
+        else if($("#dropdown_dt_sub_sub_menu option:selected").val() == "dt_sdd2"){
+            command += " -sdd2";
+        }
+
+        $("#span_result").text("Solving...");
+        $('#btn_solve').prop('disabled', true);
+        var postData = {
+            request_type:"dt",
+            command:command,
+            content:editor.getValue(),
+            query:evid_editor.getValue()
+        };
+        send_request(postData);
+        $("#span_cmdline").text(command)
+    }
+    else{
+        window.alert("Necessary fields cannot be empty!");
+    }
+}
+
+
+function dt_mode_dropdown_on_change() {
+    $("#div_row_evid_content").hide();
+    $(".hidden_at_start").hide();
+    if ($("#dropdown_dt_sub_menu option:selected").val() == 'cal_utility') {
+        $("#div_learn_simple_sub_menu").toggle('slow', function () {});
+        $("#div_row_evid_content").toggle('slow', function () {});
+    }
+    else if ($("#dropdown_dt_sub_menu option:selected").val() == 'cal_decision') {
+        $("#div_dt_cal_decision_sub_menu").toggle('slow', function () {});
+    }
+    dt_mode_sub_dropdown_on_change()
+}
+
+function dt_mode_sub_dropdown_on_change(){
+     if ($("#dropdown_dt_sub_sub_menu option:selected").val() == 'dt_mcasp') {
+        $("#div_dt_cal_decision_mcasp_sub_menu").toggle('slow', function () {});
+     }
+     else{
+         $("#div_dt_cal_decision_mcasp_sub_menu").hide('slow', function () {});
+     }
+}
+$( document ).ready(function() {
+   var postData = {
+        request_type: "tutorial",
+        type: "dt",
+        instance: "viral_marketing"
+    };
+    send_request(postData);
+
+    dt_mode_dropdown_on_change()
+
+});
+
+</script>
+
+
+
+
+</body>
+</html>

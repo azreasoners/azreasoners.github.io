@@ -1,0 +1,260 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- Mirrored from www.iclp2013.org/en/content.asp?PID={E8246AFE-E0EF-4D99-9707-51D1E179FD88} by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Dec 2014 08:08:22 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=windows-1254" /><!-- /Added by HTTrack -->
+<head>
+<title>ICLP 2013 - 29. International Conference on Logic Programming</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-9">
+<meta name="description" content="ICLP 2013 - 29. International Conference on Logic Programming, 24-29 August 2013 - Istanbul/Turkey">
+<meta name="keywords" content="ICLP, 2013, International, conference, logic programming, august, Istanbul, Turkey, Türkiye, Dekon, Congress, Tourism, Milk Ad Agency">
+
+<link rel="stylesheet" type="text/css" href="../inc/styles.css">
+<link rel="stylesheet" type="text/css" href="Reg-inc/reg-default.css">
+
+
+
+<link rel="stylesheet" type="text/css" href="../inc/superfish-menu/css/superfish.css" media="screen"/>
+<link rel="stylesheet" media="screen" href="../inc/superfish-menu/css/superfish-vertical.css" /> 
+<script language="JavaScript" type="text/JavaScript" src="../inc/jquery/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../inc/superfish-menu/js/hoverIntent.js"></script>
+<script type="text/javascript" src="../inc/superfish-menu/js/superfish.js"></script>
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.mouseover.js"></script>
+
+<!-- Jquery Cycle Plugin -->
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="../inc/jquery/plugins/jquery.easing.1.3.js"></script>
+
+<link href="../inc/jquery/plugins/jquery.fancybox/jquery.fancybox-1.3.1.css" rel="stylesheet" type="text/css"/>
+<script language="javascript" type="text/javascript" src="../inc/jquery/plugins/jquery.fancybox/jquery.fancybox-1.3.1.pack.js"></script>
+
+<script type="text/javascript">
+
+// initialise plugins
+$(document).ready(function(){ 
+        $("ul.sf-menu").superfish({ 
+            animation: {height:'show'},   // slide-down effect without fade-in 
+            delay:     300               // 1.2 second delay on mouseout 
+        }); 
+    }); 
+</script>
+
+<script language="JavaScript" type="text/javascript"> 
+
+	$().ready(function() {
+			$("a.fancybox").fancybox();
+		
+			$("a.fbiframe").fancybox({
+				'width': '60%',
+				'height': '75%',
+				'autoScale': false,
+				'type': 'iframe'
+			});
+		
+			$("a.suggest").fancybox({
+				'padding'		: 0,
+				'autoScale'		: false,
+				'width'			: 580,
+				'height'		: 540,
+				'type'			: 'iframe',
+				'scrolling'		: false,
+				'overlayOpacity': 0.8 
+			});	
+			$('#InvSpeakers').cycle({
+				fx:     'scrollHorz', 
+				prev:   '#LeftArrow', 
+				next:   '#RightArrow', 
+				timeout: 5000,
+				easing: 'easeOutCubic',
+				width: 180,
+				height: 235,
+			});	
+			
+			$(".Speakers").each(function(){
+			});
+	});
+	/*------- Top Image Slider ------------------------------------------------------------*/
+		$('#SliderWrapper').cycle({
+			fx:     'scrollHorz', 
+			prev:   '#LeftArrow', 
+			next:   '#RightArrow', 
+			timeout: 5000,
+			easing: 'easeOutCubic',
+			width: '100%',
+			height: 380
+		});	
+		
+		$("#SliderWrapper").width(window.innerWidth * $(".SW-Image").length);
+	
+		$(".SW-Image img").each(function(){
+			$(this).css({
+			  marginLeft: "-" + $(this).width()/2 + "px",
+			  marginTop: "-" + $(this).height()/2 + "px" 
+		});
+
+		$("#RightArrow").click(function(){
+			var currentMargin = parseInt($(".SW-Image").eq(0).css("marginLeft").replace("px","")),
+			newMargin = currentMargin - window.innerWidth;
+	
+			$(".SW-Image").eq(0).animate({
+			marginLeft: newMargin + "px"
+			});
+	
+		});
+
+		$("#LeftArrow").click(function(){
+    		var currentMargin = parseInt($(".SW-Image").eq(0).css("marginLeft").replace("px","")),
+        	newMargin = currentMargin + window.innerWidth;
+
+			$(".SW-Image").eq(0).animate({
+				marginLeft: newMargin + "px"
+			});
+
+		});
+
+});
+</script>
+</head>
+<body>
+<div id="TM-Container">
+	<div id="TM-Wrapper">
+    	<div class="AvanGarde"><ul class="sf-menu"><li><a href="default.html" target="">Home</a>
+<li><a href="Timetable.html" target="">Timetable</a></il>
+<li><a href="Calls.html" target="">Calls</a></il>
+<li><a href="Submissions.html" target="">Submissions</a></il>
+<li><a href="Program.html" target="">Program</a></il>
+<ul>
+<li><a href="Program-Overview.html" target="">Program Overview</a></il>
+<li><a href="Conference.html" target="">Conference</a></il>
+<li><a href="Workshops.html" target="">Workshops</a></il>
+<li><a href="DC.html" target="">DC</a></il>
+<li><a href="Invited-Speakers.html" target="">Invited Speakers</a></il>
+<li><a href="Banquet-Speaker.html" target="">Banquet Speaker</a></il>
+<li><a href="List-of-Accepted-Papers.html" target="">List of Accepted Papers</a></il>
+<li><a href="List-of-Technical-Communications.html" target="">List of Technical Communications</a></il>
+<li><a href="Prolog-Programming-Contest.html" target="">Prolog Programming Contest </a></il>
+</ul><li><a href="Registration.html" target="">Registration</a></il>
+<ul>
+<li><a href="Registration-Information.html" target="">Registration Information</a></il>
+<li><a href="Accommodation-and-Transfer.html" target="">Accommodation and Transfer</a></il>
+</ul><li><a href="Tours.html" target="">Tours</a></il>
+<li><a href="Venue.html" target="">Venue</a></il>
+<ul>
+<li><a href="Conference-Venue.html" target="">Conference Venue</a></il>
+<li><a href="Workshops-Venue.html" target="">Workshops Venue</a></il>
+<li><a href="About-Turkey.html" target="">About Turkey</a></il>
+<li><a href="About-Istanbul.html" target="">About Istanbul</a></il>
+<li><a href="Useful-Tips.html" target="">Useful Tips</a></il>
+<li><a href="Visa-Information.html" target="">Visa Information</a></il>
+</ul><li><a href="Committees.html" target="">Committees</a></il>
+<li><a href="Contacts.html" target="">Contacts</a></il>
+</div>
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="LR-Container">
+	<div id="LR-Wrapper">
+    	<a href="default.html" id="Logo"></a>
+        <div id="Logo-Text">
+        	<span class="Title_02 Klavika-Bold">29<sup>TH</sup> INTERNATIONAL CONFERENCE ON LOGIC PROGRAMMING</span><br />
+            <span class="Title_03 Klavika">24 - 29 AUGUST 2013 // ISTANBUL, TURKEY</span>
+        </div>
+    </div>
+</div>
+<script language="javascript" type="text/javascript" src="../inc/jquery/plugins/jquery.ajaxmanager.js"></script>
+<div id="ContentContainer">
+	<a href="#" id="Timeline" style="height:100px;"></a>
+    <div id="ContentWrapper">
+    	<div class="Title_01 ContentTitle">Venue</div>
+        <div class="BreadCrumbs Title_04">
+        	<span><a href="default.html">MAIN PAGE</a> </span>
+        </div>
+        <div>
+        	<div id="Content">
+            	<div class="ShortDescription"></div><div class="CategoryPagesItem">
+<h3><a href="Conference-Venue.html" target="_parent" title="Conference Venue">Conference Venue</a></h3>
+<div style="margin-left:7px;"></div>
+<div style="margin-top:5px;margin-left:7px;"><a href="Conference-Venue.html" target="_parent" title="Conference Venue">read more &raquo;</a></div>
+</div><div class="CategoryPagesItem">
+<h3><a href="Workshops-Venue.html" target="_parent" title="Workshops Venue">Workshops Venue</a></h3>
+<div style="margin-left:7px;"></div>
+<div style="margin-top:5px;margin-left:7px;"><a href="Workshops-Venue.html" target="_parent" title="Workshops Venue">read more &raquo;</a></div>
+</div><div class="CategoryPagesItem">
+<h3><a href="About-Turkey.html" target="_parent" title="About Turkey">About Turkey</a></h3>
+<div style="margin-left:7px;"></div>
+<div style="margin-top:5px;margin-left:7px;"><a href="About-Turkey.html" target="_parent" title="About Turkey">read more &raquo;</a></div>
+</div><div class="CategoryPagesItem">
+<h3><a href="About-Istanbul.html" target="_parent" title="About Istanbul">About Istanbul</a></h3>
+<div style="margin-left:7px;"></div>
+<div style="margin-top:5px;margin-left:7px;"><a href="About-Istanbul.html" target="_parent" title="About Istanbul">read more &raquo;</a></div>
+</div><div class="CategoryPagesItem">
+<h3><a href="Useful-Tips.html" target="_parent" title="Useful Tips">Useful Tips</a></h3>
+<div style="margin-left:7px;"></div>
+<div style="margin-top:5px;margin-left:7px;"><a href="Useful-Tips.html" target="_parent" title="Useful Tips">read more &raquo;</a></div>
+</div><div class="CategoryPagesItem">
+<h3><a href="Visa-Information.html" target="_parent" title="Visa Information">Visa Information</a></h3>
+<div style="margin-left:7px;"></div>
+<div style="margin-top:5px;margin-left:7px;"><a href="Visa-Information.html" target="_parent" title="Visa Information">read more &raquo;</a></div>
+</div>
+            </div>
+            <div id="PageMenu" class="Klavika">
+				<div class="Blue Klavika" style="margin-left:15px;">PAGE MENU</div>
+				<ul class="PageMenu"><li class="Normal"><a href="default.html" target="_parent" title="Home">Home</a></li><li class="Normal"><a href="Timetable.html" target="_parent" title="Timetable">Timetable</a></li><li class="Normal"><a href="Calls.html" target="_parent" title="Calls">Calls</a></li><li class="Normal"><a href="Submissions.html" target="_parent" title="Submissions">Submissions</a></li><li class="Normal"><a href="Program.html" target="_parent" title="Program">Program</a></li><li class="Normal"><a href="Registration.html" target="_parent" title="Registration">Registration</a></li><li class="Normal"><a href="Tours.html" target="_parent" title="Tours">Tours</a></li><li class="Active"><a href="Venue.html" target="_parent" title="Venue">Venue</a></li><li class="Normal"><a href="Committees.html" target="_parent" title="Committees">Committees</a></li><li class="Normal"><a href="Contacts.html" target="_parent" title="Contacts">Contacts</a></li></ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+<div id="Sponsors">
+    <div class="Title_04"><span>SPONSORS</span></div>
+    <div>
+        <a href="http://www.cs.nmsu.edu/ALP/" target="_blank" title="Association for Logic Programming"><img src="../files/images/content/Sponsors/alp.png" alt="Association for Logic Programming" /></a>
+        <a href="http://www.sabanciuniv.edu/en" target="_blank" title="Sabancı University"><img src="../files/images/content/Sponsors/sabanci.png" alt="Sabancı University" /></a>
+        <a href="#" title="Artificial Intelligence"><img src="../files/images/content/Sponsors/artint.png" alt="Artificial Intelligence" /></a>
+    </div>
+</div>
+
+<div id="FooterContainer">
+	<div id="FooterBorder"></div>
+	<div id="FooterWrapper">
+    	<div class="FooterSection">
+        	<div class="FooterTitle Klavika-Bold">GENERAL CO-CHAIRS</div>
+            <div>
+                <div class="Footer" style="float:left; margin-right:15px;">
+                    <b>Esra Erdem</b><br />
+                    Sabancı University<br />
+                    E-mail: <a href="mailto:esraerdem@sabanciuniv.edu" target="_blank">esraerdem@sabanciuniv.edu</a>
+                </div>
+                <div class="Footer" style="float:left;">
+                    <b>Joohyung Lee</b><br />
+                    Arizona State University<br />
+                    E-mail: <a href="mailto:joolee@asu.edu" target="_blank">joolee@asu.edu</a>
+                    <p>&nbsp;</p>
+                </div>
+            </div>
+		</div>
+    	<div class="FooterSection">
+        	<div class="FooterTitle Klavika-Bold">ORGANIZING SECRETARIAT</div>
+            <div class="Footer">
+				<a href="http://www.dekon.com.tr/" target="_blank"><img src="../files/images/layout/general/logo_dekon.png" style="margin-right:10px;" /></a> <a href="http://www.dekon.com.tr/" target="_blank">www.dekon.com.tr</a><br />
+                Yıldız Posta C. Akın Sitesi 1. Blok No: 6 Kat: 1 D: 3 Gayrettepe Şişli - İstanbul / TURKEY<br />
+                Phone: +90 212 347 63 00 • Fax: +90 212 347 63 63 • E-mail: <a href="mailto:onuryeniyigit@dekon.com.tr" target="_blank">onuryeniyigit@dekon.com.tr</a>
+            </div>
+        </div>
+        <div class="FooterSection" style="float:right; border:none; text-align:right;">
+        	<div class="FooterTitle Klavika-Bold">DESIGNED & POWERED BY</div>
+            <div class="Footer" style="text-align:right;">
+            	<a href="http://www.milk.com.tr/" target="_blank"><img src="../files/images/layout/general/logo_milk.png" /></a><br />
+                Milk Creative & Events<br />
+                E-mail: <a href="mailto:info@milk.com.tr" target="_blank">info@milk.com.tr</a>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+</body>
+
+<!-- Mirrored from www.iclp2013.org/en/content.asp?PID={E8246AFE-E0EF-4D99-9707-51D1E179FD88} by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 15 Dec 2014 08:08:22 GMT -->
+</html>
